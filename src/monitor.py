@@ -184,6 +184,61 @@ def check_and_enforce_circuit_breakers(
     return reason
 
 
+def exit_earnings_positions(client: TradingClient) -> None:
+    """Close positions whose earnings exit day has arrived."""
+    trades = load_json("trades_history.json")
+    if not isinstance(trades, list):
+        return
+    today = today_et()
+    for trade in trades:
+        if trade.get("status") != "open":
+            continue
+        earnings_date_str = trade.get("earnings_date")
+        if not earnings_date_str:
+            continue
+        earnings_date = date.fromisoformat(earnings_date_str)
+        timing = trade.get("earnings_timing", "unknown")
+        # Pre-market: sell same day as earnings
+        # Post-market or unknown: sell the next business day
+        if timing == "pre_market":
+            exit_day = earnings_date
+        else:
+            # Next weekday after earnings
+            exit_day = earnings_date + timedelta(days=1)
+            while exit_day.weekday() >= 5:
+                exit_day += timedelta(days=1)
+        if today != exit_day:
+            continue
+        symbol = trade["symbol"]
+        qty = trade.get("qty", 0)
+        if qty <= 0:
+            continue
+        log.info(f"{symbol}: earnings exit triggered ({timing}, exit_day={exit_day}) — closing position")
+        try:
+            # Cancel all open orders for this symbol first (bracket legs)
+            from alpaca.trading.requests import GetOrdersRequest
+            from alpaca.trading.enums import QueryOrderStatus
+            open_orders = client.get_orders(GetOrdersRequest(
+                status=QueryOrderStatus.OPEN, symbols=[symbol]
+            ))
+            for o in open_orders:
+                try:
+                    client.cancel_order_by_id(o.id)
+                    log.info(f"{symbol}: cancelled order {o.id}")
+                except Exception as ce:
+                    log.warning(f"{symbol}: could not cancel order {o.id} — {ce}")
+            # Close the position at market
+            client.close_position(symbol)
+            log.info(f"{symbol}: market sell placed for earnings exit")
+            send_email(
+                f"Earnings Exit: {symbol}",
+                f"{symbol} position closed for earnings exit.\n"
+                f"Timing: {timing} | Earnings: {earnings_date} | Exit day: {exit_day}"
+            )
+        except Exception as e:
+            log.error(f"{symbol}: earnings exit failed — {e}")
+
+
 def run_monitor():
     log.info(f"MONITOR: Checking positions at {now_et().strftime('%H:%M ET')}")
     if not is_weekday():
@@ -194,6 +249,7 @@ def run_monitor():
     if budget.get("halted"):
         log.info(f"Trading halted ({budget.get('halt_reason')}) — monitor still running")
     client = get_trading_client()
+    exit_earnings_positions(client)
     positions = fetch_alpaca_positions(client)
     account = fetch_alpaca_account(client)
     closed_orders = get_closed_orders_today(client)

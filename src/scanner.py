@@ -53,12 +53,26 @@ def get_all_tickers() -> List[str]:
     return combined
 
 
-def get_earnings_date(ticker: yf.Ticker, symbol: str) -> Optional[date]:
-    """Return the next earnings date if within scan window, else None."""
+def get_earnings_date_and_timing(ticker: yf.Ticker, symbol: str) -> tuple[Optional[date], str]:
+    """Return (earnings_date, timing) where timing is 'pre_market', 'post_market', or 'unknown'."""
     settings = load_settings()
     window = settings["thresholds"]["earnings_window_days"]
     today = today_et()
     horizon = today + timedelta(days=window)
+
+    def classify_timing(ts) -> str:
+        """BMO = pre_market (hour < 12 ET), AMC = post_market (hour >= 12 ET)."""
+        try:
+            t = pd.Timestamp(ts)
+            if t.tzinfo is not None:
+                t = t.tz_convert("America/New_York")
+            if t.hour < 12:
+                return "pre_market"
+            else:
+                return "post_market"
+        except Exception:
+            return "unknown"
+
     try:
         cal = ticker.calendar
         if cal is not None and len(cal) > 0:
@@ -67,14 +81,16 @@ def get_earnings_date(ticker: yf.Ticker, symbol: str) -> Optional[date]:
                 if ed:
                     if isinstance(ed, (list, tuple)):
                         ed = ed[0]
-                    ed_date = pd.Timestamp(ed).date()
+                    ts = pd.Timestamp(ed)
+                    ed_date = ts.date()
                     if today <= ed_date <= horizon:
-                        return ed_date
+                        return ed_date, classify_timing(ts)
             elif isinstance(cal, pd.DataFrame):
                 if "Earnings Date" in cal.columns:
-                    ed_date = pd.Timestamp(cal["Earnings Date"].iloc[0]).date()
+                    ts = pd.Timestamp(cal["Earnings Date"].iloc[0])
+                    ed_date = ts.date()
                     if today <= ed_date <= horizon:
-                        return ed_date
+                        return ed_date, classify_timing(ts)
     except Exception:
         pass
     try:
@@ -83,10 +99,17 @@ def get_earnings_date(ticker: yf.Ticker, symbol: str) -> Optional[date]:
             future = edf[edf.index.tz_localize(None) >= pd.Timestamp(today)]
             future = future[future.index.tz_localize(None) <= pd.Timestamp(horizon)]
             if not future.empty:
-                return future.index[0].date()
+                ts = future.index[0]
+                return ts.date(), classify_timing(ts)
     except Exception:
         pass
-    return None
+    return None, "unknown"
+
+
+def get_earnings_date(ticker: yf.Ticker, symbol: str) -> Optional[date]:
+    """Backwards-compatible wrapper."""
+    ed, _ = get_earnings_date_and_timing(ticker, symbol)
+    return ed
 
 
 def check_eligibility(symbol: str, info: Dict[str, Any]) -> tuple[bool, str]:
@@ -234,7 +257,7 @@ def calculate_confidence(
     return score, breakdown
 
 
-def analyze_stock(symbol: str, earnings_date: date) -> Optional[Dict[str, Any]]:
+def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unknown") -> Optional[Dict[str, Any]]:
     try:
         ticker = yf.Ticker(symbol)
         info = ticker.info or {}
@@ -269,6 +292,7 @@ def analyze_stock(symbol: str, earnings_date: date) -> Optional[Dict[str, Any]]:
             "symbol": symbol,
             "company": info.get("longName", symbol),
             "earnings_date": earnings_date.isoformat(),
+            "earnings_timing": earnings_timing,
             "confidence": round(confidence, 1),
             "confidence_breakdown": breakdown,
             "market_cap_b": round(market_cap / 1e9, 1),
@@ -301,15 +325,15 @@ def run_scanner():
         log.warning("Kill switch active — scanner aborted")
         return
     tickers = get_all_tickers()
-    earnings_candidates: Dict[str, date] = {}
+    earnings_candidates: Dict[str, tuple] = {}
     log.info(f"Checking earnings dates for {len(tickers)} tickers...")
     for i, symbol in enumerate(tickers):
         try:
             t = yf.Ticker(symbol)
-            ed = get_earnings_date(t, symbol)
+            ed, timing = get_earnings_date_and_timing(t, symbol)
             if ed:
-                earnings_candidates[symbol] = ed
-                log.info(f"  {symbol}: earnings on {ed}")
+                earnings_candidates[symbol] = (ed, timing)
+                log.info(f"  {symbol}: earnings on {ed} ({timing})")
             if i > 0 and i % 50 == 0:
                 log.info(f"  Progress: {i}/{len(tickers)} checked, {len(earnings_candidates)} candidates found")
                 time.sleep(1)
@@ -318,9 +342,9 @@ def run_scanner():
         time.sleep(0.1)
     log.info(f"Found {len(earnings_candidates)} stocks with earnings in next 14 days")
     recommendations = []
-    for symbol, earnings_date in earnings_candidates.items():
-        log.info(f"Analyzing {symbol} (earnings {earnings_date})...")
-        result = analyze_stock(symbol, earnings_date)
+    for symbol, (earnings_date, earnings_timing) in earnings_candidates.items():
+        log.info(f"Analyzing {symbol} (earnings {earnings_date}, {earnings_timing})...")
+        result = analyze_stock(symbol, earnings_date, earnings_timing)
         if result:
             recommendations.append(result)
         time.sleep(0.5)
