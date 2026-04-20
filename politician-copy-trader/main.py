@@ -36,6 +36,14 @@ import tracker
 
 logger = logging.getLogger("main")
 
+# ---------------------------------------------------------------------------
+# Pause check — create a file named PAUSED in this directory to disable the bot
+# ---------------------------------------------------------------------------
+_PAUSED_FLAG = os.path.join(os.path.dirname(__file__), "PAUSED")
+if os.path.exists(_PAUSED_FLAG):
+    logger.info("Politician Copy Trader is PAUSED (PAUSED file exists). Exiting.")
+    sys.exit(0)
+
 
 # ---------------------------------------------------------------------------
 # Core job functions
