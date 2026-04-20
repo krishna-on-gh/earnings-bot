@@ -2,8 +2,28 @@ import os
 import time
 import requests
 
-API_KEY = "PKO4M5DUHN66L3JOBLMF7TZDAU"
-SECRET_KEY = "DwRya1msaYbzNz6CzTUFX5sGSsvbP2CHx4aCFtym9qNj"
+# Keys are read from environment variables or a .env file — never hardcoded.
+# Set ALPACA_API_KEY and ALPACA_SECRET_KEY in your .env or shell environment.
+def _load_dotenv():
+    from pathlib import Path
+    env_path = Path(__file__).parent / ".env"
+    if env_path.exists():
+        for line in env_path.read_text().splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip())
+
+_load_dotenv()
+
+API_KEY = os.environ.get("ALPACA_API_KEY", "")
+SECRET_KEY = os.environ.get("ALPACA_SECRET_KEY", "")
+
+if not API_KEY or not SECRET_KEY:
+    raise EnvironmentError(
+        "ALPACA_API_KEY and ALPACA_SECRET_KEY must be set in your .env file or environment."
+    )
+
 BASE_URL = "https://paper-api.alpaca.markets/v2"
 DATA_URL = "https://data.alpaca.markets/v2"
 SYMBOL = "GM"
