@@ -2740,56 +2740,56 @@ const BudgetSection = ({ budget }) => {
   );
 };
 
-const WinnersLosers = ({ trades, positions }) => {
-  // Use closed trades for winners/losers, fall back to open positions by unrealized P&L
-  const closed = (trades||[]).filter(t=>t.status==="closed"&&t.pnl!=null);
+const WinnersLosers = ({ positions }) => {
   const openPos = (positions?.positions||[]);
-
-  if (closed.length >= 2) {
-    const sorted = [...closed].sort((a,b)=>(b.pnl_pct||0)-(a.pnl_pct||0));
-    const winner = sorted[0];
-    const loser  = sorted[sorted.length-1];
-    return (
-      <div className="card" style={{display:"flex",gap:24}}>
-        <div style={{flex:1}}>
-          <div className="ct" style={{color:"#3fb950"}}>Biggest Winner</div>
-          <div style={{fontSize:22,fontWeight:700}}>{winner.symbol}</div>
-          <div className="g" style={{fontSize:18}}>{fmtPct(winner.pnl_pct)}</div>
-          <div style={{color:"#8b949e",fontSize:13}}>{fmt$(winner.pnl)} &nbsp;·&nbsp; exited {winner.exit_date}</div>
-        </div>
-        <div style={{flex:1}}>
-          <div className="ct" style={{color:"#f85149"}}>Biggest Loser</div>
-          <div style={{fontSize:22,fontWeight:700}}>{loser.symbol}</div>
-          <div className="r" style={{fontSize:18}}>{fmtPct(loser.pnl_pct)}</div>
-          <div style={{color:"#8b949e",fontSize:13}}>{fmt$(loser.pnl)} &nbsp;·&nbsp; exited {loser.exit_date}</div>
-        </div>
+  if (openPos.length < 2) return null;
+  const sorted = [...openPos].sort((a,b)=>(b.unrealized_plpc||0)-(a.unrealized_plpc||0));
+  const winner = sorted[0];
+  const loser  = sorted[sorted.length-1];
+  return (
+    <div className="card" style={{display:"flex",gap:24}}>
+      <div style={{flex:1}}>
+        <div className="ct" style={{color:"#3fb950"}}>Biggest Winner (Unrealized)</div>
+        <div style={{fontSize:22,fontWeight:700}}>{winner.symbol}</div>
+        <div className="g" style={{fontSize:18}}>{fmtPct((winner.unrealized_plpc||0)*100)}</div>
+        <div style={{color:"#8b949e",fontSize:13}}>{fmt$(winner.unrealized_pl)} unrealized</div>
       </div>
-    );
-  }
-
-  if (openPos.length >= 2) {
-    const sorted = [...openPos].sort((a,b)=>(b.unrealized_plpc||0)-(a.unrealized_plpc||0));
-    const winner = sorted[0];
-    const loser  = sorted[sorted.length-1];
-    return (
-      <div className="card" style={{display:"flex",gap:24}}>
-        <div style={{flex:1}}>
-          <div className="ct" style={{color:"#3fb950"}}>Biggest Winner (unrealized)</div>
-          <div style={{fontSize:22,fontWeight:700}}>{winner.symbol}</div>
-          <div className="g" style={{fontSize:18}}>{fmtPct((winner.unrealized_plpc||0)*100)}</div>
-          <div style={{color:"#8b949e",fontSize:13}}>{fmt$(winner.unrealized_pl)} unrealized</div>
-        </div>
-        <div style={{flex:1}}>
-          <div className="ct" style={{color:"#f85149"}}>Biggest Loser (unrealized)</div>
-          <div style={{fontSize:22,fontWeight:700}}>{loser.symbol}</div>
-          <div className="r" style={{fontSize:18}}>{fmtPct((loser.unrealized_plpc||0)*100)}</div>
-          <div style={{color:"#8b949e",fontSize:13}}>{fmt$(loser.unrealized_pl)} unrealized</div>
-        </div>
+      <div style={{flex:1}}>
+        <div className="ct" style={{color:"#f85149"}}>Biggest Loser (Unrealized)</div>
+        <div style={{fontSize:22,fontWeight:700}}>{loser.symbol}</div>
+        <div className="r" style={{fontSize:18}}>{fmtPct((loser.unrealized_plpc||0)*100)}</div>
+        <div style={{color:"#8b949e",fontSize:13}}>{fmt$(loser.unrealized_pl)} unrealized</div>
       </div>
-    );
-  }
+    </div>
+  );
+};
 
-  return null;
+const TopFiveSection = ({ trades }) => {
+  const closed = (trades||[]).filter(t=>t.status==="closed"&&t.pnl!=null);
+  if (!closed.length) return null;
+  const sorted = [...closed].sort((a,b)=>(b.pnl_pct||0)-(a.pnl_pct||0));
+  const top5    = sorted.slice(0,5);
+  const bottom5 = sorted.slice(-5).reverse();
+  const Row = ({t}) => (
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"6px 0",borderBottom:"1px solid #21262d"}}>
+      <span style={{fontWeight:700,width:60}}>{t.symbol}</span>
+      <span style={{color:"#8b949e",fontSize:12}}>{t.exit_date}</span>
+      <span className={pnlCls(t.pnl_pct)} style={{fontWeight:600}}>{fmtPct(t.pnl_pct)}</span>
+      <span className={pnlCls(t.pnl)} style={{fontSize:13}}>{fmt$(t.pnl)}</span>
+    </div>
+  );
+  return (
+    <div className="g2">
+      <div className="card">
+        <div className="ct" style={{color:"#3fb950"}}>Top 5 Wins</div>
+        {top5.map((t,i)=><Row key={i} t={t}/>)}
+      </div>
+      <div className="card">
+        <div className="ct" style={{color:"#f85149"}}>Top 5 Losses</div>
+        {bottom5.map((t,i)=><Row key={i} t={t}/>)}
+      </div>
+    </div>
+  );
 };
 
 const RecsTable = ({ recs }) => {
@@ -2955,7 +2955,8 @@ const App = () => {
           )}
           <MetricsRow positions={d.positions} trades={d.trades} />
           <BudgetSection budget={d.budget} />
-          <WinnersLosers trades={d.trades} positions={d.positions} />
+          <WinnersLosers positions={d.positions} />
+          <TopFiveSection trades={d.trades} />
           <RecsTable recs={d.recs} />
           <div className="g2">
             <PositionsTable posData={d.positions} />
