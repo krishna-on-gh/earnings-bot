@@ -2647,7 +2647,7 @@
   "halted": false,
   "halt_reason": null
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-04-20T15:13:41", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-04-20T15:55:02", "source": "scheduler"}</script>
 
 <script type="text/babel">
 // ─── DATA LOADING ──────────────────────────────────────────────────────────
@@ -2788,6 +2788,55 @@ const TopFiveSection = ({ trades }) => {
         <div className="ct" style={{color:"#f85149"}}>Top 5 Losses</div>
         {bottom5.map((t,i)=><Row key={i} t={t}/>)}
       </div>
+    </div>
+  );
+};
+
+const EarningsWeek = ({ recs }) => {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const in7 = new Date(today); in7.setDate(today.getDate()+7);
+  const rows = (recs||[])
+    .filter(r => { const d=new Date(r.earnings_date); return d>=today && d<=in7; })
+    .sort((a,b)=>new Date(a.earnings_date)-new Date(b.earnings_date));
+  if (!rows.length) return null;
+  const dayLabel = (dateStr) => {
+    const d = new Date(dateStr); d.setHours(12);
+    const diff = Math.round((d-today)/864e5);
+    if (diff===0) return "Today";
+    if (diff===1) return "Tomorrow";
+    return d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
+  };
+  const timingLabel = (t) => {
+    if (t==="pre_market") return {text:"Pre-Market",color:"#e3b341"};
+    if (t==="post_market") return {text:"After Hours",color:"#58a6ff"};
+    return {text:"TBD",color:"#8b949e"};
+  };
+  // Group by date
+  const byDate = {};
+  rows.forEach(r => { (byDate[r.earnings_date]=byDate[r.earnings_date]||[]).push(r); });
+  return (
+    <div className="card">
+      <div className="ct">Earnings This Week ({rows.length})</div>
+      {Object.entries(byDate).map(([date, stocks]) => (
+        <div key={date} style={{marginBottom:14}}>
+          <div style={{fontWeight:700,color:"#58a6ff",marginBottom:6,fontSize:13,textTransform:"uppercase",letterSpacing:"0.05em"}}>
+            {dayLabel(date)}
+          </div>
+          {stocks.map(r => {
+            const tl = timingLabel(r.earnings_timing);
+            const held = (r.executed);
+            return (
+              <div key={r.symbol} style={{display:"flex",alignItems:"center",gap:10,padding:"5px 0",borderBottom:"1px solid #21262d"}}>
+                <span style={{fontWeight:700,width:52}}>{r.symbol}</span>
+                <span style={{color:"#8b949e",fontSize:12,flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{r.company}</span>
+                <span style={{fontSize:11,color:tl.color,whiteSpace:"nowrap"}}>{tl.text}</span>
+                {confBadge(r.confidence)}
+                {held && <span className="badge bg" style={{fontSize:10}}>HELD</span>}
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </div>
   );
 };
@@ -2957,7 +3006,10 @@ const App = () => {
           <BudgetSection budget={d.budget} />
           <WinnersLosers positions={d.positions} />
           <TopFiveSection trades={d.trades} />
-          <RecsTable recs={d.recs} />
+          <div className="g2">
+            <EarningsWeek recs={d.recs} />
+            <RecsTable recs={d.recs} />
+          </div>
           <div className="g2">
             <PositionsTable posData={d.positions} />
             <HistoryTable trades={d.trades} />
