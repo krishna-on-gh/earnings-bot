@@ -15,7 +15,7 @@ jobs:
       - run: python src/executor.py
         env:
           ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
-          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
       - run: |
           git config user.email "bot@bot.com"
           git config user.name "EarningsBot"
