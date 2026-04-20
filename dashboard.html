@@ -2647,7 +2647,13 @@
   "halted": false,
   "halt_reason": null
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-04-20T15:55:02", "source": "scheduler"}</script>
+<script id="__ACCURACY__" type="application/json">{
+  "70-84%":  {"calls": 0, "correct": 0},
+  "85-94%":  {"calls": 0, "correct": 0},
+  "95-100%": {"calls": 0, "correct": 0}
+}</script>
+<script id="__CALLS_LOG__" type="application/json">[]</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-04-20T16:06:06", "source": "scheduler"}</script>
 
 <script type="text/babel">
 // ─── DATA LOADING ──────────────────────────────────────────────────────────
@@ -2665,13 +2671,15 @@ const loadData = async () => {
     try {
       const ts = Date.now();
       const base = GITHUB_RAW || ".";
-      const [recs, trades, pos, budget] = await Promise.all([
+      const [recs, trades, pos, budget, accuracy, callsLog] = await Promise.all([
         fetch(`${base}/data/recommendations.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/trades_history.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/positions.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/budget_tracker.json?_=${ts}`).then(r => r.json()),
+        fetch(`${base}/data/earnings_accuracy.json?_=${ts}`).then(r => r.json()).catch(()=>({})),
+        fetch(`${base}/data/earnings_calls_log.json?_=${ts}`).then(r => r.json()).catch(()=>[]),
       ]);
-      return { recs, trades, positions: pos, budget, live: true };
+      return { recs, trades, positions: pos, budget, accuracy, callsLog, live: true };
     } catch {}
   }
   return {
@@ -2679,6 +2687,8 @@ const loadData = async () => {
     trades:    readEmbedded("__TRADES__")          || [],
     positions: readEmbedded("__POSITIONS__")       || {},
     budget:    readEmbedded("__BUDGET__")          || {},
+    accuracy:  readEmbedded("__ACCURACY__")        || {},
+    callsLog:  readEmbedded("__CALLS_LOG__")       || [],
     meta:      readEmbedded("__META__")            || {},
     live:      false,
   };
@@ -2788,6 +2798,57 @@ const TopFiveSection = ({ trades }) => {
         <div className="ct" style={{color:"#f85149"}}>Top 5 Losses</div>
         {bottom5.map((t,i)=><Row key={i} t={t}/>)}
       </div>
+    </div>
+  );
+};
+
+const AccuracyTracker = ({ accuracy, callsLog }) => {
+  const tiers = ["70-84%", "85-94%", "95-100%"];
+  const tierColors = {"70-84%":"#e3b341","85-94%":"#58a6ff","95-100%":"#3fb950"};
+  const hasData = tiers.some(t => (accuracy[t]?.calls||0) > 0);
+  return (
+    <div className="card">
+      <div className="ct">Confidence Accuracy Tracker</div>
+      {!hasData
+        ? <div style={{color:"#8b949e",padding:"10px 0"}}>No closed trades yet — accuracy will populate as earnings plays exit.</div>
+        : <div>
+            {tiers.map(tier => {
+              const d = accuracy[tier] || {calls:0,correct:0};
+              const pct = d.calls > 0 ? Math.round(d.correct/d.calls*100) : null;
+              const barColor = pct==null?"#21262d":pct>=70?"#3fb950":pct>=50?"#e3b341":"#f85149";
+              return (
+                <div key={tier} style={{marginBottom:14}}>
+                  <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
+                    <span style={{fontWeight:600,color:tierColors[tier]}}>{tier} Confidence</span>
+                    <span style={{color:"#c9d1d9"}}>
+                      {pct!=null ? <strong>{pct}%</strong> : "—"}
+                      <span style={{color:"#8b949e",fontSize:12}}> ({d.correct}/{d.calls} calls correct)</span>
+                    </span>
+                  </div>
+                  <div className="pb">
+                    <div className="pf" style={{width:`${pct||0}%`,background:barColor}}/>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+      }
+      {callsLog?.length > 0 && (
+        <div style={{marginTop:14,borderTop:"1px solid #21262d",paddingTop:12}}>
+          <div style={{fontSize:11,fontWeight:600,color:"#8b949e",textTransform:"uppercase",letterSpacing:".05em",marginBottom:8}}>Recent Call Analysis</div>
+          {[...callsLog].reverse().slice(0,3).map((e,i) => (
+            <div key={i} style={{marginBottom:10,paddingBottom:10,borderBottom:i<2?"1px solid #1c2128":"none"}}>
+              <div style={{display:"flex",gap:8,alignItems:"center",marginBottom:4}}>
+                <strong>{e.symbol}</strong>
+                <span className={`badge ${e.outcome==="WIN"?"bg":"br"}`}>{e.outcome}</span>
+                <span style={{color:"#8b949e",fontSize:12}}>{e.exit_date}</span>
+                <span style={{color:"#8b949e",fontSize:12,marginLeft:"auto"}}>{fmtPct(e.pnl_pct)}</span>
+              </div>
+              <div style={{color:"#8b949e",fontSize:12,lineHeight:1.5}}>{e.analysis}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
@@ -3007,6 +3068,7 @@ const App = () => {
           <WinnersLosers positions={d.positions} />
           <TopFiveSection trades={d.trades} />
           <div className="g2">
+            <AccuracyTracker accuracy={d.accuracy} callsLog={d.callsLog} />
             <EarningsWeek recs={d.recs} />
             <RecsTable recs={d.recs} />
           </div>

@@ -11,6 +11,8 @@ for tag, path in [
     ("__TRADES__",          "data/trades_history.json"),
     ("__POSITIONS__",       "data/positions.json"),
     ("__BUDGET__",          "data/budget_tracker.json"),
+    ("__ACCURACY__",        "data/earnings_accuracy.json"),
+    ("__CALLS_LOG__",       "data/earnings_calls_log.json"),
 ]:
     content = (base / path).read_text(encoding="utf-8").strip()
     html = re.sub(rf'(<script id="{tag}"[^>]*>).*?(</script>)', rf'\g<1>{content}\2', html, flags=re.DOTALL)
