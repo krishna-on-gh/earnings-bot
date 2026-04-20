@@ -1,5 +1,6 @@
 name: Dashboard
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/30 13-21 * * 1-5'
 jobs:

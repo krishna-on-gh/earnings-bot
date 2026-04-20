@@ -1,5 +1,6 @@
 name: Reporter
 on:
+  workflow_dispatch:
   schedule:
     - cron: '30 20 * * 1-5'
 jobs:

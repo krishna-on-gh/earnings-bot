@@ -1,5 +1,6 @@
 name: Monitor
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 14-20 * * 1-5'
 jobs:
