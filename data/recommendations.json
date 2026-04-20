@@ -1140,11 +1140,13 @@
     "current_price": 794.65,
     "position_size": 500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-19",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-20",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-20",
+    "trade_id": "a4178866"
   }
 ]
