@@ -28,24 +28,27 @@ log = get_logger("executor")
 
 
 def get_current_price(symbol: str, client: TradingClient) -> Optional[float]:
+    # Use the shared data client (reads keys from .env via get_alpaca_keys)
     try:
-        from alpaca.data import StockHistoricalDataClient
         from alpaca.data.requests import StockLatestQuoteRequest
-        settings = load_settings()
-        data_client = StockHistoricalDataClient(
-            api_key=settings["alpaca"]["api_key"],
-            secret_key=settings["alpaca"]["secret_key"],
-        )
+        from utils import get_data_client
+        data_client = get_data_client()
         req = StockLatestQuoteRequest(symbol_or_symbols=symbol)
         quote = data_client.get_stock_latest_quote(req)
         if quote and symbol in quote:
             q = quote[symbol]
-            return float((q.ask_price + q.bid_price) / 2)
+            ask = float(q.ask_price)
+            bid = float(q.bid_price)
+            # Use ask price — closer to what Alpaca uses as base_price for buys
+            if ask > 0:
+                return ask
+            if bid > 0:
+                return bid
     except Exception:
         pass
     try:
-        info = yf.Ticker(symbol).info or {}
-        price = info.get("currentPrice") or info.get("regularMarketPrice")
+        info = yf.Ticker(symbol).fast_info or {}
+        price = getattr(info, "last_price", None)
         if price:
             return float(price)
     except Exception:
@@ -68,7 +71,9 @@ def place_bracket_order(
     client: TradingClient,
 ) -> Optional[Dict[str, Any]]:
     stop_price = round(entry_price * 0.50, 2)
-    take_profit_price = round(entry_price * 2.00, 2)
+    # Add a 1% buffer above entry so TP always clears Alpaca's live base_price
+    # even if the market ticks up between our price fetch and order submission
+    take_profit_price = round(entry_price * 2.02, 2)
     log.info(
         f"{symbol}: placing bracket order — {shares} shares @ ~${entry_price:.2f} | "
         f"TP: ${take_profit_price:.2f} (+100%) | SL: ${stop_price:.2f} (-50%)"
