@@ -1,0 +1,46 @@
+{
+  "alpaca": {
+    "api_key": "YOUR_ALPACA_API_KEY",
+    "secret_key": "YOUR_ALPACA_SECRET_KEY",
+    "base_url": "https://paper-api.alpaca.markets",
+    "paper": true
+  },
+  "email": {
+    "enabled": false,
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "username": "",
+    "password": "",
+    "recipient": "",
+    "_note": "Set enabled=true and fill credentials to receive email alerts"
+  },
+  "budget": {
+    "total_cap": 45000,
+    "initial_two_week_cap": 45000,
+    "high_confidence_position_size": 1500,
+    "mid_confidence_position_size": 1000,
+    "low_confidence_position_size": 500,
+    "two_week_start": "2026-04-19",
+    "two_week_end": "2026-05-03"
+  },
+  "thresholds": {
+    "min_confidence": 70,
+    "min_market_cap_b": 1,
+    "circuit_breaker_daily_loss_pct": 3.0,
+    "circuit_breaker_weekly_loss_pct": 10.0,
+    "earnings_window_days": 14
+  },
+  "mega_cap_exceptions": ["ABNB", "COIN", "SNOW", "UBER", "LYFT", "PLTR"],
+  "tech_sectors": ["Technology", "Communication Services", "Consumer Electronics"],
+  "scoring": {
+    "base_score": 50,
+    "beat_rate_high_bonus": 30,
+    "revenue_growth_bonus": 20,
+    "momentum_bonus": 15,
+    "tech_sector_bonus": 5,
+    "mega_cap_bonus": 5,
+    "beat_rate_low_penalty": -10,
+    "declining_revenue_penalty": -15,
+    "negative_momentum_penalty": -15
+  }
+}

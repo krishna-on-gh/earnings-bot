@@ -1,0 +1,22 @@
+name: Reporter
+on:
+  schedule:
+    - cron: '30 20 * * 1-5'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install alpaca-py yfinance pandas requests tzdata
+      - run: python src/reporter.py
+        env:
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_KEY }}
+      - run: |
+          git config user.email "bot@bot.com"
+          git config user.name "EarningsBot"
+          git add data/ reports/
+          git commit -m "reporter run" || echo "no changes"
+          git push

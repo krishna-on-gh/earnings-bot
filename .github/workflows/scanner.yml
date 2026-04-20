@@ -1,0 +1,22 @@
+name: Scanner
+on:
+  schedule:
+    - cron: '0 3 * * *'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install alpaca-py yfinance pandas requests tzdata
+      - run: python src/scanner.py
+        env:
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_KEY }}
+      - run: |
+          git config user.email "bot@bot.com"
+          git config user.name "EarningsBot"
+          git add data/
+          git commit -m "scanner run" || echo "no changes"
+          git push

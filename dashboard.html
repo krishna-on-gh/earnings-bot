@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earnings Trading Bot</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',system-ui,sans-serif;font-size:14px}
+    .hdr{background:#161b22;border-bottom:1px solid #30363d;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+    .hdr h1{font-size:18px;color:#58a6ff;font-weight:600}
+    .hdr .meta{font-size:12px;color:#8b949e;display:flex;align-items:center;gap:10px}
+    .btn{background:#21262d;border:1px solid #30363d;color:#c9d1d9;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px}
+    .btn:hover{background:#30363d}
+    .main{padding:16px 20px;display:grid;gap:16px}
+    .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px}
+    .ct{font-size:11px;font-weight:600;color:#8b949e;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+    .metric{text-align:center}
+    .metric .val{font-size:28px;font-weight:700;line-height:1}
+    .metric .lbl{font-size:11px;color:#8b949e;margin-top:4px}
+    .g{color:#3fb950}.y{color:#e3b341}.r{color:#f85149}.b{color:#58a6ff}.w{color:#c9d1d9}
+    .pb{background:#21262d;border-radius:4px;height:8px;margin:8px 0;overflow:hidden}
+    .pf{height:100%;border-radius:4px;transition:width .3s}
+    .pl{display:flex;justify-content:space-between;font-size:11px;color:#8b949e;margin-top:2px}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th{text-align:left;padding:6px 10px;color:#8b949e;font-weight:600;font-size:11px;text-transform:uppercase;border-bottom:1px solid #21262d}
+    td{padding:8px 10px;border-bottom:1px solid #1c2128}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#1c2128}
+    .badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+    .bg{background:#1b3a2a;color:#3fb950}.by{background:#2e2409;color:#e3b341}
+    .br{background:#3d1a1a;color:#f85149}.bb{background:#0d2044;color:#58a6ff}
+    .bgr{background:#21262d;color:#8b949e}
+    .alert{background:#2d1a1a;border:1px solid #f85149;border-radius:6px;padding:10px 14px;margin-bottom:12px;color:#f85149;font-size:13px}
+    .halted{background:#1a1a2e;border:2px solid #f85149;border-radius:8px;padding:14px;text-align:center;color:#f85149;font-weight:600;margin-bottom:12px}
+    .ts{font-size:11px;color:#8b949e;margin-top:8px}
+    .notice{background:#161b22;border:1px solid #e3b341;border-radius:8px;padding:14px 16px;color:#e3b341;font-size:13px;margin-bottom:4px}
+    @media(max-width:900px){.g2,.g4{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     EMBEDDED DATA — auto-updated by update_dashboard.ps1
+     Do not edit this block manually.
+     ═══════════════════════════════════════════════════════════ -->
+<script id="__RECOMMENDATIONS__" type="application/json">[
+  {
+    "id": "db3b4b26",
+    "symbol": "GOOGL",
+    "company": "Alphabet Inc.",
+    "earnings_date": "2026-04-29",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "momentum_high": 15,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 4133.3,
+    "sector": "Communication Services",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.151,
+    "momentum_30d": 0.112,
+    "current_price": 341.68,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "283455d2",
+    "symbol": "AMZN",
+    "company": "Amazon.com, Inc.",
+    "earnings_date": "2026-04-29",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "momentum_high": 15,
+      "mega_cap": 5
+    },
+    "market_cap_b": 2694.6,
+    "sector": "Consumer Cyclical",
+    "beat_rate": 0.75,
+    "revenue_growth_yoy": 0.124,
+    "momentum_30d": 0.2,
+    "current_price": 250.56,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "8888cb0d",
+    "symbol": "META",
+    "company": "Meta Platforms, Inc.",
+    "earnings_date": "2026-04-29",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "revenue_growth_high": 20,
+      "momentum_high": 15,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 1747.8,
+    "sector": "Communication Services",
+    "beat_rate": 0.75,
+    "revenue_growth_yoy": 0.222,
+    "momentum_30d": 0.135,
+    "current_price": 688.55,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "7ec78301",
+    "symbol": "TMO",
+    "company": "Thermo Fisher Scientific Inc.",
+    "earnings_date": "2026-04-23",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "momentum_high": 15,
+      "mega_cap": 5
+    },
+    "market_cap_b": 195.7,
+    "sector": "Healthcare",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.039,
+    "momentum_30d": 0.12,
+    "current_price": 526.6,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "8fe3c005",
+    "symbol": "ISRG",
+    "company": "Intuitive Surgical, Inc.",
+    "earnings_date": "2026-04-21",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "revenue_growth_high": 20,
+      "mega_cap": 5
+    },
+    "market_cap_b": 166.6,
+    "sector": "Healthcare",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.205,
+    "momentum_30d": -0.022,
+    "current_price": 469.21,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "3a53e951",
+    "symbol": "BKNG",
+    "company": "Booking Holdings Inc.",
+    "earnings_date": "2026-04-28",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "momentum_high": 15,
+      "mega_cap": 5
+    },
+    "market_cap_b": 152.0,
+    "sector": "Consumer Cyclical",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.134,
+    "momentum_30d": 0.118,
+    "current_price": 192.01,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "4b4d3016",
+    "symbol": "AXP",
+    "company": "American Express Company",
+    "earnings_date": "2026-04-23",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "momentum_high": 15,
+      "mega_cap": 5
+    },
+    "market_cap_b": 227.7,
+    "sector": "Financial Services",
+    "beat_rate": 0.75,
+    "revenue_growth_yoy": 0.095,
+    "momentum_30d": 0.128,
+    "current_price": 331.69,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "b2f76314",
+    "symbol": "LRCX",
+    "company": "Lam Research Corporation",
+    "earnings_date": "2026-04-22",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "revenue_growth_high": 20,
+      "momentum_high": 15,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 336.1,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.237,
+    "momentum_30d": 0.144,
+    "current_price": 267.6,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "01babddd",
+    "symbol": "ROKU",
+    "company": "Roku, Inc.",
+    "earnings_date": "2026-04-30",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "momentum_high": 15,
+      "tech_sector": 5
+    },
+    "market_cap_b": 17.1,
+    "sector": "Communication Services",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.152,
+    "momentum_30d": 0.212,
+    "current_price": 116.19,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "033a2dc8",
+    "symbol": "TWLO",
+    "company": "Twilio Inc.",
+    "earnings_date": "2026-04-30",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "momentum_high": 15,
+      "tech_sector": 5
+    },
+    "market_cap_b": 21.2,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.137,
+    "momentum_30d": 0.1,
+    "current_price": 140.11,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "58617df5",
+    "symbol": "RBLX",
+    "company": "Roblox Corporation",
+    "earnings_date": "2026-04-30",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "revenue_growth_high": 20,
+      "tech_sector": 5
+    },
+    "market_cap_b": 43.2,
+    "sector": "Communication Services",
+    "beat_rate": 0.75,
+    "revenue_growth_yoy": 0.358,
+    "momentum_30d": 0.049,
+    "current_price": 60.34,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "bc8a772f",
+    "symbol": "HOOD",
+    "company": "Robinhood Markets, Inc.",
+    "earnings_date": "2026-04-28",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "revenue_growth_high": 20,
+      "momentum_high": 15
+    },
+    "market_cap_b": 81.7,
+    "sector": "Financial Services",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.516,
+    "momentum_30d": 0.224,
+    "current_price": 90.75,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "94de2b6b",
+    "symbol": "SOFI",
+    "company": "SoFi Technologies, Inc.",
+    "earnings_date": "2026-04-29",
+    "confidence": 100,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "revenue_growth_high": 20,
+      "momentum_high": 15
+    },
+    "market_cap_b": 24.8,
+    "sector": "Financial Services",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.383,
+    "momentum_30d": 0.138,
+    "current_price": 19.43,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "41944e49",
+    "symbol": "NOW",
+    "company": "ServiceNow, Inc.",
+    "earnings_date": "2026-04-22",
+    "confidence": 95,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "revenue_growth_high": 20,
+      "negative_momentum": -15,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 101.1,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.209,
+    "momentum_30d": -0.147,
+    "current_price": 96.66,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "0573d3da",
+    "symbol": "AAPL",
+    "company": "Apple Inc.",
+    "earnings_date": "2026-04-30",
+    "confidence": 90,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 3971.8,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.064,
+    "momentum_30d": 0.085,
+    "current_price": 270.23,
+    "position_size": 1000,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "2cf0ddd4",
+    "symbol": "MSFT",
+    "company": "Microsoft Corporation",
+    "earnings_date": "2026-04-29",
+    "confidence": 90,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 3142.3,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.149,
+    "momentum_30d": 0.087,
+    "current_price": 422.79,
+    "position_size": 1000,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "36ae5db6",
+    "symbol": "QCOM",
+    "company": "QUALCOMM Incorporated",
+    "earnings_date": "2026-04-29",
+    "confidence": 90,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 145.5,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.137,
+    "momentum_30d": 0.037,
+    "current_price": 136.2,
+    "position_size": 1000,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "c3d96dcd",
+    "symbol": "IBM",
+    "company": "International Business Machines Corporation",
+    "earnings_date": "2026-04-22",
+    "confidence": 90,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 237.9,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.076,
+    "momentum_30d": 0.012,
+    "current_price": 253.47,
+    "position_size": 1000,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "fc763dbc",
+    "symbol": "INTC",
+    "company": "Intel Corporation",
+    "earnings_date": "2026-04-23",
+    "confidence": 90,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "declining_revenue": -15,
+      "momentum_high": 15,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 343.9,
+    "sector": "Technology",
+    "beat_rate": 0.75,
+    "revenue_growth_yoy": -0.005,
+    "momentum_30d": 0.483,
+    "current_price": 68.5,
+    "position_size": 1000,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "08759a81",
+    "symbol": "V",
+    "company": "Visa Inc.",
+    "earnings_date": "2026-04-28",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 611.2,
+    "sector": "Financial Services",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.113,
+    "momentum_30d": 0.058,
+    "current_price": 317.02,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "076d59a3",
+    "symbol": "MA",
+    "company": "Mastercard Incorporated",
+    "earnings_date": "2026-04-30",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 465.2,
+    "sector": "Financial Services",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.164,
+    "momentum_30d": 0.063,
+    "current_price": 521.3,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "1bc65e0d",
+    "symbol": "PG",
+    "company": "The Procter & Gamble Company",
+    "earnings_date": "2026-04-24",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 343.3,
+    "sector": "Consumer Defensive",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.003,
+    "momentum_30d": 0.014,
+    "current_price": 146.93,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "7c0bf917",
+    "symbol": "ABBV",
+    "company": "AbbVie Inc.",
+    "earnings_date": "2026-04-29",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 368.6,
+    "sector": "Healthcare",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.086,
+    "momentum_30d": 0.019,
+    "current_price": 208.38,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "d24d3069",
+    "symbol": "MRK",
+    "company": "Merck & Co., Inc.",
+    "earnings_date": "2026-04-30",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 294.4,
+    "sector": "Healthcare",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.013,
+    "momentum_30d": 0.043,
+    "current_price": 119.07,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "459e9eae",
+    "symbol": "KO",
+    "company": "The Coca-Cola Company",
+    "earnings_date": "2026-04-28",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 326.0,
+    "sector": "Consumer Defensive",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.019,
+    "momentum_30d": 0.003,
+    "current_price": 75.74,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "aee93c10",
+    "symbol": "LIN",
+    "company": "Linde plc",
+    "earnings_date": "2026-05-01",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 228.1,
+    "sector": "Basic Materials",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.03,
+    "momentum_30d": 0.005,
+    "current_price": 492.23,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "2d9a2afd",
+    "symbol": "DHR",
+    "company": "Danaher Corporation",
+    "earnings_date": "2026-04-21",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 137.8,
+    "sector": "Healthcare",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.029,
+    "momentum_30d": 0.027,
+    "current_price": 194.75,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "fbc15ccf",
+    "symbol": "NEE",
+    "company": "NextEra Energy, Inc.",
+    "earnings_date": "2026-04-23",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 191.8,
+    "sector": "Utilities",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.107,
+    "momentum_30d": -0.005,
+    "current_price": 91.98,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "3d726248",
+    "symbol": "PM",
+    "company": "Philip Morris International Inc.",
+    "earnings_date": "2026-04-22",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 245.9,
+    "sector": "Consumer Defensive",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.073,
+    "momentum_30d": -0.034,
+    "current_price": 157.79,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "17b885bf",
+    "symbol": "HON",
+    "company": "Honeywell International Inc.",
+    "earnings_date": "2026-04-23",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 148.0,
+    "sector": "Industrials",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.078,
+    "momentum_30d": 0.02,
+    "current_price": 233.55,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "54627ecb",
+    "symbol": "GE",
+    "company": "GE Aerospace",
+    "earnings_date": "2026-04-21",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 320.8,
+    "sector": "Industrials",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.185,
+    "momentum_30d": 0.043,
+    "current_price": 304.13,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "e6f0cec4",
+    "symbol": "SPGI",
+    "company": "S&P Global Inc.",
+    "earnings_date": "2026-04-28",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 132.2,
+    "sector": "Financial Services",
+    "beat_rate": 0.75,
+    "revenue_growth_yoy": 0.079,
+    "momentum_30d": 0.039,
+    "current_price": 442.57,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "efbb5079",
+    "symbol": "SYK",
+    "company": "Stryker Corporation",
+    "earnings_date": "2026-04-30",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 131.5,
+    "sector": "Healthcare",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.112,
+    "momentum_30d": 0.013,
+    "current_price": 343.32,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "a926063e",
+    "symbol": "GILD",
+    "company": "Gilead Sciences, Inc.",
+    "earnings_date": "2026-04-23",
+    "confidence": 85,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "mega_cap": 5
+    },
+    "market_cap_b": 170.8,
+    "sector": "Healthcare",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.024,
+    "momentum_30d": -0.025,
+    "current_price": 137.64,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "32917c3a",
+    "symbol": "REGN",
+    "company": "Regeneron Pharmaceuticals, Inc.",
+    "earnings_date": "2026-04-29",
+    "confidence": 80,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30
+    },
+    "market_cap_b": 79.4,
+    "sector": "Healthcare",
+    "beat_rate": 0.75,
+    "revenue_growth_yoy": 0.01,
+    "momentum_30d": 0.018,
+    "current_price": 750.57,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "89f4a3aa",
+    "symbol": "TXN",
+    "company": "Texas Instruments Incorporated",
+    "earnings_date": "2026-04-22",
+    "confidence": 75,
+    "confidence_breakdown": {
+      "base": 50,
+      "momentum_high": 15,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 209.2,
+    "sector": "Technology",
+    "beat_rate": 0.5,
+    "revenue_growth_yoy": 0.13,
+    "momentum_30d": 0.221,
+    "current_price": 229.82,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "74426dd5",
+    "symbol": "UNH",
+    "company": "UnitedHealth Group Incorporated",
+    "earnings_date": "2026-04-21",
+    "confidence": 70,
+    "confidence_breakdown": {
+      "base": 50,
+      "momentum_high": 15,
+      "mega_cap": 5
+    },
+    "market_cap_b": 294.7,
+    "sector": "Healthcare",
+    "beat_rate": 0.5,
+    "revenue_growth_yoy": 0.118,
+    "momentum_30d": 0.158,
+    "current_price": 324.63,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "f61ae781",
+    "symbol": "XOM",
+    "company": "Exxon Mobil Corporation",
+    "earnings_date": "2026-05-01",
+    "confidence": 70,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "declining_revenue": -15,
+      "mega_cap": 5
+    },
+    "market_cap_b": 608.7,
+    "sector": "Energy",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": -0.045,
+    "momentum_30d": -0.074,
+    "current_price": 146.44,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "6262b95d",
+    "symbol": "CVX",
+    "company": "Chevron Corporation",
+    "earnings_date": "2026-05-01",
+    "confidence": 70,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 30,
+      "declining_revenue": -15,
+      "mega_cap": 5
+    },
+    "market_cap_b": 366.5,
+    "sector": "Energy",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": -0.046,
+    "momentum_30d": -0.087,
+    "current_price": 183.99,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  },
+  {
+    "id": "a4178866",
+    "symbol": "CAT",
+    "company": "Caterpillar Inc.",
+    "earnings_date": "2026-04-30",
+    "confidence": 70,
+    "confidence_breakdown": {
+      "base": 50,
+      "momentum_high": 15,
+      "mega_cap": 5
+    },
+    "market_cap_b": 371.9,
+    "sector": "Industrials",
+    "beat_rate": 0.5,
+    "revenue_growth_yoy": 0.043,
+    "momentum_30d": 0.154,
+    "current_price": 794.65,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-19",
+    "notes": []
+  }
+]</script>
+<script id="__TRADES__" type="application/json">[]</script>
+<script id="__POSITIONS__" type="application/json">{
+  "positions": [],
+  "last_updated": "2026-04-19T00:00:00",
+  "daily_pnl": 0,
+  "daily_pnl_pct": 0,
+  "weekly_pnl": 0,
+  "weekly_pnl_pct": 0,
+  "circuit_breaker_triggered": false,
+  "circuit_breaker_reason": null
+}</script>
+<script id="__BUDGET__" type="application/json">{
+  "total_cap": 45000,
+  "two_week_cap": 45000,
+  "two_week_start": "2026-04-19",
+  "two_week_end": "2026-05-03",
+  "total_deployed": 0,
+  "two_week_deployed": 0,
+  "available_total": 45000,
+  "available_two_week": 10000,
+  "trades_count": 0,
+  "last_updated": "2026-04-19T00:00:00",
+  "halted": false,
+  "halt_reason": null
+}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-04-19T23:15:33", "source": "auto"}</script>
+
+<script type="text/babel">
+// ─── DATA LOADING ──────────────────────────────────────────────────────────
+const GITHUB_RAW = "https://raw.githubusercontent.com/krishna-on-gh/earnings-bot/main";
+
+const readEmbedded = (id) => {
+  try { return JSON.parse(document.getElementById(id).textContent); }
+  catch { return null; }
+};
+
+const isHttp = window.location.protocol.startsWith("http");
+
+const loadData = async () => {
+  if (isHttp) {
+    try {
+      const ts = Date.now();
+      const base = GITHUB_RAW || ".";
+      const [recs, trades, pos, budget] = await Promise.all([
+        fetch(`${base}/data/recommendations.json?_=${ts}`).then(r => r.json()),
+        fetch(`${base}/data/trades_history.json?_=${ts}`).then(r => r.json()),
+        fetch(`${base}/data/positions.json?_=${ts}`).then(r => r.json()),
+        fetch(`${base}/data/budget_tracker.json?_=${ts}`).then(r => r.json()),
+      ]);
+      return { recs, trades, positions: pos, budget, live: true };
+    } catch {}
+  }
+  return {
+    recs:      readEmbedded("__RECOMMENDATIONS__") || [],
+    trades:    readEmbedded("__TRADES__")          || [],
+    positions: readEmbedded("__POSITIONS__")       || {},
+    budget:    readEmbedded("__BUDGET__")          || {},
+    meta:      readEmbedded("__META__")            || {},
+    live:      false,
+  };
+};
+
+// ─── HELPERS ───────────────────────────────────────────────────────────────
+const fmt$ = (n) => { if(n==null) return "—"; return `${n>=0?"+":"-"}$${Math.abs(n).toFixed(2)}`; };
+const fmtPct = (n) => { if(n==null) return "—"; return `${n>=0?"+":"-"}${Math.abs(n).toFixed(1)}%`; };
+const pnlCls = (v) => v>0?"g":v<0?"r":"w";
+const daysUntil = (s) => { if(!s) return null; return Math.ceil((new Date(s)-new Date())/(864e5)); };
+const confBadge = (c) => {
+  const cls = c>=95?"bg":c>=90?"by":"bgr";
+  return <span className={`badge ${cls}`}>{c}%</span>;
+};
+
+// ─── COMPONENTS ────────────────────────────────────────────────────────────
+const MetricsRow = ({ positions, trades }) => {
+  const closed = (trades||[]).filter(t=>t.status==="closed");
+  const wins   = closed.filter(t=>(t.pnl||0)>0).length;
+  const wr     = closed.length ? wins/closed.length*100 : 0;
+  const tPnl   = closed.reduce((s,t)=>s+(t.pnl||0),0);
+  const dPnl   = positions?.daily_pnl||0;
+  const open   = (positions?.positions||[]).length;
+  return (
+    <div className="g4">
+      {[
+        { val: fmt$(dPnl),            cls: pnlCls(dPnl), lbl: "Today's P&L" },
+        { val: fmt$(tPnl),            cls: pnlCls(tPnl), lbl: "Total P&L" },
+        { val: `${wr.toFixed(0)}%`,   cls: wr>=60?"g":wr>=40?"y":"r", lbl: `Win Rate (${closed.length} trades)` },
+        { val: String(open),          cls: "b",           lbl: "Open Positions" },
+      ].map(m => (
+        <div className="card metric" key={m.lbl}>
+          <div className={`val ${m.cls}`}>{m.val}</div>
+          <div className="lbl">{m.lbl}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const BudgetSection = ({ budget }) => {
+  if (!budget) return null;
+  const twkPct   = Math.min(100,(budget.two_week_deployed||0)/(budget.two_week_cap||10000)*100);
+  const totalPct = Math.min(100,(budget.total_deployed||0)/(budget.total_cap||45000)*100);
+  const barColor = (p) => p>90?"#f85149":p>70?"#e3b341":"#3fb950";
+  return (
+    <div className="card">
+      <div className="ct">Budget Tracker</div>
+      {budget.halted && <div className="halted">⛔ TRADING HALTED — {budget.halt_reason}</div>}
+      {[
+        { label:"2-Week Budget (first $10k)", deployed:budget.two_week_deployed||0, cap:budget.two_week_cap||10000, avail:budget.available_two_week||0, pct:twkPct },
+        { label:"Total Earnings Budget ($45k cap)", deployed:budget.total_deployed||0, cap:budget.total_cap||45000, avail:budget.available_total||0, pct:totalPct },
+      ].map(b => (
+        <div key={b.label} style={{marginBottom:14}}>
+          <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
+            <span style={{fontWeight:600}}>{b.label}</span>
+            <span className={b.pct>90?"r":"w"}>${b.deployed.toFixed(0)} / ${b.cap.toFixed(0)}</span>
+          </div>
+          <div className="pb"><div className="pf" style={{width:`${b.pct}%`,background:barColor(b.pct)}} /></div>
+          <div className="pl"><span>{b.pct.toFixed(0)}% used</span><span>${b.avail.toFixed(0)} remaining</span></div>
+        </div>
+      ))}
+      <div className="ts">Last updated: {budget.last_updated||"—"}</div>
+    </div>
+  );
+};
+
+const RecsTable = ({ recs }) => {
+  const rows = (recs||[]).filter(r=>!r.executed&&!r.disqualified).sort((a,b)=>b.confidence-a.confidence);
+  return (
+    <div className="card">
+      <div className="ct">Upcoming Earnings Plays ({rows.length})</div>
+      {!rows.length
+        ? <div style={{color:"#8b949e",padding:"10px 0"}}>No recommendations yet — scanner runs nightly at 11 PM ET.</div>
+        : <div style={{overflowX:"auto"}}>
+            <table>
+              <thead><tr>
+                <th>Symbol</th><th>Company</th><th>Earnings</th><th>Days</th>
+                <th>Confidence</th><th>Beat Rate</th><th>Rev Growth</th>
+                <th>Momentum</th><th>Size</th><th>Status</th>
+              </tr></thead>
+              <tbody>
+                {rows.map(r=>{
+                  const d=daysUntil(r.earnings_date);
+                  const rv=r.revenue_growth_yoy;
+                  const mo=r.momentum_30d;
+                  return (
+                    <tr key={r.symbol}>
+                      <td><strong>{r.symbol}</strong></td>
+                      <td style={{maxWidth:150,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{r.company}</td>
+                      <td>{r.earnings_date}</td>
+                      <td style={{textAlign:"center"}}>{d??'—'}</td>
+                      <td>{confBadge(r.confidence)}</td>
+                      <td>{r.beat_rate!=null?`${(r.beat_rate*100).toFixed(0)}%`:"—"}</td>
+                      <td className={rv>0.2?"g":rv<0?"r":"w"}>{rv!=null?fmtPct(rv*100):"—"}</td>
+                      <td className={mo>0.1?"g":mo<-0.1?"r":"w"}>{mo!=null?fmtPct(mo*100):"—"}</td>
+                      <td>${r.position_size}</td>
+                      <td>{r.executed?<span className="badge bb">Executed</span>:r.validated?<span className="badge bg">Validated</span>:<span className="badge bgr">Pending</span>}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+      }
+    </div>
+  );
+};
+
+const PositionsTable = ({ posData }) => {
+  const positions = posData?.positions||[];
+  return (
+    <div className="card">
+      <div className="ct">Open Positions ({positions.length})</div>
+      {posData?.circuit_breaker_triggered && <div className="alert">⚠️ Circuit Breaker: {posData.circuit_breaker_reason}</div>}
+      {!positions.length
+        ? <div style={{color:"#8b949e",padding:"10px 0"}}>No open positions.</div>
+        : <div style={{overflowX:"auto"}}>
+            <table>
+              <thead><tr><th>Symbol</th><th>Qty</th><th>Entry</th><th>Current</th><th>Value</th><th>Unrealized P&L</th><th>%</th></tr></thead>
+              <tbody>
+                {positions.map(p=>{
+                  const pct=(p.unrealized_plpc||0)*100;
+                  return (
+                    <tr key={p.symbol}>
+                      <td><strong>{p.symbol}</strong></td>
+                      <td>{p.qty}</td>
+                      <td>${Number(p.avg_entry_price).toFixed(2)}</td>
+                      <td>${Number(p.current_price).toFixed(2)}</td>
+                      <td>${Number(p.market_value).toFixed(0)}</td>
+                      <td className={pnlCls(p.unrealized_pl)}>{fmt$(p.unrealized_pl)}</td>
+                      <td className={pnlCls(pct)}>{fmtPct(pct)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+      }
+      {posData?.last_updated && <div className="ts">Last updated: {posData.last_updated}</div>}
+    </div>
+  );
+};
+
+const HistoryTable = ({ trades }) => {
+  const closed = (trades||[]).filter(t=>t.status==="closed")
+    .sort((a,b)=>(b.exit_date||"").localeCompare(a.exit_date||"")).slice(0,20);
+  return (
+    <div className="card">
+      <div className="ct">Trade History (Last 20)</div>
+      {!closed.length
+        ? <div style={{color:"#8b949e",padding:"10px 0"}}>No closed trades yet.</div>
+        : <div style={{overflowX:"auto"}}>
+            <table>
+              <thead><tr><th>Symbol</th><th>Entry</th><th>Exit</th><th>Entry $</th><th>Exit $</th><th>Qty</th><th>P&L</th><th>%</th><th>Conf</th><th>Result</th></tr></thead>
+              <tbody>
+                {closed.map((t,i)=>{
+                  const win=(t.pnl||0)>0;
+                  return (
+                    <tr key={t.id||i}>
+                      <td><strong>{t.symbol}</strong></td>
+                      <td>{t.entry_date}</td>
+                      <td>{t.exit_date||"—"}</td>
+                      <td>${Number(t.entry_price).toFixed(2)}</td>
+                      <td>{t.exit_price?`$${Number(t.exit_price).toFixed(2)}`:"—"}</td>
+                      <td>{t.qty}</td>
+                      <td className={pnlCls(t.pnl)}>{fmt$(t.pnl)}</td>
+                      <td className={pnlCls(t.pnl_pct)}>{fmtPct(t.pnl_pct)}</td>
+                      <td>{confBadge(t.confidence)}</td>
+                      <td><span className={`badge ${win?"bg":"br"}`}>{win?"WIN":"LOSS"}</span></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+      }
+    </div>
+  );
+};
+
+// ─── APP ───────────────────────────────────────────────────────────────────
+const App = () => {
+  const [d, setD] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [lastRefresh, setLastRefresh] = React.useState(null);
+
+  const refresh = async () => {
+    setLoading(true);
+    const result = await loadData();
+    setD(result);
+    setLastRefresh(new Date().toLocaleTimeString());
+    setLoading(false);
+  };
+
+  React.useEffect(() => {
+    refresh();
+    if (isHttp) {
+      const t = setInterval(refresh, 5 * 60 * 1000);
+      return () => clearInterval(t);
+    }
+  }, []);
+
+  const halted = d?.budget?.halted;
+  const isEmbedded = d && !d.live;
+  const embeddedAt = d?.meta?.embedded_at;
+
+  return (
+    <div>
+      <div className="hdr">
+        <h1>📈 Earnings Trading Bot</h1>
+        <div className="meta">
+          {halted && <span className="badge br">⛔ HALTED</span>}
+          {isEmbedded
+            ? <span>Embedded snapshot{embeddedAt ? ` · ${embeddedAt.slice(0,16).replace("T"," ")}` : ""}</span>
+            : <span>Live · auto-refresh 5 min{lastRefresh ? ` · ${lastRefresh}` : ""}</span>
+          }
+          <button className="btn" onClick={refresh}>↺ Refresh</button>
+        </div>
+      </div>
+      <div className="main">
+        {loading && !d && <div style={{color:"#8b949e",padding:40,textAlign:"center"}}>Loading...</div>}
+        {d && <>
+          {isEmbedded && (
+            <div className="notice">
+              📌 Showing embedded snapshot. To refresh data, run <strong>update_dashboard.bat</strong> in the project folder.
+            </div>
+          )}
+          <MetricsRow positions={d.positions} trades={d.trades} />
+          <BudgetSection budget={d.budget} />
+          <RecsTable recs={d.recs} />
+          <div className="g2">
+            <PositionsTable posData={d.positions} />
+            <HistoryTable trades={d.trades} />
+          </div>
+        </>}
+      </div>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

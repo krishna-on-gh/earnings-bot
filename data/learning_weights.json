@@ -1,0 +1,14 @@
+{
+  "base_score": 50,
+  "beat_rate_high_bonus": 30,
+  "revenue_growth_bonus": 20,
+  "momentum_bonus": 15,
+  "tech_sector_bonus": 5,
+  "mega_cap_bonus": 5,
+  "beat_rate_low_penalty": -10,
+  "declining_revenue_penalty": -15,
+  "negative_momentum_penalty": -15,
+  "version": 1,
+  "last_updated": null,
+  "adjustment_history": []
+}

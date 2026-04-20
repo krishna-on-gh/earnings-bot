@@ -1,0 +1,38 @@
+2026-04-18 01:48:35,284 [INFO] main: === [SCORE JOB] Fetching recent trades & scoring politicians ===
+2026-04-18 01:48:35,771 [INFO] capitol_trades: Page 1: fetched 73 trades (total 73)
+2026-04-18 01:48:37,598 [INFO] capitol_trades: Page 2: fetched 37 trades (total 110)
+2026-04-18 01:48:40,049 [INFO] capitol_trades: Page 3: fetched 95 trades (total 205)
+2026-04-18 01:48:42,272 [INFO] capitol_trades: Page 4: fetched 99 trades (total 304)
+2026-04-18 01:48:44,790 [INFO] capitol_trades: Page 5: fetched 96 trades (total 400)
+2026-04-18 01:48:46,291 [INFO] capitol_trades: Total recent trades fetched: 400
+2026-04-18 01:48:46,310 [INFO] politician_scorer: Top 5 politicians:
+2026-04-18 01:48:46,313 [INFO] politician_scorer:   Ro Khanna                       score=  77.7  trades=290  options=0  last=2026-04-09
+2026-04-18 01:48:46,314 [INFO] politician_scorer:   Michael McCaul                  score=  65.4  trades=76  options=0  last=2026-04-10
+2026-04-18 01:48:46,314 [INFO] politician_scorer:   Rick Larsen                     score=  50.0  trades=8  options=0  last=2026-04-16
+2026-04-18 01:48:46,315 [INFO] politician_scorer:   John Boozman                    score=  49.0  trades=9  options=0  last=2026-04-14
+2026-04-18 01:48:46,315 [INFO] politician_scorer:   Thomas Kean Jr                  score=  48.0  trades=8  options=0  last=2026-04-14
+2026-04-18 01:48:46,315 [INFO] main: Scored 6 politicians. Top 5:
+2026-04-18 01:48:46,315 [INFO] main:   Ro Khanna                       score=77.73  trades=290  options=0  last=2026-04-09
+2026-04-18 01:48:46,315 [INFO] main:   Michael McCaul                  score=65.44  trades=76  options=0  last=2026-04-10
+2026-04-18 01:48:46,315 [INFO] main:   Rick Larsen                     score=49.97  trades=8  options=0  last=2026-04-16
+2026-04-18 01:48:46,315 [INFO] main:   John Boozman                    score=49.03  trades=9  options=0  last=2026-04-14
+2026-04-18 01:48:46,315 [INFO] main:   Thomas Kean Jr                  score=47.97  trades=8  options=0  last=2026-04-14
+2026-04-19 21:38:39,241 [INFO] main: === [SCORE JOB] Fetching recent trades & scoring politicians ===
+2026-04-19 21:38:41,138 [INFO] capitol_trades: Page 1: fetched 73 trades (total 73)
+2026-04-19 21:38:43,742 [INFO] capitol_trades: Page 2: fetched 37 trades (total 110)
+2026-04-19 21:38:46,371 [INFO] capitol_trades: Page 3: fetched 95 trades (total 205)
+2026-04-19 21:38:48,976 [INFO] capitol_trades: Page 4: fetched 99 trades (total 304)
+2026-04-19 21:38:51,856 [INFO] capitol_trades: Page 5: fetched 96 trades (total 400)
+2026-04-19 21:38:53,359 [INFO] capitol_trades: Total recent trades fetched: 400
+2026-04-19 21:38:53,367 [INFO] politician_scorer: Top 5 politicians:
+2026-04-19 21:38:53,367 [INFO] politician_scorer:   Ro Khanna                       score=  76.7  trades=290  options=0  last=2026-04-09
+2026-04-19 21:38:53,367 [INFO] politician_scorer:   Michael McCaul                  score=  64.4  trades=76  options=0  last=2026-04-10
+2026-04-19 21:38:53,367 [INFO] politician_scorer:   Rick Larsen                     score=  49.0  trades=8  options=0  last=2026-04-16
+2026-04-19 21:38:53,367 [INFO] politician_scorer:   John Boozman                    score=  48.0  trades=9  options=0  last=2026-04-14
+2026-04-19 21:38:53,367 [INFO] politician_scorer:   Thomas Kean Jr                  score=  47.0  trades=8  options=0  last=2026-04-14
+2026-04-19 21:38:53,367 [INFO] main: Scored 6 politicians. Top 5:
+2026-04-19 21:38:53,367 [INFO] main:   Ro Khanna                       score=76.73  trades=290  options=0  last=2026-04-09
+2026-04-19 21:38:53,367 [INFO] main:   Michael McCaul                  score=64.44  trades=76  options=0  last=2026-04-10
+2026-04-19 21:38:53,367 [INFO] main:   Rick Larsen                     score=48.97  trades=8  options=0  last=2026-04-16
+2026-04-19 21:38:53,367 [INFO] main:   John Boozman                    score=48.03  trades=9  options=0  last=2026-04-14
+2026-04-19 21:38:53,367 [INFO] main:   Thomas Kean Jr                  score=46.97  trades=8  options=0  last=2026-04-14

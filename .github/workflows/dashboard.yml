@@ -1,0 +1,19 @@
+name: Dashboard
+on:
+  schedule:
+    - cron: '*/30 13-21 * * 1-5'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python update_dashboard.py
+      - run: |
+          git config user.email "bot@bot.com"
+          git config user.name "EarningsBot"
+          git add dashboard.html
+          git commit -m "dashboard update" || echo "no changes"
+          git push

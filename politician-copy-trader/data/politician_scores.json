@@ -1,0 +1,95 @@
+{
+  "updated_at": "2026-04-19T21:38:53.360114",
+  "scores": [
+    {
+      "politician": "Ro Khanna",
+      "politician_id": "K000389",
+      "score": 76.73,
+      "trade_count": 290,
+      "unique_tickers": 213,
+      "options_trades": 0,
+      "last_trade_date": "2026-04-09",
+      "score_breakdown": {
+        "activity": 56.73,
+        "recency": 10,
+        "diversity": 10,
+        "options_bonus": 0
+      }
+    },
+    {
+      "politician": "Michael McCaul",
+      "politician_id": "M001157",
+      "score": 64.44,
+      "trade_count": 76,
+      "unique_tickers": 43,
+      "options_trades": 0,
+      "last_trade_date": "2026-04-10",
+      "score_breakdown": {
+        "activity": 43.44,
+        "recency": 11,
+        "diversity": 10,
+        "options_bonus": 0
+      }
+    },
+    {
+      "politician": "Rick Larsen",
+      "politician_id": "L000560",
+      "score": 48.97,
+      "trade_count": 8,
+      "unique_tickers": 8,
+      "options_trades": 0,
+      "last_trade_date": "2026-04-16",
+      "score_breakdown": {
+        "activity": 21.97,
+        "recency": 17,
+        "diversity": 10,
+        "options_bonus": 0
+      }
+    },
+    {
+      "politician": "John Boozman",
+      "politician_id": "B001236",
+      "score": 48.03,
+      "trade_count": 9,
+      "unique_tickers": 9,
+      "options_trades": 0,
+      "last_trade_date": "2026-04-14",
+      "score_breakdown": {
+        "activity": 23.03,
+        "recency": 15,
+        "diversity": 10,
+        "options_bonus": 0
+      }
+    },
+    {
+      "politician": "Thomas Kean Jr",
+      "politician_id": "K000398",
+      "score": 46.97,
+      "trade_count": 8,
+      "unique_tickers": 8,
+      "options_trades": 0,
+      "last_trade_date": "2026-04-14",
+      "score_breakdown": {
+        "activity": 21.97,
+        "recency": 15,
+        "diversity": 10,
+        "options_bonus": 0
+      }
+    },
+    {
+      "politician": "August Pfluger",
+      "politician_id": "P000048",
+      "score": 41.09,
+      "trade_count": 4,
+      "unique_tickers": 4,
+      "options_trades": 0,
+      "last_trade_date": "2026-04-16",
+      "score_breakdown": {
+        "activity": 16.09,
+        "recency": 17,
+        "diversity": 8,
+        "options_bonus": 0
+      }
+    }
+  ]
+}
