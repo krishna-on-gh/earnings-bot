@@ -4066,7 +4066,8 @@ const EarningsWeek = ({ recs, positions }) => {
 
 const RecsTable = ({ recs, positions }) => {
   const owned = new Set((positions?.positions||[]).map(p=>p.symbol));
-  const rows = (recs||[]).filter(r=>!r.executed&&!r.disqualified&&!owned.has(r.symbol)).sort((a,b)=>b.confidence-a.confidence);
+  const todayStr = new Date().toLocaleDateString("en-CA");
+  const rows = (recs||[]).filter(r=>!r.executed&&!r.disqualified&&!owned.has(r.symbol)&&r.earnings_date>=todayStr).sort((a,b)=>b.confidence-a.confidence);
   return (
     <div className="card">
       <div className="ct">Upcoming Earnings Plays ({rows.length})</div>
