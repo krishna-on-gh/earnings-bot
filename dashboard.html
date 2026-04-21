@@ -2572,7 +2572,7 @@
   "95-100%": {"calls": 0, "correct": 0}
 }</script>
 <script id="__CALLS_LOG__" type="application/json">[]</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-04-21T00:14:20", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-04-21T00:19:44", "source": "scheduler"}</script>
 
 <script type="text/babel">
 // ─── DATA LOADING ──────────────────────────────────────────────────────────
@@ -2772,7 +2772,8 @@ const AccuracyTracker = ({ accuracy, callsLog }) => {
   );
 };
 
-const EarningsWeek = ({ recs }) => {
+const EarningsWeek = ({ recs, positions }) => {
+  const owned = new Set((positions?.positions||[]).map(p=>p.symbol));
   const today = new Date(); today.setHours(0,0,0,0);
   const in7 = new Date(today); in7.setDate(today.getDate()+7);
   const rows = (recs||[])
@@ -2804,7 +2805,7 @@ const EarningsWeek = ({ recs }) => {
           </div>
           {stocks.map(r => {
             const tl = timingLabel(r.earnings_timing);
-            const held = (r.executed);
+            const held = owned.has(r.symbol) || r.executed;
             return (
               <div key={r.symbol} style={{display:"flex",alignItems:"center",gap:10,padding:"5px 0",borderBottom:"1px solid #21262d"}}>
                 <span style={{fontWeight:700,width:52}}>{r.symbol}</span>
@@ -2821,8 +2822,9 @@ const EarningsWeek = ({ recs }) => {
   );
 };
 
-const RecsTable = ({ recs }) => {
-  const rows = (recs||[]).filter(r=>!r.executed&&!r.disqualified).sort((a,b)=>b.confidence-a.confidence);
+const RecsTable = ({ recs, positions }) => {
+  const owned = new Set((positions?.positions||[]).map(p=>p.symbol));
+  const rows = (recs||[]).filter(r=>!r.executed&&!r.disqualified&&!owned.has(r.symbol)).sort((a,b)=>b.confidence-a.confidence);
   return (
     <div className="card">
       <div className="ct">Upcoming Earnings Plays ({rows.length})</div>
@@ -2988,8 +2990,8 @@ const App = () => {
           <TopFiveSection trades={d.trades} />
           <div className="g2">
             <AccuracyTracker accuracy={d.accuracy} callsLog={d.callsLog} />
-            <EarningsWeek recs={d.recs} />
-            <RecsTable recs={d.recs} />
+            <EarningsWeek recs={d.recs} positions={d.positions} />
+            <RecsTable recs={d.recs} positions={d.positions} />
           </div>
           <div className="g2">
             <PositionsTable posData={d.positions} />

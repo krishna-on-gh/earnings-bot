@@ -199,12 +199,23 @@ def run_executor():
             and not r.get("executed")
             and not r.get("disqualified")
         ]
+    client = get_trading_client()
+    # Skip any symbol we already hold in Alpaca — don't double up on earnings bets
+    try:
+        owned = {p.symbol for p in client.get_all_positions()}
+    except Exception as e:
+        log.warning(f"Could not fetch Alpaca positions, skipping overlap check: {e}")
+        owned = set()
+    before = len(to_execute)
+    to_execute = [r for r in to_execute if r["symbol"] not in owned]
+    skipped_owned = before - len(to_execute)
+    if skipped_owned:
+        log.info(f"Skipping {skipped_owned} recommendations already held as Alpaca positions")
     log.info(f"Found {len(to_execute)} validated plays ready for execution")
     if not to_execute:
         log.info("No validated plays to execute today")
         send_email("Executor: No Trades Today", "No validated plays found for execution today.")
         return
-    client = get_trading_client()
     trades_history = load_json("trades_history.json")
     if not isinstance(trades_history, list):
         trades_history = []
