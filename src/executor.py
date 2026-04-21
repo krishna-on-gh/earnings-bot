@@ -185,30 +185,29 @@ def run_executor():
     if not isinstance(recommendations, list):
         recommendations = []
     today_str = today_et().isoformat()
-    to_execute = [
-        r for r in recommendations
-        if r.get("validated")
-        and not r.get("executed")
-        and not r.get("disqualified")
-        and r.get("earnings_date") == today_str
-    ]
-    if not to_execute:
-        to_execute = [
-            r for r in recommendations
-            if r.get("validated")
-            and not r.get("executed")
-            and not r.get("disqualified")
-        ]
     client = get_trading_client()
-    # Skip any symbol we already hold in Alpaca — don't double up on earnings bets
+    # Fetch owned positions first so the fallback decision is made on net-new plays only
     try:
         owned = {p.symbol for p in client.get_all_positions()}
     except Exception as e:
         log.warning(f"Could not fetch Alpaca positions, skipping overlap check: {e}")
         owned = set()
-    before = len(to_execute)
-    to_execute = [r for r in to_execute if r["symbol"] not in owned]
-    skipped_owned = before - len(to_execute)
+
+    # All validated, unexecuted, not-disqualified, not-already-owned candidates
+    candidates = [
+        r for r in recommendations
+        if r.get("validated")
+        and not r.get("executed")
+        and not r.get("disqualified")
+        and r["symbol"] not in owned
+    ]
+    # Prefer stocks reporting today first; fall back to all candidates
+    to_execute = [r for r in candidates if r.get("earnings_date") == today_str]
+    if not to_execute:
+        to_execute = candidates
+    skipped_owned = len([r for r in recommendations
+                         if not r.get("executed") and not r.get("disqualified")
+                         and r["symbol"] in owned])
     if skipped_owned:
         log.info(f"Skipping {skipped_owned} recommendations already held as Alpaca positions")
     log.info(f"Found {len(to_execute)} validated plays ready for execution")
