@@ -753,12 +753,13 @@
     "current_price": 199.63,
     "position_size": 500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-21",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-21",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-21"
   },
   {
     "id": "f42519b2",
@@ -852,12 +853,13 @@
     "current_price": 292.52,
     "position_size": 500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-21",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-21",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-21"
   },
   {
     "id": "1f8c7421",
@@ -999,12 +1001,13 @@
     "current_price": 355.81,
     "position_size": 500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-21",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-21",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-21"
   },
   {
     "id": "4884bbf8",
