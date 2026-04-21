@@ -3730,22 +3730,23 @@ const PortfolioChart = ({ portfolioHist }) => {
 
 const EarningsWeek = ({ recs, positions }) => {
   const owned = new Set((positions?.positions||[]).map(p=>p.symbol));
-  const today = new Date(); today.setHours(0,0,0,0);
-  const in7 = new Date(today); in7.setDate(today.getDate()+7);
+  const todayStr = new Date().toLocaleDateString("en-CA");
+  const in7Date  = new Date(); in7Date.setDate(in7Date.getDate()+7);
+  const in7Str   = in7Date.toLocaleDateString("en-CA");
   const rows = (recs||[])
-    .filter(r => { const d=new Date(r.earnings_date); d.setHours(12); return d>=today && d<=in7; })
-    .sort((a,b)=>{ const x=new Date(a.earnings_date); x.setHours(12); const y=new Date(b.earnings_date); y.setHours(12); return x-y; });
+    .filter(r => r.earnings_date >= todayStr && r.earnings_date <= in7Str)
+    .sort((a,b) => a.earnings_date.localeCompare(b.earnings_date));
   if (!rows.length) return null;
   const dayLabel = (dateStr) => {
+    if (dateStr === todayStr) return "Today";
+    const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+    if (dateStr === tomorrow.toLocaleDateString("en-CA")) return "Tomorrow";
     const d = new Date(dateStr); d.setHours(12);
-    const diff = Math.round((d-today)/864e5);
-    if (diff===0) return "Today";
-    if (diff===1) return "Tomorrow";
     return d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
   };
   const timingLabel = (t) => {
-    if (t==="pre_market") return {text:"Pre-Market",color:"#e3b341"};
-    if (t==="post_market") return {text:"After Hours",color:"#58a6ff"};
+    if (t==="pre_market")  return {text:"BMO",color:"#e3b341"};
+    if (t==="post_market") return {text:"AMC",color:"#58a6ff"};
     return {text:"TBD",color:"#8b949e"};
   };
   // Group by date
