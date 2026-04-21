@@ -2616,10 +2616,10 @@
 }</script>
 <script id="__CALLS_LOG__" type="application/json">[]</script>
 <<<<<<< Updated upstream
-<script id="__META__" type="application/json">{"embedded_at": "2026-04-21T12:15:02", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-04-21T12:30:55", "source": "scheduler"}</script>
 =======
 <script id="__PORTFOLIO_HIST__" type="application/json">{}</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-04-21T12:15:02", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-04-21T12:30:55", "source": "scheduler"}</script>
 >>>>>>> Stashed changes
 
 <script type="text/babel">
@@ -2940,8 +2940,8 @@ const EarningsWeek = ({ recs, positions }) => {
   const today = new Date(); today.setHours(0,0,0,0);
   const in7 = new Date(today); in7.setDate(today.getDate()+7);
   const rows = (recs||[])
-    .filter(r => { const d=new Date(r.earnings_date); return d>=today && d<=in7; })
-    .sort((a,b)=>new Date(a.earnings_date)-new Date(b.earnings_date));
+    .filter(r => { const d=new Date(r.earnings_date); d.setHours(12); return d>=today && d<=in7; })
+    .sort((a,b)=>{ const x=new Date(a.earnings_date); x.setHours(12); const y=new Date(b.earnings_date); y.setHours(12); return x-y; });
   if (!rows.length) return null;
   const dayLabel = (dateStr) => {
     const d = new Date(dateStr); d.setHours(12);
