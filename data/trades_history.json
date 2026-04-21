@@ -22,7 +22,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.151,
-    "momentum_30d": 0.112
+    "momentum_30d": 0.112,
+    "earnings_timing": "post_market"
   },
   {
     "id": "283455d2",
@@ -47,7 +48,8 @@
     "pnl_pct": null,
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.124,
-    "momentum_30d": 0.2
+    "momentum_30d": 0.2,
+    "earnings_timing": "post_market"
   },
   {
     "id": "8888cb0d",
@@ -72,7 +74,8 @@
     "pnl_pct": null,
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.222,
-    "momentum_30d": 0.135
+    "momentum_30d": 0.135,
+    "earnings_timing": "post_market"
   },
   {
     "id": "7ec78301",
@@ -97,7 +100,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.039,
-    "momentum_30d": 0.12
+    "momentum_30d": 0.12,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "8fe3c005",
@@ -122,7 +126,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.205,
-    "momentum_30d": -0.022
+    "momentum_30d": -0.022,
+    "earnings_timing": "post_market"
   },
   {
     "id": "3a53e951",
@@ -147,7 +152,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.134,
-    "momentum_30d": 0.118
+    "momentum_30d": 0.118,
+    "earnings_timing": "post_market"
   },
   {
     "id": "4b4d3016",
@@ -172,7 +178,8 @@
     "pnl_pct": null,
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.095,
-    "momentum_30d": 0.128
+    "momentum_30d": 0.128,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "b2f76314",
@@ -197,7 +204,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.237,
-    "momentum_30d": 0.144
+    "momentum_30d": 0.144,
+    "earnings_timing": "post_market"
   },
   {
     "id": "01babddd",
@@ -222,7 +230,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.152,
-    "momentum_30d": 0.212
+    "momentum_30d": 0.212,
+    "earnings_timing": "post_market"
   },
   {
     "id": "033a2dc8",
@@ -247,7 +256,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.137,
-    "momentum_30d": 0.1
+    "momentum_30d": 0.1,
+    "earnings_timing": "post_market"
   },
   {
     "id": "58617df5",
@@ -272,7 +282,8 @@
     "pnl_pct": null,
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.358,
-    "momentum_30d": 0.049
+    "momentum_30d": 0.049,
+    "earnings_timing": "post_market"
   },
   {
     "id": "bc8a772f",
@@ -297,7 +308,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.516,
-    "momentum_30d": 0.224
+    "momentum_30d": 0.224,
+    "earnings_timing": "post_market"
   },
   {
     "id": "94de2b6b",
@@ -322,7 +334,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.383,
-    "momentum_30d": 0.138
+    "momentum_30d": 0.138,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "0573d3da",
@@ -347,7 +360,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.064,
-    "momentum_30d": 0.085
+    "momentum_30d": 0.085,
+    "earnings_timing": "post_market"
   },
   {
     "id": "36ae5db6",
@@ -372,7 +386,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.137,
-    "momentum_30d": 0.037
+    "momentum_30d": 0.037,
+    "earnings_timing": "post_market"
   },
   {
     "id": "fc763dbc",
@@ -397,7 +412,8 @@
     "pnl_pct": null,
     "beat_rate": 0.75,
     "revenue_growth_yoy": -0.005,
-    "momentum_30d": 0.483
+    "momentum_30d": 0.483,
+    "earnings_timing": "post_market"
   },
   {
     "id": "08759a81",
@@ -422,7 +438,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.113,
-    "momentum_30d": 0.058
+    "momentum_30d": 0.058,
+    "earnings_timing": "post_market"
   },
   {
     "id": "1bc65e0d",
@@ -447,7 +464,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.003,
-    "momentum_30d": 0.014
+    "momentum_30d": 0.014,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "7c0bf917",
@@ -472,7 +490,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.086,
-    "momentum_30d": 0.019
+    "momentum_30d": 0.019,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "d24d3069",
@@ -497,7 +516,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.013,
-    "momentum_30d": 0.043
+    "momentum_30d": 0.043,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "459e9eae",
@@ -522,7 +542,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.019,
-    "momentum_30d": 0.003
+    "momentum_30d": 0.003,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "3d726248",
@@ -547,7 +568,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.073,
-    "momentum_30d": -0.034
+    "momentum_30d": -0.034,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "17b885bf",
@@ -572,7 +594,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.078,
-    "momentum_30d": 0.02
+    "momentum_30d": 0.02,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "54627ecb",
@@ -597,7 +620,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.185,
-    "momentum_30d": 0.043
+    "momentum_30d": 0.043,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "efbb5079",
@@ -622,7 +646,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.112,
-    "momentum_30d": 0.013
+    "momentum_30d": 0.013,
+    "earnings_timing": "post_market"
   },
   {
     "id": "a926063e",
@@ -647,7 +672,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.024,
-    "momentum_30d": -0.025
+    "momentum_30d": -0.025,
+    "earnings_timing": "post_market"
   },
   {
     "id": "32917c3a",
@@ -672,7 +698,8 @@
     "pnl_pct": null,
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.01,
-    "momentum_30d": 0.018
+    "momentum_30d": 0.018,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "89f4a3aa",
@@ -697,7 +724,8 @@
     "pnl_pct": null,
     "beat_rate": 0.5,
     "revenue_growth_yoy": 0.13,
-    "momentum_30d": 0.221
+    "momentum_30d": 0.221,
+    "earnings_timing": "post_market"
   },
   {
     "id": "74426dd5",
@@ -722,7 +750,8 @@
     "pnl_pct": null,
     "beat_rate": 0.5,
     "revenue_growth_yoy": 0.118,
-    "momentum_30d": 0.158
+    "momentum_30d": 0.158,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "f61ae781",
@@ -747,7 +776,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": -0.045,
-    "momentum_30d": -0.074
+    "momentum_30d": -0.074,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "6262b95d",
@@ -772,7 +802,8 @@
     "pnl_pct": null,
     "beat_rate": 1.0,
     "revenue_growth_yoy": -0.046,
-    "momentum_30d": -0.087
+    "momentum_30d": -0.087,
+    "earnings_timing": "pre_market"
   },
   {
     "id": "41944e49",
@@ -798,7 +829,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.209,
     "momentum_30d": -0.147,
-    "earnings_timing": "unknown"
+    "earnings_timing": "post_market"
   },
   {
     "id": "2cf0ddd4",
@@ -824,7 +855,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.149,
     "momentum_30d": 0.087,
-    "earnings_timing": "unknown"
+    "earnings_timing": "post_market"
   },
   {
     "id": "c3d96dcd",
@@ -850,7 +881,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.076,
     "momentum_30d": 0.012,
-    "earnings_timing": "unknown"
+    "earnings_timing": "post_market"
   },
   {
     "id": "076d59a3",
@@ -876,7 +907,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.164,
     "momentum_30d": 0.063,
-    "earnings_timing": "unknown"
+    "earnings_timing": "pre_market"
   },
   {
     "id": "aee93c10",
@@ -902,7 +933,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.03,
     "momentum_30d": 0.005,
-    "earnings_timing": "unknown"
+    "earnings_timing": "pre_market"
   },
   {
     "id": "2d9a2afd",
@@ -928,7 +959,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.029,
     "momentum_30d": 0.027,
-    "earnings_timing": "unknown"
+    "earnings_timing": "pre_market"
   },
   {
     "id": "fbc15ccf",
@@ -954,7 +985,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.107,
     "momentum_30d": -0.005,
-    "earnings_timing": "unknown"
+    "earnings_timing": "pre_market"
   },
   {
     "id": "e6f0cec4",
@@ -980,7 +1011,7 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.079,
     "momentum_30d": 0.039,
-    "earnings_timing": "unknown"
+    "earnings_timing": "pre_market"
   },
   {
     "id": "a4178866",
@@ -1006,6 +1037,6 @@
     "beat_rate": 0.5,
     "revenue_growth_yoy": 0.043,
     "momentum_30d": 0.154,
-    "earnings_timing": "unknown"
+    "earnings_timing": "pre_market"
   }
 ]
