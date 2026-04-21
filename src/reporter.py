@@ -418,12 +418,20 @@ def update_earnings_log(today_closed: List[Dict]) -> None:
         }
         log_entries.append(entry)
 
-        # Update accuracy stats
-        if tier not in accuracy:
-            accuracy[tier] = {"calls": 0, "correct": 0}
-        accuracy[tier]["calls"] += 1
-        if correct_call:
-            accuracy[tier]["correct"] += 1
+    # Always recalculate accuracy from the full log — never increment.
+    # This makes the reporter idempotent: re-running it can never double-count.
+    accuracy = {
+        "70-84%":  {"calls": 0, "correct": 0},
+        "85-94%":  {"calls": 0, "correct": 0},
+        "95-100%": {"calls": 0, "correct": 0},
+    }
+    for e in log_entries:
+        t = e.get("tier")
+        if t not in accuracy:
+            accuracy[t] = {"calls": 0, "correct": 0}
+        accuracy[t]["calls"] += 1
+        if e.get("correct_call"):
+            accuracy[t]["correct"] += 1
 
     save_json("earnings_calls_log.json", log_entries)
     save_json("earnings_accuracy.json", accuracy)
