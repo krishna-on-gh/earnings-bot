@@ -82,6 +82,43 @@ def get_closed_orders_today(client: TradingClient) -> List[Dict[str, Any]]:
     return orders
 
 
+def reconcile_entry_prices(client: TradingClient) -> None:
+    """
+    For every trade in trades_history, if Alpaca's actual fill price differs
+    from the recorded entry_price, update it. This corrects the gap between
+    the ask price the executor fetched and the price the market order actually filled at.
+    Runs once per monitor cycle — safe to re-run, only writes when something changes.
+    """
+    trades = load_json("trades_history.json")
+    if not isinstance(trades, list):
+        return
+    changed = False
+    for trade in trades:
+        order_id = trade.get("order_id")
+        if not order_id:
+            continue
+        try:
+            order = client.get_order_by_id(order_id)
+            fill = float(order.filled_avg_price or 0)
+            if fill > 0 and abs(fill - trade.get("entry_price", 0)) > 0.01:
+                old = trade["entry_price"]
+                trade["entry_price"] = round(fill, 4)
+                # Recalculate P&L if the trade is closed
+                if trade.get("status") == "closed" and trade.get("exit_price"):
+                    pnl = (trade["exit_price"] - fill) * trade["qty"]
+                    trade["pnl"] = round(pnl, 2)
+                    trade["pnl_pct"] = round((trade["exit_price"] - fill) / fill * 100, 2)
+                log.info(
+                    f"{trade['symbol']}: entry price corrected "
+                    f"${old:.4f} → ${fill:.4f} (actual Alpaca fill)"
+                )
+                changed = True
+        except Exception as e:
+            log.debug(f"{trade.get('symbol')}: could not fetch order {order_id} — {e}")
+    if changed:
+        save_json("trades_history.json", trades)
+
+
 def reconcile_trades_history(
     positions: List[Dict[str, Any]],
     closed_orders: List[Dict[str, Any]],
@@ -289,6 +326,7 @@ def run_monitor():
     positions = fetch_alpaca_positions(client)
     account = fetch_alpaca_account(client)
     closed_orders = get_closed_orders_today(client)
+    reconcile_entry_prices(client)
     reconcile_trades_history(positions, closed_orders)
     equity = account.get("equity", 0)
     last_equity = account.get("last_equity", equity)
