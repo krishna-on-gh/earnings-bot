@@ -176,111 +176,153 @@ def fetch_earnings_result(symbol: str, expected_date: str) -> Dict[str, Any]:
     return result
 
 
-def fetch_market_context(exit_date: str) -> Dict[str, Any]:
+def fetch_post_earnings_news(symbol: str, earnings_date: str) -> Optional[str]:
     """
-    Fetch SPY return on the exit day to detect broad market weakness.
-    Returns {"spy_pct": float or None}.
+    Pull news headlines published within 3 days after earnings_date via yfinance.
+    Reads the top 5 articles, extracts the dominant theme, and returns a single
+    plain-English sentence explaining why the stock moved against expectations.
+    Returns None if no relevant articles are found.
     """
-    result = {"spy_pct": None}
     try:
-        exit_d = date.fromisoformat(exit_date)
-        # Grab 3 days of SPY data to ensure we get the exit day even near weekends
         from datetime import timedelta as _td
-        start = (exit_d - _td(days=3)).isoformat()
-        end   = (exit_d + _td(days=1)).isoformat()
-        spy = yf.download("SPY", start=start, end=end, progress=False, auto_adjust=True)
-        if spy.empty:
-            return result
-        spy = spy[spy.index.date == exit_d]
-        if spy.empty:
-            return result
-        row = spy.iloc[0]
-        open_p  = float(row["Open"])
-        close_p = float(row["Close"])
-        if open_p > 0:
-            result["spy_pct"] = round((close_p - open_p) / open_p * 100, 2)
+        earnings_d  = date.fromisoformat(earnings_date)
+        window_end  = earnings_d + _td(days=3)
+
+        ticker   = yf.Ticker(symbol)
+        articles = ticker.news or []
+
+        # Collect titles from articles published within the post-earnings window
+        titles = []
+        for a in articles:
+            pub_ts = a.get("providerPublishTime") or 0
+            if not pub_ts:
+                continue
+            try:
+                pub_date = date.fromtimestamp(int(pub_ts))
+            except Exception:
+                continue
+            if earnings_d <= pub_date <= window_end:
+                title = (a.get("title") or "").strip()
+                if title:
+                    titles.append(title)
+
+        if not titles:
+            return None
+
+        combined = " ".join(titles[:5]).lower()
+
+        # Theme detection — most specific patterns first
+        if any(w in combined for w in ["guidance cut", "lowered guidance", "cut guidance",
+                                        "guidance disappoint", "weak guidance", "slashed guidance"]):
+            return (f"Post-earnings coverage flagged a guidance cut as the primary driver "
+                    f"of the selloff, which overshadowed the EPS beat.")
+
+        if any(w in combined for w in ["revenue miss", "missed revenue", "sales miss",
+                                        "top-line miss", "revenue fell short", "revenue disappoint"]):
+            return (f"Coverage pointed to a revenue miss — investors focused on the weaker "
+                    f"top-line result rather than the headline EPS beat.")
+
+        if any(w in combined for w in ["guidance", "outlook", "forecast", "forward guidance",
+                                        "next quarter", "full-year"]):
+            return (f"Post-earnings articles highlighted concerns around forward guidance, "
+                    f"which the market weighted more heavily than the earnings beat.")
+
+        if any(w in combined for w in ["tariff", "trade war", "macro", "inflation",
+                                        "interest rate", "recession", "economy", "fed "]):
+            return (f"Coverage pointed to macro headwinds — tariff or economic uncertainty "
+                    f"drove the selloff despite the earnings beat.")
+
+        if any(w in combined for w in ["margin", "gross margin", "operating margin",
+                                        "profit margin", "margin compress"]):
+            return (f"Articles flagged margin compression as the key concern weighing on "
+                    f"the stock, despite the headline EPS beat.")
+
+        if any(w in combined for w in ["competition", "market share", "competitive pressure",
+                                        "rival", "losing share"]):
+            return (f"Post-earnings coverage cited competitive pressure as the reason "
+                    f"investors sold into the earnings beat.")
+
+        if any(w in combined for w in ["valuation", "expensive", "overvalued",
+                                        "priced in", "priced for perfection", "sell the news"]):
+            return (f"Coverage suggested the beat was already priced in, leading to a "
+                    f"classic sell-the-news reaction.")
+
+        if any(w in combined for w in ["disappoint", "fell short", "concern", "worry",
+                                        "below expect", "not enough"]):
+            return (f"Despite the EPS beat, post-earnings coverage reflected broader "
+                    f"investor concerns that drove the negative price reaction.")
+
+        # Last resort — surface the most earnings-relevant headline directly
+        best = next(
+            (t for t in titles if any(k in t.lower() for k in
+             ["beat", "earnings", "results", "guidance", "revenue", "profit"])),
+            titles[0],
+        )
+        short = best[:120] + ("..." if len(best) > 120 else "")
+        return (f'Post-earnings research found: "{short}" — suggesting factors beyond '
+                f"the EPS beat drove the adverse reaction.")
+
     except Exception:
-        pass
-    return result
+        return None
 
 
 def diagnose_beat_but_loss(trade: Dict, earnings_result: Dict) -> str:
     """
-    For the case where earnings beat EPS but the stock still lost money.
-    Returns a specific sentence explaining the most likely cause.
+    Beat EPS but stock lost money. Try news research first; fall back to
+    quantitative signals only when no relevant articles are found.
     """
-    beat_pct    = earnings_result.get("beat_pct") or 0
-    momentum    = trade.get("momentum_30d") or 0        # pre-earnings run-up %
-    exit_date   = trade.get("exit_date") or today_et().isoformat()
-    ctx         = fetch_market_context(exit_date)
-    spy_pct     = ctx.get("spy_pct")
+    symbol        = trade["symbol"]
+    earnings_date = trade.get("earnings_date") or trade.get("exit_date") or today_et().isoformat()
 
-    reasons = []
+    news = fetch_post_earnings_news(symbol, earnings_date)
+    if news:
+        return (f"The model correctly identified the earnings beat but the stock sold off "
+                f"post-announcement. {news}")
 
-    # 1. Buy the rumour, sell the news — stock ran hard before earnings
+    # Quantitative fallback — only surfaces signals that are genuinely abnormal
+    beat_pct = earnings_result.get("beat_pct") or 0
+    momentum = trade.get("momentum_30d") or 0
+    reasons  = []
+
     if momentum >= 15:
         reasons.append(
-            f"the stock had already run {momentum:+.1f}% in the 30 days before earnings "
-            f"(buy-the-rumour, sell-the-news dynamic)"
+            f"a +{momentum:.0f}% pre-earnings run-up points to buy-the-rumour-sell-the-news"
         )
-
-    # 2. Marginal beat — market was priced for a bigger upside surprise
-    if beat_pct is not None and 0 < beat_pct < 3:
+    if 0 < beat_pct < 3:
         reasons.append(
-            f"the EPS beat was marginal (+{beat_pct:.1f}%), which may not have cleared "
-            f"buy-side whisper numbers"
-        )
-
-    # 3. Broad market weakness on exit day
-    if spy_pct is not None and spy_pct <= -1.0:
-        reasons.append(
-            f"the broader market (SPY) fell {spy_pct:.1f}% on the same day, "
-            f"dragging the position lower regardless of results"
+            f"the EPS beat was only +{beat_pct:.1f}%, likely below buy-side whisper numbers"
         )
 
     if reasons:
-        cause = "; ".join(reasons)
-        return (
-            f"The model correctly identified the earnings beat but did not anticipate "
-            f"the negative price reaction — most likely driven by: {cause}."
-        )
-    else:
-        return (
-            f"The model correctly identified the earnings beat but the market reacted "
-            f"negatively regardless — possible guidance concerns, valuation resistance, "
-            f"or sector rotation not captured in the scoring model."
-        )
+        return (f"The model correctly identified the earnings beat but the stock sold off — "
+                f"quantitative signals suggest: {'; '.join(reasons)}.")
+
+    return (f"The model correctly identified the earnings beat but the market reacted "
+            f"negatively — possible guidance concerns or valuation resistance not captured "
+            f"in the scoring model.")
 
 
 def diagnose_miss_but_win(trade: Dict) -> str:
     """
-    For the case where earnings missed EPS but the stock still went up.
-    Returns a specific sentence explaining the most likely cause.
+    Missed EPS but stock went up. Try news research first; fall back to
+    quantitative signals only when no relevant articles are found.
     """
+    symbol        = trade["symbol"]
+    earnings_date = trade.get("earnings_date") or trade.get("exit_date") or today_et().isoformat()
+
+    news = fetch_post_earnings_news(symbol, earnings_date)
+    if news:
+        return (f"Despite the EPS miss the position was profitable. {news}")
+
+    # Quantitative fallback
     momentum = trade.get("momentum_30d") or 0
-    exit_date = trade.get("exit_date") or today_et().isoformat()
-    ctx = fetch_market_context(exit_date)
-    spy_pct = ctx.get("spy_pct")
-
-    reasons = []
-    if spy_pct is not None and spy_pct >= 1.0:
-        reasons.append(f"the broader market (SPY) rallied {spy_pct:.1f}% that day")
     if momentum <= -10:
-        reasons.append(
-            f"the stock had sold off {momentum:.1f}% pre-earnings, so the miss may "
-            f"have already been priced in"
-        )
+        return (f"Despite the EPS miss the position was profitable — the stock had already "
+                f"sold off {abs(momentum):.0f}% pre-earnings, suggesting the miss was "
+                f"largely priced in before the announcement.")
 
-    if reasons:
-        cause = "; ".join(reasons)
-        return (
-            f"Despite the EPS miss the position was profitable — most likely because: {cause}."
-        )
-    else:
-        return (
-            f"Despite the EPS miss the position was profitable — possible forward guidance "
-            f"upgrade or short squeeze not captured by the model."
-        )
+    return (f"Despite the EPS miss the position was profitable — possible forward guidance "
+            f"upgrade or short squeeze not captured by the scoring model.")
 
 
 def generate_analysis(trade: Dict, earnings_result: Dict) -> str:
