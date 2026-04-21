@@ -205,8 +205,12 @@ def generate_analysis(trade: Dict, earnings_result: Dict) -> str:
         s3 = "Accuracy against estimates could not be verified — trade result logged for manual review."
     elif correct_call:
         s3 = f"The algorithm's confidence was well-calibrated; the earnings reaction matched the {tier} tier prediction."
+    elif outcome == "WIN" and beat is True:
+        s3 = f"The algorithm underrated this call — a {conf:.0f}% confidence score underestimated the earnings reaction; scoring weights flagged for review."
+    elif outcome == "LOSS" and beat is False:
+        s3 = f"The algorithm underrated the downside risk on this call — the {tier} tier did not fully capture the earnings miss severity."
     else:
-        s3 = f"The {tier} confidence call did not match the earnings reaction — flagged for scoring weight review."
+        s3 = f"The {tier} confidence call did not align with the earnings reaction — flagged for scoring weight review."
 
     return f"{s1} {s2} {s3}"
 
