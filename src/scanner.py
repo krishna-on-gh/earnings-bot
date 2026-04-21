@@ -60,18 +60,77 @@ def get_earnings_date_and_timing(ticker: yf.Ticker, symbol: str) -> tuple[Option
     today = today_et()
     horizon = today + timedelta(days=window)
 
+    # Hardcoded timing for known tickers — more reliable than yfinance timestamps
+    # which often return midnight (hour=0) for future dates, causing false BMO labels
+    KNOWN_TIMING: dict[str, str] = {
+        # AMC reporters (After Market Close)
+        "AAPL":  "post_market", "AMZN":  "post_market", "GOOGL": "post_market",
+        "META":  "post_market", "MSFT":  "post_market", "NVDA":  "post_market",
+        "TSLA":  "post_market", "NFLX":  "post_market", "AMD":   "post_market",
+        "QCOM":  "post_market", "INTC":  "post_market", "TXN":   "post_market",
+        "NOW":   "post_market", "SNOW":  "post_market", "CRM":   "post_market",
+        "ADBE":  "post_market", "ORCL":  "post_market", "IBM":   "post_market",
+        "ISRG":  "post_market", "V":     "post_market", "MA":    "post_market",
+        "BKNG":  "post_market", "ABNB":  "post_market", "UBER":  "post_market",
+        "LYFT":  "post_market", "SNAP":  "post_market", "PINS":  "post_market",
+        "RBLX":  "post_market", "HOOD":  "post_market", "SOFI":  "post_market",
+        "TWLO":  "post_market", "ROKU":  "post_market", "PLTR":  "post_market",
+        "LRCX":  "post_market", "KLAC":  "post_market", "AMAT":  "post_market",
+        "MU":    "post_market", "MRVL":  "post_market", "SHOP":  "post_market",
+        "SPOT":  "post_market", "SQ":    "post_market", "PYPL":  "post_market",
+        "EBAY":  "post_market", "ETSY":  "post_market", "ZM":    "post_market",
+        "DOCU":  "post_market", "OKTA":  "post_market", "NET":   "post_market",
+        "DDOG":  "post_market", "CRWD":  "post_market", "ZS":    "post_market",
+        "PANW":  "post_market", "FTNT":  "post_market", "MRK":   "post_market",
+        "GILD":  "post_market",
+        # BMO reporters (Before Market Open)
+        "JPM":   "pre_market",  "BAC":   "pre_market",  "GS":    "pre_market",
+        "MS":    "pre_market",  "WFC":   "pre_market",  "C":     "pre_market",
+        "UNH":   "pre_market",  "JNJ":   "pre_market",  "PG":    "pre_market",
+        "KO":    "pre_market",  "PM":    "pre_market",  "MO":    "pre_market",
+        "PEP":   "pre_market",  "MDLZ":  "pre_market",  "GE":    "pre_market",
+        "HON":   "pre_market",  "CAT":   "pre_market",  "DE":    "pre_market",
+        "MMM":   "pre_market",  "EMR":   "pre_market",  "RTX":   "pre_market",
+        "LMT":   "pre_market",  "NOC":   "pre_market",  "BA":    "pre_market",
+        "XOM":   "pre_market",  "CVX":   "pre_market",  "COP":   "pre_market",
+        "SLB":   "pre_market",  "HAL":   "pre_market",  "NEE":   "pre_market",
+        "DUK":   "pre_market",  "SO":    "pre_market",  "AEP":   "pre_market",
+        "AMT":   "pre_market",  "PLD":   "pre_market",  "SPG":   "pre_market",
+        "TMO":   "pre_market",  "DHR":   "pre_market",  "ABT":   "pre_market",
+        "LLY":   "pre_market",  "ABBV":  "pre_market",  "BMY":   "pre_market",
+        "PFE":   "pre_market",  "AMGN":  "pre_market",  "REGN":  "pre_market",
+        "BIIB":  "pre_market",  "VRTX":  "pre_market",  "AXP":   "pre_market",
+        "BLK":   "pre_market",  "SPGI":  "pre_market",  "MCO":   "pre_market",
+        "LIN":   "pre_market",  "APD":   "pre_market",  "SHW":   "pre_market",
+        "ECL":   "pre_market",  "NUE":   "pre_market",  "FCX":   "pre_market",
+        "SYK":   "pre_market",
+    }
+    if symbol in KNOWN_TIMING:
+        known = KNOWN_TIMING[symbol]
+    else:
+        known = None
+
     def classify_timing(ts) -> str:
-        """BMO = pre_market (hour < 12 ET), AMC = post_market (hour >= 12 ET)."""
+        """BMO = pre_market (hour < 12 ET), AMC = post_market (hour >= 12 ET).
+        Returns 'unknown' when timestamp is midnight (no real time info from yfinance)."""
         try:
             t = pd.Timestamp(ts)
             if t.tzinfo is not None:
                 t = t.tz_convert("America/New_York")
+            if t.hour == 0 and t.minute == 0:
+                return "unknown"  # midnight = no real time data
             if t.hour < 12:
                 return "pre_market"
             else:
                 return "post_market"
         except Exception:
             return "unknown"
+
+    def resolve_timing(yf_timing: str) -> str:
+        """Use hardcoded map first; fall back to yfinance only when it has real time info."""
+        if known is not None:
+            return known
+        return yf_timing if yf_timing != "unknown" else "unknown"
 
     try:
         cal = ticker.calendar
@@ -84,13 +143,13 @@ def get_earnings_date_and_timing(ticker: yf.Ticker, symbol: str) -> tuple[Option
                     ts = pd.Timestamp(ed)
                     ed_date = ts.date()
                     if today <= ed_date <= horizon:
-                        return ed_date, classify_timing(ts)
+                        return ed_date, resolve_timing(classify_timing(ts))
             elif isinstance(cal, pd.DataFrame):
                 if "Earnings Date" in cal.columns:
                     ts = pd.Timestamp(cal["Earnings Date"].iloc[0])
                     ed_date = ts.date()
                     if today <= ed_date <= horizon:
-                        return ed_date, classify_timing(ts)
+                        return ed_date, resolve_timing(classify_timing(ts))
     except Exception:
         pass
     try:
@@ -100,10 +159,10 @@ def get_earnings_date_and_timing(ticker: yf.Ticker, symbol: str) -> tuple[Option
             future = future[future.index.tz_localize(None) <= pd.Timestamp(horizon)]
             if not future.empty:
                 ts = future.index[0]
-                return ts.date(), classify_timing(ts)
+                return ts.date(), resolve_timing(classify_timing(ts))
     except Exception:
         pass
-    return None, "unknown"
+    return None, known or "unknown"
 
 
 def get_earnings_date(ticker: yf.Ticker, symbol: str) -> Optional[date]:

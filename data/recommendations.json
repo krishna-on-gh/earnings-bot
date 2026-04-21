@@ -4,7 +4,7 @@
     "symbol": "AAPL",
     "company": "Apple Inc.",
     "earnings_date": "2026-04-30",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -30,7 +30,7 @@
     "symbol": "GOOGL",
     "company": "Alphabet Inc.",
     "earnings_date": "2026-04-29",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -56,7 +56,7 @@
     "symbol": "AMZN",
     "company": "Amazon.com, Inc.",
     "earnings_date": "2026-04-29",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -81,7 +81,7 @@
     "symbol": "META",
     "company": "Meta Platforms, Inc.",
     "earnings_date": "2026-04-29",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -133,7 +133,7 @@
     "symbol": "AMD",
     "company": "Advanced Micro Devices, Inc.",
     "earnings_date": "2026-05-05",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -160,7 +160,7 @@
     "symbol": "NOW",
     "company": "ServiceNow, Inc.",
     "earnings_date": "2026-04-22",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -186,7 +186,7 @@
     "symbol": "ISRG",
     "company": "Intuitive Surgical, Inc.",
     "earnings_date": "2026-04-21",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -214,7 +214,7 @@
     "symbol": "BKNG",
     "company": "Booking Holdings Inc.",
     "earnings_date": "2026-04-28",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -264,7 +264,7 @@
     "symbol": "LRCX",
     "company": "Lam Research Corporation",
     "earnings_date": "2026-04-22",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -291,7 +291,7 @@
     "symbol": "PLTR",
     "company": "Palantir Technologies Inc.",
     "earnings_date": "2026-05-04",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -317,7 +317,7 @@
     "symbol": "ROKU",
     "company": "Roku, Inc.",
     "earnings_date": "2026-04-30",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -342,7 +342,7 @@
     "symbol": "TWLO",
     "company": "Twilio Inc.",
     "earnings_date": "2026-04-30",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -367,7 +367,7 @@
     "symbol": "RBLX",
     "company": "Roblox Corporation",
     "earnings_date": "2026-04-30",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -392,7 +392,7 @@
     "symbol": "HOOD",
     "company": "Robinhood Markets, Inc.",
     "earnings_date": "2026-04-28",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -417,7 +417,7 @@
     "symbol": "SOFI",
     "company": "SoFi Technologies, Inc.",
     "earnings_date": "2026-04-29",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
@@ -442,7 +442,7 @@
     "symbol": "SHOP",
     "company": "Shopify Inc.",
     "earnings_date": "2026-05-05",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 95,
     "confidence_breakdown": {
       "base": 50,
@@ -468,7 +468,7 @@
     "symbol": "MSFT",
     "company": "Microsoft Corporation",
     "earnings_date": "2026-04-29",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 90,
     "confidence_breakdown": {
       "base": 50,
@@ -493,7 +493,7 @@
     "symbol": "QCOM",
     "company": "QUALCOMM Incorporated",
     "earnings_date": "2026-04-29",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 90,
     "confidence_breakdown": {
       "base": 50,
@@ -518,7 +518,7 @@
     "symbol": "IBM",
     "company": "International Business Machines Corporation",
     "earnings_date": "2026-04-22",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 90,
     "confidence_breakdown": {
       "base": 50,
@@ -543,7 +543,7 @@
     "symbol": "INTC",
     "company": "Intel Corporation",
     "earnings_date": "2026-04-23",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 90,
     "confidence_breakdown": {
       "base": 50,
@@ -570,7 +570,7 @@
     "symbol": "V",
     "company": "Visa Inc.",
     "earnings_date": "2026-04-28",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 85,
     "confidence_breakdown": {
       "base": 50,
@@ -594,7 +594,7 @@
     "symbol": "MA",
     "company": "Mastercard Incorporated",
     "earnings_date": "2026-04-30",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 85,
     "confidence_breakdown": {
       "base": 50,
@@ -666,7 +666,7 @@
     "symbol": "MRK",
     "company": "Merck & Co., Inc.",
     "earnings_date": "2026-04-30",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 85,
     "confidence_breakdown": {
       "base": 50,
@@ -912,7 +912,7 @@
     "symbol": "GILD",
     "company": "Gilead Sciences, Inc.",
     "earnings_date": "2026-04-23",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 85,
     "confidence_breakdown": {
       "base": 50,
@@ -959,7 +959,7 @@
     "symbol": "TXN",
     "company": "Texas Instruments Incorporated",
     "earnings_date": "2026-04-22",
-    "earnings_timing": "pre_market",
+    "earnings_timing": "post_market",
     "confidence": 75,
     "confidence_breakdown": {
       "base": 50,
