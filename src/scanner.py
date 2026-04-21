@@ -8,6 +8,8 @@ import uuid
 from datetime import datetime, date, timedelta
 from typing import Optional, Dict, Any, List
 
+import os
+import requests as _requests
 import yfinance as yf
 import pandas as pd
 
@@ -51,6 +53,54 @@ def get_all_tickers() -> List[str]:
     combined = list(dict.fromkeys(sp500 + EXTRA_LARGE_CAPS))
     log.info(f"Total unique tickers to scan: {len(combined)}")
     return combined
+
+
+def fetch_fmp_earnings_calendar(window_days: int = 14) -> Dict[str, tuple[date, str]]:
+    """
+    Fetch earnings calendar from Financial Modeling Prep for the next window_days.
+    Returns {symbol: (earnings_date, timing)} where timing is 'pre_market'/'post_market'/'unknown'.
+    Makes a single API call covering the full date range — no per-stock requests.
+    """
+    api_key = os.environ.get("FMP_API_KEY", "")
+    if not api_key:
+        log.warning("FMP_API_KEY not set — skipping FMP earnings calendar")
+        return {}
+    today = today_et()
+    horizon = today + timedelta(days=window_days)
+    url = "https://financialmodelingprep.com/api/v3/earning_calendar"
+    try:
+        r = _requests.get(url, params={
+            "from": today.isoformat(),
+            "to": horizon.isoformat(),
+            "apikey": api_key,
+        }, timeout=15)
+        if r.status_code != 200:
+            log.warning(f"FMP returned {r.status_code} — falling back to hardcoded map")
+            return {}
+        data = r.json()
+        result: Dict[str, tuple[date, str]] = {}
+        for entry in data:
+            sym = entry.get("symbol", "").upper()
+            date_str = entry.get("date", "")
+            time_str = (entry.get("time") or "unknown").lower()  # "bmo", "amc", or blank
+            if not sym or not date_str:
+                continue
+            try:
+                ed = date.fromisoformat(date_str)
+            except ValueError:
+                continue
+            if time_str == "bmo":
+                timing = "pre_market"
+            elif time_str == "amc":
+                timing = "post_market"
+            else:
+                timing = "unknown"
+            result[sym] = (ed, timing)
+        log.info(f"FMP calendar loaded: {len(result)} companies with earnings in next {window_days} days")
+        return result
+    except Exception as e:
+        log.warning(f"FMP calendar fetch failed: {e} — falling back to hardcoded map")
+        return {}
 
 
 def get_earnings_date_and_timing(ticker: yf.Ticker, symbol: str) -> tuple[Optional[date], str]:
@@ -383,11 +433,20 @@ def run_scanner():
     if check_kill_switch():
         log.warning("Kill switch active — scanner aborted")
         return
+    settings = load_settings()
+    window = settings["thresholds"]["earnings_window_days"]
+    fmp_calendar = fetch_fmp_earnings_calendar(window)
     tickers = get_all_tickers()
     earnings_candidates: Dict[str, tuple] = {}
     log.info(f"Checking earnings dates for {len(tickers)} tickers...")
     for i, symbol in enumerate(tickers):
         try:
+            # Use FMP as primary source if available for this symbol
+            if symbol in fmp_calendar:
+                ed, timing = fmp_calendar[symbol]
+                earnings_candidates[symbol] = (ed, timing)
+                log.info(f"  {symbol}: earnings on {ed} ({timing}) [FMP]")
+                continue
             t = yf.Ticker(symbol)
             ed, timing = get_earnings_date_and_timing(t, symbol)
             if ed:
