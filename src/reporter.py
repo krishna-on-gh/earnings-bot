@@ -16,6 +16,9 @@ from utils import (
     REPORTS_DIR,
 )
 
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+EARNINGS_DOCX = DATA_DIR / "earnings_calls_log.docx"
+
 log = get_logger("reporter")
 
 
@@ -268,7 +271,119 @@ def update_earnings_log(today_closed: List[Dict]) -> None:
 
     save_json("earnings_calls_log.json", log_entries)
     save_json("earnings_accuracy.json", accuracy)
+    try:
+        write_earnings_docx(log_entries, accuracy)
+        log.info(f"Earnings Word doc updated: {EARNINGS_DOCX}")
+    except Exception as e:
+        log.warning(f"Could not write earnings Word doc: {e}")
     log.info(f"Earnings log updated: {len(today_closed)} new entries")
+
+
+def write_earnings_docx(log_entries: List[Dict], accuracy: Dict) -> None:
+    """Regenerate the full earnings_calls_log.docx from the log entries."""
+    try:
+        from docx import Document
+        from docx.shared import Pt, RGBColor, Inches
+        from docx.enum.text import WD_ALIGN_PARAGRAPH
+    except ImportError:
+        log.warning("python-docx not installed — skipping .docx generation")
+        return
+
+    doc = Document()
+
+    # Title
+    title = doc.add_heading("Earnings Calls Log", level=0)
+    title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    sub = doc.add_paragraph()
+    sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    srun = sub.add_run(f"Generated {now_et().strftime('%Y-%m-%d %H:%M ET')}  |  {len(log_entries)} calls logged")
+    srun.italic = True
+    srun.font.size = Pt(10)
+
+    # Accuracy summary
+    doc.add_heading("Confidence Accuracy Summary", level=1)
+    table = doc.add_table(rows=1, cols=4)
+    table.style = "Light Grid Accent 1"
+    hdr = table.rows[0].cells
+    hdr[0].text = "Tier"
+    hdr[1].text = "Calls"
+    hdr[2].text = "Correct"
+    hdr[3].text = "Accuracy"
+    for tier in ("95-100%", "85-94%", "70-84%"):
+        stats = accuracy.get(tier, {"calls": 0, "correct": 0})
+        calls = stats.get("calls", 0)
+        correct = stats.get("correct", 0)
+        pct = (correct / calls * 100) if calls else 0
+        row = table.add_row().cells
+        row[0].text = tier
+        row[1].text = str(calls)
+        row[2].text = str(correct)
+        row[3].text = f"{pct:.0f}%" if calls else "—"
+
+    # Individual calls, newest first
+    doc.add_heading("Call Details", level=1)
+    sorted_entries = sorted(
+        log_entries,
+        key=lambda e: e.get("exit_date") or e.get("logged_at") or "",
+        reverse=True,
+    )
+    for entry in sorted_entries:
+        symbol = entry.get("symbol", "?")
+        company = entry.get("company", symbol)
+        outcome = entry.get("outcome", "?")
+        pnl = entry.get("pnl") or 0
+        pnl_pct = entry.get("pnl_pct") or 0
+
+        h = doc.add_heading(level=2)
+        hrun = h.add_run(f"{symbol} — {company}  ({outcome})")
+        hrun.font.color.rgb = RGBColor(0x2E, 0x7D, 0x32) if outcome == "WIN" else RGBColor(0xC6, 0x28, 0x28)
+
+        meta = doc.add_paragraph()
+        meta.add_run("Earnings date: ").bold = True
+        meta.add_run(f"{entry.get('earnings_date', '—')}   ")
+        meta.add_run("Exit: ").bold = True
+        meta.add_run(f"{entry.get('exit_date', '—')}   ")
+        meta.add_run("Confidence: ").bold = True
+        meta.add_run(f"{entry.get('confidence', 0):.0f}% ({entry.get('tier', '—')})")
+
+        prices = doc.add_paragraph()
+        prices.add_run("Entry: ").bold = True
+        prices.add_run(f"${entry.get('entry_price', 0):.2f}   ")
+        prices.add_run("Exit: ").bold = True
+        prices.add_run(f"${entry.get('exit_price', 0):.2f}   ")
+        prices.add_run("P&L: ").bold = True
+        prices.add_run(f"${pnl:+.2f} ({pnl_pct:+.1f}%)")
+
+        eps_est = entry.get("eps_estimate")
+        eps_rep = entry.get("eps_reported")
+        beat_pct = entry.get("beat_pct")
+        beat = entry.get("beat")
+        eps_p = doc.add_paragraph()
+        eps_p.add_run("EPS: ").bold = True
+        if eps_est is not None and eps_rep is not None:
+            label = "BEAT" if beat else ("MISS" if beat is False else "—")
+            eps_p.add_run(f"${eps_rep:.2f} reported vs ${eps_est:.2f} est ({beat_pct:+.1f}%) — {label}")
+        else:
+            eps_p.add_run("not available")
+
+        correct_call = entry.get("correct_call")
+        call_p = doc.add_paragraph()
+        call_p.add_run("Call quality: ").bold = True
+        if correct_call is True:
+            call_p.add_run("Algorithm aced the call ✓")
+        elif correct_call is False:
+            call_p.add_run("Algorithm missed the call ✗")
+        else:
+            call_p.add_run("Unverified")
+
+        ana = doc.add_paragraph()
+        ana.add_run("Analysis: ").bold = True
+        ana.add_run(entry.get("analysis", ""))
+
+        doc.add_paragraph("─" * 60).alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    DATA_DIR.mkdir(exist_ok=True)
+    doc.save(str(EARNINGS_DOCX))
 
 
 def run_reporter():
