@@ -176,14 +176,121 @@ def fetch_earnings_result(symbol: str, expected_date: str) -> Dict[str, Any]:
     return result
 
 
+def fetch_market_context(exit_date: str) -> Dict[str, Any]:
+    """
+    Fetch SPY return on the exit day to detect broad market weakness.
+    Returns {"spy_pct": float or None}.
+    """
+    result = {"spy_pct": None}
+    try:
+        exit_d = date.fromisoformat(exit_date)
+        # Grab 3 days of SPY data to ensure we get the exit day even near weekends
+        from datetime import timedelta as _td
+        start = (exit_d - _td(days=3)).isoformat()
+        end   = (exit_d + _td(days=1)).isoformat()
+        spy = yf.download("SPY", start=start, end=end, progress=False, auto_adjust=True)
+        if spy.empty:
+            return result
+        spy = spy[spy.index.date == exit_d]
+        if spy.empty:
+            return result
+        row = spy.iloc[0]
+        open_p  = float(row["Open"])
+        close_p = float(row["Close"])
+        if open_p > 0:
+            result["spy_pct"] = round((close_p - open_p) / open_p * 100, 2)
+    except Exception:
+        pass
+    return result
+
+
+def diagnose_beat_but_loss(trade: Dict, earnings_result: Dict) -> str:
+    """
+    For the case where earnings beat EPS but the stock still lost money.
+    Returns a specific sentence explaining the most likely cause.
+    """
+    beat_pct    = earnings_result.get("beat_pct") or 0
+    momentum    = trade.get("momentum_30d") or 0        # pre-earnings run-up %
+    exit_date   = trade.get("exit_date") or today_et().isoformat()
+    ctx         = fetch_market_context(exit_date)
+    spy_pct     = ctx.get("spy_pct")
+
+    reasons = []
+
+    # 1. Buy the rumour, sell the news — stock ran hard before earnings
+    if momentum >= 15:
+        reasons.append(
+            f"the stock had already run {momentum:+.1f}% in the 30 days before earnings "
+            f"(buy-the-rumour, sell-the-news dynamic)"
+        )
+
+    # 2. Marginal beat — market was priced for a bigger upside surprise
+    if beat_pct is not None and 0 < beat_pct < 3:
+        reasons.append(
+            f"the EPS beat was marginal (+{beat_pct:.1f}%), which may not have cleared "
+            f"buy-side whisper numbers"
+        )
+
+    # 3. Broad market weakness on exit day
+    if spy_pct is not None and spy_pct <= -1.0:
+        reasons.append(
+            f"the broader market (SPY) fell {spy_pct:.1f}% on the same day, "
+            f"dragging the position lower regardless of results"
+        )
+
+    if reasons:
+        cause = "; ".join(reasons)
+        return (
+            f"The model correctly identified the earnings beat but did not anticipate "
+            f"the negative price reaction — most likely driven by: {cause}."
+        )
+    else:
+        return (
+            f"The model correctly identified the earnings beat but the market reacted "
+            f"negatively regardless — possible guidance concerns, valuation resistance, "
+            f"or sector rotation not captured in the scoring model."
+        )
+
+
+def diagnose_miss_but_win(trade: Dict) -> str:
+    """
+    For the case where earnings missed EPS but the stock still went up.
+    Returns a specific sentence explaining the most likely cause.
+    """
+    momentum = trade.get("momentum_30d") or 0
+    exit_date = trade.get("exit_date") or today_et().isoformat()
+    ctx = fetch_market_context(exit_date)
+    spy_pct = ctx.get("spy_pct")
+
+    reasons = []
+    if spy_pct is not None and spy_pct >= 1.0:
+        reasons.append(f"the broader market (SPY) rallied {spy_pct:.1f}% that day")
+    if momentum <= -10:
+        reasons.append(
+            f"the stock had sold off {momentum:.1f}% pre-earnings, so the miss may "
+            f"have already been priced in"
+        )
+
+    if reasons:
+        cause = "; ".join(reasons)
+        return (
+            f"Despite the EPS miss the position was profitable — most likely because: {cause}."
+        )
+    else:
+        return (
+            f"Despite the EPS miss the position was profitable — possible forward guidance "
+            f"upgrade or short squeeze not captured by the model."
+        )
+
+
 def generate_analysis(trade: Dict, earnings_result: Dict) -> str:
-    """Generate a 2-3 sentence analysis of the earnings call."""
-    symbol = trade["symbol"]
-    conf = trade.get("confidence", 0)
-    tier = confidence_tier(conf)
+    """Generate a 3-sentence analysis of the earnings call."""
+    symbol  = trade["symbol"]
+    conf    = trade.get("confidence", 0)
+    tier    = confidence_tier(conf)
     pnl_pct = trade.get("pnl_pct") or 0
     outcome = "WIN" if (trade.get("pnl") or 0) > 0 else "LOSS"
-    beat = earnings_result.get("beat")
+    beat    = earnings_result.get("beat")
     eps_est = earnings_result.get("eps_estimate")
     eps_rep = earnings_result.get("eps_reported")
     beat_pct = earnings_result.get("beat_pct")
@@ -192,23 +299,26 @@ def generate_analysis(trade: Dict, earnings_result: Dict) -> str:
     if beat is True and eps_est is not None:
         s1 = f"{symbol} beat EPS estimates by {beat_pct:+.1f}% (reported ${eps_rep:.2f} vs ${eps_est:.2f} expected)."
     elif beat is False and eps_est is not None:
-        s1 = f"{symbol} missed EPS estimates by {beat_pct:.1f}% (reported ${eps_rep:.2f} vs ${eps_est:.2f} expected)."
+        s1 = f"{symbol} missed EPS estimates by {abs(beat_pct):.1f}% (reported ${eps_rep:.2f} vs ${eps_est:.2f} expected)."
     else:
         s1 = f"{symbol} earnings results not yet confirmed in data feed."
 
     # Sentence 2: trade outcome
     s2 = f"The position returned {pnl_pct:+.1f}% ({outcome}) against a {conf:.0f}% confidence call ({tier} tier)."
 
-    # Sentence 3: call quality
-    correct_call = (beat is True and outcome == "WIN") or (beat is False and outcome == "LOSS")
+    # Sentence 3: call quality + diagnosis
     if beat is None:
         s3 = "Accuracy against estimates could not be verified — trade result logged for manual review."
-    elif correct_call:
-        s3 = f"The algorithm's confidence was well-calibrated; the earnings reaction matched the {tier} tier prediction."
-    elif outcome == "WIN" and beat is True:
-        s3 = f"The algorithm underrated this call — a {conf:.0f}% confidence score underestimated the earnings reaction; scoring weights flagged for review."
-    elif outcome == "LOSS" and beat is False:
-        s3 = f"The algorithm underrated the downside risk on this call — the {tier} tier did not fully capture the earnings miss severity."
+    elif beat is True and outcome == "WIN":
+        s3 = f"The model was well-calibrated — it correctly identified the earnings beat and the market confirmed it."
+    elif beat is False and outcome == "LOSS":
+        s3 = f"The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the {tier} tier prediction."
+    elif beat is True and outcome == "LOSS":
+        # Correctly predicted the beat, but market disagreed — diagnose why
+        s3 = diagnose_beat_but_loss(trade, earnings_result)
+    elif beat is False and outcome == "WIN":
+        # Model expected downside, but stock went up anyway — diagnose why
+        s3 = diagnose_miss_but_win(trade)
     else:
         s3 = f"The {tier} confidence call did not align with the earnings reaction — flagged for scoring weight review."
 
