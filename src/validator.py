@@ -127,15 +127,8 @@ def run_validator():
         r for r in recommendations
         if not r.get("executed")
         and not r.get("disqualified")
-        and r.get("earnings_date") == today_str
+        and not r.get("validated")
     ]
-    if not to_validate:
-        to_validate = [
-            r for r in recommendations
-            if not r.get("executed")
-            and not r.get("disqualified")
-            and not r.get("validated")
-        ]
     log.info(f"Validating {len(to_validate)} recommendations...")
     validated_count = 0
     disqualified_count = 0
