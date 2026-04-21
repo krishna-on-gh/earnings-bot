@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(/c/Users/krish/AppData/Local/Programs/Thonny/python.exe -c ' *)",
-      "Bash(\"/c/Users/krish/AppData/Local/Programs/Python/Python313/python.exe\" -)"
+      "Bash(\"/c/Users/krish/AppData/Local/Programs/Python/Python313/python.exe\" -)",
+      "Bash(python backtest_week.py)",
+      "Bash(gh run *)"
     ]
   }
 }

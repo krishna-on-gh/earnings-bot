@@ -2615,7 +2615,12 @@
   "95-100%": {"calls": 0, "correct": 0}
 }</script>
 <script id="__CALLS_LOG__" type="application/json">[]</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-04-21T15:52:27", "source": "scheduler"}</script>
+<<<<<<< Updated upstream
+<script id="__META__" type="application/json">{"embedded_at": "2026-04-21T12:15:02", "source": "scheduler"}</script>
+=======
+<script id="__PORTFOLIO_HIST__" type="application/json">{}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-04-21T12:15:02", "source": "scheduler"}</script>
+>>>>>>> Stashed changes
 
 <script type="text/babel">
 // ─── DATA LOADING ──────────────────────────────────────────────────────────
@@ -2633,15 +2638,16 @@ const loadData = async () => {
     try {
       const ts = Date.now();
       const base = GITHUB_RAW || ".";
-      const [recs, trades, pos, budget, accuracy, callsLog] = await Promise.all([
+      const [recs, trades, pos, budget, accuracy, callsLog, portfolioHist] = await Promise.all([
         fetch(`${base}/data/recommendations.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/trades_history.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/positions.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/budget_tracker.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/earnings_accuracy.json?_=${ts}`).then(r => r.json()).catch(()=>({})),
         fetch(`${base}/data/earnings_calls_log.json?_=${ts}`).then(r => r.json()).catch(()=>[]),
+        fetch(`${base}/data/portfolio_history.json?_=${ts}`).then(r => r.json()).catch(()=>({})),
       ]);
-      return { recs, trades, positions: pos, budget, accuracy, callsLog, live: true };
+      return { recs, trades, positions: pos, budget, accuracy, callsLog, portfolioHist, live: true };
     } catch {}
   }
   return {
@@ -2649,10 +2655,11 @@ const loadData = async () => {
     trades:    readEmbedded("__TRADES__")          || [],
     positions: readEmbedded("__POSITIONS__")       || {},
     budget:    readEmbedded("__BUDGET__")          || {},
-    accuracy:  readEmbedded("__ACCURACY__")        || {},
-    callsLog:  readEmbedded("__CALLS_LOG__")       || [],
-    meta:      readEmbedded("__META__")            || {},
-    live:      false,
+    accuracy:     readEmbedded("__ACCURACY__")        || {},
+    callsLog:     readEmbedded("__CALLS_LOG__")       || [],
+    portfolioHist:readEmbedded("__PORTFOLIO_HIST__")  || {},
+    meta:         readEmbedded("__META__")            || {},
+    live:         false,
   };
 };
 
@@ -2811,6 +2818,119 @@ const AccuracyTracker = ({ accuracy, callsLog }) => {
           ))}
         </div>
       )}
+    </div>
+  );
+};
+
+const PortfolioChart = ({ portfolioHist }) => {
+  const [tab, setTab] = React.useState("1D");
+  const [hover, setHover] = React.useState(null);
+  const svgRef = React.useRef(null);
+
+  const dataset = portfolioHist?.[tab];
+  const points  = dataset?.points || [];
+
+  if (!points.length) return (
+    <div className="card">
+      <div className="ct">Portfolio Performance</div>
+      <div style={{color:"#8b949e",padding:"20px 0",fontSize:13}}>Chart available after first monitor run with live Alpaca data.</div>
+    </div>
+  );
+
+  const W = 600, H = 180, PL = 52, PR = 12, PT = 16, PB = 28;
+  const cw = W - PL - PR, ch = H - PT - PB;
+
+  const vals   = points.map(p => p.v);
+  const minV   = Math.min(...vals);
+  const maxV   = Math.max(...vals);
+  const range  = maxV - minV || 1;
+  const base   = points[0]?.v || 0;
+  const last   = points[points.length - 1]?.v || 0;
+  const isUp   = last >= base;
+  const color  = isUp ? "#3fb950" : "#f85149";
+  const fillId = `pf-grad-${tab}`;
+
+  const sx = (i)  => PL + (i / (points.length - 1)) * cw;
+  const sy = (v)  => PT + ch - ((v - minV) / range) * ch;
+
+  const linePath = points.map((p,i) => `${i===0?"M":"L"}${sx(i).toFixed(1)},${sy(p.v).toFixed(1)}`).join(" ");
+  const areaPath = `${linePath} L${(PL+cw).toFixed(1)},${(PT+ch).toFixed(1)} L${PL},${(PT+ch).toFixed(1)} Z`;
+
+  const fmtTime = (ts) => {
+    const d = new Date(ts * 1000);
+    if (tab === "1M") return d.toLocaleDateString("en-US",{month:"short",day:"numeric"});
+    if (tab === "1W") return d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
+    return d.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",hour12:true});
+  };
+
+  const handleMouse = (e) => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const rect = svg.getBoundingClientRect();
+    const scaleX = W / rect.width;
+    const mx = (e.clientX - rect.left) * scaleX;
+    const idx = Math.max(0, Math.min(points.length - 1, Math.round((mx - PL) / cw * (points.length - 1))));
+    setHover({ idx, x: sx(idx), y: sy(points[idx].v), point: points[idx] });
+  };
+
+  const pnl = last - base;
+  const pnlPct = base ? (pnl / base * 100) : 0;
+
+  return (
+    <div className="card">
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8}}>
+        <div className="ct" style={{marginBottom:0}}>Portfolio Performance</div>
+        <div style={{display:"flex",gap:6}}>
+          {["1D","1W","1M"].map(t => (
+            <button key={t} onClick={()=>{setTab(t);setHover(null);}}
+              style={{background:tab===t?"#21262d":"transparent",border:`1px solid ${tab===t?"#58a6ff":"#30363d"}`,
+                color:tab===t?"#58a6ff":"#8b949e",padding:"2px 10px",borderRadius:6,cursor:"pointer",fontSize:12}}>
+              {t}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div style={{marginBottom:8}}>
+        <span style={{fontSize:22,fontWeight:700,color:"#e6edf3"}}>
+          ${hover ? hover.point.v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})
+                  : last.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}
+        </span>
+        {!hover && <span style={{marginLeft:10,fontSize:13,color}}>{pnl>=0?"+":""}{pnl.toFixed(2)} ({pnlPct>=0?"+":""}{pnlPct.toFixed(2)}%) {tab}</span>}
+        {hover && <span style={{marginLeft:10,fontSize:12,color:"#8b949e"}}>{fmtTime(hover.point.t)}</span>}
+      </div>
+      <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} style={{width:"100%",display:"block",cursor:"crosshair"}}
+        onMouseMove={handleMouse} onMouseLeave={()=>setHover(null)}>
+        <defs>
+          <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={color} stopOpacity="0.25"/>
+            <stop offset="100%" stopColor={color} stopOpacity="0.02"/>
+          </linearGradient>
+        </defs>
+        {/* Y-axis labels */}
+        {[0,0.5,1].map(f => {
+          const v = minV + f * range;
+          const y = PT + ch - f * ch;
+          return (
+            <g key={f}>
+              <line x1={PL} y1={y} x2={PL+cw} y2={y} stroke="#21262d" strokeWidth="1"/>
+              <text x={PL-4} y={y+4} textAnchor="end" fill="#8b949e" fontSize="10">
+                ${(v/1000).toFixed(1)}k
+              </text>
+            </g>
+          );
+        })}
+        {/* Area fill */}
+        <path d={areaPath} fill={`url(#${fillId})`}/>
+        {/* Line */}
+        <path d={linePath} fill="none" stroke={color} strokeWidth="1.5"/>
+        {/* Hover crosshair */}
+        {hover && <>
+          <line x1={hover.x} y1={PT} x2={hover.x} y2={PT+ch} stroke="#8b949e" strokeWidth="1" strokeDasharray="3,3"/>
+          <circle cx={hover.x} cy={hover.y} r="4" fill={color} stroke="#0d1117" strokeWidth="2"/>
+        </>}
+        {/* X-axis baseline */}
+        <line x1={PL} y1={PT+ch} x2={PL+cw} y2={PT+ch} stroke="#30363d" strokeWidth="1"/>
+      </svg>
     </div>
   );
 };
@@ -3028,6 +3148,7 @@ const App = () => {
             </div>
           )}
           <MetricsRow positions={d.positions} trades={d.trades} />
+          <PortfolioChart portfolioHist={d.portfolioHist} />
           <BudgetSection budget={d.budget} />
           <WinnersLosers positions={d.positions} />
           <TopFiveSection trades={d.trades} />

@@ -6,6 +6,7 @@ checks circuit breakers, updates positions.json.
 from datetime import date, timedelta
 from typing import Dict, Any, List, Optional
 
+import os, requests as _requests
 from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import GetOrdersRequest
 from alpaca.trading.enums import QueryOrderStatus
@@ -239,6 +240,41 @@ def exit_earnings_positions(client: TradingClient) -> None:
             log.error(f"{symbol}: earnings exit failed — {e}")
 
 
+def fetch_portfolio_history() -> Dict[str, Any]:
+    """Fetch 1D/1W/1M portfolio equity history from Alpaca REST API."""
+    key    = os.environ.get("ALPACA_API_KEY", "")
+    secret = os.environ.get("ALPACA_SECRET_KEY", "")
+    base   = "https://paper-api.alpaca.markets/v2/account/portfolio/history"
+    headers = {"APCA-API-KEY-ID": key, "APCA-API-SECRET-KEY": secret}
+    result = {}
+    periods = [
+        ("1D", "5Min"),
+        ("1W", "1H"),
+        ("1M", "1D"),
+    ]
+    for period, timeframe in periods:
+        try:
+            r = _requests.get(base, headers=headers,
+                              params={"period": period, "timeframe": timeframe,
+                                      "extended_hours": "true"}, timeout=10)
+            if r.status_code == 200:
+                data = r.json()
+                points = []
+                for ts, eq in zip(data.get("timestamp", []), data.get("equity", [])):
+                    if eq is not None:
+                        points.append({"t": ts, "v": round(float(eq), 2)})
+                result[period] = {
+                    "points":     points,
+                    "base_value": data.get("base_value"),
+                    "timeframe":  timeframe,
+                }
+            else:
+                log.warning(f"Portfolio history {period} returned {r.status_code}")
+        except Exception as e:
+            log.warning(f"Portfolio history fetch failed ({period}): {e}")
+    return result
+
+
 def run_monitor():
     log.info(f"MONITOR: Checking positions at {now_et().strftime('%H:%M ET')}")
     if not is_weekday():
@@ -279,6 +315,10 @@ def run_monitor():
             pos_data["circuit_breaker_triggered"] = True
             pos_data["circuit_breaker_reason"] = cb_reason
     save_json("positions.json", pos_data)
+    portfolio_history = fetch_portfolio_history()
+    if portfolio_history:
+        save_json("portfolio_history.json", portfolio_history)
+        log.info("Portfolio history saved")
     total_unrealized = sum(p["unrealized_pl"] for p in positions)
     log.info(
         f"Positions: {len(positions)} open | "
