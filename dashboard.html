@@ -2841,12 +2841,12 @@
     "correct": 1
   },
   "85-94%": {
-    "calls": 2,
+    "calls": 3,
     "correct": 0
   },
   "95-100%": {
-    "calls": 0,
-    "correct": 0
+    "calls": 1,
+    "correct": 1
   }
 }</script>
 <script id="__CALLS_LOG__" type="application/json">[
@@ -2912,6 +2912,48 @@
     "correct_call": false,
     "analysis": "DHR beat EPS estimates by +6.2% (reported $2.06 vs $1.94 expected). The position returned -1.5% (LOSS) against a 85% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
     "logged_at": "2026-04-21T17:03:02.514138-04:00"
+  },
+  {
+    "trade_id": "8fe3c005",
+    "symbol": "ISRG",
+    "company": "Intuitive Surgical, Inc.",
+    "earnings_date": "2026-04-21",
+    "exit_date": "2026-04-22",
+    "confidence": 100,
+    "tier": "95-100%",
+    "entry_price": 470.276667,
+    "exit_price": 488.21,
+    "pnl": 53.8,
+    "pnl_pct": 3.81,
+    "outcome": "WIN",
+    "eps_estimate": 1.93,
+    "eps_reported": 2.28,
+    "beat_pct": 18.1,
+    "beat": true,
+    "correct_call": true,
+    "analysis": "ISRG beat EPS estimates by +18.1% (reported $2.28 vs $1.93 expected). The position returned +3.8% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
+    "logged_at": "2026-04-22T17:27:21.146929-04:00"
+  },
+  {
+    "trade_id": "3d726248",
+    "symbol": "PM",
+    "company": "Philip Morris International Inc.",
+    "earnings_date": "2026-04-22",
+    "exit_date": "2026-04-22",
+    "confidence": 85,
+    "tier": "85-94%",
+    "entry_price": 159.5,
+    "exit_price": 162.52,
+    "pnl": 9.05,
+    "pnl_pct": 1.89,
+    "outcome": "WIN",
+    "eps_estimate": null,
+    "eps_reported": null,
+    "beat_pct": null,
+    "beat": null,
+    "correct_call": null,
+    "analysis": "PM earnings results not yet confirmed in data feed. The position returned +1.9% (WIN) against a 85% confidence call (85-94% tier). Accuracy against estimates could not be verified \u2014 trade result logged for manual review.",
+    "logged_at": "2026-04-22T17:27:21.748867-04:00"
   }
 ]</script>
 <script id="__PORTFOLIO_HIST__" type="application/json">{
@@ -3962,7 +4004,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-04-22T21:13:05", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-04-22T22:08:22", "source": "scheduler"}</script>
 
 <script type="text/babel">
 // ─── DATA LOADING ──────────────────────────────────────────────────────────
