@@ -382,6 +382,28 @@ def update_earnings_log(today_closed: List[Dict]) -> None:
         "95-100%": {"calls": 0, "correct": 0},
     }
 
+    # Re-check any existing entries where EPS data wasn't available yet
+    for entry in log_entries:
+        if entry.get("correct_call") is None and entry.get("beat") is None:
+            earnings_result = fetch_earnings_result(entry["symbol"], entry.get("earnings_date", ""))
+            beat = earnings_result.get("beat")
+            if beat is not None:
+                outcome = entry.get("outcome", "LOSS")
+                correct_call = (beat is True and outcome == "WIN") or (beat is False and outcome == "LOSS")
+                entry["beat"]         = beat
+                entry["eps_estimate"] = earnings_result.get("eps_estimate")
+                entry["eps_reported"] = earnings_result.get("eps_reported")
+                entry["beat_pct"]     = earnings_result.get("beat_pct")
+                entry["correct_call"] = correct_call
+                entry["analysis"]     = generate_analysis(
+                    {"symbol": entry["symbol"], "confidence": entry.get("confidence", 0),
+                     "pnl": entry.get("pnl", 0), "pnl_pct": entry.get("pnl_pct", 0),
+                     "momentum_30d": entry.get("momentum_30d"), "earnings_date": entry.get("earnings_date"),
+                     "exit_date": entry.get("exit_date")},
+                    earnings_result,
+                )
+                log.info(f"{entry['symbol']}: EPS data now available — correct_call updated to {correct_call}")
+
     for trade in today_closed:
         trade_id = trade.get("id") or trade.get("trade_id")
         if trade_id in existing_ids:
