@@ -46,12 +46,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.149,
     "momentum_30d": 0.107,
-    "current_price": 424.16,
+    "current_price": 429.67,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "9605f42e",
@@ -72,12 +75,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.151,
     "momentum_30d": 0.1,
-    "current_price": 332.29,
+    "current_price": 338.02,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "847dc754",
@@ -97,12 +103,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.124,
     "momentum_30d": 0.189,
-    "current_price": 249.91,
+    "current_price": 252.93,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "92427f27",
@@ -124,12 +133,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.222,
     "momentum_30d": 0.107,
-    "current_price": 668.84,
+    "current_price": 673.5,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "0eb43481",
@@ -151,12 +163,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.343,
     "momentum_30d": 0.404,
-    "current_price": 284.49,
+    "current_price": 288.48,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "f9e7792d",
@@ -177,12 +192,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.209,
     "momentum_30d": -0.097,
-    "current_price": 100.14,
+    "current_price": 103.69,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "06a237da",
@@ -204,12 +222,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.237,
     "momentum_30d": 0.107,
-    "current_price": 258.37,
+    "current_price": 259.21,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "95808c7e",
@@ -230,12 +251,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.562,
     "momentum_30d": -0.092,
-    "current_price": 145.97,
+    "current_price": 149.55,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "2dba6191",
@@ -255,12 +279,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.152,
     "momentum_30d": 0.167,
-    "current_price": 114.11,
+    "current_price": 116.76,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "2014b40a",
@@ -280,12 +307,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.137,
     "momentum_30d": 0.143,
-    "current_price": 145.3,
+    "current_price": 150.75,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "95273856",
@@ -305,12 +335,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.358,
     "momentum_30d": 0.078,
-    "current_price": 61.26,
+    "current_price": 61.88,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "fec42469",
@@ -330,12 +363,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.516,
     "momentum_30d": 0.192,
-    "current_price": 86.43,
+    "current_price": 89.28,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "57fca564",
@@ -354,12 +390,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.383,
     "momentum_30d": 0.098,
-    "current_price": 18.83,
+    "current_price": 19.19,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "86d2d843",
@@ -379,12 +418,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.064,
     "momentum_30d": 0.058,
-    "current_price": 266.17,
+    "current_price": 269.03,
     "position_size": 1000,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "0690a35d",
@@ -404,12 +446,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.137,
     "momentum_30d": 0.056,
-    "current_price": 135.56,
+    "current_price": 136.91,
     "position_size": 1000,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "8fc6e9ce",
@@ -429,12 +474,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.076,
     "momentum_30d": 0.029,
-    "current_price": 255.68,
+    "current_price": 257.2,
     "position_size": 1000,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "f44c0455",
@@ -456,12 +504,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": -0.005,
     "momentum_30d": 0.506,
-    "current_price": 66.26,
+    "current_price": 65.92,
     "position_size": 1000,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "fab4f60c",
@@ -481,12 +532,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.183,
     "momentum_30d": 0.028,
-    "current_price": 77.26,
+    "current_price": 76.3,
     "position_size": 1000,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "fc23434f",
@@ -505,12 +559,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.113,
     "momentum_30d": 0.018,
-    "current_price": 309.94,
+    "current_price": 310.43,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "e2447369",
@@ -529,12 +586,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.164,
     "momentum_30d": 0.024,
-    "current_price": 511.35,
+    "current_price": 511.25,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "36d1c7d0",
@@ -553,12 +613,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.003,
     "momentum_30d": -0.012,
-    "current_price": 142.32,
+    "current_price": 143.07,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "c32a79e9",
@@ -577,12 +640,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.086,
     "momentum_30d": 0.009,
-    "current_price": 205.12,
+    "current_price": 204.68,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "10606cca",
@@ -601,12 +667,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.013,
     "momentum_30d": -0.027,
-    "current_price": 112.56,
+    "current_price": 112.8,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "cac0a2a1",
@@ -625,12 +694,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.019,
     "momentum_30d": -0.005,
-    "current_price": 74.7,
+    "current_price": 75.31,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "96c9d12e",
@@ -649,12 +721,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.039,
     "momentum_30d": 0.097,
-    "current_price": 524.57,
+    "current_price": 524.65,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "ebf5de76",
@@ -673,12 +748,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.03,
     "momentum_30d": 0.035,
-    "current_price": 494.84,
+    "current_price": 500.56,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "baa9d094",
@@ -697,12 +775,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.107,
     "momentum_30d": 0.004,
-    "current_price": 90.6,
+    "current_price": 91.81,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "5a74e1e2",
@@ -721,12 +802,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.073,
     "momentum_30d": -0.061,
-    "current_price": 153.25,
+    "current_price": 162.37,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "dbbc661a",
@@ -745,12 +829,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.078,
     "momentum_30d": -0.004,
-    "current_price": 222.22,
+    "current_price": 223.57,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "9b758fe1",
@@ -769,12 +856,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.079,
     "momentum_30d": 0.037,
-    "current_price": 444.67,
+    "current_price": 453.4,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "943561cf",
@@ -793,12 +883,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.134,
     "momentum_30d": 0.085,
-    "current_price": 190.86,
+    "current_price": 187.34,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "3fc507ab",
@@ -817,12 +910,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.095,
     "momentum_30d": 0.096,
-    "current_price": 329.79,
+    "current_price": 333.37,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "d866c6fe",
@@ -841,12 +937,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.112,
     "momentum_30d": -0.013,
-    "current_price": 327.3,
+    "current_price": 333.12,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "07f9521d",
@@ -865,12 +964,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.024,
     "momentum_30d": -0.029,
-    "current_price": 133.29,
+    "current_price": 133.3,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "725f20c9",
@@ -889,12 +991,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.142,
     "momentum_30d": 0.03,
-    "current_price": 85.26,
+    "current_price": 86.7,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "21ef637b",
@@ -912,12 +1017,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.01,
     "momentum_30d": 0.015,
-    "current_price": 747.36,
+    "current_price": 752.97,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "229cbaa9",
@@ -937,12 +1045,15 @@
     "beat_rate": 0.5,
     "revenue_growth_yoy": 0.301,
     "momentum_30d": 0.083,
-    "current_price": 131.13,
+    "current_price": 132.01,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "5cd07e63",
@@ -962,12 +1073,15 @@
     "beat_rate": 0.5,
     "revenue_growth_yoy": 0.13,
     "momentum_30d": 0.236,
-    "current_price": 233.15,
+    "current_price": 237.54,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "c9cc2507",
@@ -987,12 +1101,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": -0.045,
     "momentum_30d": -0.079,
-    "current_price": 148.36,
+    "current_price": 149.33,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "e185edba",
@@ -1012,12 +1129,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": -0.046,
     "momentum_30d": -0.094,
-    "current_price": 185.98,
+    "current_price": 187.88,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   },
   {
     "id": "e50a4db0",
@@ -1036,11 +1156,14 @@
     "beat_rate": 0.5,
     "revenue_growth_yoy": 0.043,
     "momentum_30d": 0.143,
-    "current_price": 800.45,
+    "current_price": 806.43,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-04-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-04-22",
+    "disqualified": false
   }
 ]
