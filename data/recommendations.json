@@ -166,12 +166,14 @@
     "current_price": 288.48,
     "position_size": 1500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-22",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-22",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-22",
+    "trade_id": "0eb43481"
   },
   {
     "id": "f9e7792d",
@@ -254,12 +256,14 @@
     "current_price": 149.55,
     "position_size": 1500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-22",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-22",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-22",
+    "trade_id": "95808c7e"
   },
   {
     "id": "2dba6191",
@@ -535,12 +539,14 @@
     "current_price": 76.3,
     "position_size": 1000,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-22",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-22",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-22",
+    "trade_id": "fab4f60c"
   },
   {
     "id": "fc23434f",
@@ -994,12 +1000,14 @@
     "current_price": 86.7,
     "position_size": 500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-22",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-22",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-22",
+    "trade_id": "725f20c9"
   },
   {
     "id": "21ef637b",
@@ -1048,12 +1056,14 @@
     "current_price": 132.01,
     "position_size": 500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-22",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-22",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-22",
+    "trade_id": "229cbaa9"
   },
   {
     "id": "5cd07e63",
