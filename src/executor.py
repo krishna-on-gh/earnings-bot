@@ -5,7 +5,7 @@ Enforces hard budget caps and safety checks.
 """
 import time
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional
 
 import yfinance as yf
@@ -193,18 +193,20 @@ def run_executor():
         log.warning(f"Could not fetch Alpaca positions, skipping overlap check: {e}")
         owned = set()
 
+    # Tomorrow's date string for the blackout window
+    tomorrow_str = (today_et() + timedelta(days=1)).isoformat()
+
     # All validated, unexecuted, not-disqualified, not-already-owned candidates
+    # Exclude stocks whose earnings are today or tomorrow — too close to buy
     candidates = [
         r for r in recommendations
         if r.get("validated")
         and not r.get("executed")
         and not r.get("disqualified")
         and r["symbol"] not in owned
+        and r.get("earnings_date", "") > tomorrow_str  # must be 2+ days away
     ]
-    # Prefer stocks reporting today first; fall back to all candidates
-    to_execute = [r for r in candidates if r.get("earnings_date") == today_str]
-    if not to_execute:
-        to_execute = candidates
+    to_execute = candidates
     skipped_owned = len([r for r in recommendations
                          if not r.get("executed") and not r.get("disqualified")
                          and r["symbol"] in owned])
