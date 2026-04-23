@@ -1,14 +1,14 @@
 {
   "70-84%": {
-    "calls": 1,
-    "correct": 1
+    "calls": 2,
+    "correct": 2
   },
   "85-94%": {
-    "calls": 3,
-    "correct": 0
+    "calls": 6,
+    "correct": 1
   },
   "95-100%": {
-    "calls": 1,
-    "correct": 1
+    "calls": 5,
+    "correct": 2
   }
 }
