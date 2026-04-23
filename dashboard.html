@@ -4325,9 +4325,10 @@ const EarningsWeek = ({ recs, positions }) => {
   const in7Date  = new Date(); in7Date.setDate(in7Date.getDate()+7);
   const in7Str   = in7Date.toLocaleDateString("en-CA");
   const rows = (recs||[])
-    .filter(r => r.earnings_date >= todayStr && r.earnings_date <= in7Str)
-    .sort((a,b) => a.earnings_date.localeCompare(b.earnings_date));
+    .filter(r => r.earnings_date && r.earnings_date.slice(0,10) >= todayStr && r.earnings_date.slice(0,10) <= in7Str)
+    .sort((a,b) => a.earnings_date.slice(0,10).localeCompare(b.earnings_date.slice(0,10)));
   if (!rows.length) return null;
+  const normDate = (d) => d ? d.slice(0, 10) : d;
   const dayLabel = (dateStr) => {
     if (dateStr === todayStr) return "Today";
     const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
@@ -4340,9 +4341,9 @@ const EarningsWeek = ({ recs, positions }) => {
     if (t==="post_market") return {text:"AMC",color:"#58a6ff"};
     return {text:"TBD",color:"#8b949e"};
   };
-  // Group by date
+  // Group by date — normalize to YYYY-MM-DD to avoid timestamp mismatches
   const byDate = {};
-  rows.forEach(r => { (byDate[r.earnings_date]=byDate[r.earnings_date]||[]).push(r); });
+  rows.forEach(r => { const k = normDate(r.earnings_date); (byDate[k]=byDate[k]||[]).push(r); });
   return (
     <div className="card">
       <div className="ct">Earnings This Week ({rows.length})</div>
