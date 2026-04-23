@@ -3,3 +3,6 @@ logs/
 __pycache__/
 *.pyc
 STOP_TRADING
+reports/Daily Model Movement/
+reports/dev_log.docx
+reports/dev_log_2026-04-21.docx

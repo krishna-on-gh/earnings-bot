@@ -589,8 +589,10 @@ def run_reporter():
     text = build_text_report(today_trades, today_closed, all_closed, positions, budget)
     html = build_html_report(text, today_closed)
     log.info("\n" + text)
-    REPORTS_DIR.mkdir(exist_ok=True)
-    report_file = REPORTS_DIR / f"report_{today_et().isoformat()}.html"
+    daily_dir = REPORTS_DIR / "Daily Model Movement"
+    daily_dir.mkdir(parents=True, exist_ok=True)
+    report_file = daily_dir / f"report_{today_et().isoformat()}.html"
+
     report_file.write_text(html, encoding="utf-8")
     log.info(f"Report saved: {report_file}")
     daily_pnl = positions.get("daily_pnl", 0)
