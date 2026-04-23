@@ -3,12 +3,12 @@
   "two_week_cap": 45000,
   "two_week_start": "2026-04-19",
   "two_week_end": "2026-05-03",
-  "total_deployed": 37970.850000000006,
-  "two_week_deployed": 37970.850000000006,
-  "available_total": 7029.149999999994,
-  "available_two_week": 7029.149999999994,
-  "trades_count": 45,
-  "last_updated": "2026-04-22T10:47:41.626954-04:00",
+  "total_deployed": 43287.65,
+  "two_week_deployed": 43287.65,
+  "available_total": 1712.3499999999985,
+  "available_two_week": 1712.3499999999985,
+  "trades_count": 50,
+  "last_updated": "2026-04-23T11:27:54.275063-04:00",
   "halted": false,
   "halt_reason": null
 }

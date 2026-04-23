@@ -450,12 +450,14 @@
     "current_price": 124.75,
     "position_size": 1500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-23",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-23",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-23",
+    "trade_id": "e7b4adf3"
   },
   {
     "id": "13319a51",
@@ -478,12 +480,14 @@
     "current_price": 201.1,
     "position_size": 1500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-23",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-23",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-23",
+    "trade_id": "13319a51"
   },
   {
     "id": "dac32784",
@@ -506,12 +510,14 @@
     "current_price": 24.12,
     "position_size": 1500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-23",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-23",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-23",
+    "trade_id": "dac32784"
   },
   {
     "id": "1697f37d",
@@ -1109,12 +1115,14 @@
     "current_price": 14.19,
     "position_size": 500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-23",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-23",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-23",
+    "trade_id": "1fcd1198"
   },
   {
     "id": "e0801a72",
@@ -1188,12 +1196,14 @@
     "current_price": 116.75,
     "position_size": 500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-23",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-23",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-23",
+    "trade_id": "c87f9904"
   },
   {
     "id": "5cd07e63",
