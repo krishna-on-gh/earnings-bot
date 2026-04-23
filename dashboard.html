@@ -4333,7 +4333,7 @@ const EarningsWeek = ({ recs, positions }) => {
     if (dateStr === todayStr) return "Today";
     const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
     if (dateStr === tomorrow.toLocaleDateString("en-CA")) return "Tomorrow";
-    const d = new Date(dateStr); d.setHours(12);
+    const d = new Date(dateStr + "T12:00:00");
     return d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
   };
   const timingLabel = (t) => {
