@@ -1,14 +1,57 @@
 {
   "base_score": 50,
-  "beat_rate_high_bonus": 30,
-  "revenue_growth_bonus": 20,
+  "beat_rate_high_bonus": 28.0,
+  "revenue_growth_bonus": 18.0,
   "momentum_bonus": 15,
   "tech_sector_bonus": 5,
   "mega_cap_bonus": 5,
   "beat_rate_low_penalty": -10,
-  "declining_revenue_penalty": -15,
-  "negative_momentum_penalty": -15,
-  "version": 1,
-  "last_updated": null,
-  "adjustment_history": []
+  "declining_revenue_penalty": -13.0,
+  "negative_momentum_penalty": -17.0,
+  "version": 2,
+  "last_updated": "2026-04-27T00:45:39.066574-04:00",
+  "adjustment_history": [
+    {
+      "week_ending": "2026-04-27",
+      "week_trades": 16,
+      "week_pnl": -105.32,
+      "week_win_rate": 43.8,
+      "total_trades": 16,
+      "total_pnl": -105.32,
+      "total_win_rate": 43.8,
+      "factor_performance": {
+        "beat_rate_high": {
+          "avg_pnl_pct": -1.7,
+          "count": 14,
+          "win_rate": 35.7
+        },
+        "revenue_growth_high": {
+          "avg_pnl_pct": -3.56,
+          "count": 3,
+          "win_rate": 33.3
+        },
+        "momentum_high": {
+          "avg_pnl_pct": 5.89,
+          "count": 6,
+          "win_rate": 50.0
+        },
+        "declining_revenue": {
+          "avg_pnl_pct": 22.39,
+          "count": 1,
+          "win_rate": 100.0
+        },
+        "negative_momentum": {
+          "avg_pnl_pct": -13.88,
+          "count": 1,
+          "win_rate": 0.0
+        }
+      },
+      "adjustments_made": {
+        "beat_rate_high_bonus": 28.0,
+        "revenue_growth_bonus": 18.0,
+        "declining_revenue_penalty": -13.0,
+        "negative_momentum_penalty": -17.0
+      }
+    }
+  ]
 }
