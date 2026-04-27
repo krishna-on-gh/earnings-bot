@@ -28,7 +28,7 @@
     "disqualified": false
   },
   {
-    "id": "5eb9a4d5",
+    "id": "bb8bbb82",
     "symbol": "MSFT",
     "company": "Microsoft Corporation",
     "earnings_date": "2026-04-29",
@@ -36,25 +36,25 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "momentum_high": 15,
       "tech_sector": 5,
       "mega_cap": 5
     },
-    "market_cap_b": 3155.9,
+    "market_cap_b": 3155.8,
     "sector": "Technology",
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.149,
     "momentum_30d": 0.16,
-    "current_price": 424.62,
+    "current_price": 424.6,
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "9789cbfc",
+    "id": "e8d13e4f",
     "symbol": "GOOGL",
     "company": "Alphabet Inc.",
     "earnings_date": "2026-04-29",
@@ -62,7 +62,7 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "momentum_high": 15,
       "tech_sector": 5,
       "mega_cap": 5
@@ -76,36 +76,11 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "93769542",
-    "symbol": "AMZN",
-    "company": "Amazon.com, Inc.",
-    "earnings_date": "2026-04-29",
-    "earnings_timing": "post_market",
-    "confidence": 100,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "momentum_high": 15,
-      "mega_cap": 5
-    },
-    "market_cap_b": 2839.0,
-    "sector": "Consumer Cyclical",
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.124,
-    "momentum_30d": 0.272,
-    "current_price": 263.99,
-    "position_size": 1500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
-  },
-  {
-    "id": "1c067fca",
+    "id": "3c43c601",
     "symbol": "META",
     "company": "Meta Platforms, Inc.",
     "earnings_date": "2026-04-29",
@@ -113,22 +88,22 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "revenue_growth_high": 20,
+      "beat_rate_high": 28.0,
+      "revenue_growth_high": 18.0,
       "momentum_high": 15,
       "tech_sector": 5,
       "mega_cap": 5
     },
-    "market_cap_b": 1713.5,
+    "market_cap_b": 1713.6,
     "sector": "Communication Services",
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.222,
     "momentum_30d": 0.233,
-    "current_price": 675.03,
+    "current_price": 675.05,
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
@@ -191,57 +166,7 @@
     "disqualified": false
   },
   {
-    "id": "e0c9c87a",
-    "symbol": "ROKU",
-    "company": "Roku, Inc.",
-    "earnings_date": "2026-04-30",
-    "earnings_timing": "post_market",
-    "confidence": 100,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "momentum_high": 15,
-      "tech_sector": 5
-    },
-    "market_cap_b": 17.0,
-    "sector": "Communication Services",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.152,
-    "momentum_30d": 0.294,
-    "current_price": 115.22,
-    "position_size": 1500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
-  },
-  {
-    "id": "0f4a9973",
-    "symbol": "TWLO",
-    "company": "Twilio Inc.",
-    "earnings_date": "2026-04-30",
-    "earnings_timing": "post_market",
-    "confidence": 100,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "momentum_high": 15,
-      "tech_sector": 5
-    },
-    "market_cap_b": 21.8,
-    "sector": "Technology",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.137,
-    "momentum_30d": 0.14,
-    "current_price": 143.79,
-    "position_size": 1500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
-  },
-  {
-    "id": "946e0eb8",
+    "id": "94bd8bff",
     "symbol": "RBLX",
     "company": "Roblox Corporation",
     "earnings_date": "2026-04-30",
@@ -249,8 +174,8 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "revenue_growth_high": 20,
+      "beat_rate_high": 28.0,
+      "revenue_growth_high": 18.0,
       "tech_sector": 5
     },
     "market_cap_b": 40.1,
@@ -262,11 +187,11 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "8ca6ed37",
+    "id": "7f78c2af",
     "symbol": "HOOD",
     "company": "Robinhood Markets, Inc.",
     "earnings_date": "2026-04-28",
@@ -274,8 +199,8 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "revenue_growth_high": 20,
+      "beat_rate_high": 28.0,
+      "revenue_growth_high": 18.0,
       "momentum_high": 15
     },
     "market_cap_b": 76.3,
@@ -287,11 +212,11 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "789fee38",
+    "id": "602f5346",
     "symbol": "SOFI",
     "company": "SoFi Technologies, Inc.",
     "earnings_date": "2026-04-29",
@@ -299,8 +224,8 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "revenue_growth_high": 20,
+      "beat_rate_high": 28.0,
+      "revenue_growth_high": 18.0,
       "momentum_high": 15
     },
     "market_cap_b": 23.5,
@@ -312,7 +237,7 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
@@ -344,7 +269,7 @@
     "disqualified": false
   },
   {
-    "id": "016215a5",
+    "id": "1eef2cb7",
     "symbol": "AMD",
     "company": "Advanced Micro Devices, Inc.",
     "earnings_date": "2026-05-05",
@@ -352,8 +277,8 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "revenue_growth_high": 20,
+      "beat_rate_high": 28.0,
+      "revenue_growth_high": 18.0,
       "momentum_high": 15,
       "tech_sector": 5,
       "mega_cap": 5
@@ -363,15 +288,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.343,
     "momentum_30d": 0.707,
-    "current_price": 347.81,
+    "current_price": 347.8,
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "ca3dae44",
+    "id": "4811af64",
     "symbol": "PLTR",
     "company": "Palantir Technologies Inc.",
     "earnings_date": "2026-05-04",
@@ -379,8 +304,8 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "revenue_growth_high": 20,
+      "beat_rate_high": 28.0,
+      "revenue_growth_high": 18.0,
       "tech_sector": 5,
       "mega_cap": 5
     },
@@ -393,11 +318,11 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "1fcd3125",
+    "id": "351a883e",
     "symbol": "DDOG",
     "company": "Datadog, Inc.",
     "earnings_date": "2026-05-07",
@@ -405,8 +330,8 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "revenue_growth_high": 20,
+      "beat_rate_high": 28.0,
+      "revenue_growth_high": 18.0,
       "tech_sector": 5
     },
     "market_cap_b": 45.8,
@@ -418,11 +343,11 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "995d30fd",
+    "id": "beaf908c",
     "symbol": "NET",
     "company": "Cloudflare, Inc.",
     "earnings_date": "2026-05-07",
@@ -430,8 +355,8 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "revenue_growth_high": 20,
+      "beat_rate_high": 28.0,
+      "revenue_growth_high": 18.0,
       "tech_sector": 5
     },
     "market_cap_b": 72.9,
@@ -443,36 +368,11 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "d0b907fb",
-    "symbol": "U",
-    "company": "Unity Software Inc.",
-    "earnings_date": "2026-05-07",
-    "earnings_timing": "unknown",
-    "confidence": 100,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "momentum_high": 15,
-      "tech_sector": 5
-    },
-    "market_cap_b": 11.3,
-    "sector": "Technology",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.02,
-    "momentum_30d": 0.518,
-    "current_price": 26.01,
-    "position_size": 1500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
-  },
-  {
-    "id": "787960f9",
+    "id": "1e1be40f",
     "symbol": "QCOM",
     "company": "QUALCOMM Incorporated",
     "earnings_date": "2026-04-29",
@@ -480,7 +380,7 @@
     "confidence": 100,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "momentum_high": 15,
       "tech_sector": 5,
       "mega_cap": 5
@@ -494,32 +394,107 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "46bf785d",
-    "symbol": "AAPL",
-    "company": "Apple Inc.",
-    "earnings_date": "2026-04-30",
+    "id": "950a92ee",
+    "symbol": "AMZN",
+    "company": "Amazon.com, Inc.",
+    "earnings_date": "2026-04-29",
     "earnings_timing": "post_market",
-    "confidence": 90,
+    "confidence": 98.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "tech_sector": 5,
+      "beat_rate_high": 28.0,
+      "momentum_high": 15,
       "mega_cap": 5
     },
-    "market_cap_b": 3979.5,
-    "sector": "Technology",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.064,
-    "momentum_30d": 0.072,
-    "current_price": 271.06,
-    "position_size": 1000,
+    "market_cap_b": 2839.0,
+    "sector": "Consumer Cyclical",
+    "beat_rate": 0.75,
+    "revenue_growth_yoy": 0.124,
+    "momentum_30d": 0.272,
+    "current_price": 263.99,
+    "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "25df11c4",
+    "symbol": "ROKU",
+    "company": "Roku, Inc.",
+    "earnings_date": "2026-04-30",
+    "earnings_timing": "post_market",
+    "confidence": 98.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "momentum_high": 15,
+      "tech_sector": 5
+    },
+    "market_cap_b": 17.0,
+    "sector": "Communication Services",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.152,
+    "momentum_30d": 0.294,
+    "current_price": 115.22,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "6dc66763",
+    "symbol": "TWLO",
+    "company": "Twilio Inc.",
+    "earnings_date": "2026-04-30",
+    "earnings_timing": "post_market",
+    "confidence": 98.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "momentum_high": 15,
+      "tech_sector": 5
+    },
+    "market_cap_b": 21.8,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.137,
+    "momentum_30d": 0.14,
+    "current_price": 143.79,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "66def229",
+    "symbol": "U",
+    "company": "Unity Software Inc.",
+    "earnings_date": "2026-05-07",
+    "earnings_timing": "unknown",
+    "confidence": 98.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "momentum_high": 15,
+      "tech_sector": 5
+    },
+    "market_cap_b": 11.3,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.02,
+    "momentum_30d": 0.518,
+    "current_price": 26.01,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
@@ -581,15 +556,40 @@
     "disqualified": false
   },
   {
-    "id": "e4e98df4",
+    "id": "ab44ded8",
+    "symbol": "AAPL",
+    "company": "Apple Inc.",
+    "earnings_date": "2026-04-30",
+    "earnings_timing": "post_market",
+    "confidence": 88.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 3979.5,
+    "sector": "Technology",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.064,
+    "momentum_30d": 0.072,
+    "current_price": 271.06,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "6b622e73",
     "symbol": "UBER",
     "company": "Uber Technologies, Inc.",
     "earnings_date": "2026-05-06",
     "earnings_timing": "post_market",
-    "confidence": 90,
+    "confidence": 88.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "tech_sector": 5,
       "mega_cap": 5
     },
@@ -599,58 +599,10 @@
     "revenue_growth_yoy": 0.183,
     "momentum_30d": 0.058,
     "current_price": 74.64,
-    "position_size": 1000,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
-  },
-  {
-    "id": "106a2eb9",
-    "symbol": "V",
-    "company": "Visa Inc.",
-    "earnings_date": "2026-04-28",
-    "earnings_timing": "post_market",
-    "confidence": 85,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "mega_cap": 5
-    },
-    "market_cap_b": 596.6,
-    "sector": "Financial Services",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.113,
-    "momentum_30d": 0.013,
-    "current_price": 309.42,
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
-  },
-  {
-    "id": "2154150b",
-    "symbol": "MA",
-    "company": "Mastercard Incorporated",
-    "earnings_date": "2026-04-30",
-    "earnings_timing": "post_market",
-    "confidence": 85,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "mega_cap": 5
-    },
-    "market_cap_b": 449.9,
-    "sector": "Financial Services",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.164,
-    "momentum_30d": 0.009,
-    "current_price": 504.17,
-    "position_size": 500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
@@ -681,78 +633,6 @@
     "disqualified": false
   },
   {
-    "id": "ca62c7e5",
-    "symbol": "ABBV",
-    "company": "AbbVie Inc.",
-    "earnings_date": "2026-04-29",
-    "earnings_timing": "pre_market",
-    "confidence": 85,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "mega_cap": 5
-    },
-    "market_cap_b": 351.5,
-    "sector": "Healthcare",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.086,
-    "momentum_30d": -0.051,
-    "current_price": 198.71,
-    "position_size": 500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
-  },
-  {
-    "id": "80df5c53",
-    "symbol": "MRK",
-    "company": "Merck & Co., Inc.",
-    "earnings_date": "2026-04-30",
-    "earnings_timing": "post_market",
-    "confidence": 85,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "mega_cap": 5
-    },
-    "market_cap_b": 276.4,
-    "sector": "Healthcare",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.013,
-    "momentum_30d": -0.059,
-    "current_price": 111.9,
-    "position_size": 500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
-  },
-  {
-    "id": "0a239781",
-    "symbol": "KO",
-    "company": "The Coca-Cola Company",
-    "earnings_date": "2026-04-28",
-    "earnings_timing": "pre_market",
-    "confidence": 85,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "mega_cap": 5
-    },
-    "market_cap_b": 329.8,
-    "sector": "Consumer Defensive",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.019,
-    "momentum_30d": 0.026,
-    "current_price": 76.63,
-    "position_size": 500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
-  },
-  {
     "id": "c2927cb2",
     "symbol": "TMO",
     "company": "Thermo Fisher Scientific Inc.",
@@ -778,30 +658,6 @@
     "validation_notes": [],
     "validated_date": "2026-04-23",
     "disqualified": false
-  },
-  {
-    "id": "e7b23b68",
-    "symbol": "LIN",
-    "company": "Linde plc",
-    "earnings_date": "2026-05-01",
-    "earnings_timing": "pre_market",
-    "confidence": 85,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 30,
-      "mega_cap": 5
-    },
-    "market_cap_b": 236.5,
-    "sector": "Basic Materials",
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.03,
-    "momentum_30d": 0.03,
-    "current_price": 510.3,
-    "position_size": 500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-04-26",
-    "notes": []
   },
   {
     "id": "9117ef5e",
@@ -885,15 +741,159 @@
     "disqualified": false
   },
   {
-    "id": "a5337d81",
+    "id": "de7f399f",
+    "symbol": "V",
+    "company": "Visa Inc.",
+    "earnings_date": "2026-04-28",
+    "earnings_timing": "post_market",
+    "confidence": 83.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "mega_cap": 5
+    },
+    "market_cap_b": 596.6,
+    "sector": "Financial Services",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.113,
+    "momentum_30d": 0.013,
+    "current_price": 309.42,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "dcc34b23",
+    "symbol": "MA",
+    "company": "Mastercard Incorporated",
+    "earnings_date": "2026-04-30",
+    "earnings_timing": "post_market",
+    "confidence": 83.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "mega_cap": 5
+    },
+    "market_cap_b": 449.9,
+    "sector": "Financial Services",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.164,
+    "momentum_30d": 0.009,
+    "current_price": 504.17,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "8b074e27",
+    "symbol": "ABBV",
+    "company": "AbbVie Inc.",
+    "earnings_date": "2026-04-29",
+    "earnings_timing": "pre_market",
+    "confidence": 83.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "mega_cap": 5
+    },
+    "market_cap_b": 351.5,
+    "sector": "Healthcare",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.086,
+    "momentum_30d": -0.051,
+    "current_price": 198.71,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "e8fc7e90",
+    "symbol": "MRK",
+    "company": "Merck & Co., Inc.",
+    "earnings_date": "2026-04-30",
+    "earnings_timing": "post_market",
+    "confidence": 83.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "mega_cap": 5
+    },
+    "market_cap_b": 276.4,
+    "sector": "Healthcare",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.013,
+    "momentum_30d": -0.059,
+    "current_price": 111.9,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "f7cbd4c5",
+    "symbol": "KO",
+    "company": "The Coca-Cola Company",
+    "earnings_date": "2026-04-28",
+    "earnings_timing": "pre_market",
+    "confidence": 83.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "mega_cap": 5
+    },
+    "market_cap_b": 329.8,
+    "sector": "Consumer Defensive",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.019,
+    "momentum_30d": 0.026,
+    "current_price": 76.63,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "a11e3a11",
+    "symbol": "LIN",
+    "company": "Linde plc",
+    "earnings_date": "2026-05-01",
+    "earnings_timing": "pre_market",
+    "confidence": 83.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "mega_cap": 5
+    },
+    "market_cap_b": 236.5,
+    "sector": "Basic Materials",
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.03,
+    "momentum_30d": 0.03,
+    "current_price": 510.3,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-04-27",
+    "notes": []
+  },
+  {
+    "id": "a90e4f6a",
     "symbol": "SPGI",
     "company": "S&P Global Inc.",
     "earnings_date": "2026-04-28",
     "earnings_timing": "pre_market",
-    "confidence": 85,
+    "confidence": 83.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "mega_cap": 5
     },
     "market_cap_b": 130.5,
@@ -905,19 +905,19 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "65d5eb70",
+    "id": "5c5cb7cc",
     "symbol": "BKNG",
     "company": "Booking Holdings Inc.",
     "earnings_date": "2026-04-28",
     "earnings_timing": "post_market",
-    "confidence": 85,
+    "confidence": 83.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "mega_cap": 5
     },
     "market_cap_b": 140.3,
@@ -925,23 +925,23 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.134,
     "momentum_30d": 0.069,
-    "current_price": 180.25,
+    "current_price": 180.28,
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "94374ad9",
+    "id": "20d72dd4",
     "symbol": "SYK",
     "company": "Stryker Corporation",
     "earnings_date": "2026-04-30",
     "earnings_timing": "pre_market",
-    "confidence": 85,
+    "confidence": 83.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "mega_cap": 5
     },
     "market_cap_b": 125.4,
@@ -953,19 +953,19 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "fa013b7c",
+    "id": "6210caae",
     "symbol": "GILD",
     "company": "Gilead Sciences, Inc.",
     "earnings_date": "2026-05-07",
     "earnings_timing": "post_market",
-    "confidence": 85,
+    "confidence": 83.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "mega_cap": 5
     },
     "market_cap_b": 161.9,
@@ -977,19 +977,19 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "13f4bdc3",
+    "id": "9be5e2bc",
     "symbol": "FTNT",
     "company": "Fortinet, Inc.",
     "earnings_date": "2026-05-06",
     "earnings_timing": "post_market",
-    "confidence": 85,
+    "confidence": 83.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "tech_sector": 5
     },
     "market_cap_b": 62.4,
@@ -997,23 +997,23 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.142,
     "momentum_30d": 0.041,
-    "current_price": 84.34,
+    "current_price": 84.35,
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "29c78079",
+    "id": "d9b26822",
     "symbol": "LYFT",
     "company": "Lyft, Inc.",
     "earnings_date": "2026-05-07",
     "earnings_timing": "post_market",
-    "confidence": 85,
+    "confidence": 83.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
+      "beat_rate_high": 28.0,
       "tech_sector": 5
     },
     "market_cap_b": 5.4,
@@ -1025,19 +1025,19 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "5339710d",
+    "id": "1f4bf711",
     "symbol": "SHOP",
     "company": "Shopify Inc.",
     "earnings_date": "2026-05-05",
     "earnings_timing": "post_market",
-    "confidence": 80,
+    "confidence": 78.0,
     "confidence_breakdown": {
       "base": 50,
-      "revenue_growth_high": 20,
+      "revenue_growth_high": 18.0,
       "tech_sector": 5,
       "mega_cap": 5
     },
@@ -1050,19 +1050,19 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "3fbc4bf0",
+    "id": "9b9d6847",
     "symbol": "REGN",
     "company": "Regeneron Pharmaceuticals, Inc.",
     "earnings_date": "2026-04-29",
     "earnings_timing": "pre_market",
-    "confidence": 80,
+    "confidence": 78.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30
+      "beat_rate_high": 28.0
     },
     "market_cap_b": 79.5,
     "sector": "Healthcare",
@@ -1073,19 +1073,19 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
-    "id": "c88f935b",
+    "id": "bf152d93",
     "symbol": "ZTS",
     "company": "Zoetis Inc.",
     "earnings_date": "2026-05-07",
     "earnings_timing": "unknown",
-    "confidence": 80,
+    "confidence": 78.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30
+      "beat_rate_high": 28.0
     },
     "market_cap_b": 49.3,
     "sector": "Healthcare",
@@ -1096,7 +1096,7 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
@@ -1128,16 +1128,16 @@
     "disqualified": false
   },
   {
-    "id": "ffdd2cb9",
+    "id": "489e2021",
     "symbol": "XOM",
     "company": "Exxon Mobil Corporation",
     "earnings_date": "2026-05-01",
     "earnings_timing": "pre_market",
-    "confidence": 70,
+    "confidence": 70.0,
     "confidence_breakdown": {
       "base": 50,
-      "beat_rate_high": 30,
-      "declining_revenue": -15,
+      "beat_rate_high": 28.0,
+      "declining_revenue": -13.0,
       "mega_cap": 5
     },
     "market_cap_b": 619.0,
@@ -1149,7 +1149,7 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   },
   {
@@ -1181,7 +1181,7 @@
     "disqualified": false
   },
   {
-    "id": "29aea7db",
+    "id": "3ec914e4",
     "symbol": "CAT",
     "company": "Caterpillar Inc.",
     "earnings_date": "2026-04-30",
@@ -1201,7 +1201,7 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-04-26",
+    "scan_date": "2026-04-27",
     "notes": []
   }
 ]
