@@ -1054,12 +1054,14 @@
     "current_price": 129.5,
     "position_size": 500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-04-27",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-04-27",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-04-27",
+    "trade_id": "6210caae"
   },
   {
     "id": "9be5e2bc",

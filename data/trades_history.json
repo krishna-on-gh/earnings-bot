@@ -1298,5 +1298,31 @@
     "revenue_growth_yoy": 0.023,
     "momentum_30d": 0.018,
     "earnings_timing": "unknown"
+  },
+  {
+    "id": "6210caae",
+    "symbol": "GILD",
+    "company": "Gilead Sciences, Inc.",
+    "entry_date": "2026-04-27",
+    "entry_time": "2026-04-27T11:25:52.421859-04:00",
+    "entry_price": 128.51,
+    "qty": 3,
+    "position_size": 385.53,
+    "confidence": 83.0,
+    "earnings_date": "2026-05-07",
+    "sector": "Healthcare",
+    "order_id": "da0a808b-6943-4d13-b60e-7224a7bd97d2",
+    "order_status": "OrderStatus.PENDING_NEW",
+    "stop_loss_price": 64.25,
+    "take_profit_price": 259.59,
+    "status": "open",
+    "exit_price": null,
+    "exit_date": null,
+    "pnl": null,
+    "pnl_pct": null,
+    "beat_rate": 1.0,
+    "revenue_growth_yoy": 0.024,
+    "momentum_30d": -0.047,
+    "earnings_timing": "post_market"
   }
 ]
