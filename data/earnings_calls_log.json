@@ -96,12 +96,12 @@
     "pnl": 9.05,
     "pnl_pct": 1.89,
     "outcome": "WIN",
-    "eps_estimate": 1.74,
-    "eps_reported": 1.56,
-    "beat_pct": -10.3,
-    "beat": false,
-    "correct_call": false,
-    "analysis": "PM missed EPS estimates by 10.3% (reported $1.56 vs $1.74 expected). The position returned +1.9% (WIN) against a 85% confidence call (85-94% tier). Despite the EPS miss the position was profitable \u2014 possible forward guidance upgrade or short squeeze not captured by the scoring model.",
+    "eps_estimate": 1.83,
+    "eps_reported": 1.96,
+    "beat_pct": 7.1,
+    "beat": true,
+    "correct_call": true,
+    "analysis": "PM beat EPS estimates by +7.1% (reported $1.96 vs $1.83 expected). The position returned +1.9% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
     "logged_at": "2026-04-22T17:27:21.748867-04:00"
   },
   {
@@ -123,7 +123,7 @@
     "beat": true,
     "correct_call": false,
     "analysis": "TMO beat EPS estimates by +3.8% (reported $5.44 vs $5.24 expected). The position returned -12.1% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T23:06:54.108788-04:00"
+    "logged_at": "2026-04-23T16:33:58.674775-04:00"
   },
   {
     "trade_id": "4b4d3016",
@@ -144,7 +144,7 @@
     "beat": true,
     "correct_call": false,
     "analysis": "AXP beat EPS estimates by +7.3% (reported $4.28 vs $3.99 expected). The position returned -3.7% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T23:06:55.098149-04:00"
+    "logged_at": "2026-04-23T16:33:59.391435-04:00"
   },
   {
     "trade_id": "b2f76314",
@@ -165,7 +165,7 @@
     "beat": true,
     "correct_call": false,
     "analysis": "LRCX beat EPS estimates by +8.1% (reported $1.47 vs $1.36 expected). The position returned -0.6% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T23:06:56.343132-04:00"
+    "logged_at": "2026-04-23T16:34:00.400887-04:00"
   },
   {
     "trade_id": "17b885bf",
@@ -186,7 +186,7 @@
     "beat": true,
     "correct_call": false,
     "analysis": "HON beat EPS estimates by +5.6% (reported $2.45 vs $2.32 expected). The position returned -8.0% (LOSS) against a 85% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T23:06:56.976233-04:00"
+    "logged_at": "2026-04-23T16:34:01.134651-04:00"
   },
   {
     "trade_id": "89f4a3aa",
@@ -207,7 +207,7 @@
     "beat": true,
     "correct_call": true,
     "analysis": "TXN beat EPS estimates by +23.5% (reported $1.68 vs $1.36 expected). The position returned +21.3% (WIN) against a 75% confidence call (70-84% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-23T23:06:57.819597-04:00"
+    "logged_at": "2026-04-23T16:34:01.804967-04:00"
   },
   {
     "trade_id": "41944e49",
@@ -228,7 +228,7 @@
     "beat": false,
     "correct_call": true,
     "analysis": "NOW missed EPS estimates by 0.0% (reported $0.97 vs $0.97 expected). The position returned -13.9% (LOSS) against a 95% confidence call (95-100% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 95-100% tier prediction.",
-    "logged_at": "2026-04-23T23:06:58.639155-04:00"
+    "logged_at": "2026-04-23T16:34:02.511933-04:00"
   },
   {
     "trade_id": "c3d96dcd",
@@ -239,7 +239,7 @@
     "confidence": 90,
     "tier": "85-94%",
     "entry_price": 252.96,
-    "exit_price": 230.983333,
+    "exit_price": 230.98,
     "pnl": -65.93,
     "pnl_pct": -8.69,
     "outcome": "LOSS",
@@ -249,7 +249,7 @@
     "beat": true,
     "correct_call": false,
     "analysis": "IBM beat EPS estimates by +5.5% (reported $1.91 vs $1.81 expected). The position returned -8.7% (LOSS) against a 90% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T23:07:00.210939-04:00"
+    "logged_at": "2026-04-23T16:34:03.322913-04:00"
   },
   {
     "trade_id": "fbc15ccf",
@@ -270,7 +270,112 @@
     "beat": true,
     "correct_call": true,
     "analysis": "NEE beat EPS estimates by +5.8% (reported $1.09 vs $1.03 expected). The position returned +3.9% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-23T23:07:01.118562-04:00"
+    "logged_at": "2026-04-23T16:34:04.105210-04:00"
+  },
+  {
+    "trade_id": "fc763dbc",
+    "symbol": "INTC",
+    "company": "Intel Corporation",
+    "earnings_date": "2026-04-23",
+    "exit_date": "2026-04-24",
+    "confidence": 90,
+    "tier": "85-94%",
+    "entry_price": 67.7179,
+    "exit_price": 82.88,
+    "pnl": 212.3,
+    "pnl_pct": 22.39,
+    "outcome": "WIN",
+    "eps_estimate": 0.01,
+    "eps_reported": 0.29,
+    "beat_pct": 2800.0,
+    "beat": true,
+    "correct_call": true,
+    "analysis": "INTC beat EPS estimates by +2800.0% (reported $0.29 vs $0.01 expected). The position returned +22.4% (WIN) against a 90% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
+    "logged_at": "2026-04-24T17:25:30.689692-04:00"
+  },
+  {
+    "trade_id": "1bc65e0d",
+    "symbol": "PG",
+    "company": "The Procter & Gamble Company",
+    "earnings_date": "2026-04-24",
+    "exit_date": "2026-04-24",
+    "confidence": 85,
+    "tier": "85-94%",
+    "entry_price": 145.43,
+    "exit_price": 150.32,
+    "pnl": 14.67,
+    "pnl_pct": 3.36,
+    "outcome": "WIN",
+    "eps_estimate": 1.56,
+    "eps_reported": 1.59,
+    "beat_pct": 1.9,
+    "beat": true,
+    "correct_call": true,
+    "analysis": "PG beat EPS estimates by +1.9% (reported $1.59 vs $1.56 expected). The position returned +3.4% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
+    "logged_at": "2026-04-24T17:25:31.284561-04:00"
+  },
+  {
+    "trade_id": "a926063e",
+    "symbol": "GILD",
+    "company": "Gilead Sciences, Inc.",
+    "earnings_date": "2026-04-23",
+    "exit_date": "2026-04-24",
+    "confidence": 85,
+    "tier": "85-94%",
+    "entry_price": 137.68,
+    "exit_price": 130.71,
+    "pnl": -20.91,
+    "pnl_pct": -5.06,
+    "outcome": "LOSS",
+    "eps_estimate": null,
+    "eps_reported": null,
+    "beat_pct": null,
+    "beat": null,
+    "correct_call": null,
+    "analysis": "GILD earnings results not yet confirmed in data feed. The position returned -5.1% (LOSS) against a 85% confidence call (85-94% tier). Accuracy against estimates could not be verified \u2014 trade result logged for manual review.",
+    "logged_at": "2026-04-24T17:25:32.111018-04:00"
+  },
+  {
+    "trade_id": "459e9eae",
+    "symbol": "KO",
+    "company": "The Coca-Cola Company",
+    "earnings_date": "2026-04-28",
+    "exit_date": "2026-04-28",
+    "confidence": 85,
+    "tier": "85-94%",
+    "entry_price": 75.88,
+    "exit_price": 80.06,
+    "pnl": 25.08,
+    "pnl_pct": 5.51,
+    "outcome": "WIN",
+    "eps_estimate": 0.81,
+    "eps_reported": 0.86,
+    "beat_pct": 6.2,
+    "beat": true,
+    "correct_call": true,
+    "analysis": "KO beat EPS estimates by +6.2% (reported $0.86 vs $0.81 expected). The position returned +5.5% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
+    "logged_at": "2026-04-28T17:37:34.995131-04:00"
+  },
+  {
+    "trade_id": "e6f0cec4",
+    "symbol": "SPGI",
+    "company": "S&P Global Inc.",
+    "earnings_date": "2026-04-28",
+    "exit_date": "2026-04-28",
+    "confidence": 85,
+    "tier": "85-94%",
+    "entry_price": 442.14,
+    "exit_price": 448.58,
+    "pnl": 6.44,
+    "pnl_pct": 1.46,
+    "outcome": "WIN",
+    "eps_estimate": 4.82,
+    "eps_reported": 4.97,
+    "beat_pct": 3.1,
+    "beat": true,
+    "correct_call": true,
+    "analysis": "SPGI beat EPS estimates by +3.1% (reported $4.97 vs $4.82 expected). The position returned +1.5% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
+    "logged_at": "2026-04-28T17:37:35.736470-04:00"
   },
   {
     "trade_id": "3a53e951",
@@ -291,7 +396,7 @@
     "beat": true,
     "correct_call": false,
     "analysis": "BKNG beat EPS estimates by +5.6% (reported $1.14 vs $1.08 expected). The position returned -10.1% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-29T23:54:58.220243-04:00"
+    "logged_at": "2026-04-29T17:40:07.859629-04:00"
   },
   {
     "trade_id": "bc8a772f",
@@ -302,17 +407,17 @@
     "confidence": 100,
     "tier": "95-100%",
     "entry_price": 89.8744,
-    "exit_price": 70.6375,
+    "exit_price": 70.64,
     "pnl": -307.79,
     "pnl_pct": -21.4,
     "outcome": "LOSS",
-    "eps_estimate": 0.43,
-    "eps_reported": 0.47,
-    "beat_pct": 9.3,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "HOOD beat EPS estimates by +9.3% (reported $0.47 vs $0.43 expected). The position returned -21.4% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-29T23:54:59.323581-04:00"
+    "eps_estimate": 0.39,
+    "eps_reported": 0.38,
+    "beat_pct": -2.6,
+    "beat": false,
+    "correct_call": true,
+    "analysis": "HOOD missed EPS estimates by 2.6% (reported $0.38 vs $0.39 expected). The position returned -21.4% (LOSS) against a 100% confidence call (95-100% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 95-100% tier prediction.",
+    "logged_at": "2026-04-29T17:40:08.517511-04:00"
   },
   {
     "trade_id": "94de2b6b",
@@ -333,7 +438,7 @@
     "beat": null,
     "correct_call": null,
     "analysis": "SOFI earnings results not yet confirmed in data feed. The position returned -18.6% (LOSS) against a 100% confidence call (95-100% tier). Accuracy against estimates could not be verified \u2014 trade result logged for manual review.",
-    "logged_at": "2026-04-29T23:55:00.139061-04:00"
+    "logged_at": "2026-04-29T17:40:09.225146-04:00"
   },
   {
     "trade_id": "08759a81",
@@ -354,7 +459,7 @@
     "beat": true,
     "correct_call": true,
     "analysis": "V beat EPS estimates by +6.8% (reported $3.31 vs $3.10 expected). The position returned +5.9% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-29T23:55:01.111187-04:00"
+    "logged_at": "2026-04-29T17:40:10.026697-04:00"
   },
   {
     "trade_id": "7c0bf917",
@@ -375,7 +480,7 @@
     "beat": null,
     "correct_call": null,
     "analysis": "ABBV earnings results not yet confirmed in data feed. The position returned -1.6% (LOSS) against a 85% confidence call (85-94% tier). Accuracy against estimates could not be verified \u2014 trade result logged for manual review.",
-    "logged_at": "2026-04-29T23:55:02.148239-04:00"
+    "logged_at": "2026-04-29T17:40:10.786936-04:00"
   },
   {
     "trade_id": "32917c3a",
@@ -396,6 +501,6 @@
     "beat": true,
     "correct_call": false,
     "analysis": "REGN beat EPS estimates by +6.4% (reported $9.47 vs $8.90 expected). The position returned -8.4% (LOSS) against a 80% confidence call (70-84% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-29T23:55:03.198042-04:00"
+    "logged_at": "2026-04-29T17:40:11.505024-04:00"
   }
 ]
