@@ -24,4 +24,5 @@ jobs:
           git config user.name "EarningsBot"
           git add data/
           git commit -m "scanner run" || echo "no changes"
+          git pull --rebase origin main || true
           git push

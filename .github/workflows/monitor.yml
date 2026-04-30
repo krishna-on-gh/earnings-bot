@@ -18,9 +18,14 @@ jobs:
         env:
           ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
           ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+      - run: python sync_alpaca.py
+        env:
+          ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
       - run: |
           git config user.email "bot@bot.com"
           git config user.name "EarningsBot"
           git add data/
           git commit -m "monitor run" || echo "no changes"
+          git pull --rebase origin main || true
           git push
