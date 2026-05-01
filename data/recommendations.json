@@ -306,12 +306,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.343,
     "momentum_30d": 0.686,
-    "current_price": 354.49,
+    "current_price": 353.24,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "5f7dfcc0",
@@ -332,12 +335,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.562,
     "momentum_30d": -0.05,
-    "current_price": 139.11,
+    "current_price": 144.88,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "ad346989",
@@ -358,12 +364,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.277,
     "momentum_30d": 0.114,
-    "current_price": 132.19,
+    "current_price": 140.12,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "f6b2bfcc",
@@ -383,12 +392,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.298,
     "momentum_30d": -0.002,
-    "current_price": 204.97,
+    "current_price": 213.0,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "e1271da8",
@@ -438,12 +450,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.053,
     "momentum_30d": 0.18,
-    "current_price": 91.5,
+    "current_price": 92.84,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "aa2ea185",
@@ -464,12 +479,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.044,
     "momentum_30d": 0.115,
-    "current_price": 394.49,
+    "current_price": 393.65,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "09053aad",
@@ -573,12 +591,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.02,
     "momentum_30d": 0.203,
-    "current_price": 26.42,
+    "current_price": 27.29,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "8fc6e9ce",
@@ -656,12 +677,15 @@
     "beat_rate": 0.75,
     "revenue_growth_yoy": 0.183,
     "momentum_30d": 0.04,
-    "current_price": 74.61,
+    "current_price": 75.22,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "2a4147dc",
@@ -843,12 +867,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.092,
     "momentum_30d": 0.065,
-    "current_price": 14.15,
+    "current_price": 14.38,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "df82a743",
@@ -1002,12 +1029,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.03,
     "momentum_30d": 0.015,
-    "current_price": 501.14,
+    "current_price": 518.17,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "e6eb1143",
@@ -1107,12 +1137,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.142,
     "momentum_30d": 0.039,
-    "current_price": 84.31,
+    "current_price": 86.25,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "f42a21b3",
@@ -1131,12 +1164,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.024,
     "momentum_30d": -0.067,
-    "current_price": 130.84,
+    "current_price": 129.76,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "d400abda",
@@ -1156,12 +1192,15 @@
     "beat_rate": 0.5,
     "revenue_growth_yoy": 0.301,
     "momentum_30d": 0.022,
-    "current_price": 121.13,
+    "current_price": 125.75,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "2623395c",
@@ -1205,12 +1244,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.023,
     "momentum_30d": -0.016,
-    "current_price": 114.97,
+    "current_price": 114.92,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "5cd07e63",
@@ -1258,12 +1300,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": -0.045,
     "momentum_30d": -0.04,
-    "current_price": 154.33,
+    "current_price": 154.47,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "4cc320e9",
@@ -1283,12 +1328,15 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": -0.046,
     "momentum_30d": -0.021,
-    "current_price": 193.31,
+    "current_price": 193.71,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-01",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-01",
+    "disqualified": false
   },
   {
     "id": "96a3d8ef",
