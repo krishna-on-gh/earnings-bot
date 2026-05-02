@@ -43,12 +43,19 @@ def fetch_alpaca_positions(client: TradingClient) -> List[Dict[str, Any]]:
 def fetch_alpaca_account(client: TradingClient) -> Dict[str, Any]:
     try:
         acct = client.get_account()
+        # last_equity is sometimes None from the paper trading API (e.g. after hours).
+        # Fall back to equity so daily_pnl shows 0 rather than crashing or showing garbage.
+        equity = float(acct.equity)
+        try:
+            last_equity = float(acct.last_equity) if acct.last_equity is not None else equity
+        except (TypeError, ValueError):
+            last_equity = equity
         return {
-            "equity": float(acct.equity),
+            "equity": equity,
             "cash": float(acct.cash),
             "portfolio_value": float(acct.portfolio_value),
             "buying_power": float(acct.buying_power),
-            "last_equity": float(acct.last_equity),
+            "last_equity": last_equity,
             "daytrade_count": int(acct.daytrade_count),
         }
     except Exception as e:

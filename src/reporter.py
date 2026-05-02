@@ -8,6 +8,9 @@ from datetime import date, timedelta
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
+# Date from which the new dual-filter methodology was in effect
+NEW_METHODOLOGY_START = "2026-04-22"
+
 import yfinance as yf
 
 from utils import (
@@ -46,6 +49,49 @@ def calc_win_rate(closed_trades: List[Dict]) -> float:
     return wins / len(closed_trades) * 100
 
 
+DUAL_FILTER_BEAT_MIN     = 0.50   # beat rate floor
+DUAL_FILTER_PRICE_UP_MIN = 0.55   # 5%+ earnings-day move floor
+
+
+def passes_dual_filter(trade: Dict) -> bool:
+    """
+    Returns True only if the trade would pass the dual-filter gate:
+      - beat_rate >= 50%  AND
+      - price_up_5pct_rate >= 55%
+    Trades that lack price_up_5pct_rate (pre-implementation) are excluded
+    because we cannot confirm they would have cleared the filter.
+    """
+    beat = trade.get("beat_rate")
+    up5  = trade.get("price_up_5pct_rate")
+    if beat is None or up5 is None:
+        return False
+    return beat >= DUAL_FILTER_BEAT_MIN and up5 >= DUAL_FILTER_PRICE_UP_MIN
+
+
+def calc_new_methodology_stats(closed_trades: List[Dict]) -> Dict[str, Any]:
+    """
+    Win rate and call accuracy for trades that:
+      1. Were entered on/after NEW_METHODOLOGY_START, AND
+      2. Pass the dual-filter gate (beat_rate >= 50%, price_up_5pct_rate >= 55%).
+    Trades from the new-methodology period that fail the dual filter (e.g. AMD,
+    FTNT, ZTS, GILD) are excluded — they were entered before the filter was live.
+    """
+    new_trades = [
+        t for t in closed_trades
+        if (t.get("entry_date") or "") >= NEW_METHODOLOGY_START
+        and passes_dual_filter(t)
+    ]
+    if not new_trades:
+        return {"count": 0, "win_rate": 0.0, "total_pnl": 0.0}
+    wins = sum(1 for t in new_trades if (t.get("pnl") or 0) > 0)
+    total_pnl = sum(t.get("pnl") or 0 for t in new_trades)
+    return {
+        "count":     len(new_trades),
+        "win_rate":  wins / len(new_trades) * 100,
+        "total_pnl": total_pnl,
+    }
+
+
 def build_text_report(
     today_trades: List[Dict],
     today_closed: List[Dict],
@@ -59,12 +105,18 @@ def build_text_report(
     open_positions = positions.get("positions", [])
     win_rate = calc_win_rate(all_closed)
     total_pnl = sum(t.get("pnl", 0) or 0 for t in all_closed)
+    new_stats = calc_new_methodology_stats(all_closed)
     lines = [
         f"DAILY PERFORMANCE REPORT — {today}",
         "=" * 60,
         f"Daily P&L:        ${daily_pnl:+.2f} ({daily_pnl_pct:+.1f}%)",
         f"Total P&L (all):  ${total_pnl:+.2f}",
-        f"Win Rate:         {win_rate:.0f}% ({len(all_closed)} closed trades)",
+        f"Win Rate (all):   {win_rate:.0f}% ({len(all_closed)} closed trades)",
+        f"Win Rate (new):   " + (
+            f"{new_stats['win_rate']:.0f}% ({new_stats['count']} trades since {NEW_METHODOLOGY_START})"
+            if new_stats['count'] > 0
+            else f"— (0 closed trades yet since {NEW_METHODOLOGY_START})"
+        ),
         f"Open Positions:   {len(open_positions)}",
         "",
         "BUDGET STATUS",
@@ -418,25 +470,28 @@ def update_earnings_log(today_closed: List[Dict]) -> None:
         )
 
         entry = {
-            "trade_id":      trade_id,
-            "symbol":        trade["symbol"],
-            "company":       trade.get("company", trade["symbol"]),
-            "earnings_date": trade.get("earnings_date"),
-            "exit_date":     trade.get("exit_date"),
-            "confidence":    trade.get("confidence"),
-            "tier":          tier,
-            "entry_price":   trade.get("entry_price"),
-            "exit_price":    trade.get("exit_price"),
-            "pnl":           trade.get("pnl"),
-            "pnl_pct":       trade.get("pnl_pct"),
-            "outcome":       outcome,
-            "eps_estimate":  earnings_result.get("eps_estimate"),
-            "eps_reported":  earnings_result.get("eps_reported"),
-            "beat_pct":      earnings_result.get("beat_pct"),
-            "beat":          beat,
-            "correct_call":  correct_call if beat is not None else None,
-            "analysis":      analysis,
-            "logged_at":     now_et().isoformat(),
+            "trade_id":           trade_id,
+            "symbol":             trade["symbol"],
+            "company":            trade.get("company", trade["symbol"]),
+            "entry_date":         trade.get("entry_date"),
+            "earnings_date":      trade.get("earnings_date"),
+            "exit_date":          trade.get("exit_date"),
+            "confidence":         trade.get("confidence"),
+            "tier":               tier,
+            "beat_rate":          trade.get("beat_rate"),
+            "price_up_5pct_rate": trade.get("price_up_5pct_rate"),
+            "entry_price":        trade.get("entry_price"),
+            "exit_price":         trade.get("exit_price"),
+            "pnl":                trade.get("pnl"),
+            "pnl_pct":            trade.get("pnl_pct"),
+            "outcome":            outcome,
+            "eps_estimate":       earnings_result.get("eps_estimate"),
+            "eps_reported":       earnings_result.get("eps_reported"),
+            "beat_pct":           earnings_result.get("beat_pct"),
+            "beat":               beat,
+            "correct_call":       correct_call if beat is not None else None,
+            "analysis":           analysis,
+            "logged_at":          now_et().isoformat(),
         }
         log_entries.append(entry)
 
@@ -446,6 +501,11 @@ def update_earnings_log(today_closed: List[Dict]) -> None:
         "70-84%":  {"calls": 0, "correct": 0},
         "85-94%":  {"calls": 0, "correct": 0},
         "95-100%": {"calls": 0, "correct": 0},
+        "new_methodology": {
+            "70-84%":  {"calls": 0, "correct": 0},
+            "85-94%":  {"calls": 0, "correct": 0},
+            "95-100%": {"calls": 0, "correct": 0},
+        },
     }
     for e in log_entries:
         t = e.get("tier")
@@ -454,6 +514,15 @@ def update_earnings_log(today_closed: List[Dict]) -> None:
         accuracy[t]["calls"] += 1
         if e.get("correct_call"):
             accuracy[t]["correct"] += 1
+        # Also track new methodology separately — only count dual-filter trades
+        # (entry_date >= NEW_METHODOLOGY_START AND passes beat_rate + price_up_5pct_rate gates)
+        if (e.get("exit_date") or "") >= NEW_METHODOLOGY_START and passes_dual_filter(e):
+            nm = accuracy["new_methodology"]
+            if t not in nm:
+                nm[t] = {"calls": 0, "correct": 0}
+            nm[t]["calls"] += 1
+            if e.get("correct_call"):
+                nm[t]["correct"] += 1
 
     save_json("earnings_calls_log.json", log_entries)
     save_json("earnings_accuracy.json", accuracy)
@@ -486,8 +555,8 @@ def write_earnings_docx(log_entries: List[Dict], accuracy: Dict) -> None:
     srun.italic = True
     srun.font.size = Pt(10)
 
-    # Accuracy summary
-    doc.add_heading("Confidence Accuracy Summary", level=1)
+    # Accuracy summary — overall
+    doc.add_heading("Confidence Accuracy Summary — Overall", level=1)
     table = doc.add_table(rows=1, cols=4)
     table.style = "Light Grid Accent 1"
     hdr = table.rows[0].cells
@@ -501,6 +570,27 @@ def write_earnings_docx(log_entries: List[Dict], accuracy: Dict) -> None:
         correct = stats.get("correct", 0)
         pct = (correct / calls * 100) if calls else 0
         row = table.add_row().cells
+        row[0].text = tier
+        row[1].text = str(calls)
+        row[2].text = str(correct)
+        row[3].text = f"{pct:.0f}%" if calls else "—"
+
+    # Accuracy summary — new methodology only
+    doc.add_heading(f"Confidence Accuracy Summary — New Methodology (from {NEW_METHODOLOGY_START})", level=1)
+    new_acc = accuracy.get("new_methodology", {})
+    table2 = doc.add_table(rows=1, cols=4)
+    table2.style = "Light Grid Accent 1"
+    hdr2 = table2.rows[0].cells
+    hdr2[0].text = "Tier"
+    hdr2[1].text = "Calls"
+    hdr2[2].text = "Correct"
+    hdr2[3].text = "Accuracy"
+    for tier in ("95-100%", "85-94%", "70-84%"):
+        stats = new_acc.get(tier, {"calls": 0, "correct": 0})
+        calls = stats.get("calls", 0)
+        correct = stats.get("correct", 0)
+        pct = (correct / calls * 100) if calls else 0
+        row = table2.add_row().cells
         row[0].text = tier
         row[1].text = str(calls)
         row[2].text = str(correct)

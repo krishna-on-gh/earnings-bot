@@ -151,6 +151,7 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
         "pnl": None,
         "pnl_pct": None,
         "beat_rate": rec.get("beat_rate"),
+        "price_up_5pct_rate": rec.get("price_up_5pct_rate"),
         "revenue_growth_yoy": rec.get("revenue_growth_yoy"),
         "momentum_30d": rec.get("momentum_30d"),
         "earnings_timing": rec.get("earnings_timing", "unknown"),

@@ -303,6 +303,39 @@ def get_momentum_30d(ticker: yf.Ticker) -> Optional[float]:
     return None
 
 
+def get_historical_price_up_rate(ticker: yf.Ticker) -> Optional[float]:
+    """
+    Fraction of past quarters where the stock moved UP 5%+ on earnings day.
+    Uses the largest single-day return per quarter as a proxy for the earnings
+    reaction (same heuristic as beat_rate, no exact earnings date needed).
+    Returns a float in [0, 1], or None if insufficient history.
+    """
+    try:
+        hist = ticker.history(period="3y", interval="1d")
+        if hist is None or hist.empty or len(hist) < 40:
+            return None
+        hist = hist.copy()
+        hist["ret"] = hist["Close"].pct_change()
+        # Drop timezone for period grouping
+        hist.index = hist.index.tz_localize(None) if hist.index.tzinfo is not None else hist.index
+        hist["quarter"] = pd.PeriodIndex(hist.index, freq="Q")
+        up5_count = 0
+        total_q = 0
+        for _q, group in hist.groupby("quarter"):
+            if len(group) < 5:
+                continue
+            # The day with the largest absolute return is treated as the earnings reaction day
+            peak_ret = group.loc[group["ret"].abs().idxmax(), "ret"]
+            total_q += 1
+            if peak_ret >= 0.05:   # +5% or more
+                up5_count += 1
+        if total_q < 4:
+            return None
+        return up5_count / total_q
+    except Exception:
+        return None
+
+
 def check_bankruptcy_risk(ticker: yf.Ticker, market_cap: float) -> bool:
     """Returns True if OK (no bankruptcy-level losses)."""
     try:
@@ -327,11 +360,24 @@ def calculate_confidence(
     beat_rate: Optional[float],
     revenue_growth: Optional[float],
     momentum: Optional[float],
+    price_up_rate: Optional[float] = None,
 ) -> tuple[float, Dict[str, Any]]:
     settings = load_settings()
     w = settings["scoring"]
     score = w["base_score"]
     breakdown = {"base": w["base_score"]}
+    # --- Dual-filter gate ---
+    # Both beat_rate AND price_up_rate must clear minimums to qualify.
+    # If we have the data and either filter fails, score is zeroed out so
+    # the stock never clears the min_confidence threshold.
+    BEAT_RATE_MIN   = 0.50   # stock must beat EPS estimate ≥50% of quarters
+    PRICE_UP_RATE_MIN = 0.55 # stock must move +5%+ on earnings day ≥55% of quarters
+    if beat_rate is not None and beat_rate < BEAT_RATE_MIN:
+        breakdown["dual_filter_fail_beat"] = -100
+        return 0.0, breakdown
+    if price_up_rate is not None and price_up_rate < PRICE_UP_RATE_MIN:
+        breakdown["dual_filter_fail_price_move"] = -100
+        return 0.0, breakdown
     if beat_rate is not None:
         if beat_rate >= 0.75:
             score += w["beat_rate_high_bonus"]
@@ -379,10 +425,11 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
             log.info(f"{symbol}: skipped — bankruptcy-level losses detected")
             return None
         beat_rate = get_historical_beat_rate(ticker)
+        price_up_rate = get_historical_price_up_rate(ticker)
         revenue_growth = get_revenue_growth_yoy(ticker)
         momentum = get_momentum_30d(ticker)
         confidence, breakdown = calculate_confidence(
-            symbol, info, beat_rate, revenue_growth, momentum
+            symbol, info, beat_rate, revenue_growth, momentum, price_up_rate
         )
         settings = load_settings()
         min_conf = settings["thresholds"]["min_confidence"]
@@ -407,6 +454,7 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
             "market_cap_b": round(market_cap / 1e9, 1),
             "sector": info.get("sector", "Unknown"),
             "beat_rate": round(beat_rate, 3) if beat_rate is not None else None,
+            "price_up_5pct_rate": round(price_up_rate, 3) if price_up_rate is not None else None,
             "revenue_growth_yoy": round(revenue_growth, 3) if revenue_growth is not None else None,
             "momentum_30d": round(momentum, 3) if momentum is not None else None,
             "current_price": round(current_price, 2),
@@ -418,7 +466,8 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
         }
         log.info(
             f"{symbol}: confidence={confidence:.0f}% | beat_rate={beat_rate} | "
-            f"rev_growth={revenue_growth} | momentum={momentum} | earnings={earnings_date}"
+            f"price_up_5pct={price_up_rate} | rev_growth={revenue_growth} | "
+            f"momentum={momentum} | earnings={earnings_date}"
         )
         return result
     except Exception as e:
