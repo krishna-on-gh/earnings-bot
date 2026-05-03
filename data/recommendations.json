@@ -317,7 +317,7 @@
     "disqualified": false
   },
   {
-    "id": "089bd75f",
+    "id": "52f9f101",
     "symbol": "PLTR",
     "company": "Palantir Technologies Inc.",
     "earnings_date": "2026-05-04",
@@ -340,11 +340,11 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-02",
+    "scan_date": "2026-05-03",
     "notes": []
   },
   {
-    "id": "167cd7ca",
+    "id": "e267e910",
     "symbol": "DDOG",
     "company": "Datadog, Inc.",
     "earnings_date": "2026-05-07",
@@ -367,11 +367,11 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-02",
+    "scan_date": "2026-05-03",
     "notes": []
   },
   {
-    "id": "ffdf441c",
+    "id": "1807265c",
     "symbol": "NET",
     "company": "Cloudflare, Inc.",
     "earnings_date": "2026-05-07",
@@ -393,7 +393,7 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-02",
+    "scan_date": "2026-05-03",
     "notes": []
   },
   {
@@ -568,7 +568,7 @@
     "disqualified": false
   },
   {
-    "id": "21d55f6c",
+    "id": "b184530a",
     "symbol": "U",
     "company": "Unity Software Inc.",
     "earnings_date": "2026-05-07",
@@ -590,7 +590,7 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-02",
+    "scan_date": "2026-05-03",
     "notes": []
   },
   {
@@ -652,7 +652,7 @@
     "disqualified": false
   },
   {
-    "id": "db1b5dc9",
+    "id": "e392a534",
     "symbol": "UBER",
     "company": "Uber Technologies, Inc.",
     "earnings_date": "2026-05-06",
@@ -674,7 +674,7 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-02",
+    "scan_date": "2026-05-03",
     "notes": []
   },
   {
@@ -841,7 +841,7 @@
     "disqualified": false
   },
   {
-    "id": "346e6e96",
+    "id": "255ef511",
     "symbol": "LYFT",
     "company": "Lyft, Inc.",
     "earnings_date": "2026-05-07",
@@ -862,7 +862,7 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-02",
+    "scan_date": "2026-05-03",
     "notes": []
   },
   {
@@ -1163,7 +1163,7 @@
     "disqualified": false
   },
   {
-    "id": "3c9a74c6",
+    "id": "49e11f32",
     "symbol": "SHOP",
     "company": "Shopify Inc.",
     "earnings_date": "2026-05-05",
@@ -1185,7 +1185,7 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-02",
+    "scan_date": "2026-05-03",
     "notes": []
   },
   {
