@@ -14,10 +14,6 @@ jobs:
         with:
           python-version: '3.13'
       - run: pip install alpaca-py yfinance pandas requests tzdata python-docx
-      - run: python sync_alpaca.py
-        env:
-          ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
-          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
       - run: python src/reporter.py
         env:
           ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
