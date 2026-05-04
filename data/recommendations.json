@@ -317,7 +317,7 @@
     "disqualified": false
   },
   {
-    "id": "52f9f101",
+    "id": "da5ea97d",
     "symbol": "PLTR",
     "company": "Palantir Technologies Inc.",
     "earnings_date": "2026-05-04",
@@ -326,7 +326,7 @@
     "confidence_breakdown": {
       "base": 50,
       "beat_rate_high": 28.0,
-      "revenue_growth_high": 18.0,
+      "revenue_growth_high": 16.0,
       "tech_sector": 5,
       "mega_cap": 5
     },
@@ -340,11 +340,11 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-03",
+    "scan_date": "2026-05-04",
     "notes": []
   },
   {
-    "id": "e267e910",
+    "id": "8c71f8fd",
     "symbol": "DDOG",
     "company": "Datadog, Inc.",
     "earnings_date": "2026-05-07",
@@ -353,7 +353,7 @@
     "confidence_breakdown": {
       "base": 50,
       "beat_rate_high": 28.0,
-      "revenue_growth_high": 18.0,
+      "revenue_growth_high": 16.0,
       "momentum_high": 15,
       "tech_sector": 5
     },
@@ -367,33 +367,7 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-03",
-    "notes": []
-  },
-  {
-    "id": "1807265c",
-    "symbol": "NET",
-    "company": "Cloudflare, Inc.",
-    "earnings_date": "2026-05-07",
-    "earnings_timing": "post_market",
-    "confidence": 100,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 28.0,
-      "revenue_growth_high": 18.0,
-      "tech_sector": 5
-    },
-    "market_cap_b": 76.9,
-    "sector": "Technology",
-    "beat_rate": 0.75,
-    "price_up_5pct_rate": 0.615,
-    "revenue_growth_yoy": 0.298,
-    "momentum_30d": 0.027,
-    "current_price": 217.5,
-    "position_size": 1500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-05-03",
+    "scan_date": "2026-05-04",
     "notes": []
   },
   {
@@ -484,6 +458,32 @@
     "disqualified": false
   },
   {
+    "id": "ee05efaa",
+    "symbol": "NET",
+    "company": "Cloudflare, Inc.",
+    "earnings_date": "2026-05-07",
+    "earnings_timing": "post_market",
+    "confidence": 99.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "beat_rate_high": 28.0,
+      "revenue_growth_high": 16.0,
+      "tech_sector": 5
+    },
+    "market_cap_b": 76.9,
+    "sector": "Technology",
+    "beat_rate": 0.75,
+    "price_up_5pct_rate": 0.615,
+    "revenue_growth_yoy": 0.298,
+    "momentum_30d": 0.027,
+    "current_price": 217.5,
+    "position_size": 1500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-05-04",
+    "notes": []
+  },
+  {
     "id": "09053aad",
     "symbol": "AMZN",
     "company": "Amazon.com, Inc.",
@@ -568,7 +568,7 @@
     "disqualified": false
   },
   {
-    "id": "b184530a",
+    "id": "9198facc",
     "symbol": "U",
     "company": "Unity Software Inc.",
     "earnings_date": "2026-05-07",
@@ -590,7 +590,7 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-03",
+    "scan_date": "2026-05-04",
     "notes": []
   },
   {
@@ -652,7 +652,7 @@
     "disqualified": false
   },
   {
-    "id": "e392a534",
+    "id": "b4884ee0",
     "symbol": "UBER",
     "company": "Uber Technologies, Inc.",
     "earnings_date": "2026-05-06",
@@ -674,7 +674,7 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-03",
+    "scan_date": "2026-05-04",
     "notes": []
   },
   {
@@ -841,7 +841,7 @@
     "disqualified": false
   },
   {
-    "id": "255ef511",
+    "id": "1b017f6b",
     "symbol": "LYFT",
     "company": "Lyft, Inc.",
     "earnings_date": "2026-05-07",
@@ -862,7 +862,7 @@
     "position_size": 500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-03",
+    "scan_date": "2026-05-04",
     "notes": []
   },
   {
@@ -1163,32 +1163,6 @@
     "disqualified": false
   },
   {
-    "id": "49e11f32",
-    "symbol": "SHOP",
-    "company": "Shopify Inc.",
-    "earnings_date": "2026-05-05",
-    "earnings_timing": "post_market",
-    "confidence": 78.0,
-    "confidence_breakdown": {
-      "base": 50,
-      "revenue_growth_high": 18.0,
-      "tech_sector": 5,
-      "mega_cap": 5
-    },
-    "market_cap_b": 165.8,
-    "sector": "Technology",
-    "beat_rate": 0.5,
-    "price_up_5pct_rate": 0.692,
-    "revenue_growth_yoy": 0.301,
-    "momentum_30d": 0.08,
-    "current_price": 127.67,
-    "position_size": 500,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-05-03",
-    "notes": []
-  },
-  {
     "id": "2623395c",
     "symbol": "REGN",
     "company": "Regeneron Pharmaceuticals, Inc.",
@@ -1239,6 +1213,32 @@
     "validation_notes": [],
     "validated_date": "2026-05-01",
     "disqualified": false
+  },
+  {
+    "id": "328f41c9",
+    "symbol": "SHOP",
+    "company": "Shopify Inc.",
+    "earnings_date": "2026-05-05",
+    "earnings_timing": "post_market",
+    "confidence": 76.0,
+    "confidence_breakdown": {
+      "base": 50,
+      "revenue_growth_high": 16.0,
+      "tech_sector": 5,
+      "mega_cap": 5
+    },
+    "market_cap_b": 165.8,
+    "sector": "Technology",
+    "beat_rate": 0.5,
+    "price_up_5pct_rate": 0.692,
+    "revenue_growth_yoy": 0.301,
+    "momentum_30d": 0.08,
+    "current_price": 127.67,
+    "position_size": 500,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-05-04",
+    "notes": []
   },
   {
     "id": "5cd07e63",
