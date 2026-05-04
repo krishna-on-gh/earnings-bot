@@ -427,12 +427,14 @@
     "current_price": 92.84,
     "position_size": 1500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-05-01",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-05-01",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-05-04",
+    "trade_id": "592968b9"
   },
   {
     "id": "aa2ea185",
@@ -456,12 +458,14 @@
     "current_price": 393.65,
     "position_size": 1500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-05-01",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-05-01",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-05-04",
+    "trade_id": "aa2ea185"
   },
   {
     "id": "ee05efaa",
