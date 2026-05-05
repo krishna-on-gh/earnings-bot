@@ -366,12 +366,15 @@
     "price_up_5pct_rate": 0.615,
     "revenue_growth_yoy": 0.277,
     "momentum_30d": 0.259,
-    "current_price": 146.69,
+    "current_price": 146.47,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-05",
+    "disqualified": false
   },
   {
     "id": "e1271da8",
@@ -534,12 +537,15 @@
     "price_up_5pct_rate": 0.769,
     "revenue_growth_yoy": 0.02,
     "momentum_30d": 0.261,
-    "current_price": 27.72,
+    "current_price": 27.55,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-05",
+    "disqualified": false
   },
   {
     "id": "8fc6e9ce",
@@ -618,12 +624,15 @@
     "price_up_5pct_rate": 0.692,
     "revenue_growth_yoy": 0.183,
     "momentum_30d": 0.024,
-    "current_price": 73.93,
+    "current_price": 74.5,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-05",
+    "disqualified": false
   },
   {
     "id": "2a4147dc",
@@ -806,12 +815,15 @@
     "price_up_5pct_rate": 0.692,
     "revenue_growth_yoy": 0.092,
     "momentum_30d": 0.026,
-    "current_price": 14.06,
+    "current_price": 14.1,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-05",
+    "disqualified": false
   },
   {
     "id": "df82a743",
@@ -1181,12 +1193,15 @@
     "price_up_5pct_rate": 0.615,
     "revenue_growth_yoy": 0.301,
     "momentum_30d": 0.074,
-    "current_price": 127.55,
+    "current_price": 117.46,
     "position_size": 500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-05",
+    "disqualified": false
   },
   {
     "id": "5cd07e63",
