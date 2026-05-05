@@ -21,7 +21,6 @@ jobs:
       - run: |
           git config user.email "bot@bot.com"
           git config user.name "EarningsBot"
-          git add data/
-          git commit -m "executor run" || echo "no changes"
-          git pull --rebase origin main || true
-          git push
+          git pull --rebase origin main
+          git add data/trades_history.json data/recommendations.json data/budget_tracker.json data/positions.json
+          git diff --cached --quiet && echo "no changes" || (git commit -m "executor run" && git push)

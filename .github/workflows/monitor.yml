@@ -2,6 +2,7 @@ name: Monitor
 on:
   workflow_dispatch:
   schedule:
+    - cron: '30 13 * * 1-5'
     - cron: '0 14-20 * * 1-5'
 jobs:
   run:

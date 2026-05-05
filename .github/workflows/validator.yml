@@ -21,6 +21,6 @@ jobs:
       - run: |
           git config user.email "bot@bot.com"
           git config user.name "EarningsBot"
-          git add data/
-          git commit -m "validator run" || echo "no changes"
-          git push
+          git pull --rebase origin main
+          git add data/recommendations.json
+          git diff --cached --quiet && echo "no changes" || (git commit -m "validator run" && git push)

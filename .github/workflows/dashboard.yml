@@ -17,6 +17,6 @@ jobs:
       - run: |
           git config user.email "bot@bot.com"
           git config user.name "EarningsBot"
+          git pull --rebase origin main
           git add dashboard.html
-          git commit -m "dashboard update" || echo "no changes"
-          git push
+          git diff --cached --quiet && echo "no changes" || (git commit -m "dashboard update" && git push)

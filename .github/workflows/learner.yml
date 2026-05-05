@@ -21,6 +21,6 @@ jobs:
       - run: |
           git config user.email "bot@bot.com"
           git config user.name "EarningsBot"
-          git add data/
-          git commit -m "learner run" || echo "no changes"
-          git push
+          git pull --rebase origin main
+          git add data/learning_weights.json
+          git diff --cached --quiet && echo "no changes" || (git commit -m "learner run" && git push)
