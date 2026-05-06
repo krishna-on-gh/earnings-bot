@@ -299,8 +299,7 @@ def fetch_portfolio_history() -> Dict[str, Any]:
     for period, timeframe in periods:
         try:
             r = _requests.get(base, headers=headers,
-                              params={"period": period, "timeframe": timeframe,
-                                      "extended_hours": "true"}, timeout=10)
+                              params={"period": period, "timeframe": timeframe}, timeout=10)
             if r.status_code == 200:
                 data = r.json()
                 points = []
