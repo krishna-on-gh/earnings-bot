@@ -1089,7 +1089,8 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.562,
     "momentum_30d": -0.092,
-    "earnings_timing": "post_market"
+    "earnings_timing": "post_market",
+    "price_up_5pct_rate": 0.6923
   },
   {
     "id": "fab4f60c",

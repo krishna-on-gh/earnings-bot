@@ -662,37 +662,58 @@ def write_earnings_docx(log_entries: List[Dict], accuracy: Dict) -> None:
     doc.save(str(EARNINGS_DOCX))
 
 
-def run_reporter():
+def run_reporter(report_date: Optional[str] = None):
+    """
+    Generate the daily performance report.
+    Pass report_date (YYYY-MM-DD) to generate a report for a past day.
+    Defaults to today (ET).
+    """
     log.info("=" * 60)
     log.info("REPORTER: Generating daily performance report")
     log.info("=" * 60)
-    if not is_weekday():
-        log.info("Not a weekday — skipping report")
-        return
+
+    if report_date:
+        target_date = report_date
+        log.info(f"Running for historical date: {target_date}")
+    else:
+        if not is_weekday():
+            log.info("Not a weekday — skipping report")
+            return
+        target_date = today_et().isoformat()
+
     trades_history = load_json("trades_history.json") or []
     positions = load_json("positions.json") or {}
     budget = load_json("budget_tracker.json") or {}
-    today_trades = get_today_trades(trades_history)
-    today_closed = get_today_closed(trades_history)
+
+    today_trades = [t for t in trades_history if t.get("entry_date") == target_date]
+    today_closed = [
+        t for t in trades_history
+        if t.get("exit_date") == target_date and t.get("status") == "closed"
+    ]
     all_closed = get_all_closed(trades_history)
+
     update_earnings_log(today_closed)
     text = build_text_report(today_trades, today_closed, all_closed, positions, budget)
+    # Patch the date header in the text to show the correct report date
+    text = text.replace(today_et().isoformat(), target_date, 1)
     html = build_html_report(text, today_closed)
     log.info("\n" + text)
     daily_dir = REPORTS_DIR / "Daily Model Movement"
     daily_dir.mkdir(parents=True, exist_ok=True)
-    report_file = daily_dir / f"report_{today_et().isoformat()}.html"
+    report_file = daily_dir / f"report_{target_date}.html"
 
     report_file.write_text(html, encoding="utf-8")
     log.info(f"Report saved: {report_file}")
     daily_pnl = positions.get("daily_pnl", 0)
     win_rate = calc_win_rate(all_closed)
     send_email(
-        f"Daily Report: P&L ${daily_pnl:+.2f} | Win Rate {win_rate:.0f}%",
+        f"Daily Report ({target_date}): P&L ${daily_pnl:+.2f} | Win Rate {win_rate:.0f}%",
         text,
         html,
     )
 
 
 if __name__ == "__main__":
-    run_reporter()
+    import sys
+    date_arg = sys.argv[1] if len(sys.argv) > 1 else None
+    run_reporter(report_date=date_arg)
