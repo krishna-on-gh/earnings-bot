@@ -13,10 +13,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: python update_dashboard.py
       - run: |
           git config user.email "bot@bot.com"
           git config user.name "EarningsBot"
           git pull --rebase origin main
+      - run: python update_dashboard.py
+      - run: |
           git add dashboard.html
           git diff --cached --quiet && echo "no changes" || (git commit -m "dashboard update" && git push)
