@@ -1,14 +1,14 @@
 {
   "70-84%": {
-    "calls": 7,
-    "correct": 6
+    "calls": 8,
+    "correct": 7
   },
   "85-94%": {
-    "calls": 20,
-    "correct": 12
+    "calls": 22,
+    "correct": 14
   },
   "95-100%": {
-    "calls": 16,
+    "calls": 18,
     "correct": 9
   },
   "new_methodology": {
