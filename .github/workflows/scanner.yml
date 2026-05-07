@@ -13,15 +13,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip install alpaca-py yfinance pandas requests tzdata
+      - run: pip install alpaca-py yfinance pandas requests tzdata lxml
+      - run: |
+          git config user.email "bot@bot.com"
+          git config user.name "EarningsBot"
+          git pull --rebase origin main
       - run: python src/scanner.py
         env:
           ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
           ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
       - run: |
-          git config user.email "bot@bot.com"
-          git config user.name "EarningsBot"
-          git pull --rebase origin main
-          git add data/recommendations.json
+          git add data/recommendations.json data/scanner_status.json
           git diff --cached --quiet && echo "no changes" || (git commit -m "scanner run" && git push)

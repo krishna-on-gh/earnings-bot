@@ -316,9 +316,12 @@ def get_historical_price_up_rate(ticker: yf.Ticker) -> Optional[float]:
             return None
         hist = hist.copy()
         hist["ret"] = hist["Close"].pct_change()
-        # Drop timezone for period grouping
-        hist.index = hist.index.tz_localize(None) if hist.index.tzinfo is not None else hist.index
-        hist["quarter"] = pd.PeriodIndex(hist.index, freq="Q")
+        # Drop timezone for period grouping — use .tz (DatetimeIndex attribute),
+        # not .tzinfo (datetime attribute). Use tz_localize(None) to strip tz.
+        if getattr(hist.index, "tz", None) is not None:
+            hist.index = hist.index.tz_localize(None)
+        # Use .to_period() — pd.PeriodIndex(DatetimeIndex) is deprecated in pandas 2.2+
+        hist["quarter"] = hist.index.to_period("Q")
         up5_count = 0
         total_q = 0
         for _q, group in hist.groupby("quarter"):
@@ -479,8 +482,13 @@ def run_scanner():
     log.info("=" * 60)
     log.info("SCANNER: Starting nightly earnings scan")
     log.info("=" * 60)
+    scan_started = now_et().isoformat()
     if check_kill_switch():
         log.warning("Kill switch active — scanner aborted")
+        save_json("scanner_status.json", {
+            "last_run": scan_started, "status": "aborted",
+            "reason": "kill switch active", "recommendations_found": 0,
+        })
         return
     settings = load_settings()
     window = settings["thresholds"]["earnings_window_days"]
@@ -507,7 +515,7 @@ def run_scanner():
         except Exception as e:
             log.debug(f"  {symbol}: date check failed — {e}")
         time.sleep(0.1)
-    log.info(f"Found {len(earnings_candidates)} stocks with earnings in next 14 days")
+    log.info(f"Found {len(earnings_candidates)} stocks with earnings in next {window} days")
     recommendations = []
     for symbol, (earnings_date, earnings_timing) in earnings_candidates.items():
         log.info(f"Analyzing {symbol} (earnings {earnings_date}, {earnings_timing})...")
@@ -543,12 +551,36 @@ def run_scanner():
     if not isinstance(existing, list):
         existing = []
     today_str = today_et().isoformat()
-    existing = [r for r in existing if r.get("scan_date") != today_str and not r.get("executed")]
+    # Remove today's stale entries (will be replaced with fresh scan)
+    # Also purge past-earnings entries that are not executed (older than 1 day)
+    cutoff = today_et() - timedelta(days=1)
+    def _keep(r: Dict) -> bool:
+        if r.get("executed"):
+            return True  # Always keep executed/tracked trades
+        if r.get("scan_date") == today_str:
+            return False  # Will be replaced by fresh scan
+        try:
+            ed = date.fromisoformat(r["earnings_date"])
+            return ed >= cutoff
+        except Exception:
+            return True
+    existing = [r for r in existing if _keep(r)]
     merged = {r["symbol"]: r for r in existing}
     for r in recommendations:
         merged[r["symbol"]] = r
     final = sorted(merged.values(), key=lambda x: x["confidence"], reverse=True)
     save_json("recommendations.json", final)
+    # Always write scanner_status.json so the workflow always has something to commit,
+    # giving visibility into every run even when recommendations don't change.
+    save_json("scanner_status.json", {
+        "last_run": scan_started,
+        "status": "ok",
+        "tickers_scanned": len(tickers),
+        "earnings_candidates": len(earnings_candidates),
+        "candidates": list(earnings_candidates.keys()),
+        "recommendations_found": len(recommendations),
+        "recommendations": [r["symbol"] for r in recommendations],
+    })
     log.info(f"SCANNER COMPLETE: {len(recommendations)} new recommendations saved")
     summary_lines = []
     for r in recommendations:
