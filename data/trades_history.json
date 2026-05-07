@@ -1194,7 +1194,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.277,
     "momentum_30d": 0.078,
-    "earnings_timing": "post_market"
+    "earnings_timing": "pre_market"
   },
   {
     "id": "13319a51",
@@ -1246,7 +1246,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.02,
     "momentum_30d": 0.423,
-    "earnings_timing": "unknown"
+    "earnings_timing": "pre_market"
   },
   {
     "id": "1fcd1198",
@@ -1298,7 +1298,7 @@
     "beat_rate": 1.0,
     "revenue_growth_yoy": 0.023,
     "momentum_30d": 0.018,
-    "earnings_timing": "unknown"
+    "earnings_timing": "pre_market"
   },
   {
     "id": "0b4206b1",
