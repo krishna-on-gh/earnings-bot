@@ -130,7 +130,7 @@ def get_earnings_date_and_timing(ticker: yf.Ticker, symbol: str) -> tuple[Option
         "SPOT":  "post_market", "SQ":    "post_market", "PYPL":  "post_market",
         "EBAY":  "post_market", "ETSY":  "post_market", "ZM":    "post_market",
         "DOCU":  "post_market", "OKTA":  "post_market", "NET":   "post_market",
-        "DDOG":  "post_market", "CRWD":  "post_market", "ZS":    "post_market",
+        "DDOG":  "pre_market",  "CRWD":  "post_market", "ZS":    "post_market",
         "PANW":  "post_market", "FTNT":  "post_market", "MRK":   "post_market",
         "GILD":  "post_market",
         # BMO reporters (Before Market Open)
@@ -153,7 +153,7 @@ def get_earnings_date_and_timing(ticker: yf.Ticker, symbol: str) -> tuple[Option
         "BLK":   "pre_market",  "SPGI":  "pre_market",  "MCO":   "pre_market",
         "LIN":   "pre_market",  "APD":   "pre_market",  "SHW":   "pre_market",
         "ECL":   "pre_market",  "NUE":   "pre_market",  "FCX":   "pre_market",
-        "SYK":   "pre_market",
+        "SYK":   "pre_market",  "ZTS":   "pre_market",  "U":     "pre_market",
     }
     if symbol in KNOWN_TIMING:
         known = KNOWN_TIMING[symbol]
