@@ -15,12 +15,14 @@ jobs:
         with:
           python-version: '3.13'
       - run: pip install alpaca-py yfinance pandas requests tzdata
+      - run: |
+          git config user.email "bot@bot.com"
+          git config user.name "EarningsBot"
+          git pull --rebase origin main
       - run: python src/monitor.py
         env:
           ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
           ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
       - run: |
-          git config user.email "bot@bot.com"
-          git config user.name "EarningsBot"
           git add data/
-          git diff --cached --quiet && echo "no changes" || (git commit -m "monitor run" && git pull --rebase origin main && git push)
+          git diff --cached --quiet && echo "no changes" || (git commit -m "monitor run" && git push)
