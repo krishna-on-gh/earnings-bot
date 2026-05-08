@@ -1642,33 +1642,33 @@
       "symbol": "AMAT",
       "qty": 3.0,
       "avg_entry_price": 389.79,
-      "current_price": 436.37,
-      "market_value": 1309.11,
-      "unrealized_pl": 139.74,
-      "unrealized_plpc": 0.1195,
+      "current_price": 434.98,
+      "market_value": 1304.94,
+      "unrealized_pl": 135.57,
+      "unrealized_plpc": 0.11593,
       "side": "PositionSide.LONG"
     },
     {
       "symbol": "CSCO",
       "qty": 16.0,
       "avg_entry_price": 92.61,
-      "current_price": 96.635,
-      "market_value": 1546.16,
-      "unrealized_pl": 64.4,
-      "unrealized_plpc": 0.04346,
+      "current_price": 96.71,
+      "market_value": 1547.36,
+      "unrealized_pl": 65.6,
+      "unrealized_plpc": 0.04427,
       "side": "PositionSide.LONG"
     }
   ],
   "account": {
-    "equity": 100931.36,
+    "equity": 100928.39,
     "cash": 98076.09,
-    "portfolio_value": 100931.36,
+    "portfolio_value": 100928.39,
     "buying_power": 398408.32,
     "last_equity": 101222.62,
     "daytrade_count": 0
   },
-  "last_updated": "2026-05-08T15:11:41.638256-04:00",
-  "daily_pnl": -291.26,
+  "last_updated": "2026-05-08T16:55:25.440724-04:00",
+  "daily_pnl": -294.23,
   "daily_pnl_pct": -0.29,
   "weekly_pnl": 1217.76,
   "weekly_pnl_pct": 45.92,
@@ -1692,16 +1692,16 @@
 }</script>
 <script id="__ACCURACY__" type="application/json">{
   "70-84%": {
-    "calls": 8,
-    "correct": 7
+    "calls": 9,
+    "correct": 8
   },
   "85-94%": {
-    "calls": 22,
+    "calls": 23,
     "correct": 14
   },
   "95-100%": {
-    "calls": 18,
-    "correct": 9
+    "calls": 19,
+    "correct": 10
   },
   "new_methodology": {
     "70-84%": {
@@ -2695,12 +2695,12 @@
     "pnl": 636.24,
     "pnl_pct": 44.89,
     "outcome": "WIN",
-    "eps_estimate": null,
-    "eps_reported": null,
-    "beat_pct": null,
-    "beat": null,
-    "correct_call": null,
-    "analysis": "DDOG earnings results not yet confirmed in data feed. The position returned +44.9% (WIN) against a 100% confidence call (95-100% tier). Accuracy against estimates could not be verified \u2014 trade result logged for manual review.",
+    "eps_estimate": 0.07,
+    "eps_reported": 0.15,
+    "beat_pct": 114.3,
+    "beat": true,
+    "correct_call": true,
+    "analysis": "DDOG beat EPS estimates by +114.3% (reported $0.15 vs $0.07 expected). The position returned +44.9% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
     "logged_at": "2026-05-07T17:31:15.331494-04:00"
   },
   {
@@ -2719,12 +2719,12 @@
     "pnl": 216.0,
     "pnl_pct": 14.59,
     "outcome": "WIN",
-    "eps_estimate": null,
-    "eps_reported": null,
-    "beat_pct": null,
-    "beat": null,
-    "correct_call": null,
-    "analysis": "U earnings results not yet confirmed in data feed. The position returned +14.6% (WIN) against a 100% confidence call (95-100% tier). Accuracy against estimates could not be verified \u2014 trade result logged for manual review.",
+    "eps_estimate": 0.24,
+    "eps_reported": 0.23,
+    "beat_pct": -4.2,
+    "beat": false,
+    "correct_call": false,
+    "analysis": "U missed EPS estimates by 4.2% (reported $0.23 vs $0.24 expected). The position returned +14.6% (WIN) against a 100% confidence call (95-100% tier). Despite the EPS miss the position was profitable \u2014 possible forward guidance upgrade or short squeeze not captured by the scoring model.",
     "logged_at": "2026-05-07T17:31:16.079113-04:00"
   },
   {
@@ -2750,6 +2750,78 @@
     "correct_call": true,
     "analysis": "ZTS missed EPS estimates by 7.8% (reported $1.42 vs $1.54 expected). The position returned -24.2% (LOSS) against a 80% confidence call (70-84% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 70-84% tier prediction.",
     "logged_at": "2026-05-07T17:31:16.745490-04:00"
+  },
+  {
+    "trade_id": "13319a51",
+    "symbol": "NET",
+    "company": "Cloudflare, Inc.",
+    "entry_date": "2026-04-23",
+    "earnings_date": "2026-05-07",
+    "exit_date": "2026-05-08",
+    "confidence": 100,
+    "tier": "95-100%",
+    "beat_rate": 0.75,
+    "price_up_5pct_rate": null,
+    "entry_price": 206.49,
+    "exit_price": 193.72,
+    "pnl": -89.39,
+    "pnl_pct": -6.18,
+    "outcome": "LOSS",
+    "eps_estimate": -0.09,
+    "eps_reported": -0.07,
+    "beat_pct": 22.2,
+    "beat": true,
+    "correct_call": false,
+    "analysis": "NET beat EPS estimates by +22.2% (reported $-0.07 vs $-0.09 expected). The position returned -6.2% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
+    "logged_at": "2026-05-08T17:34:22.685534-04:00"
+  },
+  {
+    "trade_id": "1fcd1198",
+    "symbol": "LYFT",
+    "company": "Lyft, Inc.",
+    "entry_date": "2026-04-23",
+    "earnings_date": "2026-05-07",
+    "exit_date": "2026-05-08",
+    "confidence": 85,
+    "tier": "85-94%",
+    "beat_rate": 1.0,
+    "price_up_5pct_rate": null,
+    "entry_price": 14.17,
+    "exit_price": 14.37,
+    "pnl": 6.91,
+    "pnl_pct": 1.39,
+    "outcome": "WIN",
+    "eps_estimate": 0.07,
+    "eps_reported": 0.04,
+    "beat_pct": -42.9,
+    "beat": false,
+    "correct_call": false,
+    "analysis": "LYFT missed EPS estimates by 42.9% (reported $0.04 vs $0.07 expected). The position returned +1.4% (WIN) against a 85% confidence call (85-94% tier). Despite the EPS miss the position was profitable \u2014 possible forward guidance upgrade or short squeeze not captured by the scoring model.",
+    "logged_at": "2026-05-08T17:34:23.547688-04:00"
+  },
+  {
+    "trade_id": "0b4206b1",
+    "symbol": "GILD",
+    "company": "Gilead Sciences, Inc.",
+    "entry_date": "2026-04-27",
+    "earnings_date": "2026-05-07",
+    "exit_date": "2026-05-08",
+    "confidence": 83.0,
+    "tier": "70-84%",
+    "beat_rate": 1.0,
+    "price_up_5pct_rate": 0.462,
+    "entry_price": 128.4933,
+    "exit_price": 132.12,
+    "pnl": 10.88,
+    "pnl_pct": 2.82,
+    "outcome": "WIN",
+    "eps_estimate": 1.91,
+    "eps_reported": 2.03,
+    "beat_pct": 6.3,
+    "beat": true,
+    "correct_call": true,
+    "analysis": "GILD beat EPS estimates by +6.3% (reported $2.03 vs $1.91 expected). The position returned +2.8% (WIN) against a 83% confidence call (70-84% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
+    "logged_at": "2026-05-08T17:34:23.761099-04:00"
   }
 ]</script>
 <script id="__PORTFOLIO_HIST__" type="application/json">{
@@ -3029,7 +3101,47 @@
       },
       {
         "t": 1778267400,
-        "v": 100931.26
+        "v": 100928.57
+      },
+      {
+        "t": 1778267700,
+        "v": 100927.05
+      },
+      {
+        "t": 1778268000,
+        "v": 100930.63
+      },
+      {
+        "t": 1778268300,
+        "v": 100927.22
+      },
+      {
+        "t": 1778268600,
+        "v": 100921.91
+      },
+      {
+        "t": 1778268900,
+        "v": 100925.1
+      },
+      {
+        "t": 1778269200,
+        "v": 100929.81
+      },
+      {
+        "t": 1778269500,
+        "v": 100923.18
+      },
+      {
+        "t": 1778269800,
+        "v": 100920.39
+      },
+      {
+        "t": 1778270100,
+        "v": 100921.01
+      },
+      {
+        "t": 1778270400,
+        "v": 100927.45
       }
     ],
     "base_value": 101222.62,
@@ -3199,7 +3311,11 @@
       },
       {
         "t": 1778265000,
-        "v": 100931.44
+        "v": 100925.82
+      },
+      {
+        "t": 1778268600,
+        "v": 100921.91
       }
     ],
     "base_value": 99706.39,
@@ -3300,7 +3416,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-05-08T20:32:16", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-05-08T21:49:07", "source": "scheduler"}</script>
 
 <script type="text/babel">
 // ─── DATA LOADING ──────────────────────────────────────────────────────────
