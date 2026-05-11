@@ -23,11 +23,13 @@
     "current_price": 221.37,
     "position_size": 1500,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-05-11",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-05-11",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-05-11",
+    "trade_id": "b71b1a54"
   }
 ]

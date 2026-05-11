@@ -1380,5 +1380,32 @@
     "revenue_growth_yoy": 0.044,
     "momentum_30d": 0.115,
     "earnings_timing": "post_market"
+  },
+  {
+    "id": "b71b1a54",
+    "symbol": "NVDA",
+    "company": "NVIDIA Corporation",
+    "entry_date": "2026-05-11",
+    "entry_time": "2026-05-11T12:17:22.666592-04:00",
+    "entry_price": 222.2,
+    "qty": 6,
+    "position_size": 1333.2,
+    "confidence": 100,
+    "earnings_date": "2026-05-20",
+    "sector": "Technology",
+    "order_id": "bcc82d86-66f4-4d8f-89f4-f2b39409f23a",
+    "order_status": "OrderStatus.PENDING_NEW",
+    "stop_loss_price": 111.1,
+    "take_profit_price": 448.84,
+    "status": "open",
+    "exit_price": null,
+    "exit_date": null,
+    "pnl": null,
+    "pnl_pct": null,
+    "beat_rate": 1.0,
+    "price_up_5pct_rate": 0.615,
+    "revenue_growth_yoy": 0.655,
+    "momentum_30d": 0.141,
+    "earnings_timing": "post_market"
   }
 ]
