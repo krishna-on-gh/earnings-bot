@@ -20,11 +20,14 @@
     "price_up_5pct_rate": 0.615,
     "revenue_growth_yoy": 0.655,
     "momentum_30d": 0.141,
-    "current_price": 215.22,
+    "current_price": 221.37,
     "position_size": 1500,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-11",
+    "disqualified": false
   }
 ]
