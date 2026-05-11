@@ -4,37 +4,47 @@
       "symbol": "AMAT",
       "qty": 3.0,
       "avg_entry_price": 389.79,
-      "current_price": 447.24,
-      "market_value": 1341.72,
-      "unrealized_pl": 172.35,
-      "unrealized_plpc": 0.14739,
+      "current_price": 447.32,
+      "market_value": 1341.96,
+      "unrealized_pl": 172.59,
+      "unrealized_plpc": 0.14759,
       "side": "PositionSide.LONG"
     },
     {
       "symbol": "CSCO",
       "qty": 16.0,
       "avg_entry_price": 92.61,
-      "current_price": 97.88,
-      "market_value": 1566.08,
-      "unrealized_pl": 84.32,
-      "unrealized_plpc": 0.05691,
+      "current_price": 97.92,
+      "market_value": 1566.72,
+      "unrealized_pl": 84.96,
+      "unrealized_plpc": 0.05734,
+      "side": "PositionSide.LONG"
+    },
+    {
+      "symbol": "NVDA",
+      "qty": 6.0,
+      "avg_entry_price": 222.028333,
+      "current_price": 221.78,
+      "market_value": 1330.68,
+      "unrealized_pl": -1.489998,
+      "unrealized_plpc": -0.00112,
       "side": "PositionSide.LONG"
     }
   ],
   "account": {
-    "equity": 100983.88,
-    "cash": 98076.08,
-    "portfolio_value": 100983.88,
-    "buying_power": 400288.36,
+    "equity": 100983.27,
+    "cash": 96743.91,
+    "portfolio_value": 100983.27,
+    "buying_power": 398956.19,
     "last_equity": 100927.52,
-    "daytrade_count": 0
+    "daytrade_count": 1
   },
-  "last_updated": "2026-05-11T12:13:52.311509-04:00",
-  "daily_pnl": 56.36,
+  "last_updated": "2026-05-11T12:29:45.876446-04:00",
+  "daily_pnl": 55.75,
   "daily_pnl_pct": 0.06,
   "weekly_pnl": 0.0,
   "weekly_pnl_pct": 0.0,
-  "open_positions_count": 2,
+  "open_positions_count": 3,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }
