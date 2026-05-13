@@ -1,6 +1,6 @@
 [
   {
-    "id": "b9e8cd59",
+    "id": "9d70c020",
     "symbol": "NVDA",
     "company": "NVIDIA Corporation",
     "earnings_date": "2026-05-20",
@@ -14,20 +14,17 @@
       "tech_sector": 5,
       "mega_cap": 5
     },
-    "market_cap_b": 5333.5,
+    "market_cap_b": 5366.1,
     "sector": "Technology",
     "beat_rate": 1.0,
     "price_up_5pct_rate": 0.615,
     "revenue_growth_yoy": 0.655,
-    "momentum_30d": 0.159,
-    "current_price": 217.65,
+    "momentum_30d": 0.124,
+    "current_price": 220.78,
     "position_size": 1500,
-    "validated": true,
+    "validated": false,
     "executed": false,
-    "scan_date": "2026-05-12",
-    "notes": [],
-    "validation_notes": [],
-    "validated_date": "2026-05-12",
-    "disqualified": false
+    "scan_date": "2026-05-13",
+    "notes": []
   }
 ]
