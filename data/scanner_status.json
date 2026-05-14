@@ -1,19 +1,22 @@
 {
-  "last_run": "2026-05-13T02:35:04.914564-04:00",
+  "last_run": "2026-05-14T02:32:54.206132-04:00",
   "status": "ok",
   "tickers_scanned": 88,
-  "earnings_candidates": 10,
+  "earnings_candidates": 13,
   "candidates": [
     "NVDA",
     "WMT",
     "HD",
-    "CSCO",
+    "COST",
     "CRM",
     "INTU",
     "AMAT",
     "ADI",
     "SNOW",
-    "ZS"
+    "ZS",
+    "OKTA",
+    "MDB",
+    "ESTC"
   ],
   "recommendations_found": 1,
   "recommendations": [
