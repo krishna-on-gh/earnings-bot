@@ -1,40 +1,30 @@
 {
   "positions": [
     {
-      "symbol": "AMAT",
-      "qty": 3.0,
-      "avg_entry_price": 389.79,
-      "current_price": 440.73,
-      "market_value": 1322.19,
-      "unrealized_pl": 152.82,
-      "unrealized_plpc": 0.13069,
-      "side": "PositionSide.LONG"
-    },
-    {
       "symbol": "NVDA",
       "qty": 6.0,
       "avg_entry_price": 222.028333,
-      "current_price": 227.96,
-      "market_value": 1367.76,
-      "unrealized_pl": 35.590002,
-      "unrealized_plpc": 0.02672,
+      "current_price": 228.44,
+      "market_value": 1370.64,
+      "unrealized_pl": 38.470002,
+      "unrealized_plpc": 0.02888,
       "side": "PositionSide.LONG"
     }
   ],
   "account": {
-    "equity": 101313.5,
-    "cash": 98623.58,
-    "portfolio_value": 101313.5,
+    "equity": 101314.12,
+    "cash": 99943.6,
+    "portfolio_value": 101314.12,
     "buying_power": 402155.44,
     "last_equity": 101359.7,
     "daytrade_count": 0
   },
-  "last_updated": "2026-05-15T11:33:43.600143-04:00",
-  "daily_pnl": -46.2,
-  "daily_pnl_pct": -0.05,
-  "weekly_pnl": 397.92,
-  "weekly_pnl_pct": 15.9,
-  "open_positions_count": 2,
+  "last_updated": "2026-05-15T12:02:16.065654-04:00",
+  "daily_pnl": -45.58,
+  "daily_pnl_pct": -0.04,
+  "weekly_pnl": 548.57,
+  "weekly_pnl_pct": 41.15,
+  "open_positions_count": 1,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }
