@@ -1,6 +1,6 @@
 [
   {
-    "id": "7c6f42cb",
+    "id": "14740e90",
     "symbol": "NVDA",
     "company": "NVIDIA Corporation",
     "earnings_date": "2026-05-20",
@@ -24,7 +24,7 @@
     "position_size": 1500,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-05-16",
+    "scan_date": "2026-05-17",
     "notes": []
   }
 ]
