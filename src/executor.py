@@ -33,6 +33,24 @@ log = get_logger("executor")
 
 POSITION_USD = 10_000   # flat $10K per trade
 
+# US market holidays 2026 (NYSE observed dates)
+HOLIDAYS_2026 = {
+    date(2026, 1, 1), date(2026, 1, 19), date(2026, 2, 16),
+    date(2026, 5, 25), date(2026, 7, 3), date(2026, 9, 7),
+    date(2026, 11, 26), date(2026, 12, 25),
+}
+
+
+def get_entry_date(earnings_date: date) -> date:
+    """Return the intended entry date: 3 trading days before earnings."""
+    d = earnings_date
+    count = 0
+    while count < 3:
+        d -= timedelta(days=1)
+        if d.weekday() < 5 and d not in HOLIDAYS_2026:
+            count += 1
+    return d
+
 
 # ── Price fetching ────────────────────────────────────────────────────────────
 def get_current_price(symbol: str) -> Optional[float]:
@@ -368,15 +386,25 @@ def run_executor():
         log.warning(f"Could not fetch positions: {e}")
         owned_symbols = set()
 
-    # Candidates: validated, unexecuted, earnings at least 2 days away
-    candidates = [
-        r for r in recommendations
-        if r.get("validated")
-        and not r.get("executed")
-        and not r.get("disqualified")
-        and r["symbol"] not in owned_symbols
-        and r.get("earnings_date", "") > tomorrow
-    ]
+    # Candidates: validated, unexecuted, entry date reached, earnings still ahead
+    candidates = []
+    for r in recommendations:
+        if not r.get("validated") or r.get("executed") or r.get("disqualified"):
+            continue
+        if r["symbol"] in owned_symbols:
+            continue
+        earnings_dt = date.fromisoformat(r["earnings_date"])
+        entry_dt    = get_entry_date(earnings_dt)
+        # Only execute on or within 1 day after the intended entry date
+        # AND earnings must still be at least 2 days away
+        days_late = (today_et() - entry_dt).days
+        if 0 <= days_late <= 1 and r.get("earnings_date", "") > tomorrow:
+            candidates.append(r)
+        else:
+            log.info(
+                f"{r['symbol']}: skipping — entry_date={entry_dt} "
+                f"({'not yet' if days_late < 0 else f'{days_late}d late, window closed'})"
+            )
 
     log.info(f"Found {len(candidates)} validated Hitman v2 candidates for execution")
     if not candidates:
