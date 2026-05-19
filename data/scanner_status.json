@@ -1,9 +1,35 @@
 {
-  "last_run": null,
-  "status": "fresh",
-  "tickers_scanned": 0,
-  "earnings_candidates": 0,
-  "candidates": [],
-  "recommendations_found": 0,
-  "recommendations": []
+  "last_run": "2026-05-19T10:53:28.486509-04:00",
+  "status": "ok",
+  "universe_size": 136,
+  "earnings_candidates": 21,
+  "candidates": [
+    "NVDA",
+    "WMT",
+    "HD",
+    "COST",
+    "CRM",
+    "INTU",
+    "ADI",
+    "ZS",
+    "OKTA",
+    "PANW",
+    "MDB",
+    "SNPS",
+    "MRVL",
+    "WDAY",
+    "ROST",
+    "CPRT",
+    "ZM",
+    "ESTC",
+    "PSTG",
+    "NTAP",
+    "SNOW"
+  ],
+  "recommendations_found": 3,
+  "recommendations": [
+    "NVDA",
+    "ZM",
+    "PSTG"
+  ]
 }
