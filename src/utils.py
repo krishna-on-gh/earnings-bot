@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo
 
 from alpaca.trading.client import TradingClient
 from alpaca.data import StockHistoricalDataClient
+from alpaca.data.historical.option import OptionHistoricalDataClient
 
 BASE_DIR = Path(__file__).parent.parent
 DATA_DIR = BASE_DIR / "data"
@@ -102,6 +103,11 @@ def get_trading_client() -> TradingClient:
 def get_data_client() -> StockHistoricalDataClient:
     api_key, secret_key = get_alpaca_keys()
     return StockHistoricalDataClient(api_key=api_key, secret_key=secret_key)
+
+
+def get_option_data_client() -> OptionHistoricalDataClient:
+    api_key, secret_key = get_alpaca_keys()
+    return OptionHistoricalDataClient(api_key=api_key, secret_key=secret_key)
 
 
 def now_et() -> datetime:

@@ -19,13 +19,15 @@ import yfinance as yf
 from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import (
     MarketOrderRequest,
+    LimitOrderRequest,
     GetOptionContractsRequest,
 )
 from alpaca.trading.enums import OrderSide, TimeInForce, ContractType
+from alpaca.data.requests import OptionLatestQuoteRequest
 
 from utils import (
     get_logger, load_settings, load_json, save_json,
-    get_trading_client, send_email, check_kill_switch,
+    get_trading_client, get_option_data_client, send_email, check_kill_switch,
     check_circuit_breakers, check_budget, update_budget,
     now_et, today_et, is_weekday, is_market_open,
 )
@@ -51,6 +53,31 @@ def get_entry_date(earnings_date: date) -> date:
         if d.weekday() < 5 and d not in HOLIDAYS_2026:
             count += 1
     return d
+
+
+# ── Live option quote ─────────────────────────────────────────────────────────
+def get_option_mid_price(contract_symbol: str) -> Optional[float]:
+    """
+    Fetch live bid/ask for an option contract and return the midpoint.
+    Falls back to None if unavailable (caller uses stale close_price instead).
+    """
+    try:
+        data_client = get_option_data_client()
+        req = OptionLatestQuoteRequest(symbol_or_symbols=[contract_symbol])
+        quotes = data_client.get_option_latest_quote(req)
+        quote = quotes.get(contract_symbol)
+        if not quote:
+            return None
+        bid = float(quote.bid_price or 0)
+        ask = float(quote.ask_price or 0)
+        if bid <= 0 or ask <= 0:
+            return None
+        mid = round((bid + ask) / 2, 2)
+        log.info(f"{contract_symbol}: bid=${bid:.2f} ask=${ask:.2f} mid=${mid:.2f}")
+        return mid
+    except Exception as e:
+        log.warning(f"Could not fetch live quote for {contract_symbol}: {e}")
+        return None
 
 
 # ── Price fetching ────────────────────────────────────────────────────────────
@@ -142,29 +169,46 @@ def place_call_order(
     symbol: str,
     contract: Any,
     num_contracts: int,
+    limit_price: Optional[float],
     client: TradingClient,
 ) -> Optional[Dict[str, Any]]:
-    """Place a naked call buy order."""
+    """
+    Place a naked call buy order.
+    Uses limit order at mid-price if available, falls back to market order.
+    """
     try:
-        order_data = MarketOrderRequest(
-            symbol=contract.symbol,
-            qty=num_contracts,
-            side=OrderSide.BUY,
-            time_in_force=TimeInForce.DAY,
-        )
+        if limit_price:
+            order_data = LimitOrderRequest(
+                symbol=contract.symbol,
+                qty=num_contracts,
+                side=OrderSide.BUY,
+                time_in_force=TimeInForce.DAY,
+                limit_price=limit_price,
+            )
+            order_type = f"LIMIT @ ${limit_price:.2f}"
+        else:
+            order_data = MarketOrderRequest(
+                symbol=contract.symbol,
+                qty=num_contracts,
+                side=OrderSide.BUY,
+                time_in_force=TimeInForce.DAY,
+            )
+            order_type = "MARKET"
+
         order = client.submit_order(order_data)
         log.info(
-            f"{symbol}: CALL order submitted — {num_contracts} contracts "
+            f"{symbol}: CALL {order_type} submitted — {num_contracts} contracts "
             f"of {contract.symbol} | order_id={order.id}"
         )
         return {
-            "order_id":    str(order.id),
+            "order_id":     str(order.id),
             "order_status": str(order.status),
-            "contract":    contract.symbol,
-            "strike":      float(contract.strike_price),
-            "expiry":      str(contract.expiration_date),
-            "qty":         num_contracts,
-            "leg":         "call",
+            "contract":     contract.symbol,
+            "strike":       float(contract.strike_price),
+            "expiry":       str(contract.expiration_date),
+            "qty":          num_contracts,
+            "limit_price":  limit_price,
+            "leg":          "call",
         }
     except Exception as e:
         log.error(f"{symbol}: call order failed — {e}")
@@ -271,13 +315,22 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
         log.warning(f"{symbol}: no ATM call contract found — skipping")
         return None
 
-    try:
-        premium_est = float(contract.close_price or contract.last_price or 1.0)
-    except Exception:
-        premium_est = 1.0
-    num_contracts = max(1, int(POSITION_USD / (premium_est * 100)))
+    # Fetch live mid-price for accurate contract count and limit order
+    live_mid = get_option_mid_price(contract.symbol)
+    if live_mid:
+        premium_est = live_mid
+        log.info(f"{symbol}: using live mid-price ${live_mid:.2f} for sizing")
+    else:
+        try:
+            premium_est = float(contract.close_price or contract.last_price or 1.0)
+        except Exception:
+            premium_est = 1.0
+        log.warning(f"{symbol}: live quote unavailable, using stale price ${premium_est:.2f}")
 
-    order_info = place_call_order(symbol, contract, num_contracts, client)
+    num_contracts = max(1, int(POSITION_USD / (premium_est * 100)))
+    log.info(f"{symbol}: {num_contracts} contracts × ${premium_est:.2f} × 100 = ~${num_contracts * premium_est * 100:,.0f}")
+
+    order_info = place_call_order(symbol, contract, num_contracts, live_mid, client)
     if not order_info:
         return None
 
