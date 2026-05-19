@@ -12,7 +12,6 @@ for tag, path in [
     ("__POSITIONS__",       "data/positions.json"),
     ("__BUDGET__",          "data/budget_tracker.json"),
     ("__ACCURACY__",        "data/earnings_accuracy.json"),
-    ("__CALLS_LOG__",       "data/earnings_calls_log.json"),
     ("__PORTFOLIO_HIST__",  "data/portfolio_history.json"),
 ]:
     content = (base / path).read_text(encoding="utf-8").strip()

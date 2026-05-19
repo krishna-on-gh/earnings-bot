@@ -1,170 +1,340 @@
 """
-Task 3 — Trade executor (runs at 9:35 AM ET weekdays).
-Places bracket orders for validated recommendations via Alpaca.
-Enforces hard budget caps and safety checks.
+Trade executor — Hitman v2 methodology.
+Runs at 3:50 PM ET weekdays (end-of-day entry, 10 min before close).
+
+For each validated Hitman v2 candidate:
+  IV < 55%  => buy ATM naked call  ($10K position)
+  IV 55-80% => buy ATM call + sell +8% OTM call (bull call spread, $10K)
+
+Entry:  close, 3 trading days before earnings  (this script runs at 3:50 PM)
+Exit:   handled by monitor.py at close of day +1 after earnings
 """
 import time
 import uuid
-from datetime import datetime, timedelta
-from typing import Dict, Any, List, Optional
+from datetime import datetime, date, timedelta
+from typing import Dict, Any, List, Optional, Tuple
 
 import yfinance as yf
 from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import (
     MarketOrderRequest,
-    TakeProfitRequest,
-    StopLossRequest,
+    GetOptionContractsRequest,
 )
-from alpaca.trading.enums import OrderSide, TimeInForce, OrderClass
+from alpaca.trading.enums import OrderSide, TimeInForce, ContractType
 
 from utils import (
     get_logger, load_settings, load_json, save_json,
     get_trading_client, send_email, check_kill_switch,
     check_circuit_breakers, check_budget, update_budget,
-    halt_trading, now_et, today_et, is_weekday, is_market_open,
+    now_et, today_et, is_weekday, is_market_open,
 )
 
 log = get_logger("executor")
 
+POSITION_USD = 10_000   # flat $10K per trade
 
-def get_current_price(symbol: str, client: TradingClient) -> Optional[float]:
-    # Use the shared data client (reads keys from .env via get_alpaca_keys)
+
+# ── Price fetching ────────────────────────────────────────────────────────────
+def get_current_price(symbol: str) -> Optional[float]:
+    """Get latest stock price via yfinance."""
     try:
-        from alpaca.data.requests import StockLatestQuoteRequest
-        from utils import get_data_client
-        data_client = get_data_client()
-        req = StockLatestQuoteRequest(symbol_or_symbols=symbol)
-        quote = data_client.get_stock_latest_quote(req)
-        if quote and symbol in quote:
-            q = quote[symbol]
-            ask = float(q.ask_price)
-            bid = float(q.bid_price)
-            # Use ask price — closer to what Alpaca uses as base_price for buys
-            if ask > 0:
-                return ask
-            if bid > 0:
-                return bid
+        info = yf.Ticker(symbol).fast_info
+        price = getattr(info, "last_price", None)
+        if price and float(price) > 0:
+            return float(price)
     except Exception:
         pass
     try:
-        info = yf.Ticker(symbol).fast_info or {}
-        price = getattr(info, "last_price", None)
-        if price:
-            return float(price)
+        hist = yf.Ticker(symbol).history(period="1d")
+        if not hist.empty:
+            return float(hist["Close"].iloc[-1])
     except Exception:
         pass
     return None
 
 
-def calculate_shares(position_size: float, price: float) -> int:
-    if price <= 0:
-        return 0
-    shares = int(position_size / price)
-    return max(shares, 1)
+# ── Option contract selection ─────────────────────────────────────────────────
+def find_expiry_after_earnings(earnings_date: date) -> date:
+    """
+    Find the nearest options expiration date that falls AFTER earnings.
+    Options typically expire on Fridays. We want the first Friday
+    at least 1 day after earnings, ideally 3-7 days after.
+    """
+    # Start looking from the day after earnings
+    target = earnings_date + timedelta(days=1)
+    # Walk forward to find the next Friday (weekday 4)
+    while target.weekday() != 4:
+        target += timedelta(days=1)
+    # If that Friday is less than 2 days after earnings, take the following Friday
+    if (target - earnings_date).days < 2:
+        target += timedelta(days=7)
+    return target
 
 
-def place_bracket_order(
+def find_option_contract(
+    client: TradingClient,
     symbol: str,
-    shares: int,
-    entry_price: float,
-    position_size: float,
+    strike: float,
+    expiry: date,
+    contract_type: ContractType = ContractType.CALL,
+    tolerance_pct: float = 0.05,
+) -> Optional[Any]:
+    """
+    Find the closest available option contract to the requested strike/expiry.
+    Searches within ±tolerance_pct of strike (default ±5%).
+    Returns the contract object or None if not found.
+    """
+    strike_low  = round(strike * (1 - tolerance_pct), 2)
+    strike_high = round(strike * (1 + tolerance_pct), 2)
+
+    try:
+        req = GetOptionContractsRequest(
+            underlying_symbols=[symbol],
+            contract_type=contract_type,
+            expiration_date_gte=expiry - timedelta(days=3),
+            expiration_date_lte=expiry + timedelta(days=3),
+            strike_price_gte=str(strike_low),
+            strike_price_lte=str(strike_high),
+            limit=20,
+        )
+        contracts = client.get_option_contracts(req)
+        if not contracts or not contracts.option_contracts:
+            log.warning(f"{symbol}: no option contracts found near strike ${strike:.2f} expiry {expiry}")
+            return None
+
+        # Pick the contract with strike closest to target
+        best = min(
+            contracts.option_contracts,
+            key=lambda c: abs(float(c.strike_price) - strike)
+        )
+        log.info(
+            f"{symbol}: found contract {best.symbol} | "
+            f"strike=${float(best.strike_price):.2f} | expiry={best.expiration_date}"
+        )
+        return best
+
+    except Exception as e:
+        log.error(f"{symbol}: contract lookup failed — {e}")
+        return None
+
+
+# ── Order placement ───────────────────────────────────────────────────────────
+def place_call_order(
+    symbol: str,
+    contract: Any,
+    num_contracts: int,
     client: TradingClient,
 ) -> Optional[Dict[str, Any]]:
-    stop_price = round(entry_price * 0.50, 2)
-    # Add a 1% buffer above entry so TP always clears Alpaca's live base_price
-    # even if the market ticks up between our price fetch and order submission
-    take_profit_price = round(entry_price * 2.02, 2)
-    log.info(
-        f"{symbol}: placing bracket order — {shares} shares @ ~${entry_price:.2f} | "
-        f"TP: ${take_profit_price:.2f} (+100%) | SL: ${stop_price:.2f} (-50%)"
-    )
+    """Place a naked call buy order."""
     try:
         order_data = MarketOrderRequest(
-            symbol=symbol,
-            qty=shares,
+            symbol=contract.symbol,
+            qty=num_contracts,
             side=OrderSide.BUY,
             time_in_force=TimeInForce.DAY,
-            order_class=OrderClass.BRACKET,
-            take_profit=TakeProfitRequest(limit_price=take_profit_price),
-            stop_loss=StopLossRequest(stop_price=stop_price),
         )
         order = client.submit_order(order_data)
-        log.info(f"{symbol}: order submitted — ID: {order.id}, status: {order.status}")
+        log.info(
+            f"{symbol}: CALL order submitted — {num_contracts} contracts "
+            f"of {contract.symbol} | order_id={order.id}"
+        )
         return {
-            "order_id": str(order.id),
-            "status": str(order.status),
-            "symbol": symbol,
-            "qty": shares,
-            "entry_price": entry_price,
-            "stop_price": stop_price,
-            "take_profit_price": take_profit_price,
+            "order_id":    str(order.id),
+            "order_status": str(order.status),
+            "contract":    contract.symbol,
+            "strike":      float(contract.strike_price),
+            "expiry":      str(contract.expiration_date),
+            "qty":         num_contracts,
+            "leg":         "call",
         }
     except Exception as e:
-        log.error(f"{symbol}: order failed — {e}")
-        send_email(f"Order Failed: {symbol}", f"Failed to place order for {symbol}.\nError: {e}")
+        log.error(f"{symbol}: call order failed — {e}")
+        send_email(f"Order Failed: {symbol} CALL", f"Failed to place call order.\nError: {e}")
         return None
 
 
+def place_spread_order(
+    symbol: str,
+    long_contract: Any,
+    short_contract: Any,
+    num_contracts: int,
+    client: TradingClient,
+) -> Optional[Dict[str, Any]]:
+    """
+    Place a bull call spread: buy ATM call + sell +8% OTM call.
+    Two separate orders placed back-to-back.
+    """
+    # Leg 1: Buy the long (ATM) call
+    try:
+        long_order_data = MarketOrderRequest(
+            symbol=long_contract.symbol,
+            qty=num_contracts,
+            side=OrderSide.BUY,
+            time_in_force=TimeInForce.DAY,
+        )
+        long_order = client.submit_order(long_order_data)
+        log.info(f"{symbol}: SPREAD long leg submitted — {long_contract.symbol} | order_id={long_order.id}")
+    except Exception as e:
+        log.error(f"{symbol}: spread long leg failed — {e}")
+        send_email(f"Order Failed: {symbol} SPREAD long leg", f"Error: {e}")
+        return None
+
+    time.sleep(0.5)
+
+    # Leg 2: Sell the short (OTM) call
+    try:
+        short_order_data = MarketOrderRequest(
+            symbol=short_contract.symbol,
+            qty=num_contracts,
+            side=OrderSide.SELL,
+            time_in_force=TimeInForce.DAY,
+        )
+        short_order = client.submit_order(short_order_data)
+        log.info(f"{symbol}: SPREAD short leg submitted — {short_contract.symbol} | order_id={short_order.id}")
+    except Exception as e:
+        log.error(f"{symbol}: spread short leg failed — {e}")
+        send_email(f"Order Failed: {symbol} SPREAD short leg", f"Long leg was placed but short leg failed.\nError: {e}")
+        # Return partial info so monitor knows long leg exists
+        return {
+            "order_id":         str(long_order.id),
+            "order_status":     str(long_order.status),
+            "long_contract":    long_contract.symbol,
+            "short_contract":   None,
+            "long_strike":      float(long_contract.strike_price),
+            "short_strike":     None,
+            "expiry":           str(long_contract.expiration_date),
+            "qty":              num_contracts,
+            "leg":              "spread_partial",
+            "error":            f"short leg failed: {e}",
+        }
+
+    return {
+        "order_id":         str(long_order.id),
+        "short_order_id":   str(short_order.id),
+        "order_status":     str(long_order.status),
+        "long_contract":    long_contract.symbol,
+        "short_contract":   short_contract.symbol,
+        "long_strike":      float(long_contract.strike_price),
+        "short_strike":     float(short_contract.strike_price),
+        "expiry":           str(long_contract.expiration_date),
+        "qty":              num_contracts,
+        "leg":              "spread",
+    }
+
+
+# ── Trade execution ───────────────────────────────────────────────────────────
 def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[str, Any]]:
-    symbol = rec["symbol"]
-    position_size = rec["position_size"]
-    can_trade, reason = check_budget(position_size, log)
+    symbol     = rec["symbol"]
+    trade_type = rec.get("trade_type", "call")   # "call" or "spread"
+    iv         = rec.get("iv_proxy", 0.50)
+    earnings_date = date.fromisoformat(rec["earnings_date"])
+
+    # Budget check
+    can_trade, reason = check_budget(POSITION_USD, log)
     if not can_trade:
         log.warning(f"{symbol}: skipping — {reason}")
         return None
-    price = get_current_price(symbol, client)
+
+    # Get current stock price
+    price = get_current_price(symbol)
     if not price or price <= 0:
-        log.error(f"{symbol}: could not get current price — skipping")
+        log.error(f"{symbol}: could not get price — skipping")
         return None
-    shares = calculate_shares(position_size, price)
-    if shares < 1:
-        log.warning(f"{symbol}: position size ${position_size} too small for ${price:.2f} stock — skipping")
-        return None
-    actual_cost = shares * price
-    can_trade, reason = check_budget(actual_cost, log)
-    if not can_trade:
-        log.warning(f"{symbol}: skipping — {reason}")
-        return None
-    order_info = place_bracket_order(symbol, shares, price, actual_cost, client)
-    if not order_info:
-        return None
-    update_budget(actual_cost)
+
+    # Find post-earnings expiration
+    expiry = find_expiry_after_earnings(earnings_date)
+    log.info(f"{symbol}: price=${price:.2f} | trade_type={trade_type} | IV={iv:.0%} | expiry={expiry}")
+
+    # ATM strike = closest round number to current price
+    atm_strike = round(price)
+    otm_strike = round(price * 1.08)   # +8% for spread short leg
+
+    if trade_type == "call":
+        # ── Naked ATM call ────────────────────────────────────────────────────
+        contract = find_option_contract(client, symbol, atm_strike, expiry, ContractType.CALL)
+        if not contract:
+            log.warning(f"{symbol}: no ATM call contract found — skipping")
+            return None
+
+        # Estimate contracts: $10K / (premium * 100)
+        # Use a rough premium estimate; actual fill price recorded by monitor
+        try:
+            premium_est = float(contract.close_price or contract.last_price or 1.0)
+        except Exception:
+            premium_est = 1.0
+        num_contracts = max(1, int(POSITION_USD / (premium_est * 100)))
+
+        order_info = place_call_order(symbol, contract, num_contracts, client)
+        if not order_info:
+            return None
+
+    else:
+        # ── Bull call spread ATM / +8% ────────────────────────────────────────
+        long_contract  = find_option_contract(client, symbol, atm_strike, expiry, ContractType.CALL)
+        short_contract = find_option_contract(client, symbol, otm_strike, expiry, ContractType.CALL)
+
+        if not long_contract or not short_contract:
+            log.warning(f"{symbol}: could not find both spread legs — skipping")
+            return None
+
+        try:
+            long_prem  = float(long_contract.close_price  or long_contract.last_price  or 1.0)
+            short_prem = float(short_contract.close_price or short_contract.last_price or 0.3)
+            net_debit  = max(long_prem - short_prem, 0.10)
+        except Exception:
+            net_debit = 1.0
+        num_contracts = max(1, int(POSITION_USD / (net_debit * 100)))
+
+        order_info = place_spread_order(symbol, long_contract, short_contract, num_contracts, client)
+        if not order_info:
+            return None
+
+    update_budget(POSITION_USD)
+
     trade_record = {
-        "id": rec.get("id", str(uuid.uuid4())[:8]),
-        "symbol": symbol,
-        "company": rec.get("company", symbol),
-        "entry_date": today_et().isoformat(),
-        "entry_time": now_et().isoformat(),
-        "entry_price": price,
-        "qty": shares,
-        "position_size": round(actual_cost, 2),
-        "confidence": rec["confidence"],
-        "earnings_date": rec["earnings_date"],
-        "sector": rec.get("sector", "Unknown"),
-        "order_id": order_info["order_id"],
-        "order_status": order_info["status"],
-        "stop_loss_price": order_info["stop_price"],
-        "take_profit_price": order_info["take_profit_price"],
-        "status": "open",
-        "exit_price": None,
-        "exit_date": None,
-        "pnl": None,
-        "pnl_pct": None,
-        "beat_rate": rec.get("beat_rate"),
-        "price_up_5pct_rate": rec.get("price_up_5pct_rate"),
-        "revenue_growth_yoy": rec.get("revenue_growth_yoy"),
-        "momentum_30d": rec.get("momentum_30d"),
-        "earnings_timing": rec.get("earnings_timing", "unknown"),
+        "id":               rec.get("id", str(uuid.uuid4())[:8]),
+        "symbol":           symbol,
+        "company":          rec.get("company", symbol),
+        "sector":           rec.get("sector", "Unknown"),
+        "trade_type":       trade_type,
+        "entry_date":       today_et().isoformat(),
+        "entry_time":       now_et().isoformat(),
+        "entry_price":      price,           # underlying stock price at entry
+        "earnings_date":    rec["earnings_date"],
+        "earnings_timing":  rec.get("earnings_timing", "unknown"),
+        "expiry_date":      str(expiry),
+        "qty":              order_info["qty"],
+        "position_size":    POSITION_USD,
+        "order_id":         order_info["order_id"],
+        "order_status":     order_info["order_status"],
+        # Options-specific fields
+        "long_contract":    order_info.get("long_contract") or order_info.get("contract"),
+        "short_contract":   order_info.get("short_contract"),
+        "long_strike":      order_info.get("long_strike") or order_info.get("strike"),
+        "short_strike":     order_info.get("short_strike"),
+        # Hitman v2 filter values (for reporting)
+        "beat_rate":        rec.get("beat_rate"),
+        "pu5":              rec.get("pu5"),
+        "momentum_30d":     rec.get("momentum_30d"),
+        "iv_proxy":         rec.get("iv_proxy"),
+        # Exit fields (populated by monitor)
+        "status":           "open",
+        "exit_date":        None,
+        "exit_price":       None,
+        "pnl":              None,
+        "pnl_pct":          None,
     }
     return trade_record
 
 
+# ── Main executor ─────────────────────────────────────────────────────────────
 def run_executor():
     log.info("=" * 60)
-    log.info("EXECUTOR: Trade execution starting at 9:35 AM ET")
+    log.info("EXECUTOR: Hitman v2 end-of-day entry (3:50 PM ET)")
     log.info("=" * 60)
+
     if not is_weekday():
-        log.info("Not a weekday — skipping execution")
+        log.info("Not a weekday — skipping")
         return
     if check_kill_switch():
         log.warning("Kill switch active — executor aborted")
@@ -172,7 +342,7 @@ def run_executor():
         return
     cb_reason = check_circuit_breakers(log)
     if cb_reason:
-        log.warning(f"Circuit breaker active: {cb_reason} — no trades today")
+        log.warning(f"Circuit breaker: {cb_reason} — no trades today")
         send_email("Executor Blocked: Circuit Breaker", f"No trades placed.\nReason: {cb_reason}")
         return
     budget = load_json("budget_tracker.json")
@@ -180,93 +350,88 @@ def run_executor():
         log.error(f"Trading halted: {budget.get('halt_reason')}")
         return
     if not is_market_open():
-        log.warning("Market is not open — executor aborted")
+        log.warning("Market not open — executor aborted")
         return
+
     recommendations = load_json("recommendations.json")
     if not isinstance(recommendations, list):
         recommendations = []
-    today_str = today_et().isoformat()
-    client = get_trading_client()
-    # Fetch owned positions first so the fallback decision is made on net-new plays only
+
+    today_str  = today_et().isoformat()
+    tomorrow   = (today_et() + timedelta(days=1)).isoformat()
+    client     = get_trading_client()
+
+    # Fetch currently held option positions to avoid duplicates
     try:
-        owned = {p.symbol for p in client.get_all_positions()}
+        owned_symbols = {p.symbol.split(" ")[0] for p in client.get_all_positions()}
     except Exception as e:
-        log.warning(f"Could not fetch Alpaca positions, skipping overlap check: {e}")
-        owned = set()
+        log.warning(f"Could not fetch positions: {e}")
+        owned_symbols = set()
 
-    # Tomorrow's date string for the blackout window
-    tomorrow_str = (today_et() + timedelta(days=1)).isoformat()
-
-    # All validated, unexecuted, not-disqualified, not-already-owned candidates
-    # Exclude stocks whose earnings are today or tomorrow — too close to buy
+    # Candidates: validated, unexecuted, earnings at least 2 days away
     candidates = [
         r for r in recommendations
         if r.get("validated")
         and not r.get("executed")
         and not r.get("disqualified")
-        and r["symbol"] not in owned
-        and r.get("earnings_date", "") > tomorrow_str  # must be 2+ days away
+        and r["symbol"] not in owned_symbols
+        and r.get("earnings_date", "") > tomorrow
     ]
-    to_execute = candidates
-    skipped_owned = len([r for r in recommendations
-                         if not r.get("executed") and not r.get("disqualified")
-                         and r["symbol"] in owned])
-    if skipped_owned:
-        log.info(f"Skipping {skipped_owned} recommendations already held as Alpaca positions")
-    log.info(f"Found {len(to_execute)} validated plays ready for execution")
-    if not to_execute:
-        log.info("No validated plays to execute today")
-        send_email("Executor: No Trades Today", "No validated plays found for execution today.")
+
+    log.info(f"Found {len(candidates)} validated Hitman v2 candidates for execution")
+    if not candidates:
+        log.info("No candidates to execute today")
+        send_email("Executor: No Trades Today", "No validated Hitman v2 candidates found.")
         return
+
     trades_history = load_json("trades_history.json")
     if not isinstance(trades_history, list):
         trades_history = []
+
     executed_trades = []
     skipped = []
-    for rec in to_execute:
-        log.info(f"Attempting to execute: {rec['symbol']} (confidence: {rec['confidence']}%)")
+
+    for rec in candidates:
+        log.info(f"Executing: {rec['symbol']} | {rec.get('trade_type','?')} | IV={rec.get('iv_proxy',0):.0%}")
         trade = execute_trade(rec, client)
         if trade:
             executed_trades.append(trade)
             trades_history.append(trade)
-            rec["executed"] = True
+            rec["executed"]       = True
             rec["execution_date"] = today_str
-            rec["trade_id"] = trade["id"]
-            log.info(f"{rec['symbol']}: EXECUTED — {trade['qty']} shares @ ${trade['entry_price']:.2f}")
+            rec["trade_id"]       = trade["id"]
+            log.info(f"{rec['symbol']}: EXECUTED — {trade['trade_type']} | {trade['qty']} contracts")
             time.sleep(0.5)
         else:
             skipped.append(rec["symbol"])
+
     save_json("trades_history.json", trades_history)
+
+    # Update executed flags in recommendations.json
+    rec_map = {r["symbol"]: r for r in candidates}
     for i, r in enumerate(recommendations):
-        symbol = r["symbol"]
-        executed_rec = next((e for e in to_execute if e["symbol"] == symbol), None)
-        if executed_rec:
-            recommendations[i] = executed_rec
+        if r["symbol"] in rec_map:
+            recommendations[i] = rec_map[r["symbol"]]
     save_json("recommendations.json", recommendations)
-    budget = load_json("budget_tracker.json")
-    total_deployed = sum(t["position_size"] for t in executed_trades)
-    summary_lines = []
+
+    # Email summary
+    lines = []
     for t in executed_trades:
-        summary_lines.append(
-            f"  {t['symbol']:6s} | {t['qty']} shares @ ${t['entry_price']:.2f} | "
-            f"Cost: ${t['position_size']:.0f} | TP: ${t['take_profit_price']:.2f} | SL: ${t['stop_loss_price']:.2f}"
+        contract_info = t.get("long_contract") or t.get("contract", "N/A")
+        lines.append(
+            f"  {t['symbol']:6s} | {t['trade_type']:6s} | {t['qty']} contracts | "
+            f"contract={contract_info} | earnings={t['earnings_date']}"
         )
-    summary = "\n".join(summary_lines) if summary_lines else "  No trades executed."
-    log.info(
-        f"EXECUTOR COMPLETE: {len(executed_trades)} trades placed, "
-        f"${total_deployed:.0f} deployed. Skipped: {skipped}"
-    )
-    budget_msg = (
-        f"\nBudget Status:\n"
-        f"  2-Week: ${budget['two_week_deployed']:.0f} / ${budget['two_week_cap']} used\n"
-        f"  Total:  ${budget['total_deployed']:.0f} / ${budget['total_cap']} used"
-    )
+    summary = "\n".join(lines) if lines else "  No trades executed."
+
+    log.info(f"EXECUTOR COMPLETE: {len(executed_trades)} trades | skipped: {skipped}")
     send_email(
-        f"Trades Executed: {len(executed_trades)} positions opened",
+        f"Hitman v2: {len(executed_trades)} options trades placed",
         f"Trade Execution Report — {today_str}\n\n"
         f"Trades placed: {len(executed_trades)}\n"
         f"Skipped: {', '.join(skipped) if skipped else 'none'}\n\n"
-        f"Positions:\n{summary}\n{budget_msg}",
+        f"Positions:\n{summary}\n\n"
+        f"Capital deployed this run: ${len(executed_trades) * POSITION_USD:,.0f}",
     )
 
 

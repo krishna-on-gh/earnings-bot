@@ -1,15 +1,13 @@
 """
-Task 5 — Daily reporter (runs at 4:30 PM ET weekdays).
+Daily reporter — Hitman v2 methodology.
+Runs at 4:30 PM ET weekdays.
 Compiles daily P&L, trade summary, and budget status.
 Saves HTML report to reports/ and emails it.
-Also updates earnings_calls_log.json and earnings_accuracy.json.
+Also updates earnings_calls_log.json.
 """
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-
-# Date from which the new dual-filter methodology was in effect
-NEW_METHODOLOGY_START = "2026-04-22"
 
 import yfinance as yf
 
@@ -49,47 +47,6 @@ def calc_win_rate(closed_trades: List[Dict]) -> float:
     return wins / len(closed_trades) * 100
 
 
-DUAL_FILTER_BEAT_MIN     = 0.50   # beat rate floor
-DUAL_FILTER_PRICE_UP_MIN = 0.55   # 5%+ earnings-day move floor
-
-
-def passes_dual_filter(trade: Dict) -> bool:
-    """
-    Returns True only if the trade would pass the dual-filter gate:
-      - beat_rate >= 50%  AND
-      - price_up_5pct_rate >= 55%
-    Trades that lack price_up_5pct_rate (pre-implementation) are excluded
-    because we cannot confirm they would have cleared the filter.
-    """
-    beat = trade.get("beat_rate")
-    up5  = trade.get("price_up_5pct_rate")
-    if beat is None or up5 is None:
-        return False
-    return beat >= DUAL_FILTER_BEAT_MIN and up5 >= DUAL_FILTER_PRICE_UP_MIN
-
-
-def calc_new_methodology_stats(closed_trades: List[Dict]) -> Dict[str, Any]:
-    """
-    Win rate and call accuracy for trades that:
-      1. Were entered on/after NEW_METHODOLOGY_START, AND
-      2. Pass the dual-filter gate (beat_rate >= 50%, price_up_5pct_rate >= 55%).
-    Trades from the new-methodology period that fail the dual filter (e.g. AMD,
-    FTNT, ZTS, GILD) are excluded — they were entered before the filter was live.
-    """
-    new_trades = [
-        t for t in closed_trades
-        if (t.get("entry_date") or "") >= NEW_METHODOLOGY_START
-        and passes_dual_filter(t)
-    ]
-    if not new_trades:
-        return {"count": 0, "win_rate": 0.0, "total_pnl": 0.0}
-    wins = sum(1 for t in new_trades if (t.get("pnl") or 0) > 0)
-    total_pnl = sum(t.get("pnl") or 0 for t in new_trades)
-    return {
-        "count":     len(new_trades),
-        "win_rate":  wins / len(new_trades) * 100,
-        "total_pnl": total_pnl,
-    }
 
 
 def build_text_report(
@@ -99,73 +56,76 @@ def build_text_report(
     positions: Dict,
     budget: Dict,
 ) -> str:
-    today = today_et().isoformat()
-    daily_pnl = positions.get("daily_pnl", 0)
-    daily_pnl_pct = positions.get("daily_pnl_pct", 0)
+    today          = today_et().isoformat()
+    daily_pnl      = positions.get("daily_pnl", 0)
+    daily_pnl_pct  = positions.get("daily_pnl_pct", 0)
     open_positions = positions.get("positions", [])
-    win_rate = calc_win_rate(all_closed)
-    total_pnl = sum(t.get("pnl", 0) or 0 for t in all_closed)
-    new_stats = calc_new_methodology_stats(all_closed)
+    win_rate       = calc_win_rate(all_closed)
+    total_pnl      = sum(t.get("pnl", 0) or 0 for t in all_closed)
+
     lines = [
-        f"DAILY PERFORMANCE REPORT — {today}",
+        f"HITMAN v2 DAILY REPORT — {today}",
         "=" * 60,
-        f"Daily P&L:        ${daily_pnl:+.2f} ({daily_pnl_pct:+.1f}%)",
-        f"Total P&L (all):  ${total_pnl:+.2f}",
-        f"Win Rate (all):   {win_rate:.0f}% ({len(all_closed)} closed trades)",
-        f"Win Rate (new):   " + (
-            f"{new_stats['win_rate']:.0f}% ({new_stats['count']} trades since {NEW_METHODOLOGY_START})"
-            if new_stats['count'] > 0
-            else f"— (0 closed trades yet since {NEW_METHODOLOGY_START})"
-        ),
-        f"Open Positions:   {len(open_positions)}",
+        f"Daily P&L:       ${daily_pnl:+,.2f} ({daily_pnl_pct:+.1f}%)",
+        f"Total P&L:       ${total_pnl:+,.2f}",
+        f"Win Rate:        {win_rate:.0f}% ({len(all_closed)} closed trades)",
+        f"Open Positions:  {len(open_positions)}",
         "",
         "BUDGET STATUS",
         "-" * 40,
-        f"  2-Week Budget: ${budget.get('two_week_deployed', 0):.0f} / ${budget.get('two_week_cap', 10000)} deployed",
-        f"  Total Budget:  ${budget.get('total_deployed', 0):.0f} / ${budget.get('total_cap', 45000)} deployed",
-        f"  2-Week Remaining: ${budget.get('available_two_week', 10000):.0f}",
-        f"  Total Remaining:  ${budget.get('available_total', 45000):.0f}",
+        f"  Deployed (open):  ${budget.get('total_deployed', 0):,.0f}",
+        f"  Total cap:        ${budget.get('total_cap', 1_000_000):,.0f}",
+        f"  Available:        ${budget.get('available_total', 1_000_000):,.0f}",
         "",
     ]
+
     if today_trades:
-        lines.append("TRADES OPENED TODAY")
+        lines.append("OPTIONS TRADES OPENED TODAY")
         lines.append("-" * 40)
         for t in today_trades:
+            contract = t.get("long_contract", "N/A")
             lines.append(
-                f"  {t['symbol']:6s} | {t['qty']} sh @ ${t['entry_price']:.2f} | "
-                f"Cost: ${t['position_size']:.0f} | Conf: {t['confidence']:.0f}%"
+                f"  {t['symbol']:6s} | {t.get('trade_type','?'):6s} | "
+                f"{t['qty']} contracts | contract={contract} | "
+                f"cost=${t['position_size']:,.0f} | earnings={t['earnings_date']}"
             )
         lines.append("")
+
     if today_closed:
-        lines.append("TRADES CLOSED TODAY")
+        lines.append("OPTIONS TRADES CLOSED TODAY")
         lines.append("-" * 40)
         for t in today_closed:
             outcome = "WIN" if (t.get("pnl") or 0) > 0 else "LOSS"
             lines.append(
-                f"  {t['symbol']:6s} | {outcome} | "
-                f"Entry: ${t['entry_price']:.2f} → Exit: ${t.get('exit_price', 0):.2f} | "
-                f"P&L: ${t.get('pnl', 0):+.2f} ({t.get('pnl_pct', 0):+.1f}%)"
+                f"  {t['symbol']:6s} | {outcome} | {t.get('trade_type','?'):6s} | "
+                f"cost=${t.get('position_size',0):,.0f} → "
+                f"exit=${t.get('exit_value', t.get('exit_price', 0)):,.2f} | "
+                f"P&L: ${t.get('pnl', 0):+,.2f} ({t.get('pnl_pct', 0):+.1f}%)"
             )
         lines.append("")
+
     if open_positions:
         lines.append("OPEN POSITIONS")
         lines.append("-" * 40)
         for p in open_positions:
             pnl_pct = p.get("unrealized_plpc", 0) * 100
             lines.append(
-                f"  {p['symbol']:6s} | {p['qty']:.0f} sh @ ${p['avg_entry_price']:.2f} | "
-                f"Now: ${p['current_price']:.2f} | Unrealized: ${p['unrealized_pl']:+.2f} ({pnl_pct:+.1f}%)"
+                f"  {p['symbol']:30s} | qty={p['qty']:.0f} | "
+                f"entry=${p['avg_entry_price']:.4f} | now=${p['current_price']:.4f} | "
+                f"P&L: ${p['unrealized_pl']:+,.2f} ({pnl_pct:+.1f}%)"
             )
         lines.append("")
-    cb = positions.get("circuit_breaker_triggered")
+
+    cb   = positions.get("circuit_breaker_triggered")
     halt = budget.get("halted")
     if cb or halt:
-        lines.append("⚠️  ALERTS")
+        lines.append("ALERTS")
         lines.append("-" * 40)
         if cb:
             lines.append(f"  CIRCUIT BREAKER: {positions.get('circuit_breaker_reason')}")
         if halt:
             lines.append(f"  TRADING HALTED: {budget.get('halt_reason')}")
+
     return "\n".join(lines)
 
 
@@ -189,15 +149,6 @@ pre {{ background: #161b22; padding: 15px; border-radius: 6px; overflow-x: auto;
 <pre>{text_report}</pre>
 </body>
 </html>"""
-
-
-def confidence_tier(conf: float) -> str:
-    if conf >= 95:
-        return "95-100%"
-    elif conf >= 85:
-        return "85-94%"
-    else:
-        return "70-84%"
 
 
 def fetch_earnings_result(symbol: str, expected_date: str) -> Dict[str, Any]:
@@ -379,15 +330,14 @@ def diagnose_miss_but_win(trade: Dict) -> str:
 
 def generate_analysis(trade: Dict, earnings_result: Dict) -> str:
     """Generate a 3-sentence analysis of the earnings call."""
-    symbol  = trade["symbol"]
-    conf    = trade.get("confidence", 0)
-    tier    = confidence_tier(conf)
-    pnl_pct = trade.get("pnl_pct") or 0
-    outcome = "WIN" if (trade.get("pnl") or 0) > 0 else "LOSS"
-    beat    = earnings_result.get("beat")
-    eps_est = earnings_result.get("eps_estimate")
-    eps_rep = earnings_result.get("eps_reported")
+    symbol   = trade["symbol"]
+    pnl_pct  = trade.get("pnl_pct") or 0
+    outcome  = "WIN" if (trade.get("pnl") or 0) > 0 else "LOSS"
+    beat     = earnings_result.get("beat")
+    eps_est  = earnings_result.get("eps_estimate")
+    eps_rep  = earnings_result.get("eps_reported")
     beat_pct = earnings_result.get("beat_pct")
+    trade_type = trade.get("trade_type", "call")
 
     # Sentence 1: earnings result
     if beat is True and eps_est is not None:
@@ -398,23 +348,21 @@ def generate_analysis(trade: Dict, earnings_result: Dict) -> str:
         s1 = f"{symbol} earnings results not yet confirmed in data feed."
 
     # Sentence 2: trade outcome
-    s2 = f"The position returned {pnl_pct:+.1f}% ({outcome}) against a {conf:.0f}% confidence call ({tier} tier)."
+    s2 = f"The Hitman v2 {trade_type} position returned {pnl_pct:+.1f}% ({outcome})."
 
-    # Sentence 3: call quality + diagnosis
+    # Sentence 3: diagnosis
     if beat is None:
-        s3 = "Accuracy against estimates could not be verified — trade result logged for manual review."
+        s3 = "EPS result could not be verified — trade result logged for manual review."
     elif beat is True and outcome == "WIN":
-        s3 = f"The model was well-calibrated — it correctly identified the earnings beat and the market confirmed it."
+        s3 = "Hitman v2 correctly identified the earnings beat and the market confirmed it."
     elif beat is False and outcome == "LOSS":
-        s3 = f"The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the {tier} tier prediction."
+        s3 = "Both the earnings miss and the negative market reaction aligned with expectations."
     elif beat is True and outcome == "LOSS":
-        # Correctly predicted the beat, but market disagreed — diagnose why
         s3 = diagnose_beat_but_loss(trade, earnings_result)
     elif beat is False and outcome == "WIN":
-        # Model expected downside, but stock went up anyway — diagnose why
         s3 = diagnose_miss_but_win(trade)
     else:
-        s3 = f"The {tier} confidence call did not align with the earnings reaction — flagged for scoring weight review."
+        s3 = "Trade result flagged for manual review."
 
     return f"{s1} {s2} {s3}"
 
@@ -448,7 +396,7 @@ def update_earnings_log(today_closed: List[Dict]) -> None:
                 entry["beat_pct"]     = earnings_result.get("beat_pct")
                 entry["correct_call"] = correct_call
                 entry["analysis"]     = generate_analysis(
-                    {"symbol": entry["symbol"], "confidence": entry.get("confidence", 0),
+                    {"symbol": entry["symbol"], "trade_type": entry.get("trade_type", "call"),
                      "pnl": entry.get("pnl", 0), "pnl_pct": entry.get("pnl_pct", 0),
                      "momentum_30d": entry.get("momentum_30d"), "earnings_date": entry.get("earnings_date"),
                      "exit_date": entry.get("exit_date")},
@@ -462,7 +410,6 @@ def update_earnings_log(today_closed: List[Dict]) -> None:
             continue
         earnings_result = fetch_earnings_result(trade["symbol"], trade.get("earnings_date", ""))
         analysis = generate_analysis(trade, earnings_result)
-        tier = confidence_tier(trade.get("confidence", 0))
         beat = earnings_result.get("beat")
         outcome = "WIN" if (trade.get("pnl") or 0) > 0 else "LOSS"
         correct_call = beat is not None and (
@@ -470,59 +417,43 @@ def update_earnings_log(today_closed: List[Dict]) -> None:
         )
 
         entry = {
-            "trade_id":           trade_id,
-            "symbol":             trade["symbol"],
-            "company":            trade.get("company", trade["symbol"]),
-            "entry_date":         trade.get("entry_date"),
-            "earnings_date":      trade.get("earnings_date"),
-            "exit_date":          trade.get("exit_date"),
-            "confidence":         trade.get("confidence"),
-            "tier":               tier,
-            "beat_rate":          trade.get("beat_rate"),
-            "price_up_5pct_rate": trade.get("price_up_5pct_rate"),
-            "entry_price":        trade.get("entry_price"),
-            "exit_price":         trade.get("exit_price"),
-            "pnl":                trade.get("pnl"),
-            "pnl_pct":            trade.get("pnl_pct"),
-            "outcome":            outcome,
-            "eps_estimate":       earnings_result.get("eps_estimate"),
-            "eps_reported":       earnings_result.get("eps_reported"),
-            "beat_pct":           earnings_result.get("beat_pct"),
-            "beat":               beat,
-            "correct_call":       correct_call if beat is not None else None,
-            "analysis":           analysis,
-            "logged_at":          now_et().isoformat(),
+            "trade_id":      trade_id,
+            "symbol":        trade["symbol"],
+            "company":       trade.get("company", trade["symbol"]),
+            "entry_date":    trade.get("entry_date"),
+            "earnings_date": trade.get("earnings_date"),
+            "exit_date":     trade.get("exit_date"),
+            "trade_type":    trade.get("trade_type", "call"),
+            "beat_rate":     trade.get("beat_rate"),
+            "pu5":           trade.get("pu5"),
+            "momentum_30d":  trade.get("momentum_30d"),
+            "iv_proxy":      trade.get("iv_proxy"),
+            "long_contract": trade.get("long_contract"),
+            "entry_price":   trade.get("entry_price"),
+            "exit_price":    trade.get("exit_price"),
+            "exit_value":    trade.get("exit_value"),
+            "position_size": trade.get("position_size"),
+            "pnl":           trade.get("pnl"),
+            "pnl_pct":       trade.get("pnl_pct"),
+            "outcome":       outcome,
+            "eps_estimate":  earnings_result.get("eps_estimate"),
+            "eps_reported":  earnings_result.get("eps_reported"),
+            "beat_pct":      earnings_result.get("beat_pct"),
+            "beat":          beat,
+            "correct_call":  correct_call if beat is not None else None,
+            "analysis":      analysis,
+            "logged_at":     now_et().isoformat(),
         }
         log_entries.append(entry)
 
-    # Always recalculate accuracy from the full log — never increment.
-    # This makes the reporter idempotent: re-running it can never double-count.
-    accuracy = {
-        "70-84%":  {"calls": 0, "correct": 0},
-        "85-94%":  {"calls": 0, "correct": 0},
-        "95-100%": {"calls": 0, "correct": 0},
-        "new_methodology": {
-            "70-84%":  {"calls": 0, "correct": 0},
-            "85-94%":  {"calls": 0, "correct": 0},
-            "95-100%": {"calls": 0, "correct": 0},
-        },
-    }
+    # Recalculate accuracy from full log (idempotent — re-running never double-counts)
+    accuracy = {"calls": 0, "correct": 0, "wins": 0}
     for e in log_entries:
-        t = e.get("tier")
-        if t not in accuracy:
-            accuracy[t] = {"calls": 0, "correct": 0}
-        accuracy[t]["calls"] += 1
+        accuracy["calls"] += 1
         if e.get("correct_call"):
-            accuracy[t]["correct"] += 1
-        # Also track new methodology separately — only count dual-filter trades
-        # (entry_date >= NEW_METHODOLOGY_START AND passes beat_rate + price_up_5pct_rate gates)
-        if (e.get("exit_date") or "") >= NEW_METHODOLOGY_START and passes_dual_filter(e):
-            nm = accuracy["new_methodology"]
-            if t not in nm:
-                nm[t] = {"calls": 0, "correct": 0}
-            nm[t]["calls"] += 1
-            if e.get("correct_call"):
-                nm[t]["correct"] += 1
+            accuracy["correct"] += 1
+        if e.get("outcome") == "WIN":
+            accuracy["wins"] += 1
 
     save_json("earnings_calls_log.json", log_entries)
     save_json("earnings_accuracy.json", accuracy)
@@ -555,46 +486,23 @@ def write_earnings_docx(log_entries: List[Dict], accuracy: Dict) -> None:
     srun.italic = True
     srun.font.size = Pt(10)
 
-    # Accuracy summary — overall
-    doc.add_heading("Confidence Accuracy Summary — Overall", level=1)
-    table = doc.add_table(rows=1, cols=4)
+    # Accuracy summary
+    doc.add_heading("Hitman v2 Accuracy Summary", level=1)
+    calls   = accuracy.get("calls", 0)
+    correct = accuracy.get("correct", 0)
+    wins    = accuracy.get("wins", 0)
+    acc_pct = (correct / calls * 100) if calls else 0
+    win_pct = (wins / calls * 100) if calls else 0
+    table = doc.add_table(rows=1, cols=3)
     table.style = "Light Grid Accent 1"
     hdr = table.rows[0].cells
-    hdr[0].text = "Tier"
-    hdr[1].text = "Calls"
-    hdr[2].text = "Correct"
-    hdr[3].text = "Accuracy"
-    for tier in ("95-100%", "85-94%", "70-84%"):
-        stats = accuracy.get(tier, {"calls": 0, "correct": 0})
-        calls = stats.get("calls", 0)
-        correct = stats.get("correct", 0)
-        pct = (correct / calls * 100) if calls else 0
-        row = table.add_row().cells
-        row[0].text = tier
-        row[1].text = str(calls)
-        row[2].text = str(correct)
-        row[3].text = f"{pct:.0f}%" if calls else "—"
-
-    # Accuracy summary — new methodology only
-    doc.add_heading(f"Confidence Accuracy Summary — New Methodology (from {NEW_METHODOLOGY_START})", level=1)
-    new_acc = accuracy.get("new_methodology", {})
-    table2 = doc.add_table(rows=1, cols=4)
-    table2.style = "Light Grid Accent 1"
-    hdr2 = table2.rows[0].cells
-    hdr2[0].text = "Tier"
-    hdr2[1].text = "Calls"
-    hdr2[2].text = "Correct"
-    hdr2[3].text = "Accuracy"
-    for tier in ("95-100%", "85-94%", "70-84%"):
-        stats = new_acc.get(tier, {"calls": 0, "correct": 0})
-        calls = stats.get("calls", 0)
-        correct = stats.get("correct", 0)
-        pct = (correct / calls * 100) if calls else 0
-        row = table2.add_row().cells
-        row[0].text = tier
-        row[1].text = str(calls)
-        row[2].text = str(correct)
-        row[3].text = f"{pct:.0f}%" if calls else "—"
+    hdr[0].text = "Total Calls"
+    hdr[1].text = "Direction Accuracy"
+    hdr[2].text = "Win Rate (P&L)"
+    row = table.add_row().cells
+    row[0].text = str(calls)
+    row[1].text = f"{acc_pct:.0f}%" if calls else "—"
+    row[2].text = f"{win_pct:.0f}%" if calls else "—"
 
     # Individual calls, newest first
     doc.add_heading("Call Details", level=1)
@@ -619,16 +527,18 @@ def write_earnings_docx(log_entries: List[Dict], accuracy: Dict) -> None:
         meta.add_run(f"{entry.get('earnings_date', '—')}   ")
         meta.add_run("Exit: ").bold = True
         meta.add_run(f"{entry.get('exit_date', '—')}   ")
-        meta.add_run("Confidence: ").bold = True
-        meta.add_run(f"{entry.get('confidence', 0):.0f}% ({entry.get('tier', '—')})")
+        meta.add_run("Trade type: ").bold = True
+        meta.add_run(f"{entry.get('trade_type', '?')}   ")
+        meta.add_run("IV proxy: ").bold = True
+        meta.add_run(f"{entry.get('iv_proxy', 0):.0%}" if entry.get('iv_proxy') else "—")
 
         prices = doc.add_paragraph()
-        prices.add_run("Entry: ").bold = True
-        prices.add_run(f"${entry.get('entry_price', 0):.2f}   ")
-        prices.add_run("Exit: ").bold = True
-        prices.add_run(f"${entry.get('exit_price', 0):.2f}   ")
+        prices.add_run("Entry cost: ").bold = True
+        prices.add_run(f"${entry.get('position_size', 0):,.0f}   ")
+        prices.add_run("Exit value: ").bold = True
+        prices.add_run(f"${entry.get('exit_value', entry.get('exit_price', 0)):,.2f}   ")
         prices.add_run("P&L: ").bold = True
-        prices.add_run(f"${pnl:+.2f} ({pnl_pct:+.1f}%)")
+        prices.add_run(f"${pnl:+,.2f} ({pnl_pct:+.1f}%)")
 
         eps_est = entry.get("eps_estimate")
         eps_rep = entry.get("eps_reported")

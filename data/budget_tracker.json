@@ -1,14 +1,9 @@
 {
-  "total_cap": 45000,
-  "two_week_cap": 45000,
-  "two_week_start": "2026-04-19",
-  "two_week_end": "2026-05-03",
-  "total_deployed": 14322.819999999996,
-  "two_week_deployed": 10337.649999999996,
-  "available_total": 30677.180000000004,
-  "available_two_week": 34662.350000000006,
-  "trades_count": 54,
-  "last_updated": "2026-05-11T12:17:22.666275-04:00",
+  "total_cap": 1000000,
+  "total_deployed": 0,
+  "available": 1000000,
+  "trades_count": 0,
+  "last_updated": "2026-05-19",
   "halted": false,
   "halt_reason": null
 }

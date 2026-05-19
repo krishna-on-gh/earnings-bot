@@ -1,7 +1,42 @@
+# Credentials & secrets
 .env
+*.env
+config/settings.json
+
+# Runtime files
 logs/
 __pycache__/
 *.pyc
+*.pyo
 STOP_TRADING
-reports/dev_log.docx
-reports/dev_log_2026-04-21.docx
+
+# Backtest & research files (private, never push)
+backtest_*.py
+hitman_*.py
+stn_backtest.py
+options_backtest.py
+options_filter_scan.py
+put_backtest.py
+april_may_scan.py
+earnings_dual_filter_analysis.py
+test_dual_filter.py
+write_options_note.py
+backtest_compare_live.py
+output_tmp.txt
+
+# Backtest data outputs
+data/backtest_*.json
+data/rev_growth_cache.json
+
+# Key Protocol archive (local only — preserved in reports/Key_Protocol_Archive.md)
+data/archive/
+
+# Airlift Protocol & private docs
+reports/Airlift Protocol.md
+reports/dev_log*.docx
+
+# Claude worktrees (local only)
+.claude/worktrees/
+
+# HTML reports (generated locally)
+reports/report_*.html
