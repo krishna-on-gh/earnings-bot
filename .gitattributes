@@ -1,0 +1,2 @@
+# Force LF line endings for shell scripts (prevents Windows CRLF breaking bash on Railway)
+*.sh text eol=lf
