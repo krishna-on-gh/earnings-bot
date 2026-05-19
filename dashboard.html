@@ -91,14 +91,13 @@
     "position_size": 10000,
     "current_price": 98.53,
     "validated": true,
-    "executed": true,
+    "executed": false,
     "scan_date": "2026-05-19",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-05-19",
-    "disqualified": false,
-    "execution_date": "2026-05-19",
-    "trade_id": "2c6e7140"
+    "disqualified": true,
+    "disqualified_reason": "limit order at mid-price went unfilled — entry window expired"
   },
   {
     "id": "1ae23e3e",
@@ -149,11 +148,12 @@
     "pu5": 0.5,
     "momentum_30d": 0.083,
     "iv_proxy": 0.726,
-    "status": "open",
-    "exit_date": null,
+    "status": "unfilled",
+    "exit_date": "2026-05-19",
     "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "pnl": 0,
+    "pnl_pct": 0,
+    "notes": "DAY limit order at mid-price ($5.60) expired unfilled. Option was trading above mid. Fixed: executor now uses ask price as limit."
   }
 ]</script>
 <script id="__POSITIONS__" type="application/json">{
@@ -177,13 +177,13 @@
 }</script>
 <script id="__BUDGET__" type="application/json">{
   "total_cap": 1000000,
-  "total_deployed": 10000,
+  "total_deployed": 0,
   "available": 1000000,
-  "trades_count": 1,
-  "last_updated": "2026-05-19T15:52:22.220364-04:00",
+  "trades_count": 0,
+  "last_updated": "2026-05-19T16:05:00.000000-04:00",
   "halted": false,
   "halt_reason": null,
-  "available_total": 990000
+  "available_total": 1000000
 }</script>
 <script id="__ACCURACY__" type="application/json">{
   "calls": 0,
@@ -646,7 +646,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-05-19T20:02:27", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-05-19T20:31:08", "source": "scheduler"}</script>
 
 <script type="text/babel">
 "use strict";
