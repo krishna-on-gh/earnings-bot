@@ -14,10 +14,13 @@
     "trade_type": "spread",
     "position_size": 10000,
     "current_price": 219.88,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-19",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-19",
+    "disqualified": false
   },
   {
     "id": "2c6e7140",
@@ -34,10 +37,13 @@
     "trade_type": "spread",
     "position_size": 10000,
     "current_price": 98.53,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-19",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-19",
+    "disqualified": false
   },
   {
     "id": "1ae23e3e",
@@ -54,9 +60,12 @@
     "trade_type": "spread",
     "position_size": 10000,
     "current_price": 67.8,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-19",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-19",
+    "disqualified": false
   }
 ]
