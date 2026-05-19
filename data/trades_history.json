@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": "2c6e7140",
+    "symbol": "ZM",
+    "company": "Zoom Communications, Inc.",
+    "sector": "Technology",
+    "trade_type": "call",
+    "entry_date": "2026-05-19",
+    "entry_time": "2026-05-19T15:52:22.220642-04:00",
+    "entry_price": 97.08999633789062,
+    "earnings_date": "2026-05-21",
+    "earnings_timing": "post_market",
+    "expiry_date": "2026-05-29",
+    "qty": 17,
+    "position_size": 10000,
+    "order_id": "6763fd09-2855-4f8a-aea7-ee84db0d6bdf",
+    "order_status": "OrderStatus.PENDING_NEW",
+    "long_contract": "ZM260529C00097000",
+    "short_contract": null,
+    "long_strike": 97.0,
+    "short_strike": null,
+    "beat_rate": 1.0,
+    "pu5": 0.5,
+    "momentum_30d": 0.083,
+    "iv_proxy": 0.726,
+    "status": "open",
+    "exit_date": null,
+    "exit_price": null,
+    "pnl": null,
+    "pnl_pct": null
+  }
+]
