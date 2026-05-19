@@ -1,16 +1,16 @@
 {
   "positions": [],
   "account": {
-    "equity": 1000000.0,
-    "cash": 1000000.0,
-    "portfolio_value": 1000000.0,
-    "buying_power": 2000000.0,
+    "equity": 999894.96,
+    "cash": 999894.96,
+    "portfolio_value": 999894.96,
+    "buying_power": 1999789.92,
     "last_equity": 1000000.0,
-    "daytrade_count": 0
+    "daytrade_count": 1
   },
-  "last_updated": "2026-05-19T12:03:14.118856-04:00",
-  "daily_pnl": 0.0,
-  "daily_pnl_pct": 0.0,
+  "last_updated": "2026-05-19T13:02:03.858985-04:00",
+  "daily_pnl": -105.04,
+  "daily_pnl_pct": -0.01,
   "weekly_pnl": 0.0,
   "weekly_pnl_pct": 0,
   "open_positions_count": 0,
