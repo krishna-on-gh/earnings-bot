@@ -44,8 +44,7 @@
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-05-19",
-    "disqualified": true,
-    "disqualified_reason": "entry window passed before Railway was operational"
+    "disqualified": false
   },
   {
     "id": "1ae23e3e",
