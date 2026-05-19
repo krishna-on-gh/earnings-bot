@@ -23,10 +23,11 @@
     "pu5": 0.5,
     "momentum_30d": 0.083,
     "iv_proxy": 0.726,
-    "status": "open",
-    "exit_date": null,
+    "status": "unfilled",
+    "exit_date": "2026-05-19",
     "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "pnl": 0,
+    "pnl_pct": 0,
+    "notes": "DAY limit order at mid-price ($5.60) expired unfilled. Option was trading above mid. Fixed: executor now uses ask price as limit."
   }
 ]
