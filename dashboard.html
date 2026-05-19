@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Earnings Trading Bot</title>
+  <title>Hitman v2</title>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -47,3244 +47,28 @@
 <div id="root"></div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     EMBEDDED DATA — auto-updated by update_dashboard.ps1
+     EMBEDDED DATA — auto-updated by Railway dashboard service
      Do not edit this block manually.
      ═══════════════════════════════════════════════════════════ -->
-<script id="__RECOMMENDATIONS__" type="application/json">[
-  {
-    "id": "2f6a84e8",
-    "symbol": "NVDA",
-    "company": "NVIDIA Corporation",
-    "earnings_date": "2026-05-20",
-    "earnings_timing": "post_market",
-    "confidence": 100,
-    "confidence_breakdown": {
-      "base": 50,
-      "beat_rate_high": 28.0,
-      "revenue_growth_high": 12.0,
-      "momentum_high": 15,
-      "tech_sector": 5,
-      "mega_cap": 5
-    },
-    "market_cap_b": 5457.4,
-    "sector": "Technology",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": 0.615,
-    "revenue_growth_yoy": 0.655,
-    "momentum_30d": 0.117,
-    "current_price": 222.88,
-    "position_size": 1500,
-    "validated": true,
-    "executed": false,
-    "scan_date": "2026-05-18",
-    "notes": [],
-    "validation_notes": [],
-    "validated_date": "2026-05-18",
-    "disqualified": false
-  }
-]</script>
-<script id="__TRADES__" type="application/json">[
-  {
-    "id": "db3b4b26",
-    "symbol": "GOOGL",
-    "company": "Alphabet Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:35:53.028036-04:00",
-    "entry_price": 339.64,
-    "qty": 4,
-    "position_size": 1369.62,
-    "confidence": 100,
-    "earnings_date": "2026-04-29",
-    "sector": "Communication Services",
-    "order_id": "3ef2e875-fb2d-466c-b7e1-58698ed6aee5",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 171.2,
-    "take_profit_price": 684.81,
-    "status": "closed",
-    "exit_price": 373.825,
-    "exit_date": "2026-04-30",
-    "pnl": 136.74,
-    "pnl_pct": 10.07,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.151,
-    "momentum_30d": 0.112,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "283455d2",
-    "symbol": "AMZN",
-    "company": "Amazon.com, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:35:53.951002-04:00",
-    "entry_price": 249.305,
-    "qty": 6,
-    "position_size": 1457.07,
-    "confidence": 100,
-    "earnings_date": "2026-04-29",
-    "sector": "Consumer Cyclical",
-    "order_id": "17bd2ecc-4ef8-45ca-a083-4cf6673a81ca",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 121.42,
-    "take_profit_price": 485.69,
-    "status": "closed",
-    "exit_price": 256.3067,
-    "exit_date": "2026-04-30",
-    "pnl": 42.01,
-    "pnl_pct": 2.81,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.124,
-    "momentum_30d": 0.2,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "8888cb0d",
-    "symbol": "META",
-    "company": "Meta Platforms, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:35:59.853198-04:00",
-    "entry_price": 681.16,
-    "qty": 2,
-    "position_size": 1336.73,
-    "confidence": 100,
-    "earnings_date": "2026-04-29",
-    "sector": "Communication Services",
-    "order_id": "73bcf365-cfd6-4d34-817a-b96b79bd61ba",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 334.18,
-    "take_profit_price": 1336.73,
-    "status": "closed",
-    "exit_price": 606.4,
-    "exit_date": "2026-04-30",
-    "pnl": -149.52,
-    "pnl_pct": -10.98,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.222,
-    "momentum_30d": 0.135,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "7ec78301",
-    "symbol": "TMO",
-    "company": "Thermo Fisher Scientific Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:03.176898-04:00",
-    "entry_price": 523.98,
-    "qty": 2,
-    "position_size": 1047.81,
-    "confidence": 100,
-    "earnings_date": "2026-04-23",
-    "sector": "Healthcare",
-    "order_id": "b591d7a3-5ff5-4d96-b17a-659c95407776",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 261.95,
-    "take_profit_price": 1047.81,
-    "status": "closed",
-    "exit_price": 460.75,
-    "exit_date": "2026-04-23",
-    "pnl": -126.46,
-    "pnl_pct": -12.07,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.039,
-    "momentum_30d": 0.12,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "8fe3c005",
-    "symbol": "ISRG",
-    "company": "Intuitive Surgical, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:04.059811-04:00",
-    "entry_price": 470.276667,
-    "qty": 3,
-    "position_size": 1410.83,
-    "confidence": 100,
-    "earnings_date": "2026-04-21",
-    "sector": "Healthcare",
-    "order_id": "e374efdc-9dec-4183-a123-401d8471d206",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 230.07,
-    "take_profit_price": 920.3,
-    "status": "closed",
-    "exit_price": 488.21,
-    "exit_date": "2026-04-22",
-    "pnl": 53.8,
-    "pnl_pct": 3.81,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.205,
-    "momentum_30d": -0.022,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "3a53e951",
-    "symbol": "BKNG",
-    "company": "Booking Holdings Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:04.948019-04:00",
-    "entry_price": 192.46,
-    "qty": 7,
-    "position_size": 1319.53,
-    "confidence": 100,
-    "earnings_date": "2026-04-28",
-    "sector": "Consumer Cyclical",
-    "order_id": "3f274327-5149-4f0b-a62b-af1eef6bf3aa",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 94.25,
-    "take_profit_price": 377.01,
-    "status": "closed",
-    "exit_price": 173.08,
-    "exit_date": "2026-04-29",
-    "pnl": -135.66,
-    "pnl_pct": -10.07,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.134,
-    "momentum_30d": 0.118,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "4b4d3016",
-    "symbol": "AXP",
-    "company": "American Express Company",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:05.824676-04:00",
-    "entry_price": 334.3575,
-    "qty": 4,
-    "position_size": 1320.2,
-    "confidence": 100,
-    "earnings_date": "2026-04-23",
-    "sector": "Financial Services",
-    "order_id": "ed544037-2283-4a98-ba7f-fde86a923c98",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 165.03,
-    "take_profit_price": 660.1,
-    "status": "closed",
-    "exit_price": 321.89,
-    "exit_date": "2026-04-23",
-    "pnl": -49.87,
-    "pnl_pct": -3.73,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.095,
-    "momentum_30d": 0.128,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "b2f76314",
-    "symbol": "LRCX",
-    "company": "Lam Research Corporation",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:06.787858-04:00",
-    "entry_price": 264.696,
-    "qty": 5,
-    "position_size": 1322.07,
-    "confidence": 100,
-    "earnings_date": "2026-04-22",
-    "sector": "Technology",
-    "order_id": "b87541c9-bd39-4c74-8f53-9b4235f0c9a8",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 132.21,
-    "take_profit_price": 528.83,
-    "status": "closed",
-    "exit_price": 263.05,
-    "exit_date": "2026-04-23",
-    "pnl": -8.23,
-    "pnl_pct": -0.62,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.237,
-    "momentum_30d": 0.144,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "01babddd",
-    "symbol": "ROKU",
-    "company": "Roku, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:07.663395-04:00",
-    "entry_price": 116.5,
-    "qty": 12,
-    "position_size": 1385.94,
-    "confidence": 100,
-    "earnings_date": "2026-04-30",
-    "sector": "Communication Services",
-    "order_id": "9384f12c-418c-47e3-8085-64ba76327864",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 57.75,
-    "take_profit_price": 230.99,
-    "status": "closed",
-    "exit_price": 125.05,
-    "exit_date": "2026-05-01",
-    "pnl": 102.6,
-    "pnl_pct": 7.34,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.152,
-    "momentum_30d": 0.212,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "033a2dc8",
-    "symbol": "TWLO",
-    "company": "Twilio Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:13.544173-04:00",
-    "entry_price": 142.77,
-    "qty": 10,
-    "position_size": 1458.35,
-    "confidence": 100,
-    "earnings_date": "2026-04-30",
-    "sector": "Technology",
-    "order_id": "7f7c6961-f3a2-49a8-8135-828514160b82",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 72.92,
-    "take_profit_price": 291.67,
-    "status": "closed",
-    "exit_price": 175.84,
-    "exit_date": "2026-05-01",
-    "pnl": 330.7,
-    "pnl_pct": 23.16,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.137,
-    "momentum_30d": 0.1,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "58617df5",
-    "symbol": "RBLX",
-    "company": "Roblox Corporation",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:15.797318-04:00",
-    "entry_price": 60.9,
-    "qty": 25,
-    "position_size": 1487.88,
-    "confidence": 100,
-    "earnings_date": "2026-04-30",
-    "sector": "Communication Services",
-    "order_id": "5fc79335-7b61-4284-b3cc-4db09c9dc7b2",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 29.76,
-    "take_profit_price": 119.03,
-    "status": "closed",
-    "exit_price": 42.2,
-    "exit_date": "2026-05-01",
-    "pnl": -467.5,
-    "pnl_pct": -30.71,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.358,
-    "momentum_30d": 0.049,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "bc8a772f",
-    "symbol": "HOOD",
-    "company": "Robinhood Markets, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:16.810376-04:00",
-    "entry_price": 89.8744,
-    "qty": 16,
-    "position_size": 1444.4,
-    "confidence": 100,
-    "earnings_date": "2026-04-28",
-    "sector": "Financial Services",
-    "order_id": "cefedff2-e131-41e2-94d4-99a654cb9aca",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 45.14,
-    "take_profit_price": 180.55,
-    "status": "closed",
-    "exit_price": 70.64,
-    "exit_date": "2026-04-29",
-    "pnl": -307.79,
-    "pnl_pct": -21.4,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.516,
-    "momentum_30d": 0.224,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "94de2b6b",
-    "symbol": "SOFI",
-    "company": "SoFi Technologies, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:17.920077-04:00",
-    "entry_price": 19.3856,
-    "qty": 77,
-    "position_size": 1496.11,
-    "confidence": 100,
-    "earnings_date": "2026-04-29",
-    "sector": "Financial Services",
-    "order_id": "80171633-6209-42cd-9cdd-2057dc3bf1db",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 9.71,
-    "take_profit_price": 38.86,
-    "status": "closed",
-    "exit_price": 15.79,
-    "exit_date": "2026-04-29",
-    "pnl": -276.86,
-    "pnl_pct": -18.55,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.383,
-    "momentum_30d": 0.138,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "0573d3da",
-    "symbol": "AAPL",
-    "company": "Apple Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:20.649099-04:00",
-    "entry_price": 272.3567,
-    "qty": 3,
-    "position_size": 817.44,
-    "confidence": 90,
-    "earnings_date": "2026-04-30",
-    "sector": "Technology",
-    "order_id": "391d2f5b-126f-4dc0-93cb-8eece6e7afed",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 136.24,
-    "take_profit_price": 544.96,
-    "status": "closed",
-    "exit_price": 281.1133,
-    "exit_date": "2026-05-01",
-    "pnl": 26.27,
-    "pnl_pct": 3.22,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.064,
-    "momentum_30d": 0.085,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "36ae5db6",
-    "symbol": "QCOM",
-    "company": "QUALCOMM Incorporated",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:30.628524-04:00",
-    "entry_price": 136.54,
-    "qty": 7,
-    "position_size": 947.13,
-    "confidence": 90,
-    "earnings_date": "2026-04-29",
-    "sector": "Technology",
-    "order_id": "6fcb19f8-74de-4583-98e9-4b056100d5aa",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 67.65,
-    "take_profit_price": 270.61,
-    "status": "closed",
-    "exit_price": 183.1543,
-    "exit_date": "2026-04-30",
-    "pnl": 326.3,
-    "pnl_pct": 34.14,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.137,
-    "momentum_30d": 0.037,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "fc763dbc",
-    "symbol": "INTC",
-    "company": "Intel Corporation",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:33.048702-04:00",
-    "entry_price": 67.7179,
-    "qty": 14,
-    "position_size": 947.8,
-    "confidence": 90,
-    "earnings_date": "2026-04-23",
-    "sector": "Technology",
-    "order_id": "d9141410-53f1-4dac-bc73-b49c8386516f",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 33.85,
-    "take_profit_price": 135.4,
-    "status": "closed",
-    "exit_price": 82.88,
-    "exit_date": "2026-04-24",
-    "pnl": 212.3,
-    "pnl_pct": 22.39,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": -0.005,
-    "momentum_30d": 0.483,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "08759a81",
-    "symbol": "V",
-    "company": "Visa Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:34.029488-04:00",
-    "entry_price": 317.31,
-    "qty": 1,
-    "position_size": 308.35,
-    "confidence": 85,
-    "earnings_date": "2026-04-28",
-    "sector": "Financial Services",
-    "order_id": "60debbb0-2a4e-44ff-993f-7cb7c26cc497",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 154.17,
-    "take_profit_price": 616.69,
-    "status": "closed",
-    "exit_price": 336.1,
-    "exit_date": "2026-04-29",
-    "pnl": 18.79,
-    "pnl_pct": 5.92,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.113,
-    "momentum_30d": 0.058,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "1bc65e0d",
-    "symbol": "PG",
-    "company": "The Procter & Gamble Company",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:37.821174-04:00",
-    "entry_price": 145.43,
-    "qty": 3,
-    "position_size": 442.77,
-    "confidence": 85,
-    "earnings_date": "2026-04-24",
-    "sector": "Consumer Defensive",
-    "order_id": "c84cfd1c-2119-41fc-9e84-583466ddae78",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 73.8,
-    "take_profit_price": 295.18,
-    "status": "closed",
-    "exit_price": 150.32,
-    "exit_date": "2026-04-24",
-    "pnl": 14.67,
-    "pnl_pct": 3.36,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.003,
-    "momentum_30d": 0.014,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "7c0bf917",
-    "symbol": "ABBV",
-    "company": "AbbVie Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:39.090460-04:00",
-    "entry_price": 207.46,
-    "qty": 2,
-    "position_size": 416.26,
-    "confidence": 85,
-    "earnings_date": "2026-04-29",
-    "sector": "Healthcare",
-    "order_id": "beea7044-097a-435f-9436-d7b040e8aa78",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 104.06,
-    "take_profit_price": 416.26,
-    "status": "closed",
-    "exit_price": 204.03,
-    "exit_date": "2026-04-29",
-    "pnl": -6.86,
-    "pnl_pct": -1.65,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.086,
-    "momentum_30d": 0.019,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "d24d3069",
-    "symbol": "MRK",
-    "company": "Merck & Co., Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:39.971285-04:00",
-    "entry_price": 118.35,
-    "qty": 4,
-    "position_size": 462.12,
-    "confidence": 85,
-    "earnings_date": "2026-04-30",
-    "sector": "Healthcare",
-    "order_id": "42be877c-35c3-438c-8369-258c7613daa9",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 57.77,
-    "take_profit_price": 231.06,
-    "status": "closed",
-    "exit_price": 110.2875,
-    "exit_date": "2026-04-30",
-    "pnl": -32.25,
-    "pnl_pct": -6.81,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.013,
-    "momentum_30d": 0.043,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "459e9eae",
-    "symbol": "KO",
-    "company": "The Coca-Cola Company",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:41.061710-04:00",
-    "entry_price": 75.88,
-    "qty": 6,
-    "position_size": 455.19,
-    "confidence": 85,
-    "earnings_date": "2026-04-28",
-    "sector": "Consumer Defensive",
-    "order_id": "bad1154b-db01-4ca7-80f4-439e57fac3dc",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 37.93,
-    "take_profit_price": 151.73,
-    "status": "closed",
-    "exit_price": 80.06,
-    "exit_date": "2026-04-28",
-    "pnl": 25.08,
-    "pnl_pct": 5.51,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.019,
-    "momentum_30d": 0.003,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "3d726248",
-    "symbol": "PM",
-    "company": "Philip Morris International Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:47.859979-04:00",
-    "entry_price": 159.5,
-    "qty": 3,
-    "position_size": 477.96,
-    "confidence": 85,
-    "earnings_date": "2026-04-22",
-    "sector": "Consumer Defensive",
-    "order_id": "85fcf42d-f7ef-4529-a944-c701564e9a3f",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 79.66,
-    "take_profit_price": 318.64,
-    "status": "closed",
-    "exit_price": 162.52,
-    "exit_date": "2026-04-22",
-    "pnl": 9.05,
-    "pnl_pct": 1.89,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.073,
-    "momentum_30d": -0.034,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "17b885bf",
-    "symbol": "HON",
-    "company": "Honeywell International Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:48.794771-04:00",
-    "entry_price": 232.28,
-    "qty": 2,
-    "position_size": 466.76,
-    "confidence": 85,
-    "earnings_date": "2026-04-23",
-    "sector": "Industrials",
-    "order_id": "491fc2d2-1e0d-4239-9f3a-ff4b3a6d7913",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 116.69,
-    "take_profit_price": 466.76,
-    "status": "closed",
-    "exit_price": 213.8,
-    "exit_date": "2026-04-23",
-    "pnl": -36.96,
-    "pnl_pct": -7.96,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.078,
-    "momentum_30d": 0.02,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "54627ecb",
-    "symbol": "GE",
-    "company": "GE Aerospace",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:51.801410-04:00",
-    "entry_price": 302.06,
-    "qty": 1,
-    "position_size": 308.75,
-    "confidence": 85,
-    "earnings_date": "2026-04-21",
-    "sector": "Industrials",
-    "order_id": "dcca40d3-1454-47a0-8709-6b45b13c7c3b",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 154.37,
-    "take_profit_price": 617.49,
-    "status": "closed",
-    "exit_price": 285.2,
-    "exit_date": "2026-04-21",
-    "pnl": -16.86,
-    "pnl_pct": -5.58,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.185,
-    "momentum_30d": 0.043,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "efbb5079",
-    "symbol": "SYK",
-    "company": "Stryker Corporation",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:54.385324-04:00",
-    "entry_price": 343.12,
-    "qty": 1,
-    "position_size": 345.56,
-    "confidence": 85,
-    "earnings_date": "2026-04-30",
-    "sector": "Healthcare",
-    "order_id": "55121e92-7dfe-49b2-9e92-84868334084c",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 172.78,
-    "take_profit_price": 691.11,
-    "status": "closed",
-    "exit_price": 308.0,
-    "exit_date": "2026-05-01",
-    "pnl": -35.12,
-    "pnl_pct": -10.24,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.112,
-    "momentum_30d": 0.013,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "a926063e",
-    "symbol": "GILD",
-    "company": "Gilead Sciences, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:55.281614-04:00",
-    "entry_price": 137.68,
-    "qty": 3,
-    "position_size": 414.33,
-    "confidence": 85,
-    "earnings_date": "2026-04-23",
-    "sector": "Healthcare",
-    "order_id": "e12acbd5-228d-4cb4-a73c-5bf8af5f4ca6",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 69.06,
-    "take_profit_price": 276.22,
-    "status": "closed",
-    "exit_price": 130.71,
-    "exit_date": "2026-04-24",
-    "pnl": -20.91,
-    "pnl_pct": -5.06,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.024,
-    "momentum_30d": -0.025,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "32917c3a",
-    "symbol": "REGN",
-    "company": "Regeneron Pharmaceuticals, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:36:57.549313-04:00",
-    "entry_price": 750.01,
-    "qty": 1,
-    "position_size": 750.28,
-    "confidence": 80,
-    "earnings_date": "2026-04-29",
-    "sector": "Healthcare",
-    "order_id": "ee379cf2-f058-4414-8f37-f493c118be43",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 375.14,
-    "take_profit_price": 1500.56,
-    "status": "closed",
-    "exit_price": 686.64,
-    "exit_date": "2026-04-29",
-    "pnl": -63.37,
-    "pnl_pct": -8.45,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.01,
-    "momentum_30d": 0.018,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "89f4a3aa",
-    "symbol": "TXN",
-    "company": "Texas Instruments Incorporated",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:37:01.691044-04:00",
-    "entry_price": 230.69,
-    "qty": 2,
-    "position_size": 461.3,
-    "confidence": 75,
-    "earnings_date": "2026-04-22",
-    "sector": "Technology",
-    "order_id": "a9f76429-dc58-49ef-bb93-8df1f07c2bdf",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 115.33,
-    "take_profit_price": 461.3,
-    "status": "closed",
-    "exit_price": 279.82,
-    "exit_date": "2026-04-23",
-    "pnl": 98.26,
-    "pnl_pct": 21.3,
-    "beat_rate": 0.5,
-    "revenue_growth_yoy": 0.13,
-    "momentum_30d": 0.221,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "74426dd5",
-    "symbol": "UNH",
-    "company": "UnitedHealth Group Incorporated",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:37:02.575149-04:00",
-    "entry_price": 324.53,
-    "qty": 1,
-    "position_size": 316.17,
-    "confidence": 70,
-    "earnings_date": "2026-04-21",
-    "sector": "Healthcare",
-    "order_id": "6ee6dca4-682e-4481-86de-2d750a7b14da",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 158.08,
-    "take_profit_price": 632.33,
-    "status": "closed",
-    "exit_price": 350.67,
-    "exit_date": "2026-04-21",
-    "pnl": 26.14,
-    "pnl_pct": 8.05,
-    "beat_rate": 0.5,
-    "revenue_growth_yoy": 0.118,
-    "momentum_30d": 0.158,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "f61ae781",
-    "symbol": "XOM",
-    "company": "Exxon Mobil Corporation",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:37:03.466191-04:00",
-    "entry_price": 147.54,
-    "qty": 3,
-    "position_size": 448.74,
-    "confidence": 70,
-    "earnings_date": "2026-05-01",
-    "sector": "Energy",
-    "order_id": "522c3112-33c0-499d-8a44-166b5d084aff",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 74.79,
-    "take_profit_price": 299.16,
-    "status": "closed",
-    "exit_price": 151.33,
-    "exit_date": "2026-05-01",
-    "pnl": 11.37,
-    "pnl_pct": 2.57,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": -0.045,
-    "momentum_30d": -0.074,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "6262b95d",
-    "symbol": "CVX",
-    "company": "Chevron Corporation",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T09:37:04.352865-04:00",
-    "entry_price": 185.2,
-    "qty": 2,
-    "position_size": 369.99,
-    "confidence": 70,
-    "earnings_date": "2026-05-01",
-    "sector": "Energy",
-    "order_id": "f0e35965-6196-495e-ba77-b9f5aad2a355",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 92.5,
-    "take_profit_price": 369.99,
-    "status": "closed",
-    "exit_price": 190.965,
-    "exit_date": "2026-05-01",
-    "pnl": 11.53,
-    "pnl_pct": 3.11,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": -0.046,
-    "momentum_30d": -0.087,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "41944e49",
-    "symbol": "NOW",
-    "company": "ServiceNow, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T14:49:07.448733-04:00",
-    "entry_price": 99.04,
-    "qty": 15,
-    "position_size": 1485.6,
-    "confidence": 95,
-    "earnings_date": "2026-04-22",
-    "sector": "Technology",
-    "order_id": "60d10487-3d3a-4ce8-9c92-a78b4f0030cb",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 49.52,
-    "take_profit_price": 200.06,
-    "status": "closed",
-    "exit_price": 85.29,
-    "exit_date": "2026-04-23",
-    "pnl": -206.25,
-    "pnl_pct": -13.88,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.209,
-    "momentum_30d": -0.147,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "2cf0ddd4",
-    "symbol": "MSFT",
-    "company": "Microsoft Corporation",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T14:49:09.382343-04:00",
-    "entry_price": 417.6,
-    "qty": 2,
-    "position_size": 835.16,
-    "confidence": 90,
-    "earnings_date": "2026-04-29",
-    "sector": "Technology",
-    "order_id": "7ab1ac65-407f-4ab4-b135-9b71287d8f72",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 208.79,
-    "take_profit_price": 843.51,
-    "status": "closed",
-    "exit_price": 402.78,
-    "exit_date": "2026-04-30",
-    "pnl": -29.64,
-    "pnl_pct": -3.55,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.149,
-    "momentum_30d": 0.087,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "c3d96dcd",
-    "symbol": "IBM",
-    "company": "International Business Machines Corporation",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T14:49:11.886962-04:00",
-    "entry_price": 252.96,
-    "qty": 3,
-    "position_size": 803.25,
-    "confidence": 90,
-    "earnings_date": "2026-04-22",
-    "sector": "Technology",
-    "order_id": "48c1ff3c-31a0-46aa-9ac7-64844f253635",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 133.88,
-    "take_profit_price": 540.86,
-    "status": "closed",
-    "exit_price": 230.98,
-    "exit_date": "2026-04-23",
-    "pnl": -65.93,
-    "pnl_pct": -8.69,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.076,
-    "momentum_30d": 0.012,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "076d59a3",
-    "symbol": "MA",
-    "company": "Mastercard Incorporated",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T14:49:17.170757-04:00",
-    "entry_price": 515.26,
-    "qty": 1,
-    "position_size": 515.39,
-    "confidence": 85,
-    "earnings_date": "2026-04-30",
-    "sector": "Financial Services",
-    "order_id": "c218eee1-0d79-46a3-a0ae-583654d6a34f",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 257.69,
-    "take_profit_price": 1041.09,
-    "status": "closed",
-    "exit_price": 507.84,
-    "exit_date": "2026-04-30",
-    "pnl": -7.42,
-    "pnl_pct": -1.44,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.164,
-    "momentum_30d": 0.063,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "aee93c10",
-    "symbol": "LIN",
-    "company": "Linde plc",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T14:49:18.811501-04:00",
-    "entry_price": 498.02,
-    "qty": 1,
-    "position_size": 498.02,
-    "confidence": 85,
-    "earnings_date": "2026-05-01",
-    "sector": "Basic Materials",
-    "order_id": "256f89b9-d91d-4e69-b065-fffed6f6ce34",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 249.01,
-    "take_profit_price": 1006.0,
-    "status": "closed",
-    "exit_price": 506.0,
-    "exit_date": "2026-05-01",
-    "pnl": 7.98,
-    "pnl_pct": 1.6,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.03,
-    "momentum_30d": 0.005,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "2d9a2afd",
-    "symbol": "DHR",
-    "company": "Danaher Corporation",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T14:49:20.117145-04:00",
-    "entry_price": 194.85,
-    "qty": 2,
-    "position_size": 389.7,
-    "confidence": 85,
-    "earnings_date": "2026-04-21",
-    "sector": "Healthcare",
-    "order_id": "9c04c4bc-a1a6-4b79-a865-ed59b828a1fd",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 97.42,
-    "take_profit_price": 393.6,
-    "status": "closed",
-    "exit_price": 191.89,
-    "exit_date": "2026-04-21",
-    "pnl": -5.92,
-    "pnl_pct": -1.52,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.029,
-    "momentum_30d": 0.027,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "fbc15ccf",
-    "symbol": "NEE",
-    "company": "NextEra Energy, Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T14:49:21.882507-04:00",
-    "entry_price": 92.35,
-    "qty": 5,
-    "position_size": 461.75,
-    "confidence": 85,
-    "earnings_date": "2026-04-23",
-    "sector": "Utilities",
-    "order_id": "f635969a-6e45-41e7-983d-2d3d95f5065e",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 46.17,
-    "take_profit_price": 186.55,
-    "status": "closed",
-    "exit_price": 95.92,
-    "exit_date": "2026-04-23",
-    "pnl": 17.85,
-    "pnl_pct": 3.87,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.107,
-    "momentum_30d": -0.005,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "e6f0cec4",
-    "symbol": "SPGI",
-    "company": "S&P Global Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T14:49:23.916513-04:00",
-    "entry_price": 442.14,
-    "qty": 1,
-    "position_size": 466.73,
-    "confidence": 85,
-    "earnings_date": "2026-04-28",
-    "sector": "Financial Services",
-    "order_id": "9fdf316c-3d64-4ba4-81b0-f7732d1ab915",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 233.37,
-    "take_profit_price": 942.79,
-    "status": "closed",
-    "exit_price": 448.58,
-    "exit_date": "2026-04-28",
-    "pnl": 6.44,
-    "pnl_pct": 1.46,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.079,
-    "momentum_30d": 0.039,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "a4178866",
-    "symbol": "CAT",
-    "company": "Caterpillar Inc.",
-    "entry_date": "2026-04-20",
-    "entry_time": "2026-04-20T14:49:26.145920-04:00",
-    "entry_price": 796.49,
-    "qty": 1,
-    "position_size": 797.07,
-    "confidence": 70,
-    "earnings_date": "2026-04-30",
-    "sector": "Industrials",
-    "order_id": "38833c4c-c20a-491d-a4b8-bc25e65ada07",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 398.54,
-    "take_profit_price": 1610.08,
-    "status": "closed",
-    "exit_price": 890.03,
-    "exit_date": "2026-04-30",
-    "pnl": 93.54,
-    "pnl_pct": 11.74,
-    "beat_rate": 0.5,
-    "revenue_growth_yoy": 0.043,
-    "momentum_30d": 0.154,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "0eb43481",
-    "symbol": "AMD",
-    "company": "Advanced Micro Devices, Inc.",
-    "entry_date": "2026-04-22",
-    "entry_time": "2026-04-22T10:47:37.069110-04:00",
-    "entry_price": 294.91,
-    "qty": 5,
-    "position_size": 1494.95,
-    "confidence": 100,
-    "earnings_date": "2026-05-05",
-    "sector": "Technology",
-    "order_id": "980136be-7a98-4724-abd0-532285ba8199",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 149.5,
-    "take_profit_price": 603.96,
-    "status": "closed",
-    "exit_price": 415.6,
-    "exit_date": "2026-05-06",
-    "pnl": 603.45,
-    "pnl_pct": 40.92,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.343,
-    "momentum_30d": 0.404,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "95808c7e",
-    "symbol": "PLTR",
-    "company": "Palantir Technologies Inc.",
-    "entry_date": "2026-04-22",
-    "entry_time": "2026-04-22T10:47:37.856526-04:00",
-    "entry_price": 151.18,
-    "qty": 9,
-    "position_size": 1360.8,
-    "confidence": 100,
-    "earnings_date": "2026-05-04",
-    "sector": "Technology",
-    "order_id": "34dd8b26-196e-4efe-b441-79857f35ddff",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 75.6,
-    "take_profit_price": 305.42,
-    "status": "closed",
-    "exit_price": 137.6,
-    "exit_date": "2026-05-05",
-    "pnl": -122.22,
-    "pnl_pct": -8.98,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.562,
-    "momentum_30d": -0.092,
-    "earnings_timing": "post_market",
-    "price_up_5pct_rate": 0.6923
-  },
-  {
-    "id": "fab4f60c",
-    "symbol": "UBER",
-    "company": "Uber Technologies, Inc.",
-    "entry_date": "2026-04-22",
-    "entry_time": "2026-04-22T10:47:40.001595-04:00",
-    "entry_price": 75.63,
-    "qty": 13,
-    "position_size": 983.19,
-    "confidence": 90,
-    "earnings_date": "2026-05-06",
-    "sector": "Technology",
-    "order_id": "b486f6fa-9267-4551-8450-0cc507f3fc51",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 37.81,
-    "take_profit_price": 152.77,
-    "status": "closed",
-    "exit_price": 77.31,
-    "exit_date": "2026-05-07",
-    "pnl": 21.84,
-    "pnl_pct": 2.22,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.183,
-    "momentum_30d": 0.028,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "725f20c9",
-    "symbol": "FTNT",
-    "company": "Fortinet, Inc.",
-    "entry_date": "2026-04-22",
-    "entry_time": "2026-04-22T10:47:40.816021-04:00",
-    "entry_price": 86.48,
-    "qty": 5,
-    "position_size": 446.75,
-    "confidence": 85,
-    "earnings_date": "2026-05-06",
-    "sector": "Technology",
-    "order_id": "1c86add0-7094-494e-8d13-92370fa8f478",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 44.67,
-    "take_profit_price": 180.49,
-    "status": "closed",
-    "exit_price": 111.23,
-    "exit_date": "2026-05-07",
-    "pnl": 123.75,
-    "pnl_pct": 28.62,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.142,
-    "momentum_30d": 0.03,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "229cbaa9",
-    "symbol": "SHOP",
-    "company": "Shopify Inc.",
-    "entry_date": "2026-04-22",
-    "entry_time": "2026-04-22T10:47:41.627214-04:00",
-    "entry_price": 131.8367,
-    "qty": 3,
-    "position_size": 449.43,
-    "confidence": 80,
-    "earnings_date": "2026-05-05",
-    "sector": "Technology",
-    "order_id": "4bc78aca-6084-4e47-ba0f-1b0837993c07",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 74.91,
-    "take_profit_price": 302.62,
-    "status": "closed",
-    "exit_price": 106.23,
-    "exit_date": "2026-05-06",
-    "pnl": -76.82,
-    "pnl_pct": -19.42,
-    "beat_rate": 0.5,
-    "revenue_growth_yoy": 0.301,
-    "momentum_30d": 0.083,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "e7b4adf3",
-    "symbol": "DDOG",
-    "company": "Datadog, Inc.",
-    "entry_date": "2026-04-23",
-    "entry_time": "2026-04-23T11:27:47.237911-04:00",
-    "entry_price": 128.84,
-    "qty": 11,
-    "position_size": 1417.57,
-    "confidence": 100,
-    "earnings_date": "2026-05-07",
-    "sector": "Technology",
-    "order_id": "dee08741-1cb8-41e2-bb4f-8df3451f3020",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 64.44,
-    "take_profit_price": 260.32,
-    "status": "closed",
-    "exit_price": 186.68,
-    "exit_date": "2026-05-07",
-    "pnl": 636.24,
-    "pnl_pct": 44.89,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.277,
-    "momentum_30d": 0.078,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "13319a51",
-    "symbol": "NET",
-    "company": "Cloudflare, Inc.",
-    "entry_date": "2026-04-23",
-    "entry_time": "2026-04-23T11:27:48.443494-04:00",
-    "entry_price": 206.49,
-    "qty": 7,
-    "position_size": 1456.0,
-    "confidence": 100,
-    "earnings_date": "2026-05-07",
-    "sector": "Technology",
-    "order_id": "86c46244-934a-4a8b-b085-9ab1c3b4ed37",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 104.0,
-    "take_profit_price": 420.16,
-    "status": "closed",
-    "exit_price": 193.72,
-    "exit_date": "2026-05-08",
-    "pnl": -89.39,
-    "pnl_pct": -6.18,
-    "beat_rate": 0.75,
-    "revenue_growth_yoy": 0.298,
-    "momentum_30d": -0.026,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "dac32784",
-    "symbol": "U",
-    "company": "Unity Software Inc.",
-    "entry_date": "2026-04-23",
-    "entry_time": "2026-04-23T11:27:50.490028-04:00",
-    "entry_price": 24.67,
-    "qty": 60,
-    "position_size": 1480.2,
-    "confidence": 100,
-    "earnings_date": "2026-05-07",
-    "sector": "Technology",
-    "order_id": "61fbabc6-7604-4463-96f6-e25ea681c67a",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 12.34,
-    "take_profit_price": 49.83,
-    "status": "closed",
-    "exit_price": 28.27,
-    "exit_date": "2026-05-07",
-    "pnl": 216.0,
-    "pnl_pct": 14.59,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.02,
-    "momentum_30d": 0.423,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "1fcd1198",
-    "symbol": "LYFT",
-    "company": "Lyft, Inc.",
-    "entry_date": "2026-04-23",
-    "entry_time": "2026-04-23T11:27:52.309539-04:00",
-    "entry_price": 14.17,
-    "qty": 35,
-    "position_size": 495.95,
-    "confidence": 85,
-    "earnings_date": "2026-05-07",
-    "sector": "Technology",
-    "order_id": "d3c7d8b3-015a-49fa-99a7-70ee5d3dfe44",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 7.08,
-    "take_profit_price": 28.62,
-    "status": "closed",
-    "exit_price": 14.37,
-    "exit_date": "2026-05-08",
-    "pnl": 6.91,
-    "pnl_pct": 1.39,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.092,
-    "momentum_30d": 0.097,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "c87f9904",
-    "symbol": "ZTS",
-    "company": "Zoetis Inc.",
-    "entry_date": "2026-04-23",
-    "entry_time": "2026-04-23T11:27:54.275460-04:00",
-    "entry_price": 116.77,
-    "qty": 4,
-    "position_size": 467.08,
-    "confidence": 80,
-    "earnings_date": "2026-05-07",
-    "sector": "Healthcare",
-    "order_id": "19893c0c-f3b5-4ba2-84a8-8f6130b0ee8b",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 58.38,
-    "take_profit_price": 235.88,
-    "status": "closed",
-    "exit_price": 88.55,
-    "exit_date": "2026-05-07",
-    "pnl": -112.88,
-    "pnl_pct": -24.17,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.023,
-    "momentum_30d": 0.018,
-    "earnings_timing": "pre_market"
-  },
-  {
-    "id": "0b4206b1",
-    "symbol": "GILD",
-    "company": "Gilead Sciences, Inc.",
-    "entry_date": "2026-04-27",
-    "entry_time": "2026-04-27T15:25:53.296383+00:00",
-    "entry_price": 128.4933,
-    "qty": 3,
-    "position_size": 385.48,
-    "confidence": 83.0,
-    "earnings_date": "2026-05-07",
-    "sector": "Healthcare",
-    "order_id": "da0a808b-6943-4d13-b60e-7224a7bd97d2",
-    "order_status": "filled",
-    "stop_loss_price": 64.25,
-    "take_profit_price": 256.99,
-    "status": "closed",
-    "exit_price": 132.12,
-    "exit_date": "2026-05-08",
-    "pnl": 10.88,
-    "pnl_pct": 2.82,
-    "beat_rate": 1.0,
-    "revenue_growth_yoy": 0.024,
-    "momentum_30d": -0.047,
-    "earnings_timing": "post_market",
-    "price_up_5pct_rate": 0.462
-  },
-  {
-    "id": "592968b9",
-    "symbol": "CSCO",
-    "company": "Cisco Systems, Inc.",
-    "entry_date": "2026-05-04",
-    "entry_time": "2026-05-04T11:32:46.323923-04:00",
-    "entry_price": 92.61,
-    "qty": 16,
-    "position_size": 1481.76,
-    "confidence": 100,
-    "earnings_date": "2026-05-13",
-    "sector": "Technology",
-    "order_id": "a623a17f-8426-452e-b3bd-3c6844245879",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 46.3,
-    "take_profit_price": 187.07,
-    "status": "closed",
-    "exit_price": 117.48,
-    "exit_date": "2026-05-14",
-    "pnl": 397.92,
-    "pnl_pct": 26.85,
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "revenue_growth_yoy": 0.053,
-    "momentum_30d": 0.18,
-    "earnings_timing": "unknown"
-  },
-  {
-    "id": "aa2ea185",
-    "symbol": "AMAT",
-    "company": "Applied Materials, Inc.",
-    "entry_date": "2026-05-04",
-    "entry_time": "2026-05-04T11:32:47.894026-04:00",
-    "entry_price": 389.79,
-    "qty": 3,
-    "position_size": 1170.21,
-    "confidence": 100,
-    "earnings_date": "2026-05-14",
-    "sector": "Technology",
-    "order_id": "38404fbb-c578-4c9f-a957-91d3293904d8",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 195.03,
-    "take_profit_price": 787.94,
-    "status": "closed",
-    "exit_price": 440.01,
-    "exit_date": "2026-05-15",
-    "pnl": 150.65,
-    "pnl_pct": 12.88,
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "revenue_growth_yoy": 0.044,
-    "momentum_30d": 0.115,
-    "earnings_timing": "post_market"
-  },
-  {
-    "id": "b71b1a54",
-    "symbol": "NVDA",
-    "company": "NVIDIA Corporation",
-    "entry_date": "2026-05-11",
-    "entry_time": "2026-05-11T12:17:22.666592-04:00",
-    "entry_price": 222.0283,
-    "qty": 6,
-    "position_size": 1333.2,
-    "confidence": 100,
-    "earnings_date": "2026-05-20",
-    "sector": "Technology",
-    "order_id": "bcc82d86-66f4-4d8f-89f4-f2b39409f23a",
-    "order_status": "OrderStatus.PENDING_NEW",
-    "stop_loss_price": 111.1,
-    "take_profit_price": 448.84,
-    "status": "open",
-    "exit_price": null,
-    "exit_date": null,
-    "pnl": null,
-    "pnl_pct": null,
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": 0.615,
-    "revenue_growth_yoy": 0.655,
-    "momentum_30d": 0.141,
-    "earnings_timing": "post_market"
-  }
-]</script>
-<script id="__POSITIONS__" type="application/json">{
-  "positions": [
-    {
-      "symbol": "NVDA",
-      "qty": 6.0,
-      "avg_entry_price": 222.028333,
-      "current_price": 222.15,
-      "market_value": 1332.9,
-      "unrealized_pl": 0.730002,
-      "unrealized_plpc": 0.00055,
-      "side": "PositionSide.LONG"
-    }
-  ],
-  "account": {
-    "equity": 101276.49,
-    "cash": 99943.59,
-    "portfolio_value": 101276.49,
-    "buying_power": 403559.72,
-    "last_equity": 101295.51,
-    "daytrade_count": 0
-  },
-  "last_updated": "2026-05-18T16:22:35.315413-04:00",
-  "daily_pnl": -19.02,
-  "daily_pnl_pct": -0.02,
-  "weekly_pnl": 0.0,
-  "weekly_pnl_pct": 0.0,
-  "open_positions_count": 1,
-  "circuit_breaker_triggered": false,
-  "circuit_breaker_reason": null
-}</script>
-<script id="__BUDGET__" type="application/json">{
-  "total_cap": 45000,
-  "two_week_cap": 45000,
-  "two_week_start": "2026-04-19",
-  "two_week_end": "2026-05-03",
-  "total_deployed": 14322.819999999996,
-  "two_week_deployed": 10337.649999999996,
-  "available_total": 30677.180000000004,
-  "available_two_week": 34662.350000000006,
-  "trades_count": 54,
-  "last_updated": "2026-05-11T12:17:22.666275-04:00",
-  "halted": false,
-  "halt_reason": null
-}</script>
-<script id="__ACCURACY__" type="application/json">{
-  "70-84%": {
-    "calls": 9,
-    "correct": 8
-  },
-  "85-94%": {
-    "calls": 23,
-    "correct": 14
-  },
-  "95-100%": {
-    "calls": 21,
-    "correct": 12
-  },
-  "new_methodology": {
-    "70-84%": {
-      "calls": 0,
-      "correct": 0
-    },
-    "85-94%": {
-      "calls": 0,
-      "correct": 0
-    },
-    "95-100%": {
-      "calls": 0,
-      "correct": 0
-    }
-  }
-}</script>
-<script id="__CALLS_LOG__" type="application/json">[
-  {
-    "trade_id": "54627ecb",
-    "symbol": "GE",
-    "company": "GE Aerospace",
-    "earnings_date": "2026-04-21",
-    "exit_date": "2026-04-21",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 308.745,
-    "exit_price": 285.2,
-    "pnl": -23.55,
-    "pnl_pct": -7.63,
-    "outcome": "LOSS",
-    "eps_estimate": 1.6,
-    "eps_reported": 1.86,
-    "beat_pct": 16.2,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "GE beat EPS estimates by +16.2% (reported $1.86 vs $1.60 expected). The position returned -7.6% (LOSS) against a 85% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-21T17:03:00.841672-04:00"
-  },
-  {
-    "trade_id": "74426dd5",
-    "symbol": "UNH",
-    "company": "UnitedHealth Group Incorporated",
-    "earnings_date": "2026-04-21",
-    "exit_date": "2026-04-21",
-    "confidence": 70,
-    "tier": "70-84%",
-    "entry_price": 316.165,
-    "exit_price": 350.67,
-    "pnl": 34.5,
-    "pnl_pct": 10.91,
-    "outcome": "WIN",
-    "eps_estimate": 6.6,
-    "eps_reported": 7.23,
-    "beat_pct": 9.5,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "UNH beat EPS estimates by +9.5% (reported $7.23 vs $6.60 expected). The position returned +10.9% (WIN) against a 70% confidence call (70-84% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-21T17:03:01.517659-04:00"
-  },
-  {
-    "trade_id": "2d9a2afd",
-    "symbol": "DHR",
-    "company": "Danaher Corporation",
-    "earnings_date": "2026-04-21",
-    "exit_date": "2026-04-21",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 194.85,
-    "exit_price": 191.89,
-    "pnl": -5.92,
-    "pnl_pct": -1.52,
-    "outcome": "LOSS",
-    "eps_estimate": 1.94,
-    "eps_reported": 2.06,
-    "beat_pct": 6.2,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "DHR beat EPS estimates by +6.2% (reported $2.06 vs $1.94 expected). The position returned -1.5% (LOSS) against a 85% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-21T17:03:02.514138-04:00"
-  },
-  {
-    "trade_id": "8fe3c005",
-    "symbol": "ISRG",
-    "company": "Intuitive Surgical, Inc.",
-    "earnings_date": "2026-04-21",
-    "exit_date": "2026-04-22",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 470.276667,
-    "exit_price": 488.21,
-    "pnl": 53.8,
-    "pnl_pct": 3.81,
-    "outcome": "WIN",
-    "eps_estimate": 1.93,
-    "eps_reported": 2.28,
-    "beat_pct": 18.1,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "ISRG beat EPS estimates by +18.1% (reported $2.28 vs $1.93 expected). The position returned +3.8% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-22T17:27:21.146929-04:00"
-  },
-  {
-    "trade_id": "3d726248",
-    "symbol": "PM",
-    "company": "Philip Morris International Inc.",
-    "earnings_date": "2026-04-22",
-    "exit_date": "2026-04-22",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 159.5,
-    "exit_price": 162.52,
-    "pnl": 9.05,
-    "pnl_pct": 1.89,
-    "outcome": "WIN",
-    "eps_estimate": 1.83,
-    "eps_reported": 1.96,
-    "beat_pct": 7.1,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "PM beat EPS estimates by +7.1% (reported $1.96 vs $1.83 expected). The position returned +1.9% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-22T17:27:21.748867-04:00"
-  },
-  {
-    "trade_id": "7ec78301",
-    "symbol": "TMO",
-    "company": "Thermo Fisher Scientific Inc.",
-    "earnings_date": "2026-04-23",
-    "exit_date": "2026-04-23",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 523.98,
-    "exit_price": 460.75,
-    "pnl": -126.46,
-    "pnl_pct": -12.07,
-    "outcome": "LOSS",
-    "eps_estimate": 5.24,
-    "eps_reported": 5.44,
-    "beat_pct": 3.8,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "TMO beat EPS estimates by +3.8% (reported $5.44 vs $5.24 expected). The position returned -12.1% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T16:33:58.674775-04:00"
-  },
-  {
-    "trade_id": "4b4d3016",
-    "symbol": "AXP",
-    "company": "American Express Company",
-    "earnings_date": "2026-04-23",
-    "exit_date": "2026-04-23",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 334.3575,
-    "exit_price": 321.89,
-    "pnl": -49.87,
-    "pnl_pct": -3.73,
-    "outcome": "LOSS",
-    "eps_estimate": 3.99,
-    "eps_reported": 4.28,
-    "beat_pct": 7.3,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "AXP beat EPS estimates by +7.3% (reported $4.28 vs $3.99 expected). The position returned -3.7% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T16:33:59.391435-04:00"
-  },
-  {
-    "trade_id": "b2f76314",
-    "symbol": "LRCX",
-    "company": "Lam Research Corporation",
-    "earnings_date": "2026-04-22",
-    "exit_date": "2026-04-23",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 264.696,
-    "exit_price": 263.05,
-    "pnl": -8.23,
-    "pnl_pct": -0.62,
-    "outcome": "LOSS",
-    "eps_estimate": 1.36,
-    "eps_reported": 1.47,
-    "beat_pct": 8.1,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "LRCX beat EPS estimates by +8.1% (reported $1.47 vs $1.36 expected). The position returned -0.6% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T16:34:00.400887-04:00"
-  },
-  {
-    "trade_id": "17b885bf",
-    "symbol": "HON",
-    "company": "Honeywell International Inc.",
-    "earnings_date": "2026-04-23",
-    "exit_date": "2026-04-23",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 232.28,
-    "exit_price": 213.8,
-    "pnl": -36.96,
-    "pnl_pct": -7.96,
-    "outcome": "LOSS",
-    "eps_estimate": 2.32,
-    "eps_reported": 2.45,
-    "beat_pct": 5.6,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "HON beat EPS estimates by +5.6% (reported $2.45 vs $2.32 expected). The position returned -8.0% (LOSS) against a 85% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T16:34:01.134651-04:00"
-  },
-  {
-    "trade_id": "89f4a3aa",
-    "symbol": "TXN",
-    "company": "Texas Instruments Incorporated",
-    "earnings_date": "2026-04-22",
-    "exit_date": "2026-04-23",
-    "confidence": 75,
-    "tier": "70-84%",
-    "entry_price": 230.69,
-    "exit_price": 279.82,
-    "pnl": 98.26,
-    "pnl_pct": 21.3,
-    "outcome": "WIN",
-    "eps_estimate": 1.36,
-    "eps_reported": 1.68,
-    "beat_pct": 23.5,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "TXN beat EPS estimates by +23.5% (reported $1.68 vs $1.36 expected). The position returned +21.3% (WIN) against a 75% confidence call (70-84% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-23T16:34:01.804967-04:00"
-  },
-  {
-    "trade_id": "41944e49",
-    "symbol": "NOW",
-    "company": "ServiceNow, Inc.",
-    "earnings_date": "2026-04-22",
-    "exit_date": "2026-04-23",
-    "confidence": 95,
-    "tier": "95-100%",
-    "entry_price": 99.04,
-    "exit_price": 85.29,
-    "pnl": -206.25,
-    "pnl_pct": -13.88,
-    "outcome": "LOSS",
-    "eps_estimate": 0.97,
-    "eps_reported": 0.97,
-    "beat_pct": 0.0,
-    "beat": false,
-    "correct_call": true,
-    "analysis": "NOW missed EPS estimates by 0.0% (reported $0.97 vs $0.97 expected). The position returned -13.9% (LOSS) against a 95% confidence call (95-100% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 95-100% tier prediction.",
-    "logged_at": "2026-04-23T16:34:02.511933-04:00"
-  },
-  {
-    "trade_id": "c3d96dcd",
-    "symbol": "IBM",
-    "company": "International Business Machines Corporation",
-    "earnings_date": "2026-04-22",
-    "exit_date": "2026-04-23",
-    "confidence": 90,
-    "tier": "85-94%",
-    "entry_price": 252.96,
-    "exit_price": 230.98,
-    "pnl": -65.93,
-    "pnl_pct": -8.69,
-    "outcome": "LOSS",
-    "eps_estimate": 1.81,
-    "eps_reported": 1.91,
-    "beat_pct": 5.5,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "IBM beat EPS estimates by +5.5% (reported $1.91 vs $1.81 expected). The position returned -8.7% (LOSS) against a 90% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-23T16:34:03.322913-04:00"
-  },
-  {
-    "trade_id": "fbc15ccf",
-    "symbol": "NEE",
-    "company": "NextEra Energy, Inc.",
-    "earnings_date": "2026-04-23",
-    "exit_date": "2026-04-23",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 92.35,
-    "exit_price": 95.92,
-    "pnl": 17.85,
-    "pnl_pct": 3.87,
-    "outcome": "WIN",
-    "eps_estimate": 1.03,
-    "eps_reported": 1.09,
-    "beat_pct": 5.8,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "NEE beat EPS estimates by +5.8% (reported $1.09 vs $1.03 expected). The position returned +3.9% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-23T16:34:04.105210-04:00"
-  },
-  {
-    "trade_id": "fc763dbc",
-    "symbol": "INTC",
-    "company": "Intel Corporation",
-    "earnings_date": "2026-04-23",
-    "exit_date": "2026-04-24",
-    "confidence": 90,
-    "tier": "85-94%",
-    "entry_price": 67.7179,
-    "exit_price": 82.88,
-    "pnl": 212.3,
-    "pnl_pct": 22.39,
-    "outcome": "WIN",
-    "eps_estimate": 0.01,
-    "eps_reported": 0.29,
-    "beat_pct": 2800.0,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "INTC beat EPS estimates by +2800.0% (reported $0.29 vs $0.01 expected). The position returned +22.4% (WIN) against a 90% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-24T17:25:30.689692-04:00"
-  },
-  {
-    "trade_id": "1bc65e0d",
-    "symbol": "PG",
-    "company": "The Procter & Gamble Company",
-    "earnings_date": "2026-04-24",
-    "exit_date": "2026-04-24",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 145.43,
-    "exit_price": 150.32,
-    "pnl": 14.67,
-    "pnl_pct": 3.36,
-    "outcome": "WIN",
-    "eps_estimate": 1.56,
-    "eps_reported": 1.59,
-    "beat_pct": 1.9,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "PG beat EPS estimates by +1.9% (reported $1.59 vs $1.56 expected). The position returned +3.4% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-24T17:25:31.284561-04:00"
-  },
-  {
-    "trade_id": "a926063e",
-    "symbol": "GILD",
-    "company": "Gilead Sciences, Inc.",
-    "earnings_date": "2026-04-23",
-    "exit_date": "2026-04-24",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 137.68,
-    "exit_price": 130.71,
-    "pnl": -20.91,
-    "pnl_pct": -5.06,
-    "outcome": "LOSS",
-    "eps_estimate": null,
-    "eps_reported": null,
-    "beat_pct": null,
-    "beat": null,
-    "correct_call": null,
-    "analysis": "GILD earnings results not yet confirmed in data feed. The position returned -5.1% (LOSS) against a 85% confidence call (85-94% tier). Accuracy against estimates could not be verified \u2014 trade result logged for manual review.",
-    "logged_at": "2026-04-24T17:25:32.111018-04:00"
-  },
-  {
-    "trade_id": "459e9eae",
-    "symbol": "KO",
-    "company": "The Coca-Cola Company",
-    "earnings_date": "2026-04-28",
-    "exit_date": "2026-04-28",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 75.88,
-    "exit_price": 80.06,
-    "pnl": 25.08,
-    "pnl_pct": 5.51,
-    "outcome": "WIN",
-    "eps_estimate": 0.81,
-    "eps_reported": 0.86,
-    "beat_pct": 6.2,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "KO beat EPS estimates by +6.2% (reported $0.86 vs $0.81 expected). The position returned +5.5% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-28T17:37:34.995131-04:00"
-  },
-  {
-    "trade_id": "e6f0cec4",
-    "symbol": "SPGI",
-    "company": "S&P Global Inc.",
-    "earnings_date": "2026-04-28",
-    "exit_date": "2026-04-28",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 442.14,
-    "exit_price": 448.58,
-    "pnl": 6.44,
-    "pnl_pct": 1.46,
-    "outcome": "WIN",
-    "eps_estimate": 4.82,
-    "eps_reported": 4.97,
-    "beat_pct": 3.1,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "SPGI beat EPS estimates by +3.1% (reported $4.97 vs $4.82 expected). The position returned +1.5% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-28T17:37:35.736470-04:00"
-  },
-  {
-    "trade_id": "3a53e951",
-    "symbol": "BKNG",
-    "company": "Booking Holdings Inc.",
-    "earnings_date": "2026-04-28",
-    "exit_date": "2026-04-29",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 192.46,
-    "exit_price": 173.08,
-    "pnl": -135.66,
-    "pnl_pct": -10.07,
-    "outcome": "LOSS",
-    "eps_estimate": 1.08,
-    "eps_reported": 1.14,
-    "beat_pct": 5.6,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "BKNG beat EPS estimates by +5.6% (reported $1.14 vs $1.08 expected). The position returned -10.1% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-29T17:40:07.859629-04:00"
-  },
-  {
-    "trade_id": "bc8a772f",
-    "symbol": "HOOD",
-    "company": "Robinhood Markets, Inc.",
-    "earnings_date": "2026-04-28",
-    "exit_date": "2026-04-29",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 89.8744,
-    "exit_price": 70.64,
-    "pnl": -307.79,
-    "pnl_pct": -21.4,
-    "outcome": "LOSS",
-    "eps_estimate": 0.39,
-    "eps_reported": 0.38,
-    "beat_pct": -2.6,
-    "beat": false,
-    "correct_call": true,
-    "analysis": "HOOD missed EPS estimates by 2.6% (reported $0.38 vs $0.39 expected). The position returned -21.4% (LOSS) against a 100% confidence call (95-100% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 95-100% tier prediction.",
-    "logged_at": "2026-04-29T17:40:08.517511-04:00"
-  },
-  {
-    "trade_id": "94de2b6b",
-    "symbol": "SOFI",
-    "company": "SoFi Technologies, Inc.",
-    "earnings_date": "2026-04-29",
-    "exit_date": "2026-04-29",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 19.3856,
-    "exit_price": 15.79,
-    "pnl": -276.86,
-    "pnl_pct": -18.55,
-    "outcome": "LOSS",
-    "eps_estimate": 0.12,
-    "eps_reported": 0.12,
-    "beat_pct": 0.0,
-    "beat": false,
-    "correct_call": true,
-    "analysis": "SOFI missed EPS estimates by 0.0% (reported $0.12 vs $0.12 expected). The position returned -18.6% (LOSS) against a 100% confidence call (95-100% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 95-100% tier prediction.",
-    "logged_at": "2026-04-29T17:40:09.225146-04:00"
-  },
-  {
-    "trade_id": "08759a81",
-    "symbol": "V",
-    "company": "Visa Inc.",
-    "earnings_date": "2026-04-28",
-    "exit_date": "2026-04-29",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 317.31,
-    "exit_price": 336.1,
-    "pnl": 18.79,
-    "pnl_pct": 5.92,
-    "outcome": "WIN",
-    "eps_estimate": 3.1,
-    "eps_reported": 3.31,
-    "beat_pct": 6.8,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "V beat EPS estimates by +6.8% (reported $3.31 vs $3.10 expected). The position returned +5.9% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-29T17:40:10.026697-04:00"
-  },
-  {
-    "trade_id": "7c0bf917",
-    "symbol": "ABBV",
-    "company": "AbbVie Inc.",
-    "earnings_date": "2026-04-29",
-    "exit_date": "2026-04-29",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 207.46,
-    "exit_price": 204.03,
-    "pnl": -6.86,
-    "pnl_pct": -1.65,
-    "outcome": "LOSS",
-    "eps_estimate": 2.67,
-    "eps_reported": 2.65,
-    "beat_pct": -0.7,
-    "beat": false,
-    "correct_call": true,
-    "analysis": "ABBV missed EPS estimates by 0.7% (reported $2.65 vs $2.67 expected). The position returned -1.6% (LOSS) against a 85% confidence call (85-94% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 85-94% tier prediction.",
-    "logged_at": "2026-04-29T17:40:10.786936-04:00"
-  },
-  {
-    "trade_id": "32917c3a",
-    "symbol": "REGN",
-    "company": "Regeneron Pharmaceuticals, Inc.",
-    "earnings_date": "2026-04-29",
-    "exit_date": "2026-04-29",
-    "confidence": 80,
-    "tier": "70-84%",
-    "entry_price": 750.01,
-    "exit_price": 686.64,
-    "pnl": -63.37,
-    "pnl_pct": -8.45,
-    "outcome": "LOSS",
-    "eps_estimate": 8.9,
-    "eps_reported": 9.47,
-    "beat_pct": 6.4,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "REGN beat EPS estimates by +6.4% (reported $9.47 vs $8.90 expected). The position returned -8.4% (LOSS) against a 80% confidence call (70-84% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-29T17:40:11.505024-04:00"
-  },
-  {
-    "trade_id": "db3b4b26",
-    "symbol": "GOOGL",
-    "company": "Alphabet Inc.",
-    "earnings_date": "2026-04-29",
-    "exit_date": "2026-04-30",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 339.64,
-    "exit_price": 373.825,
-    "pnl": 136.74,
-    "pnl_pct": 10.07,
-    "outcome": "WIN",
-    "eps_estimate": 2.67,
-    "eps_reported": 5.11,
-    "beat_pct": 91.4,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "GOOGL beat EPS estimates by +91.4% (reported $5.11 vs $2.67 expected). The position returned +10.1% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-30T17:33:31.232833-04:00"
-  },
-  {
-    "trade_id": "283455d2",
-    "symbol": "AMZN",
-    "company": "Amazon.com, Inc.",
-    "earnings_date": "2026-04-29",
-    "exit_date": "2026-04-30",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 249.305,
-    "exit_price": 256.306667,
-    "pnl": 42.01,
-    "pnl_pct": 2.81,
-    "outcome": "WIN",
-    "eps_estimate": 1.65,
-    "eps_reported": 2.78,
-    "beat_pct": 68.5,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "AMZN beat EPS estimates by +68.5% (reported $2.78 vs $1.65 expected). The position returned +2.8% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-30T17:33:31.860853-04:00"
-  },
-  {
-    "trade_id": "8888cb0d",
-    "symbol": "META",
-    "company": "Meta Platforms, Inc.",
-    "earnings_date": "2026-04-29",
-    "exit_date": "2026-04-30",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 681.16,
-    "exit_price": 606.4,
-    "pnl": -149.52,
-    "pnl_pct": -10.98,
-    "outcome": "LOSS",
-    "eps_estimate": 6.82,
-    "eps_reported": 7.31,
-    "beat_pct": 7.2,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "META beat EPS estimates by +7.2% (reported $7.31 vs $6.82 expected). The position returned -11.0% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-30T17:33:32.539418-04:00"
-  },
-  {
-    "trade_id": "36ae5db6",
-    "symbol": "QCOM",
-    "company": "QUALCOMM Incorporated",
-    "earnings_date": "2026-04-29",
-    "exit_date": "2026-04-30",
-    "confidence": 90,
-    "tier": "85-94%",
-    "entry_price": 136.54,
-    "exit_price": 183.154286,
-    "pnl": 326.3,
-    "pnl_pct": 34.14,
-    "outcome": "WIN",
-    "eps_estimate": 2.56,
-    "eps_reported": 2.65,
-    "beat_pct": 3.5,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "QCOM beat EPS estimates by +3.5% (reported $2.65 vs $2.56 expected). The position returned +34.1% (WIN) against a 90% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-30T17:33:33.278614-04:00"
-  },
-  {
-    "trade_id": "d24d3069",
-    "symbol": "MRK",
-    "company": "Merck & Co., Inc.",
-    "earnings_date": "2026-04-30",
-    "exit_date": "2026-04-30",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 118.35,
-    "exit_price": 110.2875,
-    "pnl": -32.25,
-    "pnl_pct": -6.81,
-    "outcome": "LOSS",
-    "eps_estimate": -1.47,
-    "eps_reported": -1.28,
-    "beat_pct": 12.9,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "MRK beat EPS estimates by +12.9% (reported $-1.28 vs $-1.47 expected). The position returned -6.8% (LOSS) against a 85% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-30T17:33:33.875075-04:00"
-  },
-  {
-    "trade_id": "2cf0ddd4",
-    "symbol": "MSFT",
-    "company": "Microsoft Corporation",
-    "earnings_date": "2026-04-29",
-    "exit_date": "2026-04-30",
-    "confidence": 90,
-    "tier": "85-94%",
-    "entry_price": 417.6,
-    "exit_price": 402.78,
-    "pnl": -29.64,
-    "pnl_pct": -3.55,
-    "outcome": "LOSS",
-    "eps_estimate": 4.06,
-    "eps_reported": 4.27,
-    "beat_pct": 5.2,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "MSFT beat EPS estimates by +5.2% (reported $4.27 vs $4.06 expected). The position returned -3.5% (LOSS) against a 90% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-30T17:33:34.639982-04:00"
-  },
-  {
-    "trade_id": "076d59a3",
-    "symbol": "MA",
-    "company": "Mastercard Incorporated",
-    "earnings_date": "2026-04-30",
-    "exit_date": "2026-04-30",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 515.26,
-    "exit_price": 507.84,
-    "pnl": -7.42,
-    "pnl_pct": -1.44,
-    "outcome": "LOSS",
-    "eps_estimate": 4.41,
-    "eps_reported": 4.6,
-    "beat_pct": 4.3,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "MA beat EPS estimates by +4.3% (reported $4.60 vs $4.41 expected). The position returned -1.4% (LOSS) against a 85% confidence call (85-94% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-04-30T17:33:35.345885-04:00"
-  },
-  {
-    "trade_id": "a4178866",
-    "symbol": "CAT",
-    "company": "Caterpillar Inc.",
-    "earnings_date": "2026-04-30",
-    "exit_date": "2026-04-30",
-    "confidence": 70,
-    "tier": "70-84%",
-    "entry_price": 796.49,
-    "exit_price": 890.03,
-    "pnl": 93.54,
-    "pnl_pct": 11.74,
-    "outcome": "WIN",
-    "eps_estimate": 4.64,
-    "eps_reported": 5.54,
-    "beat_pct": 19.4,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "CAT beat EPS estimates by +19.4% (reported $5.54 vs $4.64 expected). The position returned +11.7% (WIN) against a 70% confidence call (70-84% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-04-30T17:33:35.984985-04:00"
-  },
-  {
-    "trade_id": "01babddd",
-    "symbol": "ROKU",
-    "company": "Roku, Inc.",
-    "earnings_date": "2026-04-30",
-    "exit_date": "2026-05-01",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 116.5,
-    "exit_price": 125.05,
-    "pnl": 102.6,
-    "pnl_pct": 7.34,
-    "outcome": "WIN",
-    "eps_estimate": 0.35,
-    "eps_reported": 0.57,
-    "beat_pct": 62.9,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "ROKU beat EPS estimates by +62.9% (reported $0.57 vs $0.35 expected). The position returned +7.3% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-01T17:26:21.733263-04:00"
-  },
-  {
-    "trade_id": "033a2dc8",
-    "symbol": "TWLO",
-    "company": "Twilio Inc.",
-    "earnings_date": "2026-04-30",
-    "exit_date": "2026-05-01",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 142.77,
-    "exit_price": 175.84,
-    "pnl": 330.7,
-    "pnl_pct": 23.16,
-    "outcome": "WIN",
-    "eps_estimate": 1.27,
-    "eps_reported": 1.5,
-    "beat_pct": 18.1,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "TWLO beat EPS estimates by +18.1% (reported $1.50 vs $1.27 expected). The position returned +23.2% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-01T17:26:22.356892-04:00"
-  },
-  {
-    "trade_id": "58617df5",
-    "symbol": "RBLX",
-    "company": "Roblox Corporation",
-    "earnings_date": "2026-04-30",
-    "exit_date": "2026-05-01",
-    "confidence": 100,
-    "tier": "95-100%",
-    "entry_price": 60.9,
-    "exit_price": 42.2,
-    "pnl": -467.5,
-    "pnl_pct": -30.71,
-    "outcome": "LOSS",
-    "eps_estimate": -0.41,
-    "eps_reported": -0.27,
-    "beat_pct": 34.1,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "RBLX beat EPS estimates by +34.1% (reported $-0.27 vs $-0.41 expected). The position returned -30.7% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-05-01T17:26:23.226491-04:00"
-  },
-  {
-    "trade_id": "0573d3da",
-    "symbol": "AAPL",
-    "company": "Apple Inc.",
-    "earnings_date": "2026-04-30",
-    "exit_date": "2026-05-01",
-    "confidence": 90,
-    "tier": "85-94%",
-    "entry_price": 272.3567,
-    "exit_price": 281.1133,
-    "pnl": 26.27,
-    "pnl_pct": 3.22,
-    "outcome": "WIN",
-    "eps_estimate": 1.94,
-    "eps_reported": 2.01,
-    "beat_pct": 3.6,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "AAPL beat EPS estimates by +3.6% (reported $2.01 vs $1.94 expected). The position returned +3.2% (WIN) against a 90% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-01T17:26:23.852078-04:00"
-  },
-  {
-    "trade_id": "efbb5079",
-    "symbol": "SYK",
-    "company": "Stryker Corporation",
-    "earnings_date": "2026-04-30",
-    "exit_date": "2026-05-01",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 343.12,
-    "exit_price": 308.0,
-    "pnl": -35.12,
-    "pnl_pct": -10.24,
-    "outcome": "LOSS",
-    "eps_estimate": 2.27,
-    "eps_reported": 1.93,
-    "beat_pct": -15.0,
-    "beat": false,
-    "correct_call": true,
-    "analysis": "SYK missed EPS estimates by 15.0% (reported $1.93 vs $2.27 expected). The position returned -10.2% (LOSS) against a 85% confidence call (85-94% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 85-94% tier prediction.",
-    "logged_at": "2026-05-01T17:26:24.423318-04:00"
-  },
-  {
-    "trade_id": "f61ae781",
-    "symbol": "XOM",
-    "company": "Exxon Mobil Corporation",
-    "earnings_date": "2026-05-01",
-    "exit_date": "2026-05-01",
-    "confidence": 70,
-    "tier": "70-84%",
-    "entry_price": 147.54,
-    "exit_price": 151.33,
-    "pnl": 11.37,
-    "pnl_pct": 2.57,
-    "outcome": "WIN",
-    "eps_estimate": 1.01,
-    "eps_reported": 1.16,
-    "beat_pct": 14.9,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "XOM beat EPS estimates by +14.9% (reported $1.16 vs $1.01 expected). The position returned +2.6% (WIN) against a 70% confidence call (70-84% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-01T17:26:25.146104-04:00"
-  },
-  {
-    "trade_id": "6262b95d",
-    "symbol": "CVX",
-    "company": "Chevron Corporation",
-    "earnings_date": "2026-05-01",
-    "exit_date": "2026-05-01",
-    "confidence": 70,
-    "tier": "70-84%",
-    "entry_price": 185.2,
-    "exit_price": 190.965,
-    "pnl": 11.53,
-    "pnl_pct": 3.11,
-    "outcome": "WIN",
-    "eps_estimate": 0.97,
-    "eps_reported": 1.41,
-    "beat_pct": 45.4,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "CVX beat EPS estimates by +45.4% (reported $1.41 vs $0.97 expected). The position returned +3.1% (WIN) against a 70% confidence call (70-84% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-01T17:26:25.704124-04:00"
-  },
-  {
-    "trade_id": "aee93c10",
-    "symbol": "LIN",
-    "company": "Linde plc",
-    "earnings_date": "2026-05-01",
-    "exit_date": "2026-05-01",
-    "confidence": 85,
-    "tier": "85-94%",
-    "entry_price": 498.02,
-    "exit_price": 506.0,
-    "pnl": 7.98,
-    "pnl_pct": 1.6,
-    "outcome": "WIN",
-    "eps_estimate": 4.27,
-    "eps_reported": 4.33,
-    "beat_pct": 1.4,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "LIN beat EPS estimates by +1.4% (reported $4.33 vs $4.27 expected). The position returned +1.6% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-01T17:26:26.311049-04:00"
-  },
-  {
-    "trade_id": "95808c7e",
-    "symbol": "PLTR",
-    "company": "Palantir Technologies Inc.",
-    "entry_date": "2026-04-22",
-    "earnings_date": "2026-05-04",
-    "exit_date": "2026-05-05",
-    "confidence": 100,
-    "tier": "95-100%",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "entry_price": 151.18,
-    "exit_price": 137.6,
-    "pnl": -122.22,
-    "pnl_pct": -8.98,
-    "outcome": "LOSS",
-    "eps_estimate": 0.28,
-    "eps_reported": 0.33,
-    "beat_pct": 17.9,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "PLTR beat EPS estimates by +17.9% (reported $0.33 vs $0.28 expected). The position returned -9.0% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-05-05T17:36:35.173588-04:00"
-  },
-  {
-    "trade_id": "0eb43481",
-    "symbol": "AMD",
-    "company": "Advanced Micro Devices, Inc.",
-    "entry_date": "2026-04-22",
-    "earnings_date": "2026-05-05",
-    "exit_date": "2026-05-06",
-    "confidence": 100,
-    "tier": "95-100%",
-    "beat_rate": 0.75,
-    "price_up_5pct_rate": null,
-    "entry_price": 294.91,
-    "exit_price": 415.6,
-    "pnl": 603.45,
-    "pnl_pct": 40.92,
-    "outcome": "WIN",
-    "eps_estimate": 1.29,
-    "eps_reported": 1.37,
-    "beat_pct": 6.2,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "AMD beat EPS estimates by +6.2% (reported $1.37 vs $1.29 expected). The position returned +40.9% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-06T12:35:47.604801-04:00"
-  },
-  {
-    "trade_id": "229cbaa9",
-    "symbol": "SHOP",
-    "company": "Shopify Inc.",
-    "entry_date": "2026-04-22",
-    "earnings_date": "2026-05-05",
-    "exit_date": "2026-05-06",
-    "confidence": 80,
-    "tier": "70-84%",
-    "beat_rate": 0.5,
-    "price_up_5pct_rate": null,
-    "entry_price": 131.8367,
-    "exit_price": 106.23,
-    "pnl": -76.82,
-    "pnl_pct": -19.42,
-    "outcome": "LOSS",
-    "eps_estimate": 0.24,
-    "eps_reported": -0.45,
-    "beat_pct": -287.5,
-    "beat": false,
-    "correct_call": true,
-    "analysis": "SHOP missed EPS estimates by 287.5% (reported $-0.45 vs $0.24 expected). The position returned -19.4% (LOSS) against a 80% confidence call (70-84% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 70-84% tier prediction.",
-    "logged_at": "2026-05-06T12:35:48.364286-04:00"
-  },
-  {
-    "trade_id": "fab4f60c",
-    "symbol": "UBER",
-    "company": "Uber Technologies, Inc.",
-    "entry_date": "2026-04-22",
-    "earnings_date": "2026-05-06",
-    "exit_date": "2026-05-07",
-    "confidence": 90,
-    "tier": "85-94%",
-    "beat_rate": 0.75,
-    "price_up_5pct_rate": null,
-    "entry_price": 75.63,
-    "exit_price": 77.31,
-    "pnl": 21.84,
-    "pnl_pct": 2.22,
-    "outcome": "WIN",
-    "eps_estimate": 0.69,
-    "eps_reported": 0.72,
-    "beat_pct": 4.3,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "UBER beat EPS estimates by +4.3% (reported $0.72 vs $0.69 expected). The position returned +2.2% (WIN) against a 90% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-07T17:31:13.683925-04:00"
-  },
-  {
-    "trade_id": "725f20c9",
-    "symbol": "FTNT",
-    "company": "Fortinet, Inc.",
-    "entry_date": "2026-04-22",
-    "earnings_date": "2026-05-06",
-    "exit_date": "2026-05-07",
-    "confidence": 85,
-    "tier": "85-94%",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "entry_price": 86.48,
-    "exit_price": 111.23,
-    "pnl": 123.75,
-    "pnl_pct": 28.62,
-    "outcome": "WIN",
-    "eps_estimate": 0.62,
-    "eps_reported": 0.82,
-    "beat_pct": 32.3,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "FTNT beat EPS estimates by +32.3% (reported $0.82 vs $0.62 expected). The position returned +28.6% (WIN) against a 85% confidence call (85-94% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-07T17:31:14.637822-04:00"
-  },
-  {
-    "trade_id": "e7b4adf3",
-    "symbol": "DDOG",
-    "company": "Datadog, Inc.",
-    "entry_date": "2026-04-23",
-    "earnings_date": "2026-05-07",
-    "exit_date": "2026-05-07",
-    "confidence": 100,
-    "tier": "95-100%",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "entry_price": 128.84,
-    "exit_price": 186.68,
-    "pnl": 636.24,
-    "pnl_pct": 44.89,
-    "outcome": "WIN",
-    "eps_estimate": 0.07,
-    "eps_reported": 0.15,
-    "beat_pct": 114.3,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "DDOG beat EPS estimates by +114.3% (reported $0.15 vs $0.07 expected). The position returned +44.9% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-07T17:31:15.331494-04:00"
-  },
-  {
-    "trade_id": "dac32784",
-    "symbol": "U",
-    "company": "Unity Software Inc.",
-    "entry_date": "2026-04-23",
-    "earnings_date": "2026-05-07",
-    "exit_date": "2026-05-07",
-    "confidence": 100,
-    "tier": "95-100%",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "entry_price": 24.67,
-    "exit_price": 28.27,
-    "pnl": 216.0,
-    "pnl_pct": 14.59,
-    "outcome": "WIN",
-    "eps_estimate": 0.24,
-    "eps_reported": 0.23,
-    "beat_pct": -4.2,
-    "beat": false,
-    "correct_call": false,
-    "analysis": "U missed EPS estimates by 4.2% (reported $0.23 vs $0.24 expected). The position returned +14.6% (WIN) against a 100% confidence call (95-100% tier). Despite the EPS miss the position was profitable \u2014 possible forward guidance upgrade or short squeeze not captured by the scoring model.",
-    "logged_at": "2026-05-07T17:31:16.079113-04:00"
-  },
-  {
-    "trade_id": "c87f9904",
-    "symbol": "ZTS",
-    "company": "Zoetis Inc.",
-    "entry_date": "2026-04-23",
-    "earnings_date": "2026-05-07",
-    "exit_date": "2026-05-07",
-    "confidence": 80,
-    "tier": "70-84%",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "entry_price": 116.77,
-    "exit_price": 88.55,
-    "pnl": -112.88,
-    "pnl_pct": -24.17,
-    "outcome": "LOSS",
-    "eps_estimate": 1.54,
-    "eps_reported": 1.42,
-    "beat_pct": -7.8,
-    "beat": false,
-    "correct_call": true,
-    "analysis": "ZTS missed EPS estimates by 7.8% (reported $1.42 vs $1.54 expected). The position returned -24.2% (LOSS) against a 80% confidence call (70-84% tier). The model correctly anticipated downside risk; both the earnings miss and the market reaction aligned with the 70-84% tier prediction.",
-    "logged_at": "2026-05-07T17:31:16.745490-04:00"
-  },
-  {
-    "trade_id": "13319a51",
-    "symbol": "NET",
-    "company": "Cloudflare, Inc.",
-    "entry_date": "2026-04-23",
-    "earnings_date": "2026-05-07",
-    "exit_date": "2026-05-08",
-    "confidence": 100,
-    "tier": "95-100%",
-    "beat_rate": 0.75,
-    "price_up_5pct_rate": null,
-    "entry_price": 206.49,
-    "exit_price": 193.72,
-    "pnl": -89.39,
-    "pnl_pct": -6.18,
-    "outcome": "LOSS",
-    "eps_estimate": -0.09,
-    "eps_reported": -0.07,
-    "beat_pct": 22.2,
-    "beat": true,
-    "correct_call": false,
-    "analysis": "NET beat EPS estimates by +22.2% (reported $-0.07 vs $-0.09 expected). The position returned -6.2% (LOSS) against a 100% confidence call (95-100% tier). The model correctly identified the earnings beat but the market reacted negatively \u2014 possible guidance concerns or valuation resistance not captured in the scoring model.",
-    "logged_at": "2026-05-08T17:34:22.685534-04:00"
-  },
-  {
-    "trade_id": "1fcd1198",
-    "symbol": "LYFT",
-    "company": "Lyft, Inc.",
-    "entry_date": "2026-04-23",
-    "earnings_date": "2026-05-07",
-    "exit_date": "2026-05-08",
-    "confidence": 85,
-    "tier": "85-94%",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "entry_price": 14.17,
-    "exit_price": 14.37,
-    "pnl": 6.91,
-    "pnl_pct": 1.39,
-    "outcome": "WIN",
-    "eps_estimate": 0.07,
-    "eps_reported": 0.04,
-    "beat_pct": -42.9,
-    "beat": false,
-    "correct_call": false,
-    "analysis": "LYFT missed EPS estimates by 42.9% (reported $0.04 vs $0.07 expected). The position returned +1.4% (WIN) against a 85% confidence call (85-94% tier). Despite the EPS miss the position was profitable \u2014 possible forward guidance upgrade or short squeeze not captured by the scoring model.",
-    "logged_at": "2026-05-08T17:34:23.547688-04:00"
-  },
-  {
-    "trade_id": "0b4206b1",
-    "symbol": "GILD",
-    "company": "Gilead Sciences, Inc.",
-    "entry_date": "2026-04-27",
-    "earnings_date": "2026-05-07",
-    "exit_date": "2026-05-08",
-    "confidence": 83.0,
-    "tier": "70-84%",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": 0.462,
-    "entry_price": 128.4933,
-    "exit_price": 132.12,
-    "pnl": 10.88,
-    "pnl_pct": 2.82,
-    "outcome": "WIN",
-    "eps_estimate": 1.91,
-    "eps_reported": 2.03,
-    "beat_pct": 6.3,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "GILD beat EPS estimates by +6.3% (reported $2.03 vs $1.91 expected). The position returned +2.8% (WIN) against a 83% confidence call (70-84% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-08T17:34:23.761099-04:00"
-  },
-  {
-    "trade_id": "592968b9",
-    "symbol": "CSCO",
-    "company": "Cisco Systems, Inc.",
-    "entry_date": "2026-05-04",
-    "earnings_date": "2026-05-13",
-    "exit_date": "2026-05-14",
-    "confidence": 100,
-    "tier": "95-100%",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "entry_price": 92.61,
-    "exit_price": 117.48,
-    "pnl": 397.92,
-    "pnl_pct": 26.85,
-    "outcome": "WIN",
-    "eps_estimate": 1.04,
-    "eps_reported": 1.06,
-    "beat_pct": 1.9,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "CSCO beat EPS estimates by +1.9% (reported $1.06 vs $1.04 expected). The position returned +26.9% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-14T17:45:20.314595-04:00"
-  },
-  {
-    "trade_id": "aa2ea185",
-    "symbol": "AMAT",
-    "company": "Applied Materials, Inc.",
-    "entry_date": "2026-05-04",
-    "earnings_date": "2026-05-14",
-    "exit_date": "2026-05-15",
-    "confidence": 100,
-    "tier": "95-100%",
-    "beat_rate": 1.0,
-    "price_up_5pct_rate": null,
-    "entry_price": 389.79,
-    "exit_price": 440.01,
-    "pnl": 150.65,
-    "pnl_pct": 12.88,
-    "outcome": "WIN",
-    "eps_estimate": 2.69,
-    "eps_reported": 3.51,
-    "beat_pct": 30.5,
-    "beat": true,
-    "correct_call": true,
-    "analysis": "AMAT beat EPS estimates by +30.5% (reported $3.51 vs $2.69 expected). The position returned +12.9% (WIN) against a 100% confidence call (95-100% tier). The model was well-calibrated \u2014 it correctly identified the earnings beat and the market confirmed it.",
-    "logged_at": "2026-05-15T17:34:52.366193-04:00"
-  }
-]</script>
-<script id="__PORTFOLIO_HIST__" type="application/json">{
-  "1D": {
-    "points": [
-      {
-        "t": 1779111000,
-        "v": 101323.11
-      },
-      {
-        "t": 1779111300,
-        "v": 101309.19
-      },
-      {
-        "t": 1779111600,
-        "v": 101301.51
-      },
-      {
-        "t": 1779111900,
-        "v": 101289.57
-      },
-      {
-        "t": 1779112200,
-        "v": 101288.46
-      },
-      {
-        "t": 1779112500,
-        "v": 101298.66
-      },
-      {
-        "t": 1779112800,
-        "v": 101296.53
-      },
-      {
-        "t": 1779113100,
-        "v": 101295.33
-      },
-      {
-        "t": 1779113400,
-        "v": 101297.52
-      },
-      {
-        "t": 1779113700,
-        "v": 101292.45
-      },
-      {
-        "t": 1779114000,
-        "v": 101294.04
-      },
-      {
-        "t": 1779114300,
-        "v": 101287.59
-      },
-      {
-        "t": 1779114600,
-        "v": 101280.54
-      },
-      {
-        "t": 1779114900,
-        "v": 101271.18
-      },
-      {
-        "t": 1779115200,
-        "v": 101272.95
-      },
-      {
-        "t": 1779115500,
-        "v": 101276.25
-      },
-      {
-        "t": 1779115800,
-        "v": 101268.03
-      },
-      {
-        "t": 1779116100,
-        "v": 101272.92
-      },
-      {
-        "t": 1779116400,
-        "v": 101276.61
-      },
-      {
-        "t": 1779116700,
-        "v": 101282.43
-      },
-      {
-        "t": 1779117000,
-        "v": 101278.98
-      },
-      {
-        "t": 1779117300,
-        "v": 101282.7
-      },
-      {
-        "t": 1779117600,
-        "v": 101277.18
-      },
-      {
-        "t": 1779117900,
-        "v": 101276.79
-      },
-      {
-        "t": 1779118200,
-        "v": 101273.67
-      },
-      {
-        "t": 1779118500,
-        "v": 101278.41
-      },
-      {
-        "t": 1779118800,
-        "v": 101281.69
-      },
-      {
-        "t": 1779119100,
-        "v": 101277.27
-      },
-      {
-        "t": 1779119400,
-        "v": 101278.43
-      },
-      {
-        "t": 1779119700,
-        "v": 101280.51
-      },
-      {
-        "t": 1779120000,
-        "v": 101278.59
-      },
-      {
-        "t": 1779120300,
-        "v": 101273.55
-      },
-      {
-        "t": 1779120600,
-        "v": 101275.77
-      },
-      {
-        "t": 1779120900,
-        "v": 101278.2
-      },
-      {
-        "t": 1779121200,
-        "v": 101278.83
-      },
-      {
-        "t": 1779121500,
-        "v": 101276.31
-      },
-      {
-        "t": 1779121800,
-        "v": 101265.99
-      },
-      {
-        "t": 1779122100,
-        "v": 101262.51
-      },
-      {
-        "t": 1779122400,
-        "v": 101269.82
-      },
-      {
-        "t": 1779122700,
-        "v": 101269.17
-      },
-      {
-        "t": 1779123000,
-        "v": 101267.82
-      },
-      {
-        "t": 1779123300,
-        "v": 101276.28
-      },
-      {
-        "t": 1779123600,
-        "v": 101276.4
-      },
-      {
-        "t": 1779123900,
-        "v": 101276.97
-      },
-      {
-        "t": 1779124200,
-        "v": 101274.48
-      },
-      {
-        "t": 1779124500,
-        "v": 101271.27
-      },
-      {
-        "t": 1779124800,
-        "v": 101271.33
-      },
-      {
-        "t": 1779125100,
-        "v": 101268.87
-      },
-      {
-        "t": 1779125400,
-        "v": 101272.47
-      },
-      {
-        "t": 1779125700,
-        "v": 101271.33
-      },
-      {
-        "t": 1779126000,
-        "v": 101271.09
-      },
-      {
-        "t": 1779126300,
-        "v": 101273.67
-      },
-      {
-        "t": 1779126600,
-        "v": 101269.17
-      },
-      {
-        "t": 1779126900,
-        "v": 101271.39
-      },
-      {
-        "t": 1779127200,
-        "v": 101272.53
-      },
-      {
-        "t": 1779127500,
-        "v": 101267.49
-      },
-      {
-        "t": 1779127800,
-        "v": 101264.79
-      },
-      {
-        "t": 1779128100,
-        "v": 101263.98
-      },
-      {
-        "t": 1779128400,
-        "v": 101262.22
-      },
-      {
-        "t": 1779128700,
-        "v": 101262.21
-      },
-      {
-        "t": 1779129000,
-        "v": 101263.11
-      },
-      {
-        "t": 1779129300,
-        "v": 101264.61
-      },
-      {
-        "t": 1779129600,
-        "v": 101260.11
-      },
-      {
-        "t": 1779129900,
-        "v": 101260.71
-      },
-      {
-        "t": 1779130200,
-        "v": 101256.75
-      },
-      {
-        "t": 1779130500,
-        "v": 101258.37
-      },
-      {
-        "t": 1779130800,
-        "v": 101261.25
-      },
-      {
-        "t": 1779131100,
-        "v": 101268.75
-      },
-      {
-        "t": 1779131400,
-        "v": 101266.65
-      },
-      {
-        "t": 1779131700,
-        "v": 101265.75
-      },
-      {
-        "t": 1779132000,
-        "v": 101265.78
-      },
-      {
-        "t": 1779132300,
-        "v": 101264.67
-      },
-      {
-        "t": 1779132600,
-        "v": 101264.79
-      },
-      {
-        "t": 1779132900,
-        "v": 101268.21
-      },
-      {
-        "t": 1779133200,
-        "v": 101272.83
-      },
-      {
-        "t": 1779133500,
-        "v": 101274.03
-      },
-      {
-        "t": 1779133800,
-        "v": 101274.93
-      },
-      {
-        "t": 1779134100,
-        "v": 101276.91
-      },
-      {
-        "t": 1779134400,
-        "v": 101277.75
-      }
-    ],
-    "base_value": 101295.51,
-    "timeframe": "5Min"
-  },
-  "1W": {
-    "points": [
-      {
-        "t": 1778592600,
-        "v": 100952.29
-      },
-      {
-        "t": 1778596200,
-        "v": 100910.55
-      },
-      {
-        "t": 1778599800,
-        "v": 100862.59
-      },
-      {
-        "t": 1778603400,
-        "v": 100879.36
-      },
-      {
-        "t": 1778607000,
-        "v": 100896.45
-      },
-      {
-        "t": 1778610600,
-        "v": 100918.33
-      },
-      {
-        "t": 1778614200,
-        "v": 100933.57
-      },
-      {
-        "t": 1778679000,
-        "v": 100994.4
-      },
-      {
-        "t": 1778682600,
-        "v": 100977.11
-      },
-      {
-        "t": 1778686200,
-        "v": 100992.96
-      },
-      {
-        "t": 1778689800,
-        "v": 101016.47
-      },
-      {
-        "t": 1778693400,
-        "v": 101020.63
-      },
-      {
-        "t": 1778697000,
-        "v": 101049.85
-      },
-      {
-        "t": 1778700600,
-        "v": 101038.48
-      },
-      {
-        "t": 1778765400,
-        "v": 101333.38
-      },
-      {
-        "t": 1778769000,
-        "v": 101330.29
-      },
-      {
-        "t": 1778772600,
-        "v": 101366.51
-      },
-      {
-        "t": 1778776200,
-        "v": 101365.14
-      },
-      {
-        "t": 1778779800,
-        "v": 101358.06
-      },
-      {
-        "t": 1778783400,
-        "v": 101376.18
-      },
-      {
-        "t": 1778787000,
-        "v": 101370.18
-      },
-      {
-        "t": 1778851800,
-        "v": 101290.58
-      },
-      {
-        "t": 1778855400,
-        "v": 101277.5
-      },
-      {
-        "t": 1778859000,
-        "v": 101302.81
-      },
-      {
-        "t": 1778862600,
-        "v": 101313.4
-      },
-      {
-        "t": 1778866200,
-        "v": 101318.56
-      },
-      {
-        "t": 1778869800,
-        "v": 101322.7
-      },
-      {
-        "t": 1778873400,
-        "v": 101305.87
-      },
-      {
-        "t": 1779111000,
-        "v": 101323.11
-      },
-      {
-        "t": 1779114600,
-        "v": 101280.54
-      },
-      {
-        "t": 1779118200,
-        "v": 101273.67
-      },
-      {
-        "t": 1779121800,
-        "v": 101265.99
-      },
-      {
-        "t": 1779125400,
-        "v": 101272.47
-      },
-      {
-        "t": 1779129000,
-        "v": 101263.11
-      },
-      {
-        "t": 1779132600,
-        "v": 101276.49
-      }
-    ],
-    "base_value": 100970.93,
-    "timeframe": "1H"
-  },
-  "1M": {
-    "points": [
-      {
-        "t": 1776729600,
-        "v": 99980.94
-      },
-      {
-        "t": 1776816000,
-        "v": 99600.62
-      },
-      {
-        "t": 1776902400,
-        "v": 99998.51
-      },
-      {
-        "t": 1776988800,
-        "v": 99037.54
-      },
-      {
-        "t": 1777075200,
-        "v": 99925.06
-      },
-      {
-        "t": 1777334400,
-        "v": 99999.54
-      },
-      {
-        "t": 1777420800,
-        "v": 99694.54
-      },
-      {
-        "t": 1777507200,
-        "v": 99432.22
-      },
-      {
-        "t": 1777593600,
-        "v": 99706.39
-      },
-      {
-        "t": 1777680000,
-        "v": 100114.62
-      },
-      {
-        "t": 1777939200,
-        "v": 100114.62
-      },
-      {
-        "t": 1778025600,
-        "v": 100295.7
-      },
-      {
-        "t": 1778112000,
-        "v": 100696.42
-      },
-      {
-        "t": 1778198400,
-        "v": 101222.62
-      },
-      {
-        "t": 1778284800,
-        "v": 100927.52
-      },
-      {
-        "t": 1778544000,
-        "v": 100970.93
-      },
-      {
-        "t": 1778630400,
-        "v": 100950.83
-      },
-      {
-        "t": 1778716800,
-        "v": 101038.64
-      },
-      {
-        "t": 1778803200,
-        "v": 101359.7
-      },
-      {
-        "t": 1778889600,
-        "v": 101295.51
-      }
-    ],
-    "base_value": 100000.0,
-    "timeframe": "1D"
-  }
-}</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-05-18T21:43:11", "source": "scheduler"}</script>
+<script id="__RECOMMENDATIONS__" type="application/json">[]</script>
+<script id="__TRADES__" type="application/json">[]</script>
+<script id="__POSITIONS__" type="application/json">{}</script>
+<script id="__BUDGET__" type="application/json">{}</script>
+<script id="__ACCURACY__" type="application/json">{}</script>
+<script id="__PORTFOLIO_HIST__" type="application/json">{}</script>
+<script id="__META__" type="application/json">{}</script>
 
 <script type="text/babel">
+"use strict";
+
 // ─── DATA LOADING ──────────────────────────────────────────────────────────
-const GITHUB_RAW = "https://raw.githubusercontent.com/krishna-on-gh/earnings-bot/main";
+const GITHUB_RAW = "";
 
 const readEmbedded = (id) => {
-  try { return JSON.parse(document.getElementById(id).textContent); }
-  catch { return null; }
+  try {
+    const el = document.getElementById(id);
+    return el ? JSON.parse(el.textContent) : null;
+  } catch { return null; }
 };
 
 const isHttp = window.location.protocol.startsWith("http");
@@ -3294,25 +78,23 @@ const loadData = async () => {
     try {
       const ts = Date.now();
       const base = GITHUB_RAW || ".";
-      const [recs, trades, pos, budget, accuracy, callsLog, portfolioHist] = await Promise.all([
+      const [recs, trades, pos, budget, accuracy, portfolioHist] = await Promise.all([
         fetch(`${base}/data/recommendations.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/trades_history.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/positions.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/budget_tracker.json?_=${ts}`).then(r => r.json()),
         fetch(`${base}/data/earnings_accuracy.json?_=${ts}`).then(r => r.json()).catch(()=>({})),
-        fetch(`${base}/data/earnings_calls_log.json?_=${ts}`).then(r => r.json()).catch(()=>[]),
         fetch(`${base}/data/portfolio_history.json?_=${ts}`).then(r => r.json()).catch(()=>({})),
       ]);
-      return { recs, trades, positions: pos, budget, accuracy, callsLog, portfolioHist, live: true };
+      return { recs, trades, positions: pos, budget, accuracy, portfolioHist, live: true };
     } catch {}
   }
   return {
-    recs:      readEmbedded("__RECOMMENDATIONS__") || [],
-    trades:    readEmbedded("__TRADES__")          || [],
-    positions: readEmbedded("__POSITIONS__")       || {},
-    budget:    readEmbedded("__BUDGET__")          || {},
+    recs:         readEmbedded("__RECOMMENDATIONS__") || [],
+    trades:       readEmbedded("__TRADES__")          || [],
+    positions:    readEmbedded("__POSITIONS__")       || {},
+    budget:       readEmbedded("__BUDGET__")          || {},
     accuracy:     readEmbedded("__ACCURACY__")        || {},
-    callsLog:     readEmbedded("__CALLS_LOG__")       || [],
     portfolioHist:readEmbedded("__PORTFOLIO_HIST__")  || {},
     meta:         readEmbedded("__META__")            || {},
     live:         false,
@@ -3320,16 +102,33 @@ const loadData = async () => {
 };
 
 // ─── HELPERS ───────────────────────────────────────────────────────────────
-const fmt$ = (n) => { if(n==null) return "—"; return `${n>=0?"+":"-"}$${Math.abs(n).toFixed(2)}`; };
-const fmtPct = (n) => { if(n==null) return "—"; return `${n>=0?"+":"-"}${Math.abs(n).toFixed(1)}%`; };
-const pnlCls = (v) => v>0?"g":v<0?"r":"w";
+const fmt$    = (n) => { if(n==null) return "—"; return `${n>=0?"+":"-"}$${Math.abs(n).toFixed(2)}`; };
+const fmtPct  = (n) => { if(n==null) return "—"; return `${n>=0?"+":"-"}${Math.abs(n).toFixed(1)}%`; };
+const pnlCls  = (v) => v>0?"g":v<0?"r":"w";
 const daysUntil = (s) => { if(!s) return null; return Math.ceil((new Date(s)-new Date())/(864e5)); };
-const confBadge = (c) => {
-  const cls = c>=95?"bg":c>=90?"by":"bgr";
-  return <span className={`badge ${cls}`}>{c}%</span>;
+
+const tradeBadge = (type) => {
+  if (type === "call")   return <span className="badge bb">CALL</span>;
+  if (type === "spread") return <span className="badge by">SPREAD</span>;
+  return <span className="badge bgr">—</span>;
+};
+
+const ivColor = (iv) => {
+  if (iv == null) return "w";
+  if (iv >= 0.65) return "r";
+  if (iv >= 0.45) return "y";
+  return "g";
+};
+
+// Extract underlying ticker from options contract symbol (e.g. NVDA260530C00230000 → NVDA)
+const underlyingFrom = (contract) => {
+  if (!contract) return "—";
+  const m = contract.match(/^([A-Z]+)\d/);
+  return m ? m[1] : contract.slice(0, 6).replace(/\d.*/, "");
 };
 
 // ─── COMPONENTS ────────────────────────────────────────────────────────────
+
 const MetricsRow = ({ positions, trades }) => {
   const closed = (trades||[]).filter(t=>t.status==="closed");
   const wins   = closed.filter(t=>(t.pnl||0)>0).length;
@@ -3340,10 +139,10 @@ const MetricsRow = ({ positions, trades }) => {
   return (
     <div className="g4">
       {[
-        { val: fmt$(dPnl),            cls: pnlCls(dPnl), lbl: "Today's P&L" },
-        { val: fmt$(tPnl),            cls: pnlCls(tPnl), lbl: "Total P&L" },
-        { val: `${wr.toFixed(0)}%`,   cls: wr>=60?"g":wr>=40?"y":"r", lbl: `Win Rate (${closed.length} trades)` },
-        { val: String(open),          cls: "b",           lbl: "Open Positions" },
+        { val: fmt$(dPnl),          cls: pnlCls(dPnl), lbl: "Today's P&L" },
+        { val: fmt$(tPnl),          cls: pnlCls(tPnl), lbl: "Total P&L" },
+        { val: `${wr.toFixed(0)}%`, cls: wr>=60?"g":wr>=40?"y":"r", lbl: `Win Rate (${closed.length} trades)` },
+        { val: String(open),        cls: "b",           lbl: "Open Positions" },
       ].map(m => (
         <div className="card metric" key={m.lbl}>
           <div className={`val ${m.cls}`}>{m.val}</div>
@@ -3355,125 +154,71 @@ const MetricsRow = ({ positions, trades }) => {
 };
 
 const BudgetSection = ({ budget }) => {
-  if (!budget) return null;
-  const totalPct = Math.min(100,(budget.total_deployed||0)/(budget.total_cap||45000)*100);
+  if (!budget || !budget.total_cap) return null;
+  const cap      = budget.total_cap || 1000000;
+  const deployed = budget.total_deployed || 0;
+  const available = budget.available || (cap - deployed);
+  const usedPct  = Math.min(100, deployed / cap * 100);
   const barColor = (p) => p>90?"#f85149":p>70?"#e3b341":"#3fb950";
+  const fmt$k    = (n) => n >= 1000 ? `$${(n/1000).toFixed(0)}k` : `$${n.toFixed(0)}`;
   return (
     <div className="card">
-      <div className="ct">Budget Tracker</div>
+      <div className="ct">Account — Hitman v2</div>
       {budget.halted && <div className="halted">TRADING HALTED — {budget.halt_reason}</div>}
       <div style={{marginBottom:14}}>
         <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
-          <span style={{fontWeight:600}}>Total Earnings Budget ($45k cap)</span>
-          <span className={totalPct>90?"r":"w"}>${(budget.total_deployed||0).toFixed(0)} / ${(budget.total_cap||45000).toFixed(0)}</span>
+          <span style={{fontWeight:600}}>Capital deployed (${(cap/1000).toFixed(0)}k paper account)</span>
+          <span className={usedPct>90?"r":"w"}>{fmt$k(deployed)} / {fmt$k(cap)}</span>
         </div>
-        <div className="pb"><div className="pf" style={{width:`${totalPct}%`,background:barColor(totalPct)}} /></div>
-        <div className="pl"><span>{totalPct.toFixed(0)}% used</span><span>${(budget.available_total||0).toFixed(0)} remaining</span></div>
+        <div className="pb"><div className="pf" style={{width:`${usedPct}%`,background:barColor(usedPct)}} /></div>
+        <div className="pl">
+          <span>{usedPct.toFixed(1)}% deployed</span>
+          <span>{fmt$k(available)} available · {budget.trades_count||0} trades</span>
+        </div>
       </div>
-      <div className="ts">Last updated: {budget.last_updated||"—"}</div>
+      <div className="ts">Last updated: {budget.last_updated||"—"} · $10K flat per trade</div>
     </div>
   );
 };
 
-const WinnersLosers = ({ positions }) => {
-  const openPos = (positions?.positions||[]);
-  if (openPos.length < 2) return null;
-  const sorted = [...openPos].sort((a,b)=>(b.unrealized_plpc||0)-(a.unrealized_plpc||0));
-  const winner = sorted[0];
-  const loser  = sorted[sorted.length-1];
-  return (
-    <div className="card" style={{display:"flex",gap:24}}>
-      <div style={{flex:1}}>
-        <div className="ct" style={{color:"#3fb950"}}>Biggest Winner (Unrealized)</div>
-        <div style={{fontSize:22,fontWeight:700}}>{winner.symbol}</div>
-        <div className="g" style={{fontSize:18}}>{fmtPct((winner.unrealized_plpc||0)*100)}</div>
-        <div style={{color:"#8b949e",fontSize:13}}>{fmt$(winner.unrealized_pl)} unrealized</div>
-      </div>
-      <div style={{flex:1}}>
-        <div className="ct" style={{color:"#f85149"}}>Biggest Loser (Unrealized)</div>
-        <div style={{fontSize:22,fontWeight:700}}>{loser.symbol}</div>
-        <div className="r" style={{fontSize:18}}>{fmtPct((loser.unrealized_plpc||0)*100)}</div>
-        <div style={{color:"#8b949e",fontSize:13}}>{fmt$(loser.unrealized_pl)} unrealized</div>
-      </div>
-    </div>
-  );
-};
-
-const TopFiveSection = ({ trades }) => {
-  const closed = (trades||[]).filter(t=>t.status==="closed"&&t.pnl!=null);
-  if (!closed.length) return null;
-  const sorted = [...closed].sort((a,b)=>(b.pnl_pct||0)-(a.pnl_pct||0));
-  const top5    = sorted.slice(0,5);
-  const bottom5 = sorted.slice(-5).reverse();
-  const Row = ({t}) => (
-    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"6px 0",borderBottom:"1px solid #21262d"}}>
-      <span style={{fontWeight:700,width:60}}>{t.symbol}</span>
-      <span style={{color:"#8b949e",fontSize:12}}>{t.exit_date}</span>
-      <span className={pnlCls(t.pnl_pct)} style={{fontWeight:600}}>{fmtPct(t.pnl_pct)}</span>
-      <span className={pnlCls(t.pnl)} style={{fontSize:13}}>{fmt$(t.pnl)}</span>
-    </div>
-  );
-  return (
-    <div className="g2">
-      <div className="card">
-        <div className="ct" style={{color:"#3fb950"}}>Top 5 Wins</div>
-        {top5.map((t,i)=><Row key={i} t={t}/>)}
-      </div>
-      <div className="card">
-        <div className="ct" style={{color:"#f85149"}}>Top 5 Losses</div>
-        {bottom5.map((t,i)=><Row key={i} t={t}/>)}
-      </div>
-    </div>
-  );
-};
-
-const AccuracyTracker = ({ accuracy, callsLog }) => {
-  const tiers = ["70-84%", "85-94%", "95-100%"];
-  const tierColors = {"70-84%":"#e3b341","85-94%":"#58a6ff","95-100%":"#3fb950"};
-  const hasData = tiers.some(t => (accuracy[t]?.calls||0) > 0);
+const WinRateTracker = ({ accuracy }) => {
+  const calls   = accuracy?.calls   || 0;
+  const wins    = accuracy?.wins    || 0;
+  const correct = accuracy?.correct || 0;
+  const winPct  = calls > 0 ? wins/calls*100    : null;
+  const dirPct  = calls > 0 ? correct/calls*100 : null;
+  const barColor = (p) => p==null?"#21262d":p>=60?"#3fb950":p>=40?"#e3b341":"#f85149";
   return (
     <div className="card">
-      <div className="ct">Confidence Accuracy Tracker</div>
-      {!hasData
-        ? <div style={{color:"#8b949e",padding:"10px 0"}}>No closed trades yet — accuracy will populate as earnings plays exit.</div>
-        : <div>
-            {tiers.map(tier => {
-              const d = accuracy[tier] || {calls:0,correct:0};
-              const pct = d.calls > 0 ? Math.round(d.correct/d.calls*100) : null;
-              const barColor = pct==null?"#21262d":pct>=70?"#3fb950":pct>=50?"#e3b341":"#f85149";
-              return (
-                <div key={tier} style={{marginBottom:14}}>
-                  <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
-                    <span style={{fontWeight:600,color:tierColors[tier]}}>{tier} Confidence</span>
-                    <span style={{color:"#c9d1d9"}}>
-                      {pct!=null ? <strong>{pct}%</strong> : "—"}
-                      <span style={{color:"#8b949e",fontSize:12}}> ({d.correct}/{d.calls} calls correct)</span>
-                    </span>
-                  </div>
-                  <div className="pb">
-                    <div className="pf" style={{width:`${pct||0}%`,background:barColor}}/>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-      }
-      {callsLog?.length > 0 && (
-        <div style={{marginTop:14,borderTop:"1px solid #21262d",paddingTop:12}}>
-          <div style={{fontSize:11,fontWeight:600,color:"#8b949e",textTransform:"uppercase",letterSpacing:".05em",marginBottom:8}}>Recent Call Analysis</div>
-          {[...callsLog].reverse().slice(0,3).map((e,i) => (
-            <div key={i} style={{marginBottom:10,paddingBottom:10,borderBottom:i<2?"1px solid #1c2128":"none"}}>
-              <div style={{display:"flex",gap:8,alignItems:"center",marginBottom:4}}>
-                <strong>{e.symbol}</strong>
-                <span className={`badge ${e.outcome==="WIN"?"bg":"br"}`}>{e.outcome}</span>
-                <span style={{color:"#8b949e",fontSize:12}}>{e.exit_date}</span>
-                <span style={{color:"#8b949e",fontSize:12,marginLeft:"auto"}}>{fmtPct(e.pnl_pct)}</span>
+      <div className="ct">Hitman v2 Performance</div>
+      {calls === 0
+        ? <div style={{color:"#8b949e",padding:"10px 0"}}>No closed trades yet — first options plays pending.</div>
+        : <>
+            <div style={{marginBottom:14}}>
+              <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
+                <span style={{fontWeight:600}}>Win Rate (P&L positive)</span>
+                <span>
+                  {winPct!=null ? <strong className={winPct>=60?"g":winPct>=40?"y":"r"}>{winPct.toFixed(0)}%</strong> : "—"}
+                  <span style={{color:"#8b949e",fontSize:12}}> ({wins}/{calls} trades)</span>
+                </span>
               </div>
-              <div style={{color:"#8b949e",fontSize:12,lineHeight:1.5}}>{e.analysis}</div>
+              <div className="pb"><div className="pf" style={{width:`${winPct||0}%`,background:barColor(winPct)}}/></div>
             </div>
-          ))}
-        </div>
-      )}
+            <div>
+              <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
+                <span style={{fontWeight:600}}>Direction Accuracy (stock moved up)</span>
+                <span>
+                  {dirPct!=null ? <strong className={dirPct>=60?"g":dirPct>=40?"y":"r"}>{dirPct.toFixed(0)}%</strong> : "—"}
+                  <span style={{color:"#8b949e",fontSize:12}}> ({correct}/{calls} correct)</span>
+                </span>
+              </div>
+              <div className="pb"><div className="pf" style={{width:`${dirPct||0}%`,background:barColor(dirPct)}}/></div>
+            </div>
+          </>
+      }
+      <div className="ts" style={{marginTop:12}}>
+        Filters: beat_rate ≥ 62% · pu5 ≥ 40% · momentum +1–30% · IV &lt; 80%
+      </div>
     </div>
   );
 };
@@ -3495,20 +240,17 @@ const PortfolioChart = ({ portfolioHist }) => {
 
   const W = 600, H = 180, PL = 52, PR = 12, PT = 16, PB = 28;
   const cw = W - PL - PR, ch = H - PT - PB;
-
-  const vals   = points.map(p => p.v);
-  const minV   = Math.min(...vals);
-  const maxV   = Math.max(...vals);
-  const range  = maxV - minV || 1;
-  const base   = points[0]?.v || 0;
-  const last   = points[points.length - 1]?.v || 0;
-  const isUp   = last >= base;
-  const color  = isUp ? "#3fb950" : "#f85149";
+  const vals  = points.map(p => p.v);
+  const minV  = Math.min(...vals);
+  const maxV  = Math.max(...vals);
+  const range = maxV - minV || 1;
+  const base  = points[0]?.v || 0;
+  const last  = points[points.length - 1]?.v || 0;
+  const isUp  = last >= base;
+  const color = isUp ? "#3fb950" : "#f85149";
   const fillId = `pf-grad-${tab}`;
-
   const sx = (i)  => PL + (i / (points.length - 1)) * cw;
   const sy = (v)  => PT + ch - ((v - minV) / range) * ch;
-
   const linePath = points.map((p,i) => `${i===0?"M":"L"}${sx(i).toFixed(1)},${sy(p.v).toFixed(1)}`).join(" ");
   const areaPath = `${linePath} L${(PL+cw).toFixed(1)},${(PT+ch).toFixed(1)} L${PL},${(PT+ch).toFixed(1)} Z`;
 
@@ -3525,12 +267,12 @@ const PortfolioChart = ({ portfolioHist }) => {
     const rect = svg.getBoundingClientRect();
     const scaleX = W / rect.width;
     const mx = (e.clientX - rect.left) * scaleX;
-    const idx = Math.max(0, Math.min(points.length - 1, Math.round((mx - PL) / cw * (points.length - 1))));
+    const idx = Math.max(0, Math.min(points.length-1, Math.round((mx-PL)/cw*(points.length-1))));
     setHover({ idx, x: sx(idx), y: sy(points[idx].v), point: points[idx] });
   };
 
   const pnl = last - base;
-  const pnlPct = base ? (pnl / base * 100) : 0;
+  const pnlPct = base ? (pnl/base*100) : 0;
 
   return (
     <div className="card">
@@ -3552,20 +294,18 @@ const PortfolioChart = ({ portfolioHist }) => {
                   : last.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}
         </span>
         {!hover && <span style={{marginLeft:10,fontSize:13,color}}>{pnl>=0?"+":""}{pnl.toFixed(2)} ({pnlPct>=0?"+":""}{pnlPct.toFixed(2)}%) {tab}</span>}
-        {hover && <span style={{marginLeft:10,fontSize:12,color:"#8b949e"}}>{fmtTime(hover.point.t)}</span>}
+        {hover  && <span style={{marginLeft:10,fontSize:12,color:"#8b949e"}}>{fmtTime(hover.point.t)}</span>}
       </div>
       <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} style={{width:"100%",display:"block",cursor:"crosshair"}}
         onMouseMove={handleMouse} onMouseLeave={()=>setHover(null)}>
         <defs>
           <linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color} stopOpacity="0.25"/>
+            <stop offset="0%"   stopColor={color} stopOpacity="0.25"/>
             <stop offset="100%" stopColor={color} stopOpacity="0.02"/>
           </linearGradient>
         </defs>
-        {/* Y-axis labels */}
         {[0,0.5,1].map(f => {
-          const v = minV + f * range;
-          const y = PT + ch - f * ch;
+          const v = minV + f*range, y = PT + ch - f*ch;
           return (
             <g key={f}>
               <line x1={PL} y1={y} x2={PL+cw} y2={y} stroke="#21262d" strokeWidth="1"/>
@@ -3575,24 +315,73 @@ const PortfolioChart = ({ portfolioHist }) => {
             </g>
           );
         })}
-        {/* Area fill */}
         <path d={areaPath} fill={`url(#${fillId})`}/>
-        {/* Line */}
         <path d={linePath} fill="none" stroke={color} strokeWidth="1.5"/>
-        {/* Hover crosshair */}
         {hover && <>
           <line x1={hover.x} y1={PT} x2={hover.x} y2={PT+ch} stroke="#8b949e" strokeWidth="1" strokeDasharray="3,3"/>
           <circle cx={hover.x} cy={hover.y} r="4" fill={color} stroke="#0d1117" strokeWidth="2"/>
         </>}
-        {/* X-axis baseline */}
         <line x1={PL} y1={PT+ch} x2={PL+cw} y2={PT+ch} stroke="#30363d" strokeWidth="1"/>
       </svg>
     </div>
   );
 };
 
+const WinnersLosers = ({ positions }) => {
+  const openPos = (positions?.positions||[]);
+  if (openPos.length < 2) return null;
+  const sorted = [...openPos].sort((a,b)=>(b.unrealized_plpc||0)-(a.unrealized_plpc||0));
+  const winner = sorted[0];
+  const loser  = sorted[sorted.length-1];
+  return (
+    <div className="card" style={{display:"flex",gap:24}}>
+      <div style={{flex:1}}>
+        <div className="ct" style={{color:"#3fb950"}}>Best Position (Unrealized)</div>
+        <div style={{fontSize:22,fontWeight:700}}>{underlyingFrom(winner.symbol)}</div>
+        <div className="g" style={{fontSize:18}}>{fmtPct((winner.unrealized_plpc||0)*100)}</div>
+        <div style={{color:"#8b949e",fontSize:12,marginTop:4}}>{fmt$(winner.unrealized_pl)} unrealized · {winner.symbol}</div>
+      </div>
+      <div style={{flex:1}}>
+        <div className="ct" style={{color:"#f85149"}}>Worst Position (Unrealized)</div>
+        <div style={{fontSize:22,fontWeight:700}}>{underlyingFrom(loser.symbol)}</div>
+        <div className="r" style={{fontSize:18}}>{fmtPct((loser.unrealized_plpc||0)*100)}</div>
+        <div style={{color:"#8b949e",fontSize:12,marginTop:4}}>{fmt$(loser.unrealized_pl)} unrealized · {loser.symbol}</div>
+      </div>
+    </div>
+  );
+};
+
+const TopFiveSection = ({ trades }) => {
+  const closed = (trades||[]).filter(t=>t.status==="closed"&&t.pnl!=null);
+  if (!closed.length) return null;
+  const sorted  = [...closed].sort((a,b)=>(b.pnl_pct||0)-(a.pnl_pct||0));
+  const top5    = sorted.slice(0,5);
+  const bottom5 = sorted.slice(-5).reverse();
+  const Row = ({t}) => (
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"6px 0",borderBottom:"1px solid #21262d"}}>
+      <span style={{fontWeight:700,width:60}}>{t.symbol}</span>
+      <span style={{color:"#8b949e",fontSize:12}}>{t.exit_date}</span>
+      {tradeBadge(t.trade_type)}
+      <span className={pnlCls(t.pnl_pct)} style={{fontWeight:600}}>{fmtPct(t.pnl_pct)}</span>
+      <span className={pnlCls(t.pnl)} style={{fontSize:13}}>{fmt$(t.pnl)}</span>
+    </div>
+  );
+  return (
+    <div className="g2">
+      <div className="card">
+        <div className="ct" style={{color:"#3fb950"}}>Top 5 Wins</div>
+        {top5.map((t,i)=><Row key={i} t={t}/>)}
+      </div>
+      <div className="card">
+        <div className="ct" style={{color:"#f85149"}}>Top 5 Losses</div>
+        {bottom5.map((t,i)=><Row key={i} t={t}/>)}
+      </div>
+    </div>
+  );
+};
+
 const EarningsWeek = ({ recs, positions }) => {
-  const owned = new Set((positions?.positions||[]).map(p=>p.symbol));
+  const owned    = new Set((positions?.positions||[]).map(p=>underlyingFrom(p.symbol)));
   const todayStr = new Date().toLocaleDateString("en-CA");
   const in7Date  = new Date(); in7Date.setDate(in7Date.getDate()+7);
   const in7Str   = in7Date.toLocaleDateString("en-CA");
@@ -3600,7 +389,7 @@ const EarningsWeek = ({ recs, positions }) => {
     .filter(r => r.earnings_date && r.earnings_date.slice(0,10) >= todayStr && r.earnings_date.slice(0,10) <= in7Str)
     .sort((a,b) => a.earnings_date.slice(0,10).localeCompare(b.earnings_date.slice(0,10)));
   if (!rows.length) return null;
-  const normDate = (d) => d ? d.slice(0, 10) : d;
+  const normDate = (d) => d ? d.slice(0,10) : d;
   const dayLabel = (dateStr) => {
     if (dateStr === todayStr) return "Today";
     const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
@@ -3613,9 +402,8 @@ const EarningsWeek = ({ recs, positions }) => {
     if (t==="post_market") return {text:"AMC",color:"#58a6ff"};
     return {text:"TBD",color:"#8b949e"};
   };
-  // Group by date — normalize to YYYY-MM-DD to avoid timestamp mismatches
   const byDate = {};
-  rows.forEach(r => { const k = normDate(r.earnings_date); (byDate[k]=byDate[k]||[]).push(r); });
+  rows.forEach(r => { const k=normDate(r.earnings_date); (byDate[k]=byDate[k]||[]).push(r); });
   return (
     <div className="card">
       <div className="ct">Earnings This Week ({rows.length})</div>
@@ -3625,14 +413,15 @@ const EarningsWeek = ({ recs, positions }) => {
             {dayLabel(date)}
           </div>
           {stocks.map(r => {
-            const tl = timingLabel(r.earnings_timing);
+            const tl   = timingLabel(r.earnings_timing);
             const held = owned.has(r.symbol) || r.executed;
             return (
               <div key={r.symbol} style={{display:"flex",alignItems:"center",gap:10,padding:"5px 0",borderBottom:"1px solid #21262d"}}>
                 <span style={{fontWeight:700,width:52}}>{r.symbol}</span>
                 <span style={{color:"#8b949e",fontSize:12,flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{r.company}</span>
                 <span style={{fontSize:11,color:tl.color,whiteSpace:"nowrap"}}>{tl.text}</span>
-                {confBadge(r.confidence)}
+                {tradeBadge(r.trade_type)}
+                {r.iv_proxy != null && <span className={ivColor(r.iv_proxy)} style={{fontSize:11}}>IV {(r.iv_proxy*100).toFixed(0)}%</span>}
                 {held && <span className="badge bg" style={{fontSize:10}}>HELD</span>}
               </div>
             );
@@ -3644,38 +433,45 @@ const EarningsWeek = ({ recs, positions }) => {
 };
 
 const RecsTable = ({ recs, positions }) => {
-  const owned = new Set((positions?.positions||[]).map(p=>p.symbol));
+  const owned    = new Set((positions?.positions||[]).map(p=>underlyingFrom(p.symbol)));
   const todayStr = new Date().toLocaleDateString("en-CA");
-  const rows = (recs||[]).filter(r=>!r.executed&&!r.disqualified&&!owned.has(r.symbol)&&r.earnings_date>=todayStr).sort((a,b)=>b.confidence-a.confidence);
+  const rows     = (recs||[]).filter(r=>!r.executed&&!r.disqualified&&!owned.has(r.symbol)&&r.earnings_date>=todayStr)
+                             .sort((a,b)=>a.earnings_date.localeCompare(b.earnings_date));
   return (
     <div className="card">
-      <div className="ct">Upcoming Earnings Plays ({rows.length})</div>
+      <div className="ct">Upcoming Options Plays ({rows.length})</div>
       {!rows.length
         ? <div style={{color:"#8b949e",padding:"10px 0"}}>No recommendations yet — scanner runs nightly at 11 PM ET.</div>
         : <div style={{overflowX:"auto"}}>
             <table>
               <thead><tr>
                 <th>Symbol</th><th>Company</th><th>Earnings</th><th>Days</th>
-                <th>Confidence</th><th>Beat Rate</th><th>Rev Growth</th>
+                <th>Type</th><th>Beat</th><th>pu5</th><th>IV</th>
                 <th>Momentum</th><th>Size</th><th>Status</th>
               </tr></thead>
               <tbody>
                 {rows.map(r=>{
-                  const d=daysUntil(r.earnings_date);
-                  const rv=r.revenue_growth_yoy;
-                  const mo=r.momentum_30d;
+                  const d  = daysUntil(r.earnings_date);
+                  const mo = r.momentum_30d;
+                  const iv = r.iv_proxy;
                   return (
                     <tr key={r.symbol}>
                       <td><strong>{r.symbol}</strong></td>
                       <td style={{maxWidth:150,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{r.company}</td>
                       <td>{r.earnings_date}</td>
                       <td style={{textAlign:"center"}}>{d??'—'}</td>
-                      <td>{confBadge(r.confidence)}</td>
+                      <td>{tradeBadge(r.trade_type)}</td>
                       <td>{r.beat_rate!=null?`${(r.beat_rate*100).toFixed(0)}%`:"—"}</td>
-                      <td className={rv>0.2?"g":rv<0?"r":"w"}>{rv!=null?fmtPct(rv*100):"—"}</td>
+                      <td>{r.pu5!=null?`${(r.pu5*100).toFixed(0)}%`:"—"}</td>
+                      <td className={ivColor(iv)}>{iv!=null?`${(iv*100).toFixed(0)}%`:"—"}</td>
                       <td className={mo>0.1?"g":mo<-0.1?"r":"w"}>{mo!=null?fmtPct(mo*100):"—"}</td>
-                      <td>${r.position_size}</td>
-                      <td>{r.executed?<span className="badge bb">Executed</span>:r.validated?<span className="badge bg">Validated</span>:<span className="badge bgr">Pending</span>}</td>
+                      <td>$10K</td>
+                      <td>{r.executed
+                            ? <span className="badge bb">Executed</span>
+                            : r.validated
+                              ? <span className="badge bg">Validated</span>
+                              : <span className="badge bgr">Pending</span>}
+                      </td>
                     </tr>
                   );
                 })}
@@ -3688,22 +484,27 @@ const RecsTable = ({ recs, positions }) => {
 };
 
 const PositionsTable = ({ posData }) => {
-  const positions = posData?.positions||[];
+  const positions = posData?.positions || [];
   return (
     <div className="card">
-      <div className="ct">Open Positions ({positions.length})</div>
+      <div className="ct">Open Options Positions ({positions.length})</div>
       {posData?.circuit_breaker_triggered && <div className="alert">⚠️ Circuit Breaker: {posData.circuit_breaker_reason}</div>}
       {!positions.length
         ? <div style={{color:"#8b949e",padding:"10px 0"}}>No open positions.</div>
         : <div style={{overflowX:"auto"}}>
             <table>
-              <thead><tr><th>Symbol</th><th>Qty</th><th>Entry</th><th>Current</th><th>Value</th><th>Unrealized P&L</th><th>%</th></tr></thead>
+              <thead><tr>
+                <th>Ticker</th><th>Contract</th><th>Qty</th>
+                <th>Entry Premium</th><th>Current Premium</th>
+                <th>Mkt Value</th><th>Unrealized P&L</th><th>%</th>
+              </tr></thead>
               <tbody>
                 {positions.map(p=>{
                   const pct=(p.unrealized_plpc||0)*100;
                   return (
                     <tr key={p.symbol}>
-                      <td><strong>{p.symbol}</strong></td>
+                      <td><strong>{underlyingFrom(p.symbol)}</strong></td>
+                      <td style={{fontSize:11,color:"#8b949e"}}>{p.symbol}</td>
                       <td>{p.qty}</td>
                       <td>${Number(p.avg_entry_price).toFixed(2)}</td>
                       <td>${Number(p.current_price).toFixed(2)}</td>
@@ -3727,26 +528,30 @@ const HistoryTable = ({ trades }) => {
     .sort((a,b)=>(b.exit_date||"").localeCompare(a.exit_date||"")).slice(0,20);
   return (
     <div className="card">
-      <div className="ct">Trade History (Last 20)</div>
+      <div className="ct">Trade History — Last 20</div>
       {!closed.length
         ? <div style={{color:"#8b949e",padding:"10px 0"}}>No closed trades yet.</div>
         : <div style={{overflowX:"auto"}}>
             <table>
-              <thead><tr><th>Symbol</th><th>Entry</th><th>Exit</th><th>Entry $</th><th>Exit $</th><th>Qty</th><th>P&L</th><th>%</th><th>Conf</th><th>Result</th></tr></thead>
+              <thead><tr>
+                <th>Symbol</th><th>Type</th><th>Entry</th><th>Exit</th>
+                <th>Entry Cost</th><th>Exit Value</th><th>P&L</th><th>%</th><th>Result</th>
+              </tr></thead>
               <tbody>
                 {closed.map((t,i)=>{
-                  const win=(t.pnl||0)>0;
+                  const win = (t.pnl||0) > 0;
+                  const entryCost  = t.position_size || 10000;
+                  const exitValue  = t.exit_value ?? null;
                   return (
                     <tr key={t.id||i}>
                       <td><strong>{t.symbol}</strong></td>
+                      <td>{tradeBadge(t.trade_type)}</td>
                       <td>{t.entry_date}</td>
                       <td>{t.exit_date||"—"}</td>
-                      <td>${Number(t.entry_price).toFixed(2)}</td>
-                      <td>{t.exit_price?`$${Number(t.exit_price).toFixed(2)}`:"—"}</td>
-                      <td>{t.qty}</td>
+                      <td>${(entryCost).toLocaleString()}</td>
+                      <td>{exitValue!=null?`$${exitValue.toLocaleString(undefined,{maximumFractionDigits:0})}`:"—"}</td>
                       <td className={pnlCls(t.pnl)}>{fmt$(t.pnl)}</td>
                       <td className={pnlCls(t.pnl_pct)}>{fmtPct(t.pnl_pct)}</td>
-                      <td>{confBadge(t.confidence)}</td>
                       <td><span className={`badge ${win?"bg":"br"}`}>{win?"WIN":"LOSS"}</span></td>
                     </tr>
                   );
@@ -3761,15 +566,15 @@ const HistoryTable = ({ trades }) => {
 
 // ─── APP ───────────────────────────────────────────────────────────────────
 const App = () => {
-  const [d, setD] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-  const [lastRefresh, setLastRefresh] = React.useState(null);
+  const [d, setD]               = React.useState(null);
+  const [loading, setLoading]   = React.useState(true);
+  const [lastRefresh, setLast]  = React.useState(null);
 
   const refresh = async () => {
     setLoading(true);
     const result = await loadData();
     setD(result);
-    setLastRefresh(new Date().toLocaleTimeString());
+    setLast(new Date().toLocaleTimeString());
     setLoading(false);
   };
 
@@ -3781,18 +586,18 @@ const App = () => {
     }
   }, []);
 
-  const halted = d?.budget?.halted;
+  const halted     = d?.budget?.halted;
   const isEmbedded = d && !d.live;
   const embeddedAt = d?.meta?.embedded_at;
 
   return (
     <div>
       <div className="hdr">
-        <h1>📈 Earnings Trading Bot</h1>
+        <h1>🎯 Hitman v2</h1>
         <div className="meta">
           {halted && <span className="badge br">⛔ HALTED</span>}
           {isEmbedded
-            ? <span>Embedded snapshot{embeddedAt ? ` · ${embeddedAt.slice(0,16).replace("T"," ")}` : ""}</span>
+            ? <span>Snapshot{embeddedAt ? ` · ${embeddedAt.slice(0,16).replace("T"," ")}` : ""}</span>
             : <span>Live · auto-refresh 5 min{lastRefresh ? ` · ${lastRefresh}` : ""}</span>
           }
           <button className="btn" onClick={refresh}>↺ Refresh</button>
@@ -3801,18 +606,15 @@ const App = () => {
       <div className="main">
         {loading && !d && <div style={{color:"#8b949e",padding:40,textAlign:"center"}}>Loading...</div>}
         {d && <>
-          {isEmbedded && (
-            <div className="notice">
-              📌 Showing embedded snapshot. To refresh data, run <strong>update_dashboard.bat</strong> in the project folder.
-            </div>
-          )}
           <MetricsRow positions={d.positions} trades={d.trades} />
           <PortfolioChart portfolioHist={d.portfolioHist} />
-          <BudgetSection budget={d.budget} />
+          <div className="g2">
+            <BudgetSection budget={d.budget} />
+            <WinRateTracker accuracy={d.accuracy} />
+          </div>
           <WinnersLosers positions={d.positions} />
           <TopFiveSection trades={d.trades} />
           <div className="g2">
-            <AccuracyTracker accuracy={d.accuracy} callsLog={d.callsLog} />
             <EarningsWeek recs={d.recs} positions={d.positions} />
             <RecsTable recs={d.recs} positions={d.positions} />
           </div>
