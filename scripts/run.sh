@@ -22,8 +22,10 @@ if [ -z "$GH_PAT" ] || [ -z "$GH_REPO" ]; then
     exit 1
 fi
 
-# Store credentials so git can push without interactive auth.
-git config credential.helper store
+# Global git identity and credentials (--global works without a git directory).
+git config --global user.email "bot@bot.com"
+git config --global user.name "EarningsBot"
+git config --global credential.helper store
 echo "https://oauth2:${GH_PAT}@github.com" > ~/.git-credentials
 chmod 600 ~/.git-credentials
 
@@ -40,9 +42,6 @@ else
     git remote set-url origin "https://github.com/${GH_REPO}.git"
     git pull --rebase origin main
 fi
-
-git config user.email "bot@bot.com"
-git config user.name "EarningsBot"
 
 # ── Run script ───────────────────────────────────────────────────────────────
 # Dashboard uses update_dashboard.py in root; everything else is in src/
