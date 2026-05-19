@@ -1,72 +1,19 @@
-# Railway cron configuration — Hitman v2
-# Replaces .github/workflows/ entirely.
+# Railway build configuration — Hitman v2
 #
-# All times are UTC. During EDT (Apr–Nov): ET + 4 = UTC.
-# During EST (Nov–Mar): ET + 5 = UTC. Schedules below target EDT.
+# NOTE: Multi-service cron jobs are configured manually in the Railway dashboard.
+# This file only controls how Railway builds the container (Python + requirements.txt).
 #
-# Services and their ET times:
-#   scanner   — 11:17 PM ET daily        (any day, post-market)
-#   validator — 8:11 AM ET weekdays      (pre-market check)
-#   executor  — 3:50 PM ET weekdays      (end-of-day entry, 10 min before close)
-#   monitor   — 10 AM–4 PM ET, hourly    (position tracking)
-#   reporter  — 4:30 PM ET weekdays      (end-of-day report)
-#   learner   — Monday 6 AM ET weekly    (weekly summary email)
+# Service schedule reference (all times UTC, targeting EDT = UTC-4):
+#   scanner   — "17 3 * * *"       → 11:17 PM ET daily
+#   validator — "11 12 * * 1-5"    → 8:11 AM ET weekdays
+#   executor  — "50 19 * * 1-5"    → 3:50 PM ET weekdays
+#   monitor   — "0 14-20 * * 1-5"  → hourly 10 AM–4 PM ET weekdays
+#   reporter  — "30 20 * * 1-5"    → 4:30 PM ET weekdays
+#   learner   — "0 10 * * 1"       → Monday 6 AM ET
+#   dashboard — "*/30 13-21 * * 1-5" → every 30 min 9 AM–5 PM ET weekdays
+#
+# Start command pattern for each service:
+#   bash scripts/run.sh <name> "<files to commit>"
 
 [build]
 builder = "nixpacks"
-
-# ── Scanner ──────────────────────────────────────────────────────────────────
-# Scans 145-stock Nasdaq universe for earnings in next 14 days.
-# Runs nightly so recommendations are ready by morning.
-[[services]]
-name = "scanner"
-cronSchedule = "17 3 * * *"
-startCommand = "bash scripts/run.sh scanner 'data/recommendations.json data/scanner_status.json'"
-
-# ── Validator ─────────────────────────────────────────────────────────────────
-# Re-checks scanner candidates before execution:
-# earnings date still future, no negative news, adequate liquidity.
-[[services]]
-name = "validator"
-cronSchedule = "11 12 * * 1-5"
-startCommand = "bash scripts/run.sh validator 'data/recommendations.json'"
-
-# ── Executor ──────────────────────────────────────────────────────────────────
-# Places options orders at 3:50 PM ET (10 min before close).
-# Hitman v2: IV < 55% → naked ATM call; IV 55-80% → bull call spread.
-[[services]]
-name = "executor"
-cronSchedule = "50 19 * * 1-5"
-startCommand = "bash scripts/run.sh executor 'data/trades_history.json data/recommendations.json data/budget_tracker.json data/positions.json'"
-
-# ── Monitor ───────────────────────────────────────────────────────────────────
-# Runs hourly during market hours (10 AM–4 PM ET).
-# Tracks open positions, triggers earnings exits, enforces circuit breakers.
-[[services]]
-name = "monitor"
-cronSchedule = "0 14-20 * * 1-5"
-startCommand = "bash scripts/run.sh monitor 'data/'"
-
-# ── Reporter ──────────────────────────────────────────────────────────────────
-# End-of-day report: P&L summary, open positions, weekly stats.
-# Writes dashboard HTML and earnings log docx.
-[[services]]
-name = "reporter"
-cronSchedule = "30 20 * * 1-5"
-startCommand = "bash scripts/run.sh reporter 'data/ reports/'"
-
-# ── Learner ───────────────────────────────────────────────────────────────────
-# Weekly summary email (disabled for weight learning — Hitman v2 uses fixed thresholds).
-# Runs Monday morning so it covers the prior week.
-[[services]]
-name = "learner"
-cronSchedule = "0 10 * * 1"
-startCommand = "bash scripts/run.sh learner ''"
-
-# ── Dashboard ─────────────────────────────────────────────────────────────────
-# Bakes live data into dashboard.html every 30 min during market hours.
-# Commits the updated HTML back to GitHub so it can be opened locally or hosted.
-[[services]]
-name = "dashboard"
-cronSchedule = "*/30 13-21 * * 1-5"
-startCommand = "bash scripts/run.sh dashboard 'dashboard.html'"
