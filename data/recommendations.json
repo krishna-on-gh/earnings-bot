@@ -39,14 +39,13 @@
     "position_size": 10000,
     "current_price": 98.53,
     "validated": true,
-    "executed": true,
+    "executed": false,
     "scan_date": "2026-05-19",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-05-19",
-    "disqualified": false,
-    "execution_date": "2026-05-19",
-    "trade_id": "2c6e7140"
+    "disqualified": true,
+    "disqualified_reason": "limit order at mid-price went unfilled — entry window expired"
   },
   {
     "id": "1ae23e3e",

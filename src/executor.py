@@ -56,9 +56,11 @@ def get_entry_date(earnings_date: date) -> date:
 
 
 # ── Live option quote ─────────────────────────────────────────────────────────
-def get_option_mid_price(contract_symbol: str) -> Optional[float]:
+def get_option_ask_price(contract_symbol: str) -> Optional[float]:
     """
-    Fetch live bid/ask for an option contract and return the midpoint.
+    Fetch live ask price for an option contract.
+    We use ask (not mid) as the limit price to guarantee fills.
+    Mid-price limits frequently go unfilled — market makers sit at the ask.
     Falls back to None if unavailable (caller uses stale close_price instead).
     """
     try:
@@ -70,11 +72,11 @@ def get_option_mid_price(contract_symbol: str) -> Optional[float]:
             return None
         bid = float(quote.bid_price or 0)
         ask = float(quote.ask_price or 0)
-        if bid <= 0 or ask <= 0:
+        if ask <= 0:
             return None
         mid = round((bid + ask) / 2, 2)
-        log.info(f"{contract_symbol}: bid=${bid:.2f} ask=${ask:.2f} mid=${mid:.2f}")
-        return mid
+        log.info(f"{contract_symbol}: bid=${bid:.2f} ask=${ask:.2f} mid=${mid:.2f} — using ask as limit")
+        return round(ask, 2)
     except Exception as e:
         log.warning(f"Could not fetch live quote for {contract_symbol}: {e}")
         return None
@@ -315,11 +317,11 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
         log.warning(f"{symbol}: no ATM call contract found — skipping")
         return None
 
-    # Fetch live mid-price for accurate contract count and limit order
-    live_mid = get_option_mid_price(contract.symbol)
-    if live_mid:
-        premium_est = live_mid
-        log.info(f"{symbol}: using live mid-price ${live_mid:.2f} for sizing")
+    # Fetch live ask price — used as limit to guarantee fill (mid-price limits go unfilled)
+    live_ask = get_option_ask_price(contract.symbol)
+    if live_ask:
+        premium_est = live_ask
+        log.info(f"{symbol}: using live ask ${live_ask:.2f} as limit price")
     else:
         try:
             premium_est = float(contract.close_price or contract.last_price or 1.0)
@@ -330,7 +332,7 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
     num_contracts = max(1, int(POSITION_USD / (premium_est * 100)))
     log.info(f"{symbol}: {num_contracts} contracts × ${premium_est:.2f} × 100 = ~${num_contracts * premium_est * 100:,.0f}")
 
-    order_info = place_call_order(symbol, contract, num_contracts, live_mid, client)
+    order_info = place_call_order(symbol, contract, num_contracts, live_ask, client)
     if not order_info:
         return None
 
