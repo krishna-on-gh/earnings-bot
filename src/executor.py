@@ -422,11 +422,10 @@ def run_executor():
             continue
         earnings_dt = date.fromisoformat(r["earnings_date"])
         entry_dt    = get_entry_date(earnings_dt)
-        # Only execute on or within 3 days after the intended entry date
+        # Only execute on the exact intended entry date (3 trading days before earnings)
         # AND earnings must still be at least 2 days away
-        # NOTE: window widened to 3 temporarily for ZM first-trade exception
         days_late = (today_et() - entry_dt).days
-        if 0 <= days_late <= 3 and r.get("earnings_date", "") > tomorrow:
+        if days_late == 0 and r.get("earnings_date", "") > tomorrow:
             candidates.append(r)
         else:
             log.info(
