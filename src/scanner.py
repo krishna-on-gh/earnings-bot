@@ -347,8 +347,8 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
         log.debug(f"{symbol}: filtered out — {', '.join(fails)}")
         return None
 
-    # Determine trade type
-    trade_type = "call" if iv < 0.55 else "spread"
+    # Always naked ATM call — spreads cap upside on stocks that historically move 14%+
+    trade_type = "call"
 
     # Get current price for display
     try:

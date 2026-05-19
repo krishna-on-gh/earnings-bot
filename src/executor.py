@@ -3,8 +3,9 @@ Trade executor — Hitman v2 methodology.
 Runs at 3:50 PM ET weekdays (end-of-day entry, 10 min before close).
 
 For each validated Hitman v2 candidate:
-  IV < 55%  => buy ATM naked call  ($10K position)
-  IV 55-80% => buy ATM call + sell +8% OTM call (bull call spread, $10K)
+  Always buy ATM naked call ($10K position).
+  Spreads were removed — historical data showed 75% of winning moves exceed +8%,
+  capping upside contradicts the model's thesis of finding big movers.
 
 Entry:  close, 3 trading days before earnings  (this script runs at 3:50 PM)
 Exit:   handled by monitor.py at close of day +1 after earnings
@@ -259,53 +260,26 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
         log.error(f"{symbol}: could not get price — skipping")
         return None
 
-    # Find post-earnings expiration
+    # Always naked ATM call — no spread cap, let winners run
     expiry = find_expiry_after_earnings(earnings_date)
-    log.info(f"{symbol}: price=${price:.2f} | trade_type={trade_type} | IV={iv:.0%} | expiry={expiry}")
+    log.info(f"{symbol}: price=${price:.2f} | IV={iv:.0%} | expiry={expiry}")
 
-    # ATM strike = closest round number to current price
     atm_strike = round(price)
-    otm_strike = round(price * 1.08)   # +8% for spread short leg
 
-    if trade_type == "call":
-        # ── Naked ATM call ────────────────────────────────────────────────────
-        contract = find_option_contract(client, symbol, atm_strike, expiry, ContractType.CALL)
-        if not contract:
-            log.warning(f"{symbol}: no ATM call contract found — skipping")
-            return None
+    contract = find_option_contract(client, symbol, atm_strike, expiry, ContractType.CALL)
+    if not contract:
+        log.warning(f"{symbol}: no ATM call contract found — skipping")
+        return None
 
-        # Estimate contracts: $10K / (premium * 100)
-        # Use a rough premium estimate; actual fill price recorded by monitor
-        try:
-            premium_est = float(contract.close_price or contract.last_price or 1.0)
-        except Exception:
-            premium_est = 1.0
-        num_contracts = max(1, int(POSITION_USD / (premium_est * 100)))
+    try:
+        premium_est = float(contract.close_price or contract.last_price or 1.0)
+    except Exception:
+        premium_est = 1.0
+    num_contracts = max(1, int(POSITION_USD / (premium_est * 100)))
 
-        order_info = place_call_order(symbol, contract, num_contracts, client)
-        if not order_info:
-            return None
-
-    else:
-        # ── Bull call spread ATM / +8% ────────────────────────────────────────
-        long_contract  = find_option_contract(client, symbol, atm_strike, expiry, ContractType.CALL)
-        short_contract = find_option_contract(client, symbol, otm_strike, expiry, ContractType.CALL)
-
-        if not long_contract or not short_contract:
-            log.warning(f"{symbol}: could not find both spread legs — skipping")
-            return None
-
-        try:
-            long_prem  = float(long_contract.close_price  or long_contract.last_price  or 1.0)
-            short_prem = float(short_contract.close_price or short_contract.last_price or 0.3)
-            net_debit  = max(long_prem - short_prem, 0.10)
-        except Exception:
-            net_debit = 1.0
-        num_contracts = max(1, int(POSITION_USD / (net_debit * 100)))
-
-        order_info = place_spread_order(symbol, long_contract, short_contract, num_contracts, client)
-        if not order_info:
-            return None
+    order_info = place_call_order(symbol, contract, num_contracts, client)
+    if not order_info:
+        return None
 
     update_budget(POSITION_USD)
 
