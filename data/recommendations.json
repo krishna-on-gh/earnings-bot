@@ -14,10 +14,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 220.61,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-19",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-20",
+    "disqualified": false
   },
   {
     "id": "77e02cfa",
@@ -34,10 +37,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 97.39,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-19",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-20",
+    "disqualified": false
   },
   {
     "id": "437ffe79",
@@ -54,9 +60,12 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 67.8,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-19",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-20",
+    "disqualified": false
   }
 ]
