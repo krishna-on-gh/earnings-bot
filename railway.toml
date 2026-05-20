@@ -4,7 +4,7 @@
 # This file only controls how Railway builds the container (Python + requirements.txt).
 #
 # Service schedule reference (all times UTC, targeting EDT = UTC-4):
-#   scanner   — "17 3 * * *"       → 11:17 PM ET daily
+#   scanner   — "17 3 * * 1-5"     → 11:17 PM ET weekdays only (no weekend runs)
 #   validator — "11 12 * * 1-5"    → 8:11 AM ET weekdays
 #   executor  — "0 19 * * 1-5"     → 3:00 PM ET weekdays
 #   monitor   — "0 14-20 * * 1-5"  → hourly 10 AM–4 PM ET weekdays
