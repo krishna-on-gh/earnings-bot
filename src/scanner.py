@@ -456,25 +456,29 @@ def run_scanner():
     fmp_calendar = fetch_fmp_earnings_calendar(window)
     earnings_candidates: Dict[str, tuple] = {}
 
-    log.info(f"Checking earnings dates for {len(UNIVERSE)} universe stocks...")
-    for i, symbol in enumerate(UNIVERSE):
-        try:
-            if symbol in fmp_calendar:
-                ed, timing = fmp_calendar[symbol]
-                earnings_candidates[symbol] = (ed, timing)
-                log.info(f"  {symbol}: earnings on {ed} ({timing}) [Nasdaq]")
-                continue
-            t = yf.Ticker(symbol)
-            ed, timing = get_earnings_date_and_timing(t, symbol)
-            if ed:
-                earnings_candidates[symbol] = (ed, timing)
-                log.info(f"  {symbol}: earnings on {ed} ({timing})")
-            if i > 0 and i % 50 == 0:
-                log.info(f"  Progress: {i}/{len(UNIVERSE)} checked, {len(earnings_candidates)} found")
-                time.sleep(1)
-        except Exception as e:
-            log.debug(f"  {symbol}: date check failed — {e}")
-        time.sleep(0.1)
+    if fmp_calendar:
+        # Nasdaq calendar returned results — use directly, skip yfinance date checks
+        log.info(f"Using Nasdaq calendar — skipping yfinance date checks for {len(UNIVERSE)} stocks")
+        earnings_candidates = dict(fmp_calendar)
+        for symbol, (ed, timing) in earnings_candidates.items():
+            log.info(f"  {symbol}: earnings on {ed} ({timing}) [Nasdaq]")
+    else:
+        # Nasdaq calendar failed — fall back to checking each stock via yfinance
+        log.warning("Nasdaq calendar empty — falling back to yfinance date checks (slow)")
+        log.info(f"Checking earnings dates for {len(UNIVERSE)} universe stocks...")
+        for i, symbol in enumerate(UNIVERSE):
+            try:
+                t = yf.Ticker(symbol)
+                ed, timing = get_earnings_date_and_timing(t, symbol)
+                if ed:
+                    earnings_candidates[symbol] = (ed, timing)
+                    log.info(f"  {symbol}: earnings on {ed} ({timing})")
+                if i > 0 and i % 50 == 0:
+                    log.info(f"  Progress: {i}/{len(UNIVERSE)} checked, {len(earnings_candidates)} found")
+                    time.sleep(1)
+            except Exception as e:
+                log.debug(f"  {symbol}: date check failed — {e}")
+            time.sleep(0.1)
 
     log.info(f"Found {len(earnings_candidates)} stocks with earnings in next {window} days")
 
