@@ -117,44 +117,39 @@ ELIGIBLE_FROM = {
 
 # ── Earnings calendar ─────────────────────────────────────────────────────────
 def fetch_fmp_earnings_calendar(window_days: int = 14) -> Dict[str, tuple]:
-    """Fetch earnings calendar from FMP. Returns {symbol: (earnings_date, timing)}."""
-    api_key = os.environ.get("FMP_API_KEY", "")
-    if not api_key:
-        log.warning("FMP_API_KEY not set — skipping FMP earnings calendar")
-        return {}
+    """
+    Fetch earnings calendar from Nasdaq API (no key required).
+    Makes one request per day in the window — fast alternative to checking
+    483 stocks individually via yfinance.
+    Returns {symbol: (earnings_date, timing)}.
+    """
     today = today_et()
-    horizon = today + timedelta(days=window_days)
-    url = "https://financialmodelingprep.com/api/v3/earning_calendar"
-    try:
-        r = _requests.get(url, params={
-            "from": today.isoformat(),
-            "to": horizon.isoformat(),
-            "apikey": api_key,
-        }, timeout=15)
-        if r.status_code != 200:
-            log.warning(f"FMP returned {r.status_code}")
-            return {}
-        data = r.json()
-        result = {}
-        for entry in data:
-            sym = entry.get("symbol", "").upper()
-            date_str = entry.get("date", "")
-            time_str = (entry.get("time") or "unknown").lower()
-            if not sym or not date_str:
+    headers = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
+    result = {}
+    for i in range(window_days):
+        d = today + timedelta(days=i)
+        url = f"https://api.nasdaq.com/api/calendar/earnings?date={d.isoformat()}"
+        try:
+            r = _requests.get(url, headers=headers, timeout=10)
+            if r.status_code != 200:
+                log.warning(f"Nasdaq calendar: {d} returned {r.status_code}")
                 continue
-            try:
-                ed = date.fromisoformat(date_str)
-            except ValueError:
-                continue
-            if sym not in UNIVERSE:
-                continue
-            timing = "pre_market" if time_str == "bmo" else ("post_market" if time_str == "amc" else "unknown")
-            result[sym] = (ed, timing)
-        log.info(f"FMP calendar: {len(result)} universe stocks with earnings in next {window_days} days")
-        return result
-    except Exception as e:
-        log.warning(f"FMP calendar fetch failed: {e}")
-        return {}
+            rows = r.json().get("data", {}).get("rows") or []
+            for row in rows:
+                sym = (row.get("symbol") or "").upper().strip()
+                if not sym or sym not in UNIVERSE:
+                    continue
+                time_str = (row.get("time") or "").lower()
+                timing = (
+                    "pre_market"  if "before" in time_str or "bmo" in time_str else
+                    "post_market" if "after"  in time_str or "amc" in time_str else
+                    "unknown"
+                )
+                result[sym] = (d, timing)
+        except Exception as e:
+            log.warning(f"Nasdaq calendar fetch failed for {d}: {e}")
+    log.info(f"Nasdaq calendar: {len(result)} universe stocks with earnings in next {window_days} days")
+    return result
 
 
 KNOWN_TIMING: Dict[str, str] = {
@@ -457,7 +452,7 @@ def run_scanner():
     window = settings["thresholds"]["earnings_window_days"]
     today = today_et()
 
-    # Step 1: Get earnings dates (FMP primary, yfinance fallback)
+    # Step 1: Get earnings dates (Nasdaq calendar primary, yfinance fallback)
     fmp_calendar = fetch_fmp_earnings_calendar(window)
     earnings_candidates: Dict[str, tuple] = {}
 
@@ -467,7 +462,7 @@ def run_scanner():
             if symbol in fmp_calendar:
                 ed, timing = fmp_calendar[symbol]
                 earnings_candidates[symbol] = (ed, timing)
-                log.info(f"  {symbol}: earnings on {ed} ({timing}) [FMP]")
+                log.info(f"  {symbol}: earnings on {ed} ({timing}) [Nasdaq]")
                 continue
             t = yf.Ticker(symbol)
             ed, timing = get_earnings_date_and_timing(t, symbol)
