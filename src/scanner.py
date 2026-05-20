@@ -253,7 +253,7 @@ def _get_history_and_dates(sym: str):
     try:
         t    = yf.Ticker(sym)
         hist = t.history(period="5y", interval="1d")
-        ed   = t.earnings_dates
+        ed   = t.get_earnings_dates(limit=20)
         _cache[sym] = (hist, ed)
         return _cache[sym]
     except Exception:
@@ -272,7 +272,7 @@ def get_beat_rate(sym: str, before_date: date) -> Optional[float]:
     _, ed = data
     if ed is None or ed.empty: return None
     try:
-        idx = ed.index.tz_localize(None) if getattr(ed.index, "tz", None) is not None else ed.index
+        idx = ed.index.tz_convert(None) if getattr(ed.index, "tz", None) is not None else ed.index
         past = ed[(idx.date < before_date) & ed["Reported EPS"].notna()]
         if len(past) < MIN_EPS_QUARTERS: return None
         recent = past.head(8)   # earnings_dates is sorted newest-first
@@ -293,7 +293,7 @@ def get_pu5(sym: str, as_of: date) -> Optional[float]:
     try:
         h = hist.copy()
         if getattr(h.index, "tz", None) is not None:
-            h.index = h.index.tz_localize(None)
+            h.index = h.index.tz_convert(None)
         h = h[h.index.date <= as_of]
         h["ret"] = h["Close"].pct_change()
         h["quarter"] = h.index.to_period("Q")
@@ -318,7 +318,7 @@ def get_momentum(sym: str, as_of: date) -> Optional[float]:
     if hist is None or hist.empty: return None
     try:
         if getattr(hist.index, "tz", None) is not None:
-            hist = hist.copy(); hist.index = hist.index.tz_localize(None)
+            hist = hist.copy(); hist.index = hist.index.tz_convert(None)
         sub = hist[hist.index.date <= as_of]
         if len(sub) < 21: return None
         return float((sub["Close"].iloc[-1] - sub["Close"].iloc[-21]) / sub["Close"].iloc[-21])
@@ -334,7 +334,7 @@ def get_hv30(sym: str, as_of: date) -> Optional[float]:
     if hist is None or hist.empty: return None
     try:
         if getattr(hist.index, "tz", None) is not None:
-            hist = hist.copy(); hist.index = hist.index.tz_localize(None)
+            hist = hist.copy(); hist.index = hist.index.tz_convert(None)
         sub = hist[hist.index.date <= as_of]
         if len(sub) < 22: return None
         rets = sub["Close"].pct_change().dropna().tail(30)
