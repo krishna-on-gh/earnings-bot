@@ -1,6 +1,6 @@
 """
 Trade executor — Hitman v2 methodology.
-Runs at 3:50 PM ET weekdays (end-of-day entry, 10 min before close).
+Runs at 3:00 PM ET weekdays (1 hour before close — more time for limit fills).
 
 For each validated Hitman v2 candidate:
   Always buy ATM naked call ($10K position).
@@ -34,7 +34,14 @@ from utils import (
 
 log = get_logger("executor")
 
-POSITION_USD = 10_000   # flat $10K per trade
+POSITION_USD_DEFAULT = 10_000   # fallback if no confidence tier in recommendation
+
+# Confidence-tier position sizes (set by build_universe.py / screener)
+POSITION_TIERS = {
+    "HIGH":   10_000,   # reliable sector, HV < 70%
+    "MEDIUM":  5_000,   # biotech/financial OR HV > 70%
+    "LOW":     1_000,   # biotech/financial AND HV > 70% (stacked risk)
+}
 
 # US market holidays 2026 (NYSE observed dates)
 HOLIDAYS_2026 = {
@@ -294,8 +301,13 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
     iv         = rec.get("iv_proxy", 0.50)
     earnings_date = date.fromisoformat(rec["earnings_date"])
 
+    # Confidence-tier position size — read from recommendation, fall back to default
+    confidence  = rec.get("confidence", "HIGH")
+    position_usd = rec.get("position_size") or POSITION_TIERS.get(confidence, POSITION_USD_DEFAULT)
+    log.info(f"{symbol}: confidence={confidence} position=${position_usd:,}")
+
     # Budget check
-    can_trade, reason = check_budget(POSITION_USD, log)
+    can_trade, reason = check_budget(position_usd, log)
     if not can_trade:
         log.warning(f"{symbol}: skipping — {reason}")
         return None
@@ -329,14 +341,14 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
             premium_est = 1.0
         log.warning(f"{symbol}: live quote unavailable, using stale price ${premium_est:.2f}")
 
-    num_contracts = max(1, int(POSITION_USD / (premium_est * 100)))
+    num_contracts = max(1, int(position_usd / (premium_est * 100)))
     log.info(f"{symbol}: {num_contracts} contracts × ${premium_est:.2f} × 100 = ~${num_contracts * premium_est * 100:,.0f}")
 
     order_info = place_call_order(symbol, contract, num_contracts, live_ask, client)
     if not order_info:
         return None
 
-    update_budget(POSITION_USD)
+    update_budget(position_usd)
 
     trade_record = {
         "id":               rec.get("id", str(uuid.uuid4())[:8]),
@@ -351,7 +363,8 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
         "earnings_timing":  rec.get("earnings_timing", "unknown"),
         "expiry_date":      str(expiry),
         "qty":              order_info["qty"],
-        "position_size":    POSITION_USD,
+        "position_size":    position_usd,
+        "confidence":       confidence,
         "order_id":         order_info["order_id"],
         "order_status":     order_info["order_status"],
         # Options-specific fields
@@ -488,7 +501,7 @@ def run_executor():
         f"Trades placed: {len(executed_trades)}\n"
         f"Skipped: {', '.join(skipped) if skipped else 'none'}\n\n"
         f"Positions:\n{summary}\n\n"
-        f"Capital deployed this run: ${len(executed_trades) * POSITION_USD:,.0f}",
+        f"Capital deployed this run: ${sum(t['position_size'] for t in executed_trades):,.0f}",
     )
 
 

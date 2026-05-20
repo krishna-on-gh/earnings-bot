@@ -6,7 +6,7 @@
 # Service schedule reference (all times UTC, targeting EDT = UTC-4):
 #   scanner   — "17 3 * * *"       → 11:17 PM ET daily
 #   validator — "11 12 * * 1-5"    → 8:11 AM ET weekdays
-#   executor  — "50 19 * * 1-5"    → 3:50 PM ET weekdays
+#   executor  — "0 19 * * 1-5"     → 3:00 PM ET weekdays
 #   monitor   — "0 14-20 * * 1-5"  → hourly 10 AM–4 PM ET weekdays
 #   reporter  — "30 20 * * 1-5"    → 4:30 PM ET weekdays
 #   learner   — "0 10 * * 1"       → Monday 6 AM ET

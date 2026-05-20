@@ -40,10 +40,12 @@ MIN_MOMENTUM     = 0.01
 MAX_MOMENTUM     = 0.30
 MAX_IV           = 0.80
 MIN_EPS_QUARTERS = 5
-POSITION_USD     = 10_000   # flat $10K per trade
 
-# ── Universe ──────────────────────────────────────────────────────────────────
-UNIVERSE = list(dict.fromkeys([
+POSITION_USD_DEFAULT = 10_000   # fallback if no universe snapshot exists
+POSITION_TIERS = {"HIGH": 10_000, "MEDIUM": 5_000, "LOW": 1_000}
+
+# ── Universe — loaded from snapshot, hardcoded list as fallback ───────────────
+_UNIVERSE_FALLBACK = list(dict.fromkeys([
     "AAPL","MSFT","GOOGL","AMZN","NVDA","META","TSLA","JPM","V","UNH",
     "XOM","JNJ","WMT","MA","HD","PG","CVX","ABBV","MRK","COST","KO","PEP",
     "BAC","AVGO","TMO","CSCO","ACN","ABT","MCD","CRM","ADBE","LIN","DHR",
@@ -61,6 +63,38 @@ UNIVERSE = list(dict.fromkeys([
     "ABNB","COIN","SNOW","PLTR","RBLX","HOOD","SOFI",
     "APP","GTLB","IOT","TOST","KVYO","ARM","GEHC","SMCI","CEG",
 ]))
+
+def _load_universe() -> tuple[list, dict]:
+    """
+    Load universe from universe_snapshot.json if available.
+    Returns (ticker_list, sector_lookup) where sector_lookup is
+    {symbol: {sector_type, confidence, position_size}}.
+    Falls back to hardcoded list with no sector data.
+    """
+    snapshot_path = os.path.join(os.path.dirname(__file__), "..", "data", "universe_snapshot.json")
+    try:
+        with open(snapshot_path) as f:
+            snap = __import__("json").load(f)
+        full = snap.get("full_universe", [])
+        if not full:
+            raise ValueError("empty full_universe")
+        tickers = [s["symbol"] for s in full]
+        # sector lookup: symbol -> {sector_type, confidence, position_size}
+        lookup  = {
+            s["symbol"]: {
+                "sector_type":   s.get("sector_type",   "other"),
+                "confidence":    s.get("confidence",    "HIGH"),
+                "position_size": s.get("position_size", POSITION_USD_DEFAULT),
+            }
+            for s in full
+        }
+        log.info(f"Universe loaded from snapshot: {len(tickers)} stocks")
+        return tickers, lookup
+    except Exception as e:
+        log.warning(f"Could not load universe snapshot ({e}) — using hardcoded fallback ({len(_UNIVERSE_FALLBACK)} stocks)")
+        return _UNIVERSE_FALLBACK, {}
+
+UNIVERSE, _SECTOR_LOOKUP = _load_universe()
 
 # Earliest eligible date per stock (IPO or when options market matured).
 # Stocks not listed here are eligible from any date.
@@ -198,8 +232,8 @@ def get_earnings_date_and_timing(ticker: yf.Ticker, symbol: str) -> tuple:
     try:
         edf = ticker.earnings_dates
         if edf is not None and not edf.empty:
-            future = edf[edf.index.tz_localize(None) >= pd.Timestamp(today)]
-            future = future[future.index.tz_localize(None) <= pd.Timestamp(horizon)]
+            idx = edf.index.tz_convert(None) if getattr(edf.index, "tz", None) else edf.index
+            future = edf[(idx >= pd.Timestamp(today)) & (idx <= pd.Timestamp(horizon))]
             if not future.empty:
                 ts = future.index[0]
                 timing = known or classify_timing(ts)
@@ -350,6 +384,19 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
     # Always naked ATM call — spreads cap upside on stocks that historically move 14%+
     trade_type = "call"
 
+    # Confidence tier — from universe snapshot sector data + current HV
+    snap_data    = _SECTOR_LOOKUP.get(symbol, {})
+    sector_type  = snap_data.get("sector_type", "other")
+    # Re-derive tier live using current HV (HV can change since snapshot was built)
+    high_hv      = hv30 > 0.70
+    risky_sector = sector_type in ("biotech", "financial")
+    if risky_sector and high_hv:
+        confidence, position_size = "LOW",    1_000
+    elif risky_sector or high_hv:
+        confidence, position_size = "MEDIUM", 5_000
+    else:
+        confidence, position_size = "HIGH",   10_000
+
     # Get current price for display
     try:
         info = yf.Ticker(symbol).info or {}
@@ -366,6 +413,8 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
         "symbol":           symbol,
         "company":          company,
         "sector":           sector,
+        "sector_type":      sector_type,
+        "confidence":       confidence,
         "earnings_date":    earnings_date.isoformat(),
         "earnings_timing":  earnings_timing,
         "beat_rate":        round(beat_rate, 3),
@@ -373,8 +422,8 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
         "momentum_30d":     round(momentum, 3),
         "hv30":             round(hv30, 3),
         "iv_proxy":         round(iv, 3),
-        "trade_type":       trade_type,   # "call" or "spread"
-        "position_size":    POSITION_USD,
+        "trade_type":       trade_type,
+        "position_size":    position_size,
         "current_price":    round(current_price, 2),
         "validated":        False,
         "executed":         False,
