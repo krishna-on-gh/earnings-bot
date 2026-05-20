@@ -1,8 +1,8 @@
 {
-  "last_run": "2026-05-19T10:53:28.486509-04:00",
+  "last_run": "2026-05-19T23:20:46.983107-04:00",
   "status": "ok",
   "universe_size": 136,
-  "earnings_candidates": 21,
+  "earnings_candidates": 22,
   "candidates": [
     "NVDA",
     "WMT",
@@ -24,7 +24,8 @@
     "ESTC",
     "PSTG",
     "NTAP",
-    "SNOW"
+    "SNOW",
+    "GTLB"
   ],
   "recommendations_found": 3,
   "recommendations": [
