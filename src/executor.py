@@ -439,8 +439,10 @@ def run_executor():
         entry_dt    = get_entry_date(earnings_dt)
         # Only execute on the exact intended entry date (3 trading days before earnings)
         # AND earnings must still be at least 2 days away
+        # TEMP (revert after 2026-05-21): allow 1 day late for GLNG missed entry
         days_late = (today_et() - entry_dt).days
-        if days_late == 0 and r.get("earnings_date", "") > tomorrow:
+        max_late = 1 if r.get("symbol") == "GLNG" else 0
+        if days_late <= max_late and r.get("earnings_date", "") > tomorrow:
             candidates.append(r)
         else:
             log.info(
