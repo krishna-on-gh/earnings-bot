@@ -35,7 +35,8 @@ log = get_logger("scanner")
 
 # ── Hitman v2 thresholds ──────────────────────────────────────────────────────
 MIN_BEAT_RATE    = 0.62
-MIN_PU5          = 0.40
+MIN_PU5          = 0.40   # calls: >= 40% of earnings days had +5%+ move
+MIN_PD5          = 0.40   # puts:  >= 40% of earnings days had -5%+ drop
 MIN_MOMENTUM     = 0.01
 MAX_MOMENTUM     = 0.30
 MAX_IV           = 0.80
@@ -276,16 +277,20 @@ def get_beat_rate(sym: str, before_date: date) -> Optional[float]:
         return None
 
 
-def get_pu5(sym: str, as_of: date) -> Optional[float]:
+def _earnings_day_moves(sym: str, as_of: date) -> Optional[list]:
     """
-    Fraction of past earnings reports where the stock moved up 5%+ on earnings day.
-    Uses actual earnings dates — NOT calendar-quarter grouping.
-    Data capped at as_of date; requires MIN_EPS_QUARTERS qualifying rows.
+    Shared helper: returns a list of earnings-day price moves for `sym`.
 
-    For each earnings date in yfinance's earnings_dates, finds the price move
-    on that exact trading day (the day the market can react to the news).
-    Looks at the 8 most recent qualifying earnings. Requires >= 4 with valid
-    price data to return a result.
+    For each of the 8 most recent past earnings dates (with reported EPS),
+    finds the stock's price move on the correct reaction day:
+      - pre_market reporters  → same trading day as earnings_dates entry
+      - post_market reporters → next trading day
+      - unknown timing        → whichever of same/next day has the larger
+                                absolute move (the reaction dwarfs normal drift)
+
+    Returns list of floats (e.g. [+0.08, -0.03, +0.15, ...]) or None if
+    there is insufficient data (< MIN_EPS_QUARTERS qualifying rows or
+    < 4 with valid price data).
     """
     data = _get_history_and_dates(sym)
     if not data: return None
@@ -293,63 +298,48 @@ def get_pu5(sym: str, as_of: date) -> Optional[float]:
     if hist is None or len(hist) < 40: return None
     if ed is None or ed.empty: return None
     try:
+        import math as _math
         h = hist.copy()
         if getattr(h.index, "tz", None) is not None:
             h.index = h.index.tz_convert(None)
         h["ret"] = h["Close"].pct_change()
 
-        # Normalize earnings dates to tz-naive
         ed2 = ed.copy()
         if getattr(ed2.index, "tz", None) is not None:
             ed2.index = ed2.index.tz_convert(None)
 
-        # Past earnings with reported EPS data
         past_ed = ed2[(ed2.index.date < as_of) & ed2["Reported EPS"].notna()]
         if len(past_ed) < MIN_EPS_QUARTERS:
             return None
 
-        # Evaluate last 8 quarters (earnings_dates is sorted newest-first)
-        recent_ed = past_ed.head(8)
+        recent_ed     = past_ed.head(8)
+        stock_timing  = KNOWN_TIMING.get(sym, "unknown")
+        moves: list   = []
 
-        # Determine reporting timing so we look at the correct reaction day.
-        # Pre-market reporters: market reacts SAME day as the earnings_dates entry.
-        # Post-market reporters: market reacts the NEXT trading day.
-        # Unknown: check both days and take the larger absolute move.
-        import math as _math
-        stock_timing = KNOWN_TIMING.get(sym, "unknown")
-
-        up5 = 0
-        total = 0
         for ts in recent_ed.index:
             d = ts.date()
 
             if stock_timing == "pre_market":
-                # Reaction is the same trading day
-                day_mask = h.index.date == d
-                reaction_idx = h[day_mask].index
-                if not len(reaction_idx):
-                    # Fall back to next trading day within 2 days
+                day_idx = h[h.index.date == d].index
+                if not len(day_idx):
                     nxt = h[h.index.date > d].index
                     if not len(nxt) or (nxt[0].date() - d).days > 2:
                         continue
                     reaction_ts = nxt[0]
                 else:
-                    reaction_ts = reaction_idx[0]
+                    reaction_ts = day_idx[0]
 
             elif stock_timing == "post_market":
-                # Reaction is the NEXT trading day
                 nxt = h[h.index.date > d].index
                 if not len(nxt) or (nxt[0].date() - d).days > 3:
                     continue
                 reaction_ts = nxt[0]
 
-            else:
-                # Unknown timing: take whichever of same-day / next-day has the
-                # larger absolute move (the reaction dwarfs normal drift)
+            else:  # unknown
                 same_idx = h[h.index.date == d].index
                 nxt_idx  = h[h.index.date > d].index
-                same_m = h.loc[same_idx[0], "ret"] if len(same_idx) else float("nan")
-                nxt_m  = h.loc[nxt_idx[0],  "ret"] if len(nxt_idx)  else float("nan")
+                same_m   = h.loc[same_idx[0], "ret"] if len(same_idx) else float("nan")
+                nxt_m    = h.loc[nxt_idx[0],  "ret"] if len(nxt_idx)  else float("nan")
                 same_abs = abs(same_m) if not _math.isnan(same_m) else -1.0
                 nxt_abs  = abs(nxt_m)  if not _math.isnan(nxt_m)  else -1.0
                 if same_abs < 0 and nxt_abs < 0:
@@ -362,15 +352,36 @@ def get_pu5(sym: str, as_of: date) -> Optional[float]:
                     continue
 
             move = h.loc[reaction_ts, "ret"]
-            if pd.isna(move):
-                continue
-            total += 1
-            if move >= 0.05:
-                up5 += 1
+            if not pd.isna(move):
+                moves.append(float(move))
 
-        return up5 / total if total >= 4 else None
+        return moves if len(moves) >= 4 else None
     except Exception:
         return None
+
+
+def get_pu5(sym: str, as_of: date) -> Optional[float]:
+    """
+    Fraction of past earnings days where the stock moved UP 5%+.
+    Threshold for call candidates: >= MIN_PU5 (40%).
+    """
+    moves = _earnings_day_moves(sym, as_of)
+    if moves is None:
+        return None
+    return sum(1 for m in moves if m >= 0.05) / len(moves)
+
+
+def get_pd5(sym: str, as_of: date) -> Optional[float]:
+    """
+    Fraction of past earnings days where the stock dropped 5%+.
+    Threshold for put candidates: >= MIN_PD5 (40%).
+    Mirror metric to pu5 — catches consistent earnings-day dumpers
+    (e.g. stocks that gap down even on beats, or reliably miss badly).
+    """
+    moves = _earnings_day_moves(sym, as_of)
+    if moves is None:
+        return None
+    return sum(1 for m in moves if m <= -0.05) / len(moves)
 
 
 def get_momentum(sym: str, as_of: date) -> Optional[float]:
@@ -411,7 +422,13 @@ def get_hv30(sym: str, as_of: date) -> Optional[float]:
 def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unknown") -> Optional[Dict[str, Any]]:
     """
     Apply Hitman v2 filters to a stock with upcoming earnings.
-    Returns a candidate dict if all 4 filters pass, else None.
+
+    Evaluates TWO separate trade paths and returns the first that passes:
+      CALL path  — beat_rate >= 62%, pu5 >= 40%, momentum +1% to +30%, IV < 80%
+      PUT path   — pd5 >= 40%, IV < 80%, momentum -30% to +30%
+                   (no beat_rate requirement: stocks can dump even on beats)
+
+    Returns a candidate dict with trade_type = "call" or "put", or None.
     """
     # Skip if not yet eligible (IPO date check)
     eligible_from = ELIGIBLE_FROM.get(symbol, date(2000, 1, 1))
@@ -421,36 +438,51 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
 
     today = today_et()
 
-    # Compute all metrics as of today
-    # (rechecked at actual entry date ~3 trading days before earnings)
+    # ── Compute all metrics as of today ────────────────────────────────────
     beat_rate = get_beat_rate(symbol, before_date=today)
     pu5       = get_pu5(symbol, as_of=today)
+    pd5       = get_pd5(symbol, as_of=today)
     momentum  = get_momentum(symbol, as_of=today)
     hv30      = get_hv30(symbol, as_of=today)
     iv        = hv30 * 1.45 if hv30 is not None else None
 
-    # Apply all 4 filters
-    fails = []
+    # ── CALL path ───────────────────────────────────────────────────────────
+    call_fails = []
     if beat_rate is None or beat_rate < MIN_BEAT_RATE:
-        fails.append(f"beat_rate={beat_rate:.0%}" if beat_rate is not None else "beat_rate=None")
+        call_fails.append(f"beat_rate={beat_rate:.0%}" if beat_rate is not None else "beat_rate=None")
     if pu5 is None or pu5 < MIN_PU5:
-        fails.append(f"pu5={pu5:.0%}" if pu5 is not None else "pu5=None")
+        call_fails.append(f"pu5={pu5:.0%}" if pu5 is not None else "pu5=None")
     if momentum is None or not (MIN_MOMENTUM <= momentum <= MAX_MOMENTUM):
-        fails.append(f"momentum={momentum:+.0%}" if momentum is not None else "momentum=None")
+        call_fails.append(f"momentum={momentum:+.0%}" if momentum is not None else "momentum=None")
     if iv is None or iv >= MAX_IV:
-        fails.append(f"IV={iv:.0%}" if iv is not None else "IV=None")
+        call_fails.append(f"IV={iv:.0%}" if iv is not None else "IV=None")
 
-    if fails:
-        log.debug(f"{symbol}: filtered out — {', '.join(fails)}")
+    call_passes = len(call_fails) == 0
+
+    # ── PUT path ────────────────────────────────────────────────────────────
+    # No beat_rate gate — stocks can dump consistently even on EPS beats.
+    # Momentum allowed in a wider range; don't want stocks already in freefall.
+    put_fails = []
+    if pd5 is None or pd5 < MIN_PD5:
+        put_fails.append(f"pd5={pd5:.0%}" if pd5 is not None else "pd5=None")
+    if iv is None or iv >= MAX_IV:
+        put_fails.append(f"IV={iv:.0%}" if iv is not None else "IV=None")
+    if momentum is None or not (-0.30 <= momentum <= 0.30):
+        put_fails.append(f"momentum={momentum:+.0%}" if momentum is not None else "momentum=None")
+
+    put_passes = len(put_fails) == 0
+
+    if not call_passes and not put_passes:
+        all_fails = list(dict.fromkeys(call_fails + put_fails))
+        log.debug(f"{symbol}: filtered out (call: {call_fails}  put: {put_fails})")
         return None
 
-    # Always naked ATM call — spreads cap upside on stocks that historically move 14%+
-    trade_type = "call"
+    # Call takes priority if both somehow pass (rare — usually mutually exclusive)
+    trade_type = "call" if call_passes else "put"
 
-    # Confidence tier — from universe snapshot sector data + current HV
+    # ── Confidence tier ─────────────────────────────────────────────────────
     snap_data    = _SECTOR_LOOKUP.get(symbol, {})
     sector_type  = snap_data.get("sector_type", "other")
-    # Re-derive tier live using current HV (HV can change since snapshot was built)
     high_hv      = hv30 > 0.70
     risky_sector = sector_type in ("biotech", "financial")
     if risky_sector and high_hv:
@@ -460,16 +492,16 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
     else:
         confidence, position_size = "HIGH",   10_000
 
-    # Get current price for display
+    # ── Current price ───────────────────────────────────────────────────────
     try:
         info = yf.Ticker(symbol).info or {}
         current_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
         company = info.get("longName", symbol)
-        sector = info.get("sector", "Unknown")
+        sector  = info.get("sector", "Unknown")
     except Exception:
         current_price = 0
         company = symbol
-        sector = "Unknown"
+        sector  = "Unknown"
 
     result = {
         "id":               str(uuid.uuid4())[:8],
@@ -480,9 +512,10 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
         "confidence":       confidence,
         "earnings_date":    earnings_date.isoformat(),
         "earnings_timing":  earnings_timing,
-        "beat_rate":        round(beat_rate, 3),
-        "pu5":              round(pu5, 3),
-        "momentum_30d":     round(momentum, 3),
+        "beat_rate":        round(beat_rate, 3) if beat_rate is not None else None,
+        "pu5":              round(pu5, 3)       if pu5 is not None       else None,
+        "pd5":              round(pd5, 3)       if pd5 is not None       else None,
+        "momentum_30d":     round(momentum, 3)  if momentum is not None  else None,
         "hv30":             round(hv30, 3),
         "iv_proxy":         round(iv, 3),
         "trade_type":       trade_type,
@@ -494,10 +527,16 @@ def analyze_stock(symbol: str, earnings_date: date, earnings_timing: str = "unkn
         "notes":            [],
     }
 
-    log.info(
-        f"{symbol}: PASS | beat={beat_rate:.0%} pu5={pu5:.0%} "
-        f"mom={momentum:+.0%} IV={iv:.0%} | {trade_type} | earnings={earnings_date}"
-    )
+    if trade_type == "call":
+        log.info(
+            f"{symbol}: CALL | beat={beat_rate:.0%} pu5={pu5:.0%} "
+            f"mom={momentum:+.0%} IV={iv:.0%} | earnings={earnings_date}"
+        )
+    else:
+        log.info(
+            f"{symbol}: PUT  | pd5={pd5:.0%} mom={momentum:+.0%} "
+            f"IV={iv:.0%} | earnings={earnings_date}"
+        )
     return result
 
 
@@ -597,30 +636,43 @@ def run_scanner():
         "recommendations":       [r["symbol"] for r in recommendations],
     })
 
-    log.info(f"SCANNER COMPLETE: {len(recommendations)} Hitman v2 candidates saved")
+    calls = [r for r in recommendations if r.get("trade_type") == "call"]
+    puts  = [r for r in recommendations if r.get("trade_type") == "put"]
+    log.info(f"SCANNER COMPLETE: {len(recommendations)} candidates ({len(calls)} calls, {len(puts)} puts)")
 
     # Email summary
+    def _fmt_call(r):
+        br  = f"{r['beat_rate']:.0%}" if r.get("beat_rate") is not None else "N/A"
+        p5  = f"{r['pu5']:.0%}"       if r.get("pu5")       is not None else "N/A"
+        mom = f"{r['momentum_30d']:+.0%}" if r.get("momentum_30d") is not None else "N/A"
+        return (f"  {r['symbol']:6s} | {r['company'][:26]:26s} | "
+                f"beat={br} pu5={p5} mom={mom} IV={r['iv_proxy']:.0%} | earnings={r['earnings_date']}")
+
+    def _fmt_put(r):
+        p5  = f"{r['pd5']:.0%}"          if r.get("pd5")          is not None else "N/A"
+        mom = f"{r['momentum_30d']:+.0%}" if r.get("momentum_30d") is not None else "N/A"
+        return (f"  {r['symbol']:6s} | {r['company'][:26]:26s} | "
+                f"pd5={p5} mom={mom} IV={r['iv_proxy']:.0%} | earnings={r['earnings_date']}")
+
     if recommendations:
-        lines = []
-        for r in recommendations:
-            lines.append(
-                f"  {r['symbol']:6s} | {r['company'][:28]:28s} | "
-                f"beat={r['beat_rate']:.0%} pu5={r['pu5']:.0%} "
-                f"mom={r['momentum_30d']:+.0%} IV={r['iv_proxy']:.0%} | "
-                f"{r['trade_type']:6s} | earnings={r['earnings_date']}"
-            )
-        summary = "\n".join(lines)
+        sections = []
+        if calls:
+            sections.append("CALL CANDIDATES:\n" + "\n".join(_fmt_call(r) for r in calls))
+        if puts:
+            sections.append("PUT CANDIDATES:\n"  + "\n".join(_fmt_put(r)  for r in puts))
+        summary = "\n\n".join(sections)
     else:
         summary = "  No Hitman v2 candidates found tonight."
 
     send_email(
-        f"Hitman v2 Scan: {len(recommendations)} candidates found",
+        f"Hitman v2 Scan: {len(calls)} calls, {len(puts)} puts",
         f"Hitman v2 Scanner Results — {today_str}\n\n"
         f"Universe: {len(UNIVERSE)} stocks | "
         f"Earnings this window: {len(earnings_candidates)}\n\n"
-        f"Candidates (all 4 filters passed):\n\n{summary}\n\n"
-        f"Filters: beat>={MIN_BEAT_RATE:.0%}  pu5>={MIN_PU5:.0%}  "
-        f"mom {MIN_MOMENTUM:.0%}-{MAX_MOMENTUM:.0%}  IV<{MAX_IV:.0%}",
+        f"{summary}\n\n"
+        f"Call filters:  beat>={MIN_BEAT_RATE:.0%}  pu5>={MIN_PU5:.0%}  "
+        f"mom +{MIN_MOMENTUM:.0%} to +{MAX_MOMENTUM:.0%}  IV<{MAX_IV:.0%}\n"
+        f"Put filters:   pd5>={MIN_PD5:.0%}  mom -30% to +30%  IV<{MAX_IV:.0%}",
     )
 
 

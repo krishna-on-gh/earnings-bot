@@ -14,12 +14,19 @@ Layers:
      Growth component (~85% of IWF overlap). Net-new additions are NYSE-listed
      large-caps not yet selected for the S&P500 by committee.
 
-Then applies Hitman call filters to every stock using current data:
-  beat_rate  >= 62%
-  pu5        >= 40%
-  momentum   +1% to +30%
-  HV30       < 80%
-  min 5 quarters of earnings history
+Then applies Hitman filters to every stock using current data:
+
+  CALL filters (all required):
+    beat_rate  >= 62%
+    pu5        >= 40%
+    momentum   +1% to +30%
+    HV30       < 80%
+    min 5 quarters of earnings history
+
+  PUT filters (all required, no beat_rate needed):
+    pd5        >= 40%   [% of earnings days with -5%+ drop]
+    momentum   -30% to +30%
+    HV30       < 80%
 
 Confidence tier (position sizing):
   $10K — passes all filters, not biotech/financial, HV < 70%
@@ -45,12 +52,17 @@ warnings.filterwarnings("ignore")
 # ── Hitman Call Filters ───────────────────────────────────────────────────────
 MIN_BEAT_RATE   = 0.62
 MIN_PU5         = 0.40
+MIN_PD5         = 0.40   # puts: >= 40% of earnings days had -5%+ drop
 MIN_MOMENTUM    = 0.01
 MAX_MOMENTUM    = 0.30
 MAX_HV          = 0.80
 MIN_QUARTERS    = 5
 MIN_PRICE       = 10.0
 MIN_MCAP        = 3e9      # $3B market cap threshold
+
+# ── Put momentum range (wider — no directional bias required) ─────────────────
+PUT_MIN_MOMENTUM = -0.30
+PUT_MAX_MOMENTUM =  0.30
 
 # ── International ADRs ────────────────────────────────────────────────────────
 INTL_ADRS = {
@@ -455,8 +467,9 @@ def compute_hitman_metrics(sym: str) -> dict | None:
             return None
 
         move_vals = [m for _, m in moves]
-        beat_rate = sum(1 for m in move_vals if m > 0) / len(move_vals)
+        beat_rate = sum(1 for m in move_vals if m > 0)    / len(move_vals)
         pu5       = sum(1 for m in move_vals if m >= 0.05) / len(move_vals)
+        pd5       = sum(1 for m in move_vals if m <= -0.05) / len(move_vals)
 
         momentum  = compute_momentum_30d(prices)
         hv30      = compute_hv30(prices)
@@ -496,6 +509,7 @@ def compute_hitman_metrics(sym: str) -> dict | None:
             "symbol":        sym,
             "beat_rate":     round(beat_rate, 3),
             "pu5":           round(pu5, 3),
+            "pd5":           round(pd5, 3),
             "momentum_30d":  round(momentum, 3),
             "hv30":          round(hv30, 3),
             "n_quarters":    len(move_vals),
@@ -520,6 +534,7 @@ def compute_hitman_metrics(sym: str) -> dict | None:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def apply_hitman_filters(metrics: dict) -> bool:
+    """Call candidate: beat_rate + pu5 + positive momentum + low HV."""
     return (
         metrics["beat_rate"]    >= MIN_BEAT_RATE  and
         metrics["pu5"]          >= MIN_PU5         and
@@ -527,17 +542,29 @@ def apply_hitman_filters(metrics: dict) -> bool:
         metrics["hv30"]         <  MAX_HV
     )
 
-def screen_universe(tickers: list) -> tuple[list, list]:
+def apply_put_filters(metrics: dict) -> bool:
     """
-    Returns (all_metrics, call_candidates)
+    Put candidate: consistent earnings-day dumper, IV in range.
+    No beat_rate requirement — stocks can dump even on EPS beats.
+    Wider momentum range (-30% to +30%) — no directional bias needed.
+    """
+    return (
+        metrics.get("pd5", 0.0) >= MIN_PD5  and
+        PUT_MIN_MOMENTUM <= metrics["momentum_30d"] <= PUT_MAX_MOMENTUM and
+        metrics["hv30"]  <  MAX_HV
+    )
+
+def screen_universe(tickers: list) -> tuple[list, list, list]:
+    """
+    Returns (all_metrics, call_candidates, put_candidates)
     """
     print(f"\n[STEP 3] Computing Hitman metrics for {len(tickers)} stocks...")
     print("  (This takes ~8-15 min — rate limited by yfinance)")
 
-    all_metrics = []
-    candidates  = []
-    no_data     = 0
-    insuf_earn  = 0
+    all_metrics    = []
+    call_candidates = []
+    put_candidates  = []
+    no_data        = 0
 
     for i, sym in enumerate(tickers):
         m = compute_hitman_metrics(sym)
@@ -547,122 +574,169 @@ def screen_universe(tickers: list) -> tuple[list, list]:
         else:
             all_metrics.append(m)
             if apply_hitman_filters(m):
-                candidates.append(m)
+                call_candidates.append(m)
+            elif apply_put_filters(m):
+                # Only add as put if it didn't already qualify as call
+                put_candidates.append(m)
 
         if (i + 1) % 25 == 0 or (i + 1) == len(tickers):
             pct = (i + 1) / len(tickers) * 100
-            print(f"  [{i+1:>4}/{len(tickers)}] {pct:>5.1f}%  candidates so far: {len(candidates)}    ",
+            print(f"  [{i+1:>4}/{len(tickers)}] {pct:>5.1f}%  "
+                  f"calls: {len(call_candidates)}  puts: {len(put_candidates)}    ",
                   end="\r", flush=True)
         time.sleep(0.12)   # ~8 req/sec — stay within yfinance limits
 
     print(f"\n  Total screened:      {len(tickers)}")
     print(f"  Had enough data:     {len(all_metrics)}")
     print(f"  No/insufficient data:{no_data}")
-    return all_metrics, candidates
+    return all_metrics, call_candidates, put_candidates
 
 # ─────────────────────────────────────────────────────────────────────────────
 # STEP 5 — Report
 # ─────────────────────────────────────────────────────────────────────────────
 
-def print_report(all_metrics: list, candidates: list):
-    total = len(all_metrics)
-    n     = len(candidates)
+def print_report(all_metrics: list, call_candidates: list, put_candidates: list):
+    total  = len(all_metrics)
+    n_call = len(call_candidates)
+    n_put  = len(put_candidates)
 
     print("\n" + "=" * 70)
-    print("  HITMAN v3 UNIVERSE SCAN — CALL CANDIDATES")
+    print(f"  HITMAN v3 UNIVERSE SCAN — {n_call} CALLS  |  {n_put} PUTS")
     print(f"  {TODAY}  |  Universe: {total} stocks with data")
     print("=" * 70)
 
-    # Filter breakdown
+    # ── Call filter funnel ────────────────────────────────────────────────────
     br_pass  = sum(1 for m in all_metrics if m["beat_rate"]    >= MIN_BEAT_RATE)
     pu5_pass = sum(1 for m in all_metrics if m["pu5"]          >= MIN_PU5)
+    pd5_pass = sum(1 for m in all_metrics if m.get("pd5", 0)   >= MIN_PD5)
     mom_pass = sum(1 for m in all_metrics if MIN_MOMENTUM <= m["momentum_30d"] <= MAX_MOMENTUM)
     hv_pass  = sum(1 for m in all_metrics if m["hv30"]         <  MAX_HV)
 
-    print(f"\n  Filter funnel:")
+    print(f"\n  ── Call filter funnel ──")
     print(f"    Total with data:               {total:>4}")
     print(f"    beat_rate >= {MIN_BEAT_RATE:.0%}:             {br_pass:>4}  ({br_pass/total*100:.0f}%)")
     print(f"    pu5 >= {MIN_PU5:.0%}:                   {pu5_pass:>4}  ({pu5_pass/total*100:.0f}%)")
     print(f"    momentum {MIN_MOMENTUM:.0%} to {MAX_MOMENTUM:.0%}:         {mom_pass:>4}  ({mom_pass/total*100:.0f}%)")
     print(f"    HV30 < {MAX_HV:.0%}:                   {hv_pass:>4}  ({hv_pass/total*100:.0f}%)")
-    print(f"    ALL filters (call candidates):  {n:>4}  ({n/total*100:.0f}%)")
+    print(f"    ALL call filters:              {n_call:>4}  ({n_call/total*100:.0f}%)")
 
-    if not candidates:
-        print("\n  No candidates today.")
-        return
+    print(f"\n  ── Put filter funnel ──")
+    print(f"    pd5 >= {MIN_PD5:.0%}:                   {pd5_pass:>4}  ({pd5_pass/total*100:.0f}%)")
+    print(f"    momentum {PUT_MIN_MOMENTUM:.0%} to +{PUT_MAX_MOMENTUM:.0%}:       {mom_pass:>4}  ({mom_pass/total*100:.0f}%)")
+    print(f"    HV30 < {MAX_HV:.0%}:                   {hv_pass:>4}  ({hv_pass/total*100:.0f}%)")
+    print(f"    ALL put filters (excl. calls): {n_put:>4}  ({n_put/total*100:.0f}%)")
 
-    # Sort by beat_rate * pu5 (signal strength)
-    candidates.sort(key=lambda m: m["beat_rate"] * m["pu5"], reverse=True)
+    # ─────────────────────────────────────────────────────────────────────────
+    # CALL CANDIDATES
+    # ─────────────────────────────────────────────────────────────────────────
+    if call_candidates:
+        call_candidates.sort(key=lambda m: m["beat_rate"] * m["pu5"], reverse=True)
+        domestic_c = [m for m in call_candidates if not m["is_intl"]]
+        intl_c     = [m for m in call_candidates if m["is_intl"]]
+        china_c    = [m for m in call_candidates if m["is_china"]]
 
-    # Split domestic vs international
-    domestic = [m for m in candidates if not m["is_intl"]]
-    intl_c   = [m for m in candidates if m["is_intl"]]
-    china    = [m for m in candidates if m["is_china"]]
-    non_china_intl = [m for m in intl_c if not m["is_china"]]
+        t10 = sum(1 for m in call_candidates if m.get("position_size") == 10_000)
+        t5  = sum(1 for m in call_candidates if m.get("position_size") ==  5_000)
+        t1  = sum(1 for m in call_candidates if m.get("position_size") ==  1_000)
 
-    print(f"\n  CALL CANDIDATES: {n} total")
-    print(f"    Domestic:             {len(domestic)}")
-    print(f"    International (non-China): {len(non_china_intl)}")
-    print(f"    China ADRs (flagged): {len(china)}")
+        print(f"\n  ━━ CALL CANDIDATES: {n_call} total ━━")
+        print(f"    Domestic: {len(domestic_c)}  |  Intl (non-China): {len([m for m in intl_c if not m['is_china']])}  |  China (flagged): {len(china_c)}")
+        print(f"    Position tiers:  $10K x{t10}   $5K x{t5}   $1K x{t1}   "
+              f"Max deploy: ${t10*10_000 + t5*5_000 + t1*1_000:,.0f}")
 
-    # Tier counts
-    t10 = sum(1 for m in candidates if m.get("position_size") == 10_000)
-    t5  = sum(1 for m in candidates if m.get("position_size") ==  5_000)
-    t1  = sum(1 for m in candidates if m.get("position_size") ==  1_000)
-    print(f"\n  Position tiers:  ${10:,}K x{t10}   $5K x{t5}   $1K x{t1}")
-    print(f"  Max deploy if all trade: ${t10*10_000 + t5*5_000 + t1*1_000:,.0f}")
-
-    print(f"\n  {'Symbol':<8} {'Tier':>6} {'Pos$':>7} {'Beat%':>6} {'PU5%':>6} {'Mom%':>6} {'HV%':>5} {'Sector':<12} {'Next Earn'}")
-    print(f"  {'-'*7:<8} {'-'*6:>6} {'-'*7:>7} {'-'*6:>6} {'-'*6:>6} {'-'*6:>6} {'-'*5:>5} {'-'*12:<12} {'-'*12}")
-
-    for m in candidates:
-        flag = " [CHINA]" if m["is_china"] else (" [INTL]" if m["is_intl"] else "")
-        ne   = (m["next_earnings"] or "")[:10]
-        sec  = (m.get("sector_type") or "other")[:6].upper()
-        pos  = f"${m.get('position_size', 10000):,}"
-        conf = m.get("confidence", "HIGH")
-        print(f"  {m['symbol']:<8} {conf:>6} {pos:>7}  {m['beat_rate']:>5.0%}  {m['pu5']:>5.0%}  "
-              f"{m['momentum_30d']:>+5.1%}  {m['hv30']:>4.0%}  {sec:<12} {ne}{flag}")
-
-    # Beat rate distribution of candidates
-    avg_br  = np.mean([m["beat_rate"]    for m in candidates])
-    avg_pu5 = np.mean([m["pu5"]          for m in candidates])
-    avg_mom = np.mean([m["momentum_30d"] for m in candidates])
-    avg_hv  = np.mean([m["hv30"]         for m in candidates])
-
-    print(f"\n  Candidate averages:")
-    print(f"    beat_rate:   {avg_br:.0%}")
-    print(f"    pu5:         {avg_pu5:.0%}")
-    print(f"    momentum_30d:{avg_mom:+.1%}")
-    print(f"    HV30:        {avg_hv:.0%}")
-
-    # Upcoming earnings focus
-    with_earn = [m for m in candidates if m["next_earnings"] and m["next_earnings"] != "None"]
-    if with_earn:
-        with_earn.sort(key=lambda m: m["next_earnings"] or "9999")
-        print(f"\n  Candidates with upcoming earnings ({len(with_earn)}):")
-        for m in with_earn[:20]:
+        print(f"\n  {'Symbol':<8} {'Tier':>6} {'Pos$':>7} {'Beat%':>6} {'PU5%':>6} {'Mom%':>6} {'HV%':>5} {'Sector':<10} {'Next Earn'}")
+        print(f"  {'-'*7:<8} {'-'*6:>6} {'-'*7:>7} {'-'*6:>6} {'-'*6:>6} {'-'*6:>6} {'-'*5:>5} {'-'*10:<10} {'-'*12}")
+        for m in call_candidates:
             flag = " [CHINA]" if m["is_china"] else (" [INTL]" if m["is_intl"] else "")
-            print(f"    {m['symbol']:<8}  next: {(m['next_earnings'] or '')[:10]}  "
-                  f"beat={m['beat_rate']:.0%}  pu5={m['pu5']:.0%}{flag}")
+            ne   = (m["next_earnings"] or "")[:10]
+            sec  = (m.get("sector_type") or "other")[:6].upper()
+            pos  = f"${m.get('position_size', 10000):,}"
+            conf = m.get("confidence", "HIGH")
+            print(f"  {m['symbol']:<8} {conf:>6} {pos:>7}  {m['beat_rate']:>5.0%}  {m['pu5']:>5.0%}  "
+                  f"{m['momentum_30d']:>+5.1%}  {m['hv30']:>4.0%}  {sec:<10} {ne}{flag}")
 
-def save_results(all_metrics: list, candidates: list):
+        avg_br  = np.mean([m["beat_rate"]    for m in call_candidates])
+        avg_pu5 = np.mean([m["pu5"]          for m in call_candidates])
+        avg_mom = np.mean([m["momentum_30d"] for m in call_candidates])
+        avg_hv  = np.mean([m["hv30"]         for m in call_candidates])
+        print(f"\n  Call averages:  beat={avg_br:.0%}  pu5={avg_pu5:.0%}  mom={avg_mom:+.1%}  HV={avg_hv:.0%}")
+
+        with_earn = sorted(
+            [m for m in call_candidates if m["next_earnings"] and m["next_earnings"] != "None"],
+            key=lambda m: m["next_earnings"] or "9999",
+        )
+        if with_earn:
+            print(f"\n  Upcoming earnings ({len(with_earn)} calls):")
+            for m in with_earn[:20]:
+                flag = " [CHINA]" if m["is_china"] else (" [INTL]" if m["is_intl"] else "")
+                print(f"    {m['symbol']:<8}  next: {(m['next_earnings'] or '')[:10]}  "
+                      f"beat={m['beat_rate']:.0%}  pu5={m['pu5']:.0%}{flag}")
+    else:
+        print("\n  No call candidates today.")
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # PUT CANDIDATES
+    # ─────────────────────────────────────────────────────────────────────────
+    if put_candidates:
+        put_candidates.sort(key=lambda m: m.get("pd5", 0), reverse=True)
+        domestic_p = [m for m in put_candidates if not m["is_intl"]]
+        china_p    = [m for m in put_candidates if m["is_china"]]
+
+        print(f"\n  ━━ PUT CANDIDATES: {n_put} total ━━")
+        print(f"    Domestic: {len(domestic_p)}  |  China (flagged): {len(china_p)}")
+
+        print(f"\n  {'Symbol':<8} {'PD5%':>6} {'Mom%':>6} {'HV%':>5} {'Sector':<10} {'Next Earn'}")
+        print(f"  {'-'*7:<8} {'-'*6:>6} {'-'*6:>6} {'-'*5:>5} {'-'*10:<10} {'-'*12}")
+        for m in put_candidates:
+            flag = " [CHINA]" if m["is_china"] else (" [INTL]" if m["is_intl"] else "")
+            ne   = (m["next_earnings"] or "")[:10]
+            sec  = (m.get("sector_type") or "other")[:6].upper()
+            pd5v = m.get("pd5", 0.0)
+            print(f"  {m['symbol']:<8} {pd5v:>5.0%}  "
+                  f"{m['momentum_30d']:>+5.1%}  {m['hv30']:>4.0%}  {sec:<10} {ne}{flag}")
+
+        avg_pd5 = np.mean([m.get("pd5", 0) for m in put_candidates])
+        avg_mom = np.mean([m["momentum_30d"] for m in put_candidates])
+        avg_hv  = np.mean([m["hv30"]         for m in put_candidates])
+        print(f"\n  Put averages:  pd5={avg_pd5:.0%}  mom={avg_mom:+.1%}  HV={avg_hv:.0%}")
+
+        with_earn_p = sorted(
+            [m for m in put_candidates if m["next_earnings"] and m["next_earnings"] != "None"],
+            key=lambda m: m["next_earnings"] or "9999",
+        )
+        if with_earn_p:
+            print(f"\n  Upcoming earnings ({len(with_earn_p)} puts):")
+            for m in with_earn_p[:20]:
+                flag = " [CHINA]" if m["is_china"] else (" [INTL]" if m["is_intl"] else "")
+                print(f"    {m['symbol']:<8}  next: {(m['next_earnings'] or '')[:10]}  "
+                      f"pd5={m.get('pd5', 0):.0%}  mom={m['momentum_30d']:+.0%}{flag}")
+    else:
+        print("\n  No put candidates today.")
+
+def save_results(all_metrics: list, call_candidates: list, put_candidates: list):
     out = {
-        "generated":     TODAY.isoformat(),
-        "total_screened": len(all_metrics),
-        "total_candidates": len(candidates),
+        "generated":            TODAY.isoformat(),
+        "total_screened":       len(all_metrics),
+        "total_call_candidates": len(call_candidates),
+        "total_put_candidates":  len(put_candidates),
         "filters": {
-            "min_beat_rate":  MIN_BEAT_RATE,
-            "min_pu5":        MIN_PU5,
-            "min_momentum":   MIN_MOMENTUM,
-            "max_momentum":   MAX_MOMENTUM,
-            "max_hv30":       MAX_HV,
-            "min_quarters":   MIN_QUARTERS,
-            "min_price":      MIN_PRICE,
-            "min_mcap_bn":    MIN_MCAP / 1e9,
+            "min_beat_rate":     MIN_BEAT_RATE,
+            "min_pu5":           MIN_PU5,
+            "min_pd5":           MIN_PD5,
+            "min_momentum":      MIN_MOMENTUM,
+            "max_momentum":      MAX_MOMENTUM,
+            "put_min_momentum":  PUT_MIN_MOMENTUM,
+            "put_max_momentum":  PUT_MAX_MOMENTUM,
+            "max_hv30":          MAX_HV,
+            "min_quarters":      MIN_QUARTERS,
+            "min_price":         MIN_PRICE,
+            "min_mcap_bn":       MIN_MCAP / 1e9,
         },
-        "candidates": candidates,
-        "full_universe": all_metrics,
+        "call_candidates": call_candidates,
+        "put_candidates":  put_candidates,
+        # Legacy key kept for backwards compatibility with scanner.py _load_universe()
+        "candidates":      call_candidates,
+        "full_universe":   all_metrics,
     }
     path = r"C:\Users\krish\Documents\Claude Stock Trader\data\universe_snapshot.json"
     with open(path, "w") as f:
@@ -676,7 +750,8 @@ def save_results(all_metrics: list, candidates: list):
 if __name__ == "__main__":
     print("=" * 70)
     print("  HITMAN v3 — UNIVERSE BUILDER")
-    print(f"  {TODAY}  |  Medium universe: S&P500 + NDX100 + NASDAQ Global + Intl ADRs")
+    print(f"  {TODAY}  |  S&P500 + NDX100 + NASDAQ Global + Intl ADRs")
+    print(f"  Screens for CALL candidates (beat+pu5) AND PUT candidates (pd5)")
     print("=" * 70)
 
     # 1. Build raw ticker list
@@ -686,12 +761,12 @@ if __name__ == "__main__":
     qualified = filter_by_mcap(raw_tickers)
 
     # 3. Screen with Hitman metrics
-    all_metrics, candidates = screen_universe(qualified)
+    all_metrics, call_candidates, put_candidates = screen_universe(qualified)
 
     # 4. Report
-    print_report(all_metrics, candidates)
+    print_report(all_metrics, call_candidates, put_candidates)
 
     # 5. Save
-    save_results(all_metrics, candidates)
+    save_results(all_metrics, call_candidates, put_candidates)
 
     print("\nDone.")
