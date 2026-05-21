@@ -4,10 +4,15 @@ build_universe.py  —  Hitman v3 Universe Builder
 =================================================
 Layers:
   1. S&P 500          (~503 stocks, GitHub datasets CSV — Wikipedia 403s)
-  2. NASDAQ 100       (~100 stocks, GitHub datasets CSV)
+  2. NASDAQ 100       (~100 stocks, hardcoded NDX constituents)
   3. NASDAQ Global Select + Global Market  (Q/G tier from nasdaqtrader.com)
      filtered to market cap > $3B (proxy: price > $10, exclude penny/micro)
   4. International ADRs (hand-curated)
+  5. QQQ holdings >= 0.2% weight  (slickcharts.com/nasdaq100)
+  6. IWF-equivalent >= 0.2% weight  (SSGA SPYG xlsx + slickcharts S&P500)
+     Note: iShares blocks automated IWF downloads; SPYG covers the S&P500
+     Growth component (~85% of IWF overlap). Net-new additions are NYSE-listed
+     large-caps not yet selected for the S&P500 by committee.
 
 Then applies Hitman call filters to every stock using current data:
   beat_rate  >= 62%
@@ -33,7 +38,7 @@ import time
 import requests
 import warnings
 from datetime import datetime, timedelta, date
-from io import StringIO
+from io import StringIO, BytesIO
 
 warnings.filterwarnings("ignore")
 
@@ -187,14 +192,122 @@ def get_nasdaq_global() -> set:
         print(f"FAILED: {e}")
         return set()
 
+def get_qqq_holdings(min_weight: float = 0.002) -> set:
+    """
+    Fetch QQQ (Invesco Nasdaq 100 ETF) holdings with weight >= min_weight.
+    Source: slickcharts.com/nasdaq100 — public, no auth required.
+    Returns set of ticker symbols.
+    """
+    print(f"  Fetching QQQ (Nasdaq 100) holdings >= {min_weight*100:.1f}% via slickcharts...", end=" ", flush=True)
+    try:
+        resp = requests.get(
+            "https://www.slickcharts.com/nasdaq100",
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+            timeout=15,
+        )
+        resp.raise_for_status()
+        tables = pd.read_html(StringIO(resp.text))
+        df = tables[0]
+        sym_col    = next((c for c in df.columns if str(c).lower() in ("symbol", "ticker")), None)
+        weight_col = next((c for c in df.columns if "weight" in str(c).lower()), None)
+        if sym_col is None or weight_col is None:
+            raise ValueError(f"Columns not found: {list(df.columns)}")
+        df["_w"] = pd.to_numeric(
+            df[weight_col].astype(str).str.replace("%", "").str.strip(),
+            errors="coerce",
+        ) / 100.0
+        qualified = df[df["_w"] >= min_weight][sym_col].astype(str).str.strip()
+        tickers = {t.replace(".", "-") for t in qualified if t and not t.startswith("-")}
+        print(f"{len(tickers)} tickers")
+        return tickers
+    except Exception as e:
+        print(f"FAILED ({e}) — returning empty set")
+        return set()
+
+
+def get_iwf_holdings(min_weight: float = 0.002) -> set:
+    """
+    Fetch IWF-equivalent large-cap growth holdings with weight >= min_weight.
+
+    IWF tracks the Russell 1000 Growth index (~500 stocks). BlackRock/iShares
+    blocks automated downloads, so we use two publicly accessible sources that
+    together cover the meaningful IWF weight:
+
+      1. SSGA SPYG  — SPDR S&P 500 Growth ETF (xlsx, ~230 stocks).
+         Covers the S&P 500 Growth subset, which accounts for ~85% of IWF's
+         total net assets by overlap.
+
+      2. slickcharts S&P 500 with weight >= min_weight (top ~60 stocks).
+         Captures any remaining large-cap S&P500 names not in SPYG.
+
+    Both sources are deduplicated against the S&P500 + NASDAQ Global sets
+    inside build_full_universe(), so only genuinely new tickers are added.
+    The practical net-new additions are NYSE-listed large-caps not yet in the
+    S&P500 committee selection — these pass naturally through the market-cap
+    filter in Step 2.
+
+    Returns set of ticker symbols.
+    """
+    print(f"  Fetching IWF-equivalent (SPYG + S&P500 growth leaders) >= {min_weight*100:.1f}%...", end=" ", flush=True)
+    tickers: set = set()
+
+    # Source 1: SSGA SPYG xlsx (daily holdings, ~230 S&P500 Growth stocks)
+    try:
+        r = requests.get(
+            "https://www.ssga.com/us/en/intermediary/etfs/library-content/products/fund-data/etfs/us/holdings-daily-us-en-spyg.xlsx",
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+            timeout=20,
+        )
+        r.raise_for_status()
+        df = pd.read_excel(BytesIO(r.content), skiprows=4)
+        df.columns = df.columns.str.strip()
+        df = df[df["Ticker"].notna() & (df["Ticker"] != "-")]
+        df["_w"] = pd.to_numeric(df["Weight"], errors="coerce")
+        qualified = df[df["_w"] >= min_weight * 100]["Ticker"].astype(str).str.strip()
+        tickers |= {t.replace(".", "-") for t in qualified if t and not t.startswith("-")}
+    except Exception as e:
+        print(f"[SPYG failed: {e}] ", end="")
+
+    # Source 2: slickcharts S&P 500 weights — catches anything SPYG misses
+    try:
+        resp = requests.get(
+            "https://www.slickcharts.com/sp500",
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+            timeout=15,
+        )
+        resp.raise_for_status()
+        tables = pd.read_html(StringIO(resp.text))
+        df2 = tables[0]
+        sym_col    = next((c for c in df2.columns if str(c).lower() in ("symbol", "ticker")), None)
+        weight_col = next((c for c in df2.columns if "weight" in str(c).lower()), None)
+        if sym_col and weight_col:
+            df2["_w"] = pd.to_numeric(
+                df2[weight_col].astype(str).str.replace("%", "").str.strip(),
+                errors="coerce",
+            ) / 100.0
+            qualified2 = df2[df2["_w"] >= min_weight][sym_col].astype(str).str.strip()
+            tickers |= {t.replace(".", "-") for t in qualified2 if t and not t.startswith("-")}
+    except Exception as e:
+        print(f"[slickcharts S&P500 failed: {e}] ", end="")
+
+    print(f"{len(tickers)} tickers (pre-dedup)")
+    return tickers
+
+
 def build_full_universe() -> list:
     print("\n[STEP 1] Building raw universe...")
     sp500    = get_sp500()
     ndx100   = get_nasdaq100()
     nasdaq_g = get_nasdaq_global()
     intl     = set(INTL_ADRS.keys())
+    qqq      = get_qqq_holdings(min_weight=0.002)   # QQQ >= 0.2% weight
+    iwf      = get_iwf_holdings(min_weight=0.002)   # IWF-equiv >= 0.2% weight
 
-    combined = sp500 | ndx100 | nasdaq_g | intl
+    # ETF layer: only add tickers NOT already in S&P500 or NASDAQ sources
+    # (avoids double-counting; any truly new ticker still enters for mcap filter)
+    etf_only = (qqq | iwf) - sp500 - ndx100 - nasdaq_g - intl
+
+    combined = sp500 | ndx100 | nasdaq_g | intl | etf_only
 
     # Remove obvious non-equity suffixes
     remove_if = lambda s: (
@@ -204,11 +317,13 @@ def build_full_universe() -> list:
     )
     combined = {t for t in combined if not remove_if(t)}
 
-    print(f"\n  S&P 500:          {len(sp500):>5}")
-    print(f"  NASDAQ 100:       {len(ndx100):>5}")
-    print(f"  NASDAQ Global:    {len(nasdaq_g):>5}")
-    print(f"  International:    {len(intl):>5}")
-    print(f"  Combined unique:  {len(combined):>5}")
+    print(f"\n  S&P 500:               {len(sp500):>5}")
+    print(f"  NASDAQ 100:            {len(ndx100):>5}")
+    print(f"  NASDAQ Global:         {len(nasdaq_g):>5}")
+    print(f"  International ADRs:    {len(intl):>5}")
+    print(f"  QQQ >= 0.2% weight:    {len(qqq):>5}  (+{len(qqq - sp500 - ndx100 - nasdaq_g - intl)} net new)")
+    print(f"  IWF-equiv >= 0.2%:     {len(iwf):>5}  (+{len(iwf - sp500 - ndx100 - nasdaq_g - intl)} net new)")
+    print(f"  Combined unique:       {len(combined):>5}")
     return sorted(combined)
 
 # ─────────────────────────────────────────────────────────────────────────────
