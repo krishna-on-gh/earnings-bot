@@ -38,7 +38,7 @@ MIN_BEAT_RATE    = 0.62
 MIN_PU5          = 0.40
 MIN_MOMENTUM     = 0.01
 MAX_MOMENTUM     = 0.30
-MAX_IV           = 0.80
+MAX_IV           = 0.90
 MIN_EPS_QUARTERS = 5
 
 POSITION_USD_DEFAULT = 10_000   # fallback if no universe snapshot exists
