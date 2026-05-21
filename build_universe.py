@@ -612,7 +612,7 @@ def print_report(all_metrics: list, call_candidates: list, put_candidates: list)
     mom_pass = sum(1 for m in all_metrics if MIN_MOMENTUM <= m["momentum_30d"] <= MAX_MOMENTUM)
     hv_pass  = sum(1 for m in all_metrics if m["hv30"]         <  MAX_HV)
 
-    print(f"\n  ── Call filter funnel ──")
+    print(f"\n  -- Call filter funnel --")
     print(f"    Total with data:               {total:>4}")
     print(f"    beat_rate >= {MIN_BEAT_RATE:.0%}:             {br_pass:>4}  ({br_pass/total*100:.0f}%)")
     print(f"    pu5 >= {MIN_PU5:.0%}:                   {pu5_pass:>4}  ({pu5_pass/total*100:.0f}%)")
@@ -620,7 +620,7 @@ def print_report(all_metrics: list, call_candidates: list, put_candidates: list)
     print(f"    HV30 < {MAX_HV:.0%}:                   {hv_pass:>4}  ({hv_pass/total*100:.0f}%)")
     print(f"    ALL call filters:              {n_call:>4}  ({n_call/total*100:.0f}%)")
 
-    print(f"\n  ── Put filter funnel ──")
+    print(f"\n  -- Put filter funnel --")
     print(f"    pd5 >= {MIN_PD5:.0%}:                   {pd5_pass:>4}  ({pd5_pass/total*100:.0f}%)")
     print(f"    momentum {PUT_MIN_MOMENTUM:.0%} to +{PUT_MAX_MOMENTUM:.0%}:       {mom_pass:>4}  ({mom_pass/total*100:.0f}%)")
     print(f"    HV30 < {MAX_HV:.0%}:                   {hv_pass:>4}  ({hv_pass/total*100:.0f}%)")
@@ -639,7 +639,7 @@ def print_report(all_metrics: list, call_candidates: list, put_candidates: list)
         t5  = sum(1 for m in call_candidates if m.get("position_size") ==  5_000)
         t1  = sum(1 for m in call_candidates if m.get("position_size") ==  1_000)
 
-        print(f"\n  ━━ CALL CANDIDATES: {n_call} total ━━")
+        print(f"\n  -- CALL CANDIDATES: {n_call} total --")
         print(f"    Domestic: {len(domestic_c)}  |  Intl (non-China): {len([m for m in intl_c if not m['is_china']])}  |  China (flagged): {len(china_c)}")
         print(f"    Position tiers:  $10K x{t10}   $5K x{t5}   $1K x{t1}   "
               f"Max deploy: ${t10*10_000 + t5*5_000 + t1*1_000:,.0f}")
@@ -682,7 +682,7 @@ def print_report(all_metrics: list, call_candidates: list, put_candidates: list)
         domestic_p = [m for m in put_candidates if not m["is_intl"]]
         china_p    = [m for m in put_candidates if m["is_china"]]
 
-        print(f"\n  ━━ PUT CANDIDATES: {n_put} total ━━")
+        print(f"\n  -- PUT CANDIDATES: {n_put} total --")
         print(f"    Domestic: {len(domestic_p)}  |  China (flagged): {len(china_p)}")
 
         print(f"\n  {'Symbol':<8} {'PD5%':>6} {'Mom%':>6} {'HV%':>5} {'Sector':<10} {'Next Earn'}")
@@ -763,10 +763,10 @@ if __name__ == "__main__":
     # 3. Screen with Hitman metrics
     all_metrics, call_candidates, put_candidates = screen_universe(qualified)
 
-    # 4. Report
-    print_report(all_metrics, call_candidates, put_candidates)
-
-    # 5. Save
+    # 4. Save first — so a crash in print_report never loses computed data
     save_results(all_metrics, call_candidates, put_candidates)
+
+    # 5. Report
+    print_report(all_metrics, call_candidates, put_candidates)
 
     print("\nDone.")
