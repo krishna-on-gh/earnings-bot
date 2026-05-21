@@ -19,7 +19,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-05-20",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Earnings date passed \u2014 removing"
+    ],
+    "disqualified": true
   },
   {
     "id": "33261c2d",
@@ -41,7 +45,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-05-20",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Earnings date passed \u2014 removing"
+    ],
+    "disqualified": true
   },
   {
     "id": "1731dbc4",
@@ -60,10 +68,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 99.42,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-20",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-21",
+    "disqualified": false
   },
   {
     "id": "1547868e",
@@ -82,10 +93,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 55.46,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-20",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-21",
+    "disqualified": false
   },
   {
     "id": "437ffe79",
@@ -127,9 +141,12 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 87.55,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-20",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-21",
+    "disqualified": false
   }
 ]
