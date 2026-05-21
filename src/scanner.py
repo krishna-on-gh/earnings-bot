@@ -4,7 +4,7 @@ Runs nightly, identifies upcoming earnings candidates that pass all 4 filters.
 
 Hitman v2 filters (applied as-of today):
   beat_rate  >= 62%   [last 8 EPS quarters, lookahead-free via earnings_dates]
-  pu5        >= 40%   [completed quarters with +5% earnings-day move]
+  pu5        >= 40%   [% of past earnings reports where stock moved +5%+ on that day]
   momentum   +1% to +30%  [30-day, as of today]
   IV proxy   < 80%    [HV30 x 1.45, as of today]
 
@@ -278,28 +278,96 @@ def get_beat_rate(sym: str, before_date: date) -> Optional[float]:
 
 def get_pu5(sym: str, as_of: date) -> Optional[float]:
     """
-    Fraction of completed quarters where the stock had a +5%+ single-day move.
-    Data capped at as_of date; current in-progress quarter excluded.
+    Fraction of past earnings reports where the stock moved up 5%+ on earnings day.
+    Uses actual earnings dates — NOT calendar-quarter grouping.
+    Data capped at as_of date; requires MIN_EPS_QUARTERS qualifying rows.
+
+    For each earnings date in yfinance's earnings_dates, finds the price move
+    on that exact trading day (the day the market can react to the news).
+    Looks at the 8 most recent qualifying earnings. Requires >= 4 with valid
+    price data to return a result.
     """
     data = _get_history_and_dates(sym)
     if not data: return None
-    hist, _ = data
+    hist, ed = data
     if hist is None or len(hist) < 40: return None
+    if ed is None or ed.empty: return None
     try:
         h = hist.copy()
         if getattr(h.index, "tz", None) is not None:
             h.index = h.index.tz_convert(None)
-        h = h[h.index.date <= as_of]
         h["ret"] = h["Close"].pct_change()
-        h["quarter"] = h.index.to_period("Q")
-        current_q = pd.Period(as_of, freq="Q")
-        up5 = total = 0
-        for q, g in h.groupby("quarter"):
-            if q >= current_q: continue   # skip in-progress quarter
-            if len(g) < 5: continue
-            peak = g.loc[g["ret"].abs().idxmax(), "ret"]
+
+        # Normalize earnings dates to tz-naive
+        ed2 = ed.copy()
+        if getattr(ed2.index, "tz", None) is not None:
+            ed2.index = ed2.index.tz_convert(None)
+
+        # Past earnings with reported EPS data
+        past_ed = ed2[(ed2.index.date < as_of) & ed2["Reported EPS"].notna()]
+        if len(past_ed) < MIN_EPS_QUARTERS:
+            return None
+
+        # Evaluate last 8 quarters (earnings_dates is sorted newest-first)
+        recent_ed = past_ed.head(8)
+
+        # Determine reporting timing so we look at the correct reaction day.
+        # Pre-market reporters: market reacts SAME day as the earnings_dates entry.
+        # Post-market reporters: market reacts the NEXT trading day.
+        # Unknown: check both days and take the larger absolute move.
+        import math as _math
+        stock_timing = KNOWN_TIMING.get(sym, "unknown")
+
+        up5 = 0
+        total = 0
+        for ts in recent_ed.index:
+            d = ts.date()
+
+            if stock_timing == "pre_market":
+                # Reaction is the same trading day
+                day_mask = h.index.date == d
+                reaction_idx = h[day_mask].index
+                if not len(reaction_idx):
+                    # Fall back to next trading day within 2 days
+                    nxt = h[h.index.date > d].index
+                    if not len(nxt) or (nxt[0].date() - d).days > 2:
+                        continue
+                    reaction_ts = nxt[0]
+                else:
+                    reaction_ts = reaction_idx[0]
+
+            elif stock_timing == "post_market":
+                # Reaction is the NEXT trading day
+                nxt = h[h.index.date > d].index
+                if not len(nxt) or (nxt[0].date() - d).days > 3:
+                    continue
+                reaction_ts = nxt[0]
+
+            else:
+                # Unknown timing: take whichever of same-day / next-day has the
+                # larger absolute move (the reaction dwarfs normal drift)
+                same_idx = h[h.index.date == d].index
+                nxt_idx  = h[h.index.date > d].index
+                same_m = h.loc[same_idx[0], "ret"] if len(same_idx) else float("nan")
+                nxt_m  = h.loc[nxt_idx[0],  "ret"] if len(nxt_idx)  else float("nan")
+                same_abs = abs(same_m) if not _math.isnan(same_m) else -1.0
+                nxt_abs  = abs(nxt_m)  if not _math.isnan(nxt_m)  else -1.0
+                if same_abs < 0 and nxt_abs < 0:
+                    continue
+                if nxt_abs > same_abs and len(nxt_idx) and (nxt_idx[0].date() - d).days <= 3:
+                    reaction_ts = nxt_idx[0]
+                elif len(same_idx):
+                    reaction_ts = same_idx[0]
+                else:
+                    continue
+
+            move = h.loc[reaction_ts, "ret"]
+            if pd.isna(move):
+                continue
             total += 1
-            if peak >= 0.05: up5 += 1
+            if move >= 0.05:
+                up5 += 1
+
         return up5 / total if total >= 4 else None
     except Exception:
         return None
