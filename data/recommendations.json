@@ -18,9 +18,9 @@
     "position_size": 10000,
     "current_price": 95.93,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-05-21",
-    "notes": [],
+    "notes": ["Manually entered @ $3.30, 29 contracts of PDD260529P00097000"],
     "validation_notes": [],
     "validated_date": "2026-05-21",
     "disqualified": false
