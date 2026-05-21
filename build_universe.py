@@ -36,6 +36,7 @@ Confidence tier (position sizing):
 Output: universe snapshot + call candidates list
 """
 
+import os
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -48,6 +49,54 @@ from datetime import datetime, timedelta, date
 from io import StringIO, BytesIO
 
 warnings.filterwarnings("ignore")
+
+# ── Load .env (build_universe runs standalone, no utils import) ──────────────
+def _load_dotenv():
+    env_path = os.path.join(os.path.dirname(__file__), ".env")
+    if not os.path.exists(env_path):
+        return
+    with open(env_path) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            k, v = line.split("=", 1)
+            os.environ.setdefault(k.strip(), v.strip())
+_load_dotenv()
+
+# ── Tiingo — price history (replaces yfinance tk.history for Step 3) ──────────
+_TIINGO_KEY = os.environ.get("TIINGO_API_KEY", "")
+
+def _tiingo_prices(sym: str, start_dt: datetime, end_dt: datetime) -> pd.Series | None:
+    """
+    Fetch daily adjusted close prices from Tiingo.
+    Returns pd.Series indexed by date, or None on failure.
+    Tiingo free tier: ~1000 req/hour, far more lenient than yfinance.
+    """
+    if not _TIINGO_KEY:
+        return None
+    try:
+        url = (
+            f"https://api.tiingo.com/tiingo/daily/{sym}/prices"
+            f"?startDate={start_dt.strftime('%Y-%m-%d')}"
+            f"&endDate={end_dt.strftime('%Y-%m-%d')}"
+            f"&token={_TIINGO_KEY}"
+        )
+        r = requests.get(url, timeout=10)
+        if r.status_code == 404:
+            return None          # symbol not on Tiingo
+        r.raise_for_status()
+        data = r.json()
+        if not data:
+            return None
+        df = pd.DataFrame(data)
+        df["date"] = pd.to_datetime(df["date"]).dt.normalize()
+        df = df.sort_values("date").set_index("date")
+        col = "adjClose" if "adjClose" in df.columns else "close"
+        prices = df[col].dropna()
+        return prices if len(prices) >= 40 else None
+    except Exception:
+        return None
 
 # ── Hitman Call Filters ───────────────────────────────────────────────────────
 MIN_BEAT_RATE   = 0.62
@@ -425,29 +474,46 @@ def get_earnings_moves(hist: pd.DataFrame, earn_dates: list) -> list:
 
 def compute_hitman_metrics(sym: str) -> dict | None:
     """
-    Returns dict with beat_rate, pu5, momentum_30d, hv30, n_quarters, current_price
+    Returns dict with beat_rate, pu5, pd5, momentum_30d, hv30, n_quarters, current_price
     or None if insufficient data.
+
+    Price history:   Tiingo (primary) → yfinance fallback
+    Earnings data:   yfinance only (EPS estimates/actuals not on Tiingo free tier)
     """
     try:
-        tk = yf.Ticker(sym)
-
-        # Price history
         end_dt   = datetime.today()
         start_dt = end_dt - timedelta(days=LOOKBACK_YEARS * 365 + 90)
-        hist = tk.history(start=start_dt.strftime("%Y-%m-%d"),
-                          end=end_dt.strftime("%Y-%m-%d"),
-                          auto_adjust=True)
-        if hist.empty or len(hist) < 60:
+
+        # ── Price history: Tiingo primary, yfinance fallback ──────────────────
+        prices = _tiingo_prices(sym, start_dt, end_dt)
+        hist   = None   # only fetched if Tiingo fails (needed for get_earnings_moves)
+
+        if prices is None:
+            # Tiingo failed — fall back to yfinance
+            tk_tmp = yf.Ticker(sym)
+            hist   = tk_tmp.history(start=start_dt.strftime("%Y-%m-%d"),
+                                    end=end_dt.strftime("%Y-%m-%d"),
+                                    auto_adjust=True)
+            if hist.empty or len(hist) < 60:
+                return None
+            prices = hist["Close"].dropna()
+
+        if len(prices) < 60:
             return None
 
-        prices = hist["Close"].dropna()
+        # Build a minimal hist DataFrame for get_earnings_moves if not already fetched
+        if hist is None:
+            hist = pd.DataFrame({"Close": prices})
+            hist.index = prices.index
 
-        # Earnings dates — try earnings_dates first, then calendar
+        # ── Earnings + sector data: yfinance (one Ticker object) ────────────────
+        tk = yf.Ticker(sym)
+
+        # Earnings dates
         earn_dates = []
         try:
             ed_df = tk.earnings_dates
             if ed_df is not None and not ed_df.empty:
-                # Only use past dates (not future)
                 past = ed_df[ed_df.index < pd.Timestamp.now(tz="UTC")]
                 if hasattr(past.index, "tz") and past.index.tz is not None:
                     past.index = past.index.tz_convert(None)
@@ -458,17 +524,16 @@ def compute_hitman_metrics(sym: str) -> dict | None:
         if len(earn_dates) < MIN_QUARTERS:
             return None
 
-        # Use last 8 quarters
         earn_dates = sorted(set(earn_dates))[-8:]
 
-        # Compute moves
+        # Compute earnings-day moves
         moves = get_earnings_moves(hist, earn_dates)
         if len(moves) < MIN_QUARTERS:
             return None
 
         move_vals = [m for _, m in moves]
-        beat_rate = sum(1 for m in move_vals if m > 0)    / len(move_vals)
-        pu5       = sum(1 for m in move_vals if m >= 0.05) / len(move_vals)
+        beat_rate = sum(1 for m in move_vals if m > 0)     / len(move_vals)
+        pu5       = sum(1 for m in move_vals if m >= 0.05)  / len(move_vals)
         pd5       = sum(1 for m in move_vals if m <= -0.05) / len(move_vals)
 
         momentum  = compute_momentum_30d(prices)
@@ -584,7 +649,7 @@ def screen_universe(tickers: list) -> tuple[list, list, list]:
             print(f"  [{i+1:>4}/{len(tickers)}] {pct:>5.1f}%  "
                   f"calls: {len(call_candidates)}  puts: {len(put_candidates)}    ",
                   end="\r", flush=True)
-        time.sleep(0.12)   # ~8 req/sec — stay within yfinance limits
+        time.sleep(0.05)   # Tiingo handles price; yfinance only for earnings/sector
 
     print(f"\n  Total screened:      {len(tickers)}")
     print(f"  Had enough data:     {len(all_metrics)}")
