@@ -17,10 +17,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 95.93,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-21",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-21",
+    "disqualified": false
   },
   {
     "id": "292b97e2",
@@ -40,9 +43,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 497.43,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-21",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-21",
+    "disqualified": false
   }
 ]
