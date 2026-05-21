@@ -181,10 +181,7 @@ def place_call_order(
     limit_price: Optional[float],
     client: TradingClient,
 ) -> Optional[Dict[str, Any]]:
-    """
-    Place a naked call buy order.
-    Uses limit order at mid-price if available, falls back to market order.
-    """
+    """Place a naked call buy order at ask price limit."""
     try:
         if limit_price:
             order_data = LimitOrderRequest(
@@ -222,6 +219,54 @@ def place_call_order(
     except Exception as e:
         log.error(f"{symbol}: call order failed — {e}")
         send_email(f"Order Failed: {symbol} CALL", f"Failed to place call order.\nError: {e}")
+        return None
+
+
+def place_put_order(
+    symbol: str,
+    contract: Any,
+    num_contracts: int,
+    limit_price: Optional[float],
+    client: TradingClient,
+) -> Optional[Dict[str, Any]]:
+    """Place a naked put buy order at ask price limit."""
+    try:
+        if limit_price:
+            order_data = LimitOrderRequest(
+                symbol=contract.symbol,
+                qty=num_contracts,
+                side=OrderSide.BUY,
+                time_in_force=TimeInForce.DAY,
+                limit_price=limit_price,
+            )
+            order_type = f"LIMIT @ ${limit_price:.2f}"
+        else:
+            order_data = MarketOrderRequest(
+                symbol=contract.symbol,
+                qty=num_contracts,
+                side=OrderSide.BUY,
+                time_in_force=TimeInForce.DAY,
+            )
+            order_type = "MARKET"
+
+        order = client.submit_order(order_data)
+        log.info(
+            f"{symbol}: PUT {order_type} submitted — {num_contracts} contracts "
+            f"of {contract.symbol} | order_id={order.id}"
+        )
+        return {
+            "order_id":     str(order.id),
+            "order_status": str(order.status),
+            "contract":     contract.symbol,
+            "strike":       float(contract.strike_price),
+            "expiry":       str(contract.expiration_date),
+            "qty":          num_contracts,
+            "limit_price":  limit_price,
+            "leg":          "put",
+        }
+    except Exception as e:
+        log.error(f"{symbol}: put order failed — {e}")
+        send_email(f"Order Failed: {symbol} PUT", f"Failed to place put order.\nError: {e}")
         return None
 
 
@@ -318,18 +363,19 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
         log.error(f"{symbol}: could not get price — skipping")
         return None
 
-    # Always naked ATM call — no spread cap, let winners run
+    # ATM option — call or put depending on trade_type
     expiry = find_expiry_after_earnings(earnings_date)
-    log.info(f"{symbol}: price=${price:.2f} | IV={iv:.0%} | expiry={expiry}")
+    log.info(f"{symbol}: price=${price:.2f} | IV={iv:.0%} | trade={trade_type} | expiry={expiry}")
 
-    atm_strike = round(price)
+    atm_strike    = round(price)
+    contract_type = ContractType.PUT if trade_type == "put" else ContractType.CALL
 
-    contract = find_option_contract(client, symbol, atm_strike, expiry, ContractType.CALL)
+    contract = find_option_contract(client, symbol, atm_strike, expiry, contract_type)
     if not contract:
-        log.warning(f"{symbol}: no ATM call contract found — skipping")
+        log.warning(f"{symbol}: no ATM {trade_type} contract found — skipping")
         return None
 
-    # Fetch live ask price — used as limit to guarantee fill (mid-price limits go unfilled)
+    # Fetch live ask price — used as limit to guarantee fill
     live_ask = get_option_ask_price(contract.symbol)
     if live_ask:
         premium_est = live_ask
@@ -344,7 +390,11 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
     num_contracts = max(1, int(position_usd / (premium_est * 100)))
     log.info(f"{symbol}: {num_contracts} contracts × ${premium_est:.2f} × 100 = ~${num_contracts * premium_est * 100:,.0f}")
 
-    order_info = place_call_order(symbol, contract, num_contracts, live_ask, client)
+    if trade_type == "put":
+        order_info = place_put_order(symbol, contract, num_contracts, live_ask, client)
+    else:
+        order_info = place_call_order(symbol, contract, num_contracts, live_ask, client)
+
     if not order_info:
         return None
 
@@ -441,8 +491,7 @@ def run_executor():
         # AND earnings must still be at least 2 days away
         # TEMP (revert after 2026-05-21): allow 1 day late for GLNG missed entry
         days_late = (today_et() - entry_dt).days
-        max_late = 1 if r.get("symbol") == "GLNG" else 0
-        if days_late <= max_late and r.get("earnings_date", "") > tomorrow:
+        if days_late <= 0 and r.get("earnings_date", "") > tomorrow:
             candidates.append(r)
         else:
             log.info(
