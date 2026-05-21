@@ -581,6 +581,7 @@ const daysUntil = (s) => { if(!s) return null; return Math.ceil((new Date(s)-new
 const tradeBadge = (type) => {
   if (type === "call")   return <span className="badge bb">CALL</span>;
   if (type === "spread") return <span className="badge by">SPREAD</span>;
+  if (type === "put")    return <span className="badge br">PUT</span>;
   return <span className="badge bgr">—</span>;
 };
 
