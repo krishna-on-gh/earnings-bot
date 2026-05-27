@@ -61,5 +61,27 @@
     "pnl": 0,
     "pnl_pct": 0,
     "notes": "DAY limit order at mid-price ($5.60) expired unfilled. Option was trading above mid. Fixed: executor now uses ask price as limit."
+  },
+  {
+    "id": "a79faab5",
+    "symbol": "TTAN",
+    "company": "ServiceTitan, Inc.",
+    "sector": "Technology",
+    "trade_type": "call",
+    "entry_date": "2026-05-27",
+    "entry_time": "2026-05-27T15:00:51.608229-04:00",
+    "earnings_date": "2026-06-04",
+    "earnings_timing": "post_market",
+    "confidence": "HIGH",
+    "position_size": 10000,
+    "beat_rate": 0.833,
+    "pu5": 0.5,
+    "momentum_30d": 0.04,
+    "iv_proxy": 0.763,
+    "status": "failed",
+    "failure_stage": "contract",
+    "failure_reason": "no ATM call contract near strike $64 for expiry 2026-06-12",
+    "order_id": null,
+    "order_status": "not_submitted"
   }
 ]
