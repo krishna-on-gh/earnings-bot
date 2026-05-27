@@ -20,7 +20,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-05-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Earnings date passed \u2014 removing"
+    ],
+    "disqualified": true
   },
   {
     "id": "5a17f996",
@@ -40,10 +44,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 96.64,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-27",
+    "disqualified": false
   },
   {
     "id": "ca4269a1",
@@ -63,10 +70,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 534.56,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-27",
+    "disqualified": false
   },
   {
     "id": "4f88f006",
@@ -86,10 +96,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 46.55,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-27",
+    "disqualified": false
   },
   {
     "id": "a4485489",
@@ -135,10 +148,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 93.81,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-27",
+    "disqualified": false
   },
   {
     "id": "a79faab5",
@@ -158,9 +174,12 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 62.71,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-27",
+    "disqualified": false
   }
 ]
