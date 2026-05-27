@@ -143,9 +143,15 @@ def find_option_contract(
     strike_high = round(strike * (1 + tolerance_pct), 2)
 
     try:
+        # NOTE: The alpaca-py field is `type`, NOT `contract_type`. Passing
+        # `contract_type=...` is silently ignored, causing the request to return
+        # BOTH calls and puts, with calls typically landing first in results —
+        # so put recommendations would silently execute as calls. This was the
+        # real "put bug" behind the PDD manual-entry incident on 2026-05-21.
+        # Verified via test_executor_both_sides.py on 2026-05-27.
         req = GetOptionContractsRequest(
             underlying_symbols=[symbol],
-            contract_type=contract_type,
+            type=contract_type,
             expiration_date_gte=expiry - timedelta(days=3),
             expiration_date_lte=expiry + timedelta(days=3),
             strike_price_gte=str(strike_low),
@@ -340,6 +346,40 @@ def place_spread_order(
 
 
 # ── Trade execution ───────────────────────────────────────────────────────────
+def _failed_attempt_record(rec: Dict[str, Any], reason: str, stage: str) -> Dict[str, Any]:
+    """
+    Build a stub record for a candidate we ATTEMPTED to execute but couldn't.
+    Persisted to trades_history.json so the live-vs-backtest comparison and any
+    future audit can see "we tried X on date Y, failed because Z" — not just
+    the trades that filled. Status='failed' keeps these distinct from open/closed
+    real trades.
+    """
+    return {
+        "id":               rec.get("id", str(uuid.uuid4())[:8]),
+        "symbol":           rec["symbol"],
+        "company":          rec.get("company", rec["symbol"]),
+        "sector":           rec.get("sector", "Unknown"),
+        "trade_type":       rec.get("trade_type", "call"),
+        "entry_date":       today_et().isoformat(),
+        "entry_time":       now_et().isoformat(),
+        "earnings_date":    rec.get("earnings_date"),
+        "earnings_timing":  rec.get("earnings_timing", "unknown"),
+        "confidence":       rec.get("confidence", "HIGH"),
+        "position_size":    rec.get("position_size"),
+        # Hitman v2 filter values (for reporting)
+        "beat_rate":        rec.get("beat_rate"),
+        "pu5":              rec.get("pu5"),
+        "momentum_30d":     rec.get("momentum_30d"),
+        "iv_proxy":         rec.get("iv_proxy"),
+        # Failure-specific fields
+        "status":           "failed",
+        "failure_stage":    stage,    # "budget" / "price" / "contract" / "order"
+        "failure_reason":   reason,
+        "order_id":         None,
+        "order_status":     "not_submitted",
+    }
+
+
 def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[str, Any]]:
     symbol     = rec["symbol"]
     trade_type = rec.get("trade_type", "call")   # "call" or "spread"
@@ -355,13 +395,13 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
     can_trade, reason = check_budget(position_usd, log)
     if not can_trade:
         log.warning(f"{symbol}: skipping — {reason}")
-        return None
+        return _failed_attempt_record(rec, reason, "budget")
 
     # Get current stock price
     price = get_current_price(symbol)
     if not price or price <= 0:
         log.error(f"{symbol}: could not get price — skipping")
-        return None
+        return _failed_attempt_record(rec, "could not fetch underlying price", "price")
 
     # ATM option — call or put depending on trade_type
     expiry = find_expiry_after_earnings(earnings_date)
@@ -373,7 +413,11 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
     contract = find_option_contract(client, symbol, atm_strike, expiry, contract_type)
     if not contract:
         log.warning(f"{symbol}: no ATM {trade_type} contract found — skipping")
-        return None
+        return _failed_attempt_record(
+            rec,
+            f"no ATM {trade_type} contract near strike ${atm_strike} for expiry {expiry}",
+            "contract",
+        )
 
     # Fetch live ask price — used as limit to guarantee fill
     live_ask = get_option_ask_price(contract.symbol)
@@ -396,7 +440,13 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
         order_info = place_call_order(symbol, contract, num_contracts, live_ask, client)
 
     if not order_info:
-        return None
+        rec_for_fail = dict(rec)
+        rec_for_fail["position_size"] = position_usd
+        return _failed_attempt_record(
+            rec_for_fail,
+            f"order submission to Alpaca raised an exception for contract {contract.symbol}",
+            "order",
+        )
 
     update_budget(position_usd)
 
@@ -487,9 +537,8 @@ def run_executor():
             continue
         earnings_dt = date.fromisoformat(r["earnings_date"])
         entry_dt    = get_entry_date(earnings_dt)
-        # Only execute on the exact intended entry date (3 trading days before earnings)
-        # AND earnings must still be at least 2 days away
-        # TEMP (revert after 2026-05-21): allow 1 day late for GLNG missed entry
+        # Only execute on the exact intended entry date (3 trading days before earnings).
+        # AND earnings must still be at least 2 days away (not tomorrow).
         days_late = (today_et() - entry_dt).days
         if days_late <= 0 and r.get("earnings_date", "") > tomorrow:
             candidates.append(r)
@@ -511,20 +560,31 @@ def run_executor():
 
     executed_trades = []
     skipped = []
+    failed_attempts = []
 
     for rec in candidates:
         log.info(f"Executing: {rec['symbol']} | {rec.get('trade_type','?')} | IV={rec.get('iv_proxy',0):.0%}")
         trade = execute_trade(rec, client)
-        if trade:
+        if not trade:
+            # execute_trade now always returns a dict on attempted candidates;
+            # None means the function itself was bypassed (shouldn't happen).
+            skipped.append(rec["symbol"])
+            continue
+        # Always persist to trades_history so failures are auditable later.
+        trades_history.append(trade)
+        if trade.get("status") == "failed":
+            failed_attempts.append(trade)
+            log.warning(
+                f"{rec['symbol']}: FAILED at {trade.get('failure_stage')} "
+                f"— {trade.get('failure_reason')}"
+            )
+        else:
             executed_trades.append(trade)
-            trades_history.append(trade)
             rec["executed"]       = True
             rec["execution_date"] = today_str
             rec["trade_id"]       = trade["id"]
             log.info(f"{rec['symbol']}: EXECUTED — {trade['trade_type']} | {trade['qty']} contracts")
-            time.sleep(0.5)
-        else:
-            skipped.append(rec["symbol"])
+        time.sleep(0.5)
 
     save_json("trades_history.json", trades_history)
 
@@ -545,13 +605,26 @@ def run_executor():
         )
     summary = "\n".join(lines) if lines else "  No trades executed."
 
-    log.info(f"EXECUTOR COMPLETE: {len(executed_trades)} trades | skipped: {skipped}")
+    fail_lines = []
+    for f in failed_attempts:
+        fail_lines.append(
+            f"  {f['symbol']:6s} | {f['trade_type']:6s} | stage={f.get('failure_stage','?'):<8} | "
+            f"reason={f.get('failure_reason','?')}"
+        )
+    fail_summary = "\n".join(fail_lines) if fail_lines else "  None."
+
+    log.info(
+        f"EXECUTOR COMPLETE: {len(executed_trades)} executed | "
+        f"{len(failed_attempts)} failed | skipped: {skipped}"
+    )
     send_email(
-        f"Hitman v2: {len(executed_trades)} options trades placed",
+        f"Hitman v2: {len(executed_trades)} placed, {len(failed_attempts)} failed",
         f"Trade Execution Report — {today_str}\n\n"
-        f"Trades placed: {len(executed_trades)}\n"
-        f"Skipped: {', '.join(skipped) if skipped else 'none'}\n\n"
+        f"Trades placed:    {len(executed_trades)}\n"
+        f"Failed attempts:  {len(failed_attempts)}\n"
+        f"Skipped (other):  {', '.join(skipped) if skipped else 'none'}\n\n"
         f"Positions:\n{summary}\n\n"
+        f"Failures (persisted to trades_history.json):\n{fail_summary}\n\n"
         f"Capital deployed this run: ${sum(t['position_size'] for t in executed_trades):,.0f}",
     )
 

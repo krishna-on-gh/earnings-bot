@@ -17,6 +17,7 @@ from utils import (
     send_email, check_kill_switch, check_circuit_breakers,
     now_et, today_et, is_weekday,
 )
+from executor import get_entry_date  # shared 3-trading-day-before-earnings helper
 
 log = get_logger("validator")
 
@@ -61,11 +62,31 @@ def validate_recommendation(rec: Dict[str, Any]) -> Dict[str, Any]:
     rec["validated"] = False
     rec["validation_notes"] = []
 
-    # Check earnings date hasn't passed
+    # Entry-window check.
+    # The strategy enters 3 trading days before earnings. Once today is PAST
+    # that entry date, the window is closed and there is no point keeping this
+    # recommendation around — re-validating it daily just wastes API quota and
+    # pollutes the queue. Disqualify so it stops being re-checked.
     earnings_date = date.fromisoformat(rec["earnings_date"])
-    if earnings_date < today_et():
-        rec["validation_notes"].append("Earnings date passed — removing")
+    entry_date    = get_entry_date(earnings_date)
+    today         = today_et()
+    if today > entry_date:
+        days_late = (today - entry_date).days
+        reason = (
+            f"Entry window closed ({days_late}d late). "
+            f"Entry date was {entry_date} (3 trading days before earnings {earnings_date})."
+        )
+        rec["validation_notes"].append(reason)
         rec["disqualified"] = True
+        rec["disqualified_reason"] = "entry_window_closed"
+        log.info(f"{symbol}: disqualified — {reason}")
+        return rec
+    if earnings_date < today:
+        # Belt-and-suspenders: also catch the case where earnings already happened
+        # (shouldn't fire if the entry-window check above is correct, but cheap to keep)
+        rec["validation_notes"].append("Earnings date already passed")
+        rec["disqualified"] = True
+        rec["disqualified_reason"] = "earnings_passed"
         log.info(f"{symbol}: disqualified — earnings already passed")
         return rec
 
