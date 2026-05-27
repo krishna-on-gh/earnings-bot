@@ -1,30 +1,19 @@
 {
-  "positions": [
-    {
-      "symbol": "PDD260529P00097000",
-      "qty": 6.0,
-      "avg_entry_price": 3.3,
-      "current_price": 12.3,
-      "market_value": 7380.0,
-      "unrealized_pl": 5400.0,
-      "unrealized_plpc": 2.72727,
-      "side": "PositionSide.LONG"
-    }
-  ],
+  "positions": [],
   "account": {
-    "equity": 1018613.07,
-    "cash": 1018613.07,
-    "portfolio_value": 1018613.07,
-    "buying_power": 2037226.14,
+    "equity": 1025992.95,
+    "cash": 1025992.95,
+    "portfolio_value": 1025992.95,
+    "buying_power": 2051985.9,
     "last_equity": 1000154.53,
     "daytrade_count": 0
   },
-  "last_updated": "2026-05-27T10:03:20.690818-04:00",
-  "daily_pnl": 18458.54,
-  "daily_pnl_pct": 1.85,
-  "weekly_pnl": 0.0,
-  "weekly_pnl_pct": 0.0,
-  "open_positions_count": 1,
+  "last_updated": "2026-05-27T11:03:10.806867-04:00",
+  "daily_pnl": 25838.42,
+  "daily_pnl_pct": 2.58,
+  "weekly_pnl": 26100.0,
+  "weekly_pnl_pct": 0,
+  "open_positions_count": 0,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }
