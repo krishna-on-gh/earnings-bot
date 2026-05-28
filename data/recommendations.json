@@ -174,13 +174,16 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 105.15,
-    "validated": true,
+    "validated": false,
     "executed": false,
     "scan_date": "2026-05-27",
-    "notes": [],
+    "notes": [
+      "Manually disqualified 2026-05-28 \u2014 real IV 87% vs MAX_IV 80%"
+    ],
     "validation_notes": [],
     "validated_date": "2026-05-27",
-    "disqualified": false
+    "disqualified": true,
+    "disqualified_reason": "real_IV_87pct_exceeds_MAX_IV_80pct (HV30-based proxy underestimated by 35pp)"
   },
   {
     "id": "1a62eb73",

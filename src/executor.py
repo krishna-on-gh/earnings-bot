@@ -539,14 +539,19 @@ def run_executor():
         entry_dt    = get_entry_date(earnings_dt)
         # Only execute on the exact intended entry date (3 trading days before earnings).
         # AND earnings must still be at least 2 days away (not tomorrow).
+        # Fixed 2026-05-28: condition was `<= 0` which fired trades any day at or
+        # before entry, including weeks early. Now strict `== 0` matches the spec.
         days_late = (today_et() - entry_dt).days
-        if days_late <= 0 and r.get("earnings_date", "") > tomorrow:
+        if days_late == 0 and r.get("earnings_date", "") > tomorrow:
             candidates.append(r)
         else:
-            log.info(
-                f"{r['symbol']}: skipping — entry_date={entry_dt} "
-                f"({'not yet' if days_late < 0 else f'{days_late}d late, window closed'})"
-            )
+            if days_late < 0:
+                msg = f"not yet — entry in {-days_late} day(s) on {entry_dt}"
+            elif days_late > 0:
+                msg = f"{days_late}d late, window closed (entry was {entry_dt})"
+            else:
+                msg = f"earnings too soon ({r.get('earnings_date')} is tomorrow or sooner)"
+            log.info(f"{r['symbol']}: skipping — {msg}")
 
     log.info(f"Found {len(candidates)} validated Hitman v2 candidates for execution")
     if not candidates:
