@@ -226,13 +226,16 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 105.15,
-    "validated": true,
+    "validated": false,
     "executed": false,
     "scan_date": "2026-05-27",
-    "notes": [],
+    "notes": [
+      "Manually disqualified 2026-05-28 \u2014 real IV 87% vs MAX_IV 80%"
+    ],
     "validation_notes": [],
     "validated_date": "2026-05-27",
-    "disqualified": false
+    "disqualified": true,
+    "disqualified_reason": "real_IV_87pct_exceeds_MAX_IV_80pct (HV30-based proxy underestimated by 35pp)"
   },
   {
     "id": "1a62eb73",
@@ -454,11 +457,11 @@
     "last_equity": 1025992.08,
     "daytrade_count": 0
   },
-  "last_updated": "2026-05-28T12:00:24.085894-04:00",
+  "last_updated": "2026-05-28T13:04:26.678400-04:00",
   "daily_pnl": 0.0,
   "daily_pnl_pct": 0.0,
-  "weekly_pnl": 26100.0,
-  "weekly_pnl_pct": 0,
+  "weekly_pnl": 0.0,
+  "weekly_pnl_pct": 0.0,
   "open_positions_count": 0,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
@@ -604,6 +607,54 @@
       {
         "t": 1779984000,
         "v": 1025992.08
+      },
+      {
+        "t": 1779984300,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779984600,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779984900,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779985200,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779985500,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779985800,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779986100,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779986400,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779986700,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779987000,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779987300,
+        "v": 1025992.08
+      },
+      {
+        "t": 1779987600,
+        "v": 1025992.08
       }
     ],
     "base_value": 1025992.08,
@@ -706,6 +757,10 @@
       {
         "t": 1779982200,
         "v": 1025992.08
+      },
+      {
+        "t": 1779985800,
+        "v": 1025992.08
       }
     ],
     "base_value": 998820.53,
@@ -802,7 +857,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-05-28T17:02:09", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-05-28T17:31:19", "source": "scheduler"}</script>
 
 <script type="text/babel">
 "use strict";
