@@ -31,6 +31,10 @@
     "notes": [
       "Manually entered \u00e2\u20ac\u201d executor missed entry due to missing put support (now fixed). 29x PDD260529P00097000 @ $3.30.",
       "Closed 2026-05-27 @ $12.30 (+272.7%) \u2014 manual close, status update done 2026-05-28"
-    ]
+    ],
+    "entry_premium": 3.3,
+    "exit_premium": 12.3,
+    "entry_value": 9570.0,
+    "exit_value": 35670.0
   }
 ]
