@@ -284,12 +284,14 @@
     "position_size": 10000,
     "current_price": 426.58,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-05-28",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-05-29",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-05-29",
+    "trade_id": "c36913b6"
   },
   {
     "id": "8adf9e0d",
@@ -488,24 +490,66 @@
     "exit_premium": 12.3,
     "entry_value": 9570.0,
     "exit_value": 35670.0
+  },
+  {
+    "id": "c36913b6",
+    "symbol": "AVGO",
+    "company": "Broadcom Inc.",
+    "sector": "Technology",
+    "trade_type": "call",
+    "entry_date": "2026-05-29",
+    "entry_time": "2026-05-29T12:23:55.664984-04:00",
+    "entry_price": 440.8699035644531,
+    "earnings_date": "2026-06-03",
+    "earnings_timing": "post_market",
+    "expiry_date": "2026-06-05",
+    "qty": 4,
+    "position_size": 10000,
+    "confidence": "HIGH",
+    "order_id": "d883d73d-40fe-4e4c-8b5a-847fe45add55",
+    "order_status": "OrderStatus.PENDING_NEW",
+    "long_contract": "AVGO260605C00440000",
+    "short_contract": null,
+    "long_strike": 440.0,
+    "short_strike": null,
+    "beat_rate": 1.0,
+    "pu5": 0.5,
+    "momentum_30d": 0.052,
+    "iv_proxy": 0.542,
+    "status": "open",
+    "exit_date": null,
+    "exit_price": null,
+    "pnl": null,
+    "pnl_pct": null
   }
 ]</script>
 <script id="__POSITIONS__" type="application/json">{
-  "positions": [],
+  "positions": [
+    {
+      "symbol": "AVGO260605C00440000",
+      "qty": 4.0,
+      "avg_entry_price": 21.3,
+      "current_price": 18.15,
+      "market_value": 7260.0,
+      "unrealized_pl": -1260.0,
+      "unrealized_plpc": -0.14789,
+      "side": "PositionSide.LONG"
+    }
+  ],
   "account": {
-    "equity": 1025992.08,
-    "cash": 1025992.08,
-    "portfolio_value": 1025992.08,
-    "buying_power": 2051984.16,
+    "equity": 1024732.0,
+    "cash": 1017472.0,
+    "portfolio_value": 1024732.0,
+    "buying_power": 2034944.0,
     "last_equity": 1025992.08,
     "daytrade_count": 0
   },
-  "last_updated": "2026-05-29T12:00:24.185508-04:00",
-  "daily_pnl": 0.0,
-  "daily_pnl_pct": 0.0,
+  "last_updated": "2026-05-29T14:03:07.163997-04:00",
+  "daily_pnl": -1260.08,
+  "daily_pnl_pct": -0.12,
   "weekly_pnl": 26100.0,
   "weekly_pnl_pct": 0,
-  "open_positions_count": 0,
+  "open_positions_count": 1,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }</script>
@@ -650,6 +694,102 @@
       {
         "t": 1780070400,
         "v": 1025992.08
+      },
+      {
+        "t": 1780070700,
+        "v": 1025992.08
+      },
+      {
+        "t": 1780071000,
+        "v": 1025992.08
+      },
+      {
+        "t": 1780071300,
+        "v": 1025992.08
+      },
+      {
+        "t": 1780071600,
+        "v": 1025992.08
+      },
+      {
+        "t": 1780071900,
+        "v": 1025964.08
+      },
+      {
+        "t": 1780072200,
+        "v": 1025972.08
+      },
+      {
+        "t": 1780072500,
+        "v": 1025836.08
+      },
+      {
+        "t": 1780072800,
+        "v": 1025868.08
+      },
+      {
+        "t": 1780073100,
+        "v": 1026052.08
+      },
+      {
+        "t": 1780073400,
+        "v": 1026132.08
+      },
+      {
+        "t": 1780073700,
+        "v": 1025872.08
+      },
+      {
+        "t": 1780074000,
+        "v": 1025692.08
+      },
+      {
+        "t": 1780074300,
+        "v": 1025692.08
+      },
+      {
+        "t": 1780074600,
+        "v": 1025692.08
+      },
+      {
+        "t": 1780074900,
+        "v": 1025700.08
+      },
+      {
+        "t": 1780075200,
+        "v": 1025632.08
+      },
+      {
+        "t": 1780075500,
+        "v": 1025600.08
+      },
+      {
+        "t": 1780075800,
+        "v": 1025376.08
+      },
+      {
+        "t": 1780076100,
+        "v": 1025188.08
+      },
+      {
+        "t": 1780076400,
+        "v": 1024912.08
+      },
+      {
+        "t": 1780076700,
+        "v": 1024832.08
+      },
+      {
+        "t": 1780077000,
+        "v": 1024712.08
+      },
+      {
+        "t": 1780077300,
+        "v": 1024968.08
+      },
+      {
+        "t": 1780077600,
+        "v": 1024940.08
       }
     ],
     "base_value": 1025992.08,
@@ -780,6 +920,14 @@
       {
         "t": 1780068600,
         "v": 1025992.08
+      },
+      {
+        "t": 1780072200,
+        "v": 1025972.08
+      },
+      {
+        "t": 1780075800,
+        "v": 1024940.08
       }
     ],
     "base_value": 998820.53,
@@ -876,7 +1024,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-05-29T18:02:29", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-05-29T18:30:07", "source": "scheduler"}</script>
 
 <script type="text/babel">
 "use strict";
