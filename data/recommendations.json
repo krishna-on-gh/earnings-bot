@@ -103,7 +103,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-05-28",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (7d late). Entry date was 2026-05-22 (3 trading days before earnings 2026-05-28)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "dde5e075",
@@ -154,7 +159,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-05-28",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (7d late). Entry date was 2026-05-22 (3 trading days before earnings 2026-05-28)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "6c4f7fcd",
@@ -221,10 +231,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 426.58,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-28",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-29",
+    "disqualified": false
   },
   {
     "id": "8adf9e0d",
@@ -244,10 +257,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 65.79,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-05-28",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-05-29",
+    "disqualified": false
   },
   {
     "id": "1522a312",
