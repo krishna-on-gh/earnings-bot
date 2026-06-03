@@ -120,13 +120,16 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 65.79,
-    "validated": true,
+    "validated": false,
     "executed": false,
     "scan_date": "2026-05-28",
-    "notes": [],
+    "notes": [
+      "Disqualified 2026-06-03: real IV 95% > 80% threshold; only 6/18 monthly expiry available (14 days post-earnings, off-spec)"
+    ],
     "validation_notes": [],
     "validated_date": "2026-05-29",
-    "disqualified": false
+    "disqualified": true,
+    "disqualified_reason": "real_IV_95pct_exceeds_MAX_IV_80pct AND only_6-18_monthly_expiry_available"
   },
   {
     "id": "1522a312",

@@ -133,14 +133,32 @@ def find_option_contract(
     expiry: date,
     contract_type: ContractType = ContractType.CALL,
     tolerance_pct: float = 0.05,
+    earnings_date: Optional[date] = None,
 ) -> Optional[Any]:
     """
     Find the closest available option contract to the requested strike/expiry.
     Searches within ±tolerance_pct of strike (default ±5%).
     Returns the contract object or None if not found.
+
+    Expiry window (widened 2026-06-03):
+      - Lower bound: max(target_expiry - 3 days, earnings_date + 2 days)
+        ensures we never pick an option that expires before our 1-day-after-
+        earnings exit.
+      - Upper bound: target_expiry + 30 days
+        wide enough to catch the monthly (3rd-Friday) expiry for stocks that
+        don't have weeklies. Names like CASY/TTAN previously failed lookup
+        because their only expiry was outside a ±3 day window.
+
+    Selection sort: prefer the expiry CLOSEST to the original target Friday
+    (so liquid names like AAPL still get their weekly), then closest strike.
     """
     strike_low  = round(strike * (1 - tolerance_pct), 2)
     strike_high = round(strike * (1 + tolerance_pct), 2)
+
+    expiry_lo = expiry - timedelta(days=3)
+    if earnings_date is not None:
+        expiry_lo = max(expiry_lo, earnings_date + timedelta(days=2))
+    expiry_hi = expiry + timedelta(days=30)
 
     try:
         # NOTE: The alpaca-py field is `type`, NOT `contract_type`. Passing
@@ -152,25 +170,33 @@ def find_option_contract(
         req = GetOptionContractsRequest(
             underlying_symbols=[symbol],
             type=contract_type,
-            expiration_date_gte=expiry - timedelta(days=3),
-            expiration_date_lte=expiry + timedelta(days=3),
+            expiration_date_gte=expiry_lo,
+            expiration_date_lte=expiry_hi,
             strike_price_gte=str(strike_low),
             strike_price_lte=str(strike_high),
-            limit=20,
+            limit=50,
         )
         contracts = client.get_option_contracts(req)
         if not contracts or not contracts.option_contracts:
-            log.warning(f"{symbol}: no option contracts found near strike ${strike:.2f} expiry {expiry}")
+            log.warning(
+                f"{symbol}: no option contracts found near strike ${strike:.2f} "
+                f"between expiries {expiry_lo} and {expiry_hi}"
+            )
             return None
 
-        # Pick the contract with strike closest to target
+        # Prefer expiry closest to original target, then closest strike.
         best = min(
             contracts.option_contracts,
-            key=lambda c: abs(float(c.strike_price) - strike)
+            key=lambda c: (
+                abs((c.expiration_date - expiry).days),
+                abs(float(c.strike_price) - strike),
+            )
         )
+        expiry_drift = (best.expiration_date - expiry).days
         log.info(
             f"{symbol}: found contract {best.symbol} | "
-            f"strike=${float(best.strike_price):.2f} | expiry={best.expiration_date}"
+            f"strike=${float(best.strike_price):.2f} | expiry={best.expiration_date} "
+            f"(target was {expiry}, drift={expiry_drift:+d} days)"
         )
         return best
 
@@ -410,7 +436,10 @@ def execute_trade(rec: Dict[str, Any], client: TradingClient) -> Optional[Dict[s
     atm_strike    = round(price)
     contract_type = ContractType.PUT if trade_type == "put" else ContractType.CALL
 
-    contract = find_option_contract(client, symbol, atm_strike, expiry, contract_type)
+    contract = find_option_contract(
+        client, symbol, atm_strike, expiry, contract_type,
+        earnings_date=earnings_date,
+    )
     if not contract:
         log.warning(f"{symbol}: no ATM {trade_type} contract found — skipping")
         return _failed_attempt_record(
