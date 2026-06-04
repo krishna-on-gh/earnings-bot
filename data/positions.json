@@ -1,30 +1,19 @@
 {
-  "positions": [
-    {
-      "symbol": "AVGO260605C00440000",
-      "qty": 4.0,
-      "avg_entry_price": 21.3,
-      "current_price": 0.5,
-      "market_value": 200.0,
-      "unrealized_pl": -8320.0,
-      "unrealized_plpc": -0.97653,
-      "side": "PositionSide.LONG"
-    }
-  ],
+  "positions": [],
   "account": {
-    "equity": 1017671.85,
-    "cash": 1017571.85,
-    "portfolio_value": 1017671.85,
-    "buying_power": 4070287.4,
+    "equity": 1017671.81,
+    "cash": 1017671.81,
+    "portfolio_value": 1017671.81,
+    "buying_power": 4070687.24,
     "last_equity": 1034971.89,
     "daytrade_count": 0
   },
-  "last_updated": "2026-06-04T10:09:41.823047-04:00",
-  "daily_pnl": -17300.04,
+  "last_updated": "2026-06-04T11:05:31.493208-04:00",
+  "daily_pnl": -17300.08,
   "daily_pnl_pct": -1.67,
-  "weekly_pnl": 0.0,
-  "weekly_pnl_pct": 0.0,
-  "open_positions_count": 1,
+  "weekly_pnl": -9800.0,
+  "weekly_pnl_pct": 0,
+  "open_positions_count": 0,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }
