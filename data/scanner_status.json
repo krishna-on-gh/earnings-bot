@@ -1,28 +1,20 @@
 {
-  "last_run": "2026-06-02T23:18:25.293485-04:00",
+  "last_run": "2026-06-04T23:17:14.290161-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 15,
+  "earnings_candidates": 8,
   "candidates": [
-    "ULTA",
-    "MASI",
-    "GTLB",
-    "AVGO",
-    "CRWD",
-    "FIVE",
-    "DSGX",
-    "OLLI",
     "COO",
     "TTAN",
     "TCOM",
     "CPB",
     "CASY",
+    "MASI",
     "ASO",
     "ADBE"
   ],
-  "recommendations_found": 2,
+  "recommendations_found": 1,
   "recommendations": [
-    "AVGO",
     "ADBE"
   ]
 }
