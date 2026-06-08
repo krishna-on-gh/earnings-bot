@@ -27,10 +27,11 @@
     "exit_date": "2026-05-27",
     "exit_price": 12.3,
     "pnl": 26100.0,
-    "pnl_pct": 2.7273,
+    "pnl_pct": 272.73,
     "notes": [
       "Manually entered \u00e2\u20ac\u201d executor missed entry due to missing put support (now fixed). 29x PDD260529P00097000 @ $3.30.",
-      "Closed 2026-05-27 @ $12.30 (+272.7%) \u2014 manual close, status update done 2026-05-28"
+      "Closed 2026-05-27 @ $12.30 (+272.7%) \u2014 manual close, status update done 2026-05-28",
+      "Fixed pnl_pct unit 2026-06-04: was 2.7273 (decimal form), now 272.73 (percent form)"
     ],
     "entry_premium": 3.3,
     "exit_premium": 12.3,
