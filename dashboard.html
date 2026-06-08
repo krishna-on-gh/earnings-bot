@@ -142,12 +142,14 @@
     "position_size": 10000,
     "current_price": 251.44,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-06-07",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-06-08",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-06-08",
+    "trade_id": "ae4d408f"
   },
   {
     "id": "73fddd0e",
@@ -264,6 +266,37 @@
     "pnl": -9800.0,
     "pnl_pct": -98.0,
     "exit_value": 200.0
+  },
+  {
+    "id": "ae4d408f",
+    "symbol": "ADBE",
+    "company": "Adobe Inc.",
+    "sector": "Technology",
+    "trade_type": "put",
+    "entry_date": "2026-06-08",
+    "entry_time": "2026-06-08T15:01:45.309062-04:00",
+    "entry_price": 246.89500427246094,
+    "earnings_date": "2026-06-11",
+    "earnings_timing": "post_market",
+    "expiry_date": "2026-06-19",
+    "qty": 7,
+    "position_size": 10000,
+    "confidence": "HIGH",
+    "order_id": "d08bfb4f-38ef-4cd7-be61-49b3ab99df21",
+    "order_status": "OrderStatus.PENDING_NEW",
+    "long_contract": "ADBE260618P00247500",
+    "short_contract": null,
+    "long_strike": 247.5,
+    "short_strike": null,
+    "beat_rate": 1.0,
+    "pu5": 0.125,
+    "momentum_30d": -0.02,
+    "iv_proxy": 0.633,
+    "status": "open",
+    "exit_date": null,
+    "exit_price": null,
+    "pnl": null,
+    "pnl_pct": null
   }
 ]</script>
 <script id="__POSITIONS__" type="application/json">{
@@ -287,13 +320,13 @@
 }</script>
 <script id="__BUDGET__" type="application/json">{
   "total_cap": 1000000,
-  "total_deployed": 0,
+  "total_deployed": 10000,
   "available": 1000000,
-  "trades_count": 0,
-  "last_updated": "2026-05-19T16:05:00.000000-04:00",
+  "trades_count": 1,
+  "last_updated": "2026-06-08T15:01:45.308798-04:00",
   "halted": false,
   "halt_reason": null,
-  "available_total": 1000000
+  "available_total": 990000
 }</script>
 <script id="__ACCURACY__" type="application/json">{
   "calls": 0,
@@ -756,7 +789,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-06-08T19:00:49", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-06-08T19:31:11", "source": "scheduler"}</script>
 
 <script type="text/babel">
 "use strict";
