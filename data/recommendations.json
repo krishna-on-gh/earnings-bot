@@ -90,12 +90,14 @@
     "position_size": 10000,
     "current_price": 251.44,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-06-07",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-06-08",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-06-08",
+    "trade_id": "ae4d408f"
   },
   {
     "id": "73fddd0e",
