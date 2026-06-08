@@ -89,10 +89,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 251.44,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-06-07",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-06-08",
+    "disqualified": false
   },
   {
     "id": "73fddd0e",
