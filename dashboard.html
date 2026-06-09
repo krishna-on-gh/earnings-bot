@@ -225,10 +225,11 @@
     "exit_date": "2026-05-27",
     "exit_price": 12.3,
     "pnl": 26100.0,
-    "pnl_pct": 2.7273,
+    "pnl_pct": 272.73,
     "notes": [
       "Manually entered \u00e2\u20ac\u201d executor missed entry due to missing put support (now fixed). 29x PDD260529P00097000 @ $3.30.",
-      "Closed 2026-05-27 @ $12.30 (+272.7%) \u2014 manual close, status update done 2026-05-28"
+      "Closed 2026-05-27 @ $12.30 (+272.7%) \u2014 manual close, status update done 2026-05-28",
+      "Fixed pnl_pct unit 2026-06-04: was 2.7273 (decimal form), now 272.73 (percent form)"
     ],
     "entry_premium": 3.3,
     "exit_premium": 12.3,
@@ -283,7 +284,7 @@
     "position_size": 10000,
     "confidence": "HIGH",
     "order_id": "d08bfb4f-38ef-4cd7-be61-49b3ab99df21",
-    "order_status": "OrderStatus.PENDING_NEW",
+    "order_status": "OrderStatus.EXPIRED",
     "long_contract": "ADBE260618P00247500",
     "short_contract": null,
     "long_strike": 247.5,
@@ -292,11 +293,14 @@
     "pu5": 0.125,
     "momentum_30d": -0.02,
     "iv_proxy": 0.633,
-    "status": "open",
-    "exit_date": null,
+    "status": "expired_unfilled",
+    "exit_date": "2026-06-08",
     "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "pnl": 0,
+    "pnl_pct": 0,
+    "notes": [
+      "Limit @ $13.44 (raw ask at submit) sat unfilled \u2014 ask ticked above $13.44 before order reached exchange, DAY TIF expired at 4 PM ET, no position acquired. Executor patched 2026-06-08 to use ask \u00d7 1.02 going forward."
+    ]
   }
 ]</script>
 <script id="__POSITIONS__" type="application/json">{
@@ -889,7 +893,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-06-08T21:33:59", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-06-09T13:01:18", "source": "scheduler"}</script>
 
 <script type="text/babel">
 "use strict";
