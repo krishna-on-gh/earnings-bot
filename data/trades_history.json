@@ -86,7 +86,7 @@
     "position_size": 10000,
     "confidence": "HIGH",
     "order_id": "d08bfb4f-38ef-4cd7-be61-49b3ab99df21",
-    "order_status": "OrderStatus.PENDING_NEW",
+    "order_status": "OrderStatus.EXPIRED",
     "long_contract": "ADBE260618P00247500",
     "short_contract": null,
     "long_strike": 247.5,
@@ -95,10 +95,13 @@
     "pu5": 0.125,
     "momentum_30d": -0.02,
     "iv_proxy": 0.633,
-    "status": "open",
-    "exit_date": null,
+    "status": "expired_unfilled",
+    "exit_date": "2026-06-08",
     "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "pnl": 0,
+    "pnl_pct": 0,
+    "notes": [
+      "Limit @ $13.44 (raw ask at submit) sat unfilled \u2014 ask ticked above $13.44 before order reached exchange, DAY TIF expired at 4 PM ET, no position acquired. Executor patched 2026-06-08 to use ask \u00d7 1.02 going forward."
+    ]
   }
 ]

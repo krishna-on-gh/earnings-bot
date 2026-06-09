@@ -63,12 +63,19 @@ def get_entry_date(earnings_date: date) -> date:
 
 
 # ── Live option quote ─────────────────────────────────────────────────────────
+# Limit-price headroom over the live ask. The bare ask works in theory (MMs sit
+# there) but in practice the ask can tick up in the milliseconds between quote
+# and order submission, leaving the limit unfilled. Verified failure: ADBE on
+# 2026-06-08 — fetched ask $13.44, ask moved before order arrived, limit sat
+# unfilled until DAY expiry. 2% headroom turns "sometimes fills" into "almost
+# always fills" at a worst-case overpayment of ~2% per contract.
+LIMIT_PRICE_HEADROOM = 1.02
+
 def get_option_ask_price(contract_symbol: str) -> Optional[float]:
     """
-    Fetch live ask price for an option contract.
-    We use ask (not mid) as the limit price to guarantee fills.
-    Mid-price limits frequently go unfilled — market makers sit at the ask.
-    Falls back to None if unavailable (caller uses stale close_price instead).
+    Fetch live ask price for an option contract and return a fill-guaranteed
+    limit price (= ask × LIMIT_PRICE_HEADROOM). Falls back to None if the quote
+    is unavailable (caller uses stale close_price instead).
     """
     try:
         data_client = get_option_data_client()
@@ -82,8 +89,12 @@ def get_option_ask_price(contract_symbol: str) -> Optional[float]:
         if ask <= 0:
             return None
         mid = round((bid + ask) / 2, 2)
-        log.info(f"{contract_symbol}: bid=${bid:.2f} ask=${ask:.2f} mid=${mid:.2f} — using ask as limit")
-        return round(ask, 2)
+        limit = round(ask * LIMIT_PRICE_HEADROOM, 2)
+        log.info(
+            f"{contract_symbol}: bid=${bid:.2f} ask=${ask:.2f} mid=${mid:.2f} "
+            f"-> limit=${limit:.2f} (ask × {LIMIT_PRICE_HEADROOM})"
+        )
+        return limit
     except Exception as e:
         log.warning(f"Could not fetch live quote for {contract_symbol}: {e}")
         return None
