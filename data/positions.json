@@ -8,11 +8,11 @@
     "last_equity": 1017671.67,
     "daytrade_count": 0
   },
-  "last_updated": "2026-06-08T16:09:18.517180-04:00",
+  "last_updated": "2026-06-09T10:05:25.197980-04:00",
   "daily_pnl": 0.0,
   "daily_pnl_pct": 0.0,
   "weekly_pnl": 0.0,
-  "weekly_pnl_pct": 0.0,
+  "weekly_pnl_pct": 0,
   "open_positions_count": 0,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
