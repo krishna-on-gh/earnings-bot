@@ -72,7 +72,7 @@
     "disqualified": false
   },
   {
-    "id": "ae4d408f",
+    "id": "73490fde",
     "symbol": "ADBE",
     "company": "Adobe Inc.",
     "sector": "Technology",
@@ -83,21 +83,16 @@
     "beat_rate": 1.0,
     "pu5": 0.125,
     "pd5": 0.625,
-    "momentum_30d": -0.02,
-    "hv30": 0.437,
-    "iv_proxy": 0.633,
+    "momentum_30d": -0.034,
+    "hv30": 0.439,
+    "iv_proxy": 0.637,
     "trade_type": "put",
     "position_size": 10000,
-    "current_price": 251.44,
-    "validated": true,
-    "executed": true,
-    "scan_date": "2026-06-07",
-    "notes": [],
-    "validation_notes": [],
-    "validated_date": "2026-06-08",
-    "disqualified": false,
-    "execution_date": "2026-06-08",
-    "trade_id": "ae4d408f"
+    "current_price": 237.88,
+    "validated": false,
+    "executed": false,
+    "scan_date": "2026-06-09",
+    "notes": []
   },
   {
     "id": "73fddd0e",
