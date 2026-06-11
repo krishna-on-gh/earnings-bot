@@ -188,12 +188,14 @@
     "position_size": 10000,
     "current_price": 372.03,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-05-27",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-05-27",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-06-11",
+    "trade_id": "73fddd0e"
   }
 ]</script>
 <script id="__TRADES__" type="application/json">[
@@ -301,6 +303,37 @@
     "notes": [
       "Limit @ $13.44 (raw ask at submit) sat unfilled \u2014 ask ticked above $13.44 before order reached exchange, DAY TIF expired at 4 PM ET, no position acquired. Executor patched 2026-06-08 to use ask \u00d7 1.02 going forward."
     ]
+  },
+  {
+    "id": "73fddd0e",
+    "symbol": "JBL",
+    "company": "Jabil Inc.",
+    "sector": "Technology",
+    "trade_type": "call",
+    "entry_date": "2026-06-11",
+    "entry_time": "2026-06-11T15:02:17.559870-04:00",
+    "entry_price": 372.7099914550781,
+    "earnings_date": "2026-06-16",
+    "earnings_timing": "unknown",
+    "expiry_date": "2026-06-19",
+    "qty": 4,
+    "position_size": 10000,
+    "confidence": "HIGH",
+    "order_id": "22be0af6-3011-4282-b18d-fe5f0d964170",
+    "order_status": "OrderStatus.PENDING_NEW",
+    "long_contract": "JBL260618C00372500",
+    "short_contract": null,
+    "long_strike": 372.5,
+    "short_strike": null,
+    "beat_rate": 0.917,
+    "pu5": 0.417,
+    "momentum_30d": 0.125,
+    "iv_proxy": 0.706,
+    "status": "open",
+    "exit_date": null,
+    "exit_price": null,
+    "pnl": null,
+    "pnl_pct": null
   }
 ]</script>
 <script id="__POSITIONS__" type="application/json">{
@@ -324,13 +357,13 @@
 }</script>
 <script id="__BUDGET__" type="application/json">{
   "total_cap": 1000000,
-  "total_deployed": 10000,
+  "total_deployed": 20000,
   "available": 1000000,
-  "trades_count": 1,
-  "last_updated": "2026-06-08T15:01:45.308798-04:00",
+  "trades_count": 2,
+  "last_updated": "2026-06-11T15:02:17.559559-04:00",
   "halted": false,
   "halt_reason": null,
-  "available_total": 990000
+  "available_total": 980000
 }</script>
 <script id="__ACCURACY__" type="application/json">{
   "calls": 0,
@@ -801,7 +834,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-06-11T19:02:03", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-06-11T19:32:59", "source": "scheduler"}</script>
 
 <script type="text/babel">
 "use strict";
