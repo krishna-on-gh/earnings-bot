@@ -1,14 +1,13 @@
 {
-  "last_run": "2026-06-09T23:21:43.020790-04:00",
+  "last_run": "2026-06-11T23:20:38.194817-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 5,
+  "earnings_candidates": 4,
   "candidates": [
-    "CASY",
-    "MASI",
-    "ASO",
     "ADBE",
-    "TCOM"
+    "TCOM",
+    "AVAV",
+    "PAYX"
   ],
   "recommendations_found": 1,
   "recommendations": [
