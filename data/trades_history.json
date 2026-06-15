@@ -129,10 +129,11 @@
     "pu5": 0.417,
     "momentum_30d": 0.125,
     "iv_proxy": 0.706,
-    "status": "open",
-    "exit_date": null,
-    "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "status": "closed",
+    "exit_date": "2026-06-15",
+    "exit_price": 27.1,
+    "pnl": 840.0,
+    "pnl_pct": 8.4,
+    "exit_value": 10840.0
   }
 ]
