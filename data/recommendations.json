@@ -28,34 +28,6 @@
     "disqualified": false
   },
   {
-    "id": "6a07f3d0",
-    "symbol": "ADBE",
-    "company": "Adobe Inc.",
-    "sector": "Technology",
-    "sector_type": "other",
-    "confidence": "HIGH",
-    "earnings_date": "2026-06-11",
-    "earnings_timing": "post_market",
-    "beat_rate": 1.0,
-    "pu5": 0.125,
-    "pd5": 0.625,
-    "momentum_30d": -0.073,
-    "hv30": 0.475,
-    "iv_proxy": 0.688,
-    "trade_type": "put",
-    "position_size": 10000,
-    "current_price": 218.8,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-06-11",
-    "notes": [],
-    "validation_notes": [
-      "Entry window closed (4d late). Entry date was 2026-06-08 (3 trading days before earnings 2026-06-11)."
-    ],
-    "disqualified": true,
-    "disqualified_reason": "entry_window_closed"
-  },
-  {
     "id": "73fddd0e",
     "symbol": "JBL",
     "company": "Jabil Inc.",

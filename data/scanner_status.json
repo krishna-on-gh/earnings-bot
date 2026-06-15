@@ -1,16 +1,13 @@
 {
-  "last_run": "2026-06-11T23:20:38.194817-04:00",
+  "last_run": "2026-06-14T23:17:10.888927-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 4,
+  "earnings_candidates": 3,
   "candidates": [
-    "ADBE",
-    "TCOM",
     "AVAV",
-    "PAYX"
+    "PAYX",
+    "TCOM"
   ],
-  "recommendations_found": 1,
-  "recommendations": [
-    "ADBE"
-  ]
+  "recommendations_found": 0,
+  "recommendations": []
 }
