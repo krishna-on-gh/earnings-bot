@@ -1,12 +1,11 @@
 {
-  "last_run": "2026-06-23T23:20:10.914908-04:00",
+  "last_run": "2026-06-25T23:20:29.980473-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 3,
+  "earnings_candidates": 2,
   "candidates": [
-    "PAYX",
-    "TCOM",
-    "AVAV"
+    "AVAV",
+    "PSMT"
   ],
   "recommendations_found": 0,
   "recommendations": []
