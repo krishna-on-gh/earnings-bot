@@ -1,8 +1,8 @@
 {
-  "last_run": "2026-07-02T23:18:35.084319-04:00",
+  "last_run": "2026-07-05T23:17:50.860632-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 7,
+  "earnings_candidates": 17,
   "candidates": [
     "PSMT",
     "PEP",
@@ -10,8 +10,20 @@
     "ERIC",
     "ASML",
     "CTAS",
-    "UAL"
+    "UAL",
+    "JBHT",
+    "TSM",
+    "NFLX",
+    "CBSH",
+    "FFIN",
+    "TCBI",
+    "INDB",
+    "BANF",
+    "SFNC",
+    "FITB"
   ],
-  "recommendations_found": 0,
-  "recommendations": []
+  "recommendations_found": 1,
+  "recommendations": [
+    "NFLX"
+  ]
 }
