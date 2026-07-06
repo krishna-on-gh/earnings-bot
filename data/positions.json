@@ -1,16 +1,9 @@
 {
   "positions": [],
-  "account": {
-    "equity": 1019711.25,
-    "cash": 1019711.25,
-    "portfolio_value": 1019711.25,
-    "buying_power": 4078845.0,
-    "last_equity": 1019711.25,
-    "daytrade_count": 0
-  },
-  "last_updated": "2026-07-03T16:08:33.493342-04:00",
-  "daily_pnl": 0.0,
-  "daily_pnl_pct": 0.0,
+  "account": {},
+  "last_updated": "2026-07-06T10:05:51.125350-04:00",
+  "daily_pnl": 0,
+  "daily_pnl_pct": 0,
   "weekly_pnl": 0.0,
   "weekly_pnl_pct": 0,
   "open_positions_count": 0,
