@@ -91,10 +91,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 75.47,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-07-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-07-10",
+    "disqualified": false
   },
   {
     "id": "f028efcd",
@@ -114,10 +117,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 64.15,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-07-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-07-10",
+    "disqualified": false
   },
   {
     "id": "36b1c132",
@@ -137,10 +143,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 51.65,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-07-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-07-10",
+    "disqualified": false
   },
   {
     "id": "28a51812",
@@ -163,7 +172,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-07-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 378,514"
+    ],
+    "disqualified": true
   },
   {
     "id": "f0571da1",
@@ -183,9 +196,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 95.53,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-07-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-07-10",
+    "disqualified": false
   }
 ]
