@@ -1,12 +1,23 @@
 {
-  "positions": [],
+  "positions": [
+    {
+      "symbol": "NFLX260724P00074000",
+      "qty": 31.0,
+      "avg_entry_price": 3.2,
+      "current_price": 3.2,
+      "market_value": 9920.0,
+      "unrealized_pl": 0.0,
+      "unrealized_plpc": 0.0,
+      "side": "PositionSide.LONG"
+    }
+  ],
   "account": {},
-  "last_updated": "2026-07-13T14:09:41.499172-04:00",
+  "last_updated": "2026-07-13T15:07:05.035010-04:00",
   "daily_pnl": 0,
   "daily_pnl_pct": 0,
   "weekly_pnl": 0.0,
-  "weekly_pnl_pct": 0,
-  "open_positions_count": 0,
+  "weekly_pnl_pct": 0.0,
+  "open_positions_count": 1,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }
