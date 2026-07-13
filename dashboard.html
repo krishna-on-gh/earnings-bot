@@ -148,12 +148,14 @@
     "position_size": 10000,
     "current_price": 73.37,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-07-12",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-07-13",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-07-13",
+    "trade_id": "72535b4d"
   },
   {
     "id": "e4d88649",
@@ -502,29 +504,71 @@
     "pnl": 840.0,
     "pnl_pct": 8.4,
     "exit_value": 10840.0
+  },
+  {
+    "id": "72535b4d",
+    "symbol": "NFLX",
+    "company": "Netflix, Inc.",
+    "sector": "Communication Services",
+    "trade_type": "put",
+    "entry_date": "2026-07-13",
+    "entry_time": "2026-07-13T15:02:34.281753-04:00",
+    "entry_price": 74.17980194091797,
+    "earnings_date": "2026-07-16",
+    "earnings_timing": "post_market",
+    "expiry_date": "2026-07-24",
+    "qty": 31,
+    "position_size": 10000,
+    "confidence": "HIGH",
+    "order_id": "babe22fc-e355-4ee8-8363-4441406eee2f",
+    "order_status": "OrderStatus.PENDING_NEW",
+    "long_contract": "NFLX260724P00074000",
+    "short_contract": null,
+    "long_strike": 74.0,
+    "short_strike": null,
+    "beat_rate": 0.75,
+    "pu5": 0.286,
+    "momentum_30d": -0.105,
+    "iv_proxy": 0.518,
+    "status": "open",
+    "exit_date": null,
+    "exit_price": null,
+    "pnl": null,
+    "pnl_pct": null
   }
 ]</script>
 <script id="__POSITIONS__" type="application/json">{
-  "positions": [],
+  "positions": [
+    {
+      "symbol": "NFLX260724P00074000",
+      "qty": 31.0,
+      "avg_entry_price": 3.2,
+      "current_price": 3.2,
+      "market_value": 9920.0,
+      "unrealized_pl": 0.0,
+      "unrealized_plpc": 0.0,
+      "side": "PositionSide.LONG"
+    }
+  ],
   "account": {},
-  "last_updated": "2026-07-13T14:09:41.499172-04:00",
+  "last_updated": "2026-07-13T15:07:05.035010-04:00",
   "daily_pnl": 0,
   "daily_pnl_pct": 0,
   "weekly_pnl": 0.0,
-  "weekly_pnl_pct": 0,
-  "open_positions_count": 0,
+  "weekly_pnl_pct": 0.0,
+  "open_positions_count": 1,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }</script>
 <script id="__BUDGET__" type="application/json">{
   "total_cap": 1000000,
-  "total_deployed": 20000,
+  "total_deployed": 30000,
   "available": 1000000,
-  "trades_count": 2,
-  "last_updated": "2026-06-11T15:02:17.559559-04:00",
+  "trades_count": 3,
+  "last_updated": "2026-07-13T15:02:34.281389-04:00",
   "halted": false,
   "halt_reason": null,
-  "available_total": 980000
+  "available_total": 970000
 }</script>
 <script id="__ACCURACY__" type="application/json">{
   "calls": 1,
@@ -757,6 +801,54 @@
       {
         "t": 1783965900,
         "v": 1019711.25
+      },
+      {
+        "t": 1783966200,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783966500,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783966800,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783967100,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783967400,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783967700,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783968000,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783968300,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783968600,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783968900,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783969200,
+        "v": 1019711.25
+      },
+      {
+        "t": 1783969500,
+        "v": 1019556.25
       }
     ],
     "base_value": 1019711.25,
@@ -895,6 +987,10 @@
       {
         "t": 1783963800,
         "v": 1019711.25
+      },
+      {
+        "t": 1783967400,
+        "v": 1019711.25
       }
     ],
     "base_value": 1019711.25,
@@ -979,7 +1075,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-07-13T19:01:59", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-07-13T19:32:08", "source": "scheduler"}</script>
 
 <script type="text/babel">
 "use strict";
