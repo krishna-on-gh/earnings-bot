@@ -1,10 +1,10 @@
 {
   "total_cap": 1000000,
-  "total_deployed": 30000,
+  "total_deployed": 40000,
   "available": 1000000,
-  "trades_count": 3,
-  "last_updated": "2026-07-13T15:02:34.281389-04:00",
+  "trades_count": 4,
+  "last_updated": "2026-07-15T15:00:37.730818-04:00",
   "halted": false,
   "halt_reason": null,
-  "available_total": 970000
+  "available_total": 960000
 }
