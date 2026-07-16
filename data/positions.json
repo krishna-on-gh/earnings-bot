@@ -4,10 +4,10 @@
       "symbol": "NFLX260724P00074000",
       "qty": 31.0,
       "avg_entry_price": 3.2,
-      "current_price": 3.7,
-      "market_value": 11470.0,
-      "unrealized_pl": 1550.0,
-      "unrealized_plpc": 0.15625,
+      "current_price": 3.45,
+      "market_value": 10695.0,
+      "unrealized_pl": 775.0,
+      "unrealized_plpc": 0.07813,
       "side": "PositionSide.LONG"
     },
     {
@@ -22,7 +22,7 @@
     }
   ],
   "account": {},
-  "last_updated": "2026-07-16T11:08:28.521093-04:00",
+  "last_updated": "2026-07-16T12:07:50.182145-04:00",
   "daily_pnl": 0,
   "daily_pnl_pct": 0,
   "weekly_pnl": 0.0,
