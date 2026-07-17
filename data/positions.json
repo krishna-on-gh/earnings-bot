@@ -1,23 +1,43 @@
 {
   "positions": [
     {
+      "symbol": "FISV260724P00051000",
+      "qty": 80.0,
+      "avg_entry_price": 1.25,
+      "current_price": 1.1,
+      "market_value": 8800.0,
+      "unrealized_pl": -1200.0,
+      "unrealized_plpc": -0.12,
+      "side": "PositionSide.LONG"
+    },
+    {
       "symbol": "RYAAY260821C00065000",
       "qty": 20.0,
       "avg_entry_price": 5.0,
-      "current_price": 2.25,
-      "market_value": 4500.0,
-      "unrealized_pl": -5500.0,
-      "unrealized_plpc": -0.55,
+      "current_price": 2.1,
+      "market_value": 4200.0,
+      "unrealized_pl": -5800.0,
+      "unrealized_plpc": -0.58,
+      "side": "PositionSide.LONG"
+    },
+    {
+      "symbol": "SIGI260821P00095000",
+      "qty": 19.0,
+      "avg_entry_price": 5.0,
+      "current_price": 0.5,
+      "market_value": 950.0,
+      "unrealized_pl": -8550.0,
+      "unrealized_plpc": -0.9,
       "side": "PositionSide.LONG"
     }
   ],
   "account": {},
-  "last_updated": "2026-07-17T14:08:35.681968-04:00",
+  "last_updated": "2026-07-17T15:09:07.620094-04:00",
   "daily_pnl": 0,
   "daily_pnl_pct": 0,
   "weekly_pnl": 9065.0,
-  "weekly_pnl_pct": 90.65,
-  "open_positions_count": 1,
+  "weekly_pnl_pct": 30.22,
+  "open_positions_count": 3,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }
