@@ -148,12 +148,14 @@
     "position_size": 10000,
     "current_price": 49.54,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-07-14",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-07-15",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-07-17",
+    "trade_id": "ad777d94"
   },
   {
     "id": "683948ee",
@@ -201,12 +203,14 @@
     "position_size": 10000,
     "current_price": 96.34,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-07-14",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-07-15",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-07-17",
+    "trade_id": "4e1e1729"
   },
   {
     "id": "0381ff73",
