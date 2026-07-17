@@ -204,12 +204,14 @@
     "position_size": 10000,
     "current_price": 49.54,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-07-14",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-07-15",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-07-17",
+    "trade_id": "ad777d94"
   },
   {
     "id": "683948ee",
@@ -257,12 +259,14 @@
     "position_size": 10000,
     "current_price": 96.34,
     "validated": true,
-    "executed": false,
+    "executed": true,
     "scan_date": "2026-07-14",
     "notes": [],
     "validation_notes": [],
     "validated_date": "2026-07-15",
-    "disqualified": false
+    "disqualified": false,
+    "execution_date": "2026-07-17",
+    "trade_id": "4e1e1729"
   },
   {
     "id": "0381ff73",
@@ -621,40 +625,122 @@
     "exit_price": null,
     "pnl": null,
     "pnl_pct": null
+  },
+  {
+    "id": "ad777d94",
+    "symbol": "FISV",
+    "company": "Fiserv, Inc.",
+    "sector": "Unknown",
+    "trade_type": "put",
+    "entry_date": "2026-07-17",
+    "entry_time": "2026-07-17T15:01:55.207955-04:00",
+    "entry_price": 50.939998626708984,
+    "earnings_date": "2026-07-22",
+    "earnings_timing": "unknown",
+    "expiry_date": "2026-07-24",
+    "qty": 80,
+    "position_size": 10000,
+    "confidence": "HIGH",
+    "order_id": "4bb9aafd-7fa1-4752-b5d1-545853e77190",
+    "order_status": "OrderStatus.PENDING_NEW",
+    "long_contract": "FISV260724P00051000",
+    "short_contract": null,
+    "long_strike": 51.0,
+    "short_strike": null,
+    "beat_rate": 0.875,
+    "pu5": 0.125,
+    "momentum_30d": -0.079,
+    "iv_proxy": 0.75,
+    "status": "open",
+    "exit_date": null,
+    "exit_price": null,
+    "pnl": null,
+    "pnl_pct": null
+  },
+  {
+    "id": "4e1e1729",
+    "symbol": "SIGI",
+    "company": "Selective Insurance Group, Inc.",
+    "sector": "Financial Services",
+    "trade_type": "put",
+    "entry_date": "2026-07-17",
+    "entry_time": "2026-07-17T15:01:56.654214-04:00",
+    "entry_price": 96.31999969482422,
+    "earnings_date": "2026-07-22",
+    "earnings_timing": "unknown",
+    "expiry_date": "2026-07-24",
+    "qty": 19,
+    "position_size": 10000,
+    "confidence": "HIGH",
+    "order_id": "cffa3322-04c6-4548-b0bc-c79fdd83d558",
+    "order_status": "OrderStatus.PENDING_NEW",
+    "long_contract": "SIGI260821P00095000",
+    "short_contract": null,
+    "long_strike": 95.0,
+    "short_strike": null,
+    "beat_rate": 0.125,
+    "pu5": 0.125,
+    "momentum_30d": 0.043,
+    "iv_proxy": 0.295,
+    "status": "open",
+    "exit_date": null,
+    "exit_price": null,
+    "pnl": null,
+    "pnl_pct": null
   }
 ]</script>
 <script id="__POSITIONS__" type="application/json">{
   "positions": [
     {
+      "symbol": "FISV260724P00051000",
+      "qty": 80.0,
+      "avg_entry_price": 1.25,
+      "current_price": 1.1,
+      "market_value": 8800.0,
+      "unrealized_pl": -1200.0,
+      "unrealized_plpc": -0.12,
+      "side": "PositionSide.LONG"
+    },
+    {
       "symbol": "RYAAY260821C00065000",
       "qty": 20.0,
       "avg_entry_price": 5.0,
-      "current_price": 2.25,
-      "market_value": 4500.0,
-      "unrealized_pl": -5500.0,
-      "unrealized_plpc": -0.55,
+      "current_price": 2.1,
+      "market_value": 4200.0,
+      "unrealized_pl": -5800.0,
+      "unrealized_plpc": -0.58,
+      "side": "PositionSide.LONG"
+    },
+    {
+      "symbol": "SIGI260821P00095000",
+      "qty": 19.0,
+      "avg_entry_price": 5.0,
+      "current_price": 0.5,
+      "market_value": 950.0,
+      "unrealized_pl": -8550.0,
+      "unrealized_plpc": -0.9,
       "side": "PositionSide.LONG"
     }
   ],
   "account": {},
-  "last_updated": "2026-07-17T14:08:35.681968-04:00",
+  "last_updated": "2026-07-17T15:09:07.620094-04:00",
   "daily_pnl": 0,
   "daily_pnl_pct": 0,
   "weekly_pnl": 9065.0,
-  "weekly_pnl_pct": 90.65,
-  "open_positions_count": 1,
+  "weekly_pnl_pct": 30.22,
+  "open_positions_count": 3,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }</script>
 <script id="__BUDGET__" type="application/json">{
   "total_cap": 1000000,
-  "total_deployed": 40000,
+  "total_deployed": 60000,
   "available": 1000000,
-  "trades_count": 4,
-  "last_updated": "2026-07-15T15:00:37.730818-04:00",
+  "trades_count": 6,
+  "last_updated": "2026-07-17T15:01:56.653923-04:00",
   "halted": false,
   "halt_reason": null,
-  "available_total": 960000
+  "available_total": 940000
 }</script>
 <script id="__ACCURACY__" type="application/json">{
   "calls": 1,
@@ -887,6 +973,54 @@
       {
         "t": 1784311500,
         "v": 1024454.44
+      },
+      {
+        "t": 1784311800,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784312100,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784312400,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784312700,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784313000,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784313300,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784313600,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784313900,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784314200,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784314500,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784314800,
+        "v": 1024454.44
+      },
+      {
+        "t": 1784315100,
+        "v": 1014154.44
       }
     ],
     "base_value": 1019569.44,
@@ -1053,6 +1187,10 @@
       {
         "t": 1784309400,
         "v": 1024454.44
+      },
+      {
+        "t": 1784313000,
+        "v": 1024454.44
       }
     ],
     "base_value": 1019711.25,
@@ -1145,7 +1283,7 @@
     "timeframe": "1D"
   }
 }</script>
-<script id="__META__" type="application/json">{"embedded_at": "2026-07-17T19:00:18", "source": "scheduler"}</script>
+<script id="__META__" type="application/json">{"embedded_at": "2026-07-17T19:31:06", "source": "scheduler"}</script>
 
 <script type="text/babel">
 "use strict";
