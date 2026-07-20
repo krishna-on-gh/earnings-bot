@@ -11,33 +11,73 @@
       "side": "PositionSide.LONG"
     },
     {
+      "symbol": "GTX260821C00031000",
+      "qty": 22.0,
+      "avg_entry_price": 4.3,
+      "current_price": 1.5,
+      "market_value": 3300.0,
+      "unrealized_pl": -6160.0,
+      "unrealized_plpc": -0.65116,
+      "side": "PositionSide.LONG"
+    },
+    {
       "symbol": "RYAAY260821C00065000",
       "qty": 20.0,
       "avg_entry_price": 5.0,
-      "current_price": 0.6,
-      "market_value": 1200.0,
-      "unrealized_pl": -8800.0,
-      "unrealized_plpc": -0.88,
+      "current_price": 0.7,
+      "market_value": 1400.0,
+      "unrealized_pl": -8600.0,
+      "unrealized_plpc": -0.86,
       "side": "PositionSide.LONG"
     },
     {
       "symbol": "SIGI260821P00095000",
-      "qty": 19.0,
+      "qty": 38.0,
       "avg_entry_price": 5.0,
       "current_price": 0.5,
-      "market_value": 950.0,
-      "unrealized_pl": -8550.0,
+      "market_value": 1900.0,
+      "unrealized_pl": -17100.0,
       "unrealized_plpc": -0.9,
+      "side": "PositionSide.LONG"
+    },
+    {
+      "symbol": "SMMT260731P00014000",
+      "qty": 56.0,
+      "avg_entry_price": 1.7,
+      "current_price": 1.15,
+      "market_value": 6440.0,
+      "unrealized_pl": -3080.0,
+      "unrealized_plpc": -0.32353,
+      "side": "PositionSide.LONG"
+    },
+    {
+      "symbol": "TMUS260731C00195000",
+      "qty": 12.0,
+      "avg_entry_price": 7.7,
+      "current_price": 7.0,
+      "market_value": 8400.0,
+      "unrealized_pl": -840.0,
+      "unrealized_plpc": -0.09091,
+      "side": "PositionSide.LONG"
+    },
+    {
+      "symbol": "TSCO260731P00030000",
+      "qty": 71.0,
+      "avg_entry_price": 1.3,
+      "current_price": 1.15,
+      "market_value": 8165.0,
+      "unrealized_pl": -1065.0,
+      "unrealized_plpc": -0.11538,
       "side": "PositionSide.LONG"
     }
   ],
   "account": {},
-  "last_updated": "2026-07-20T14:09:23.329771-04:00",
+  "last_updated": "2026-07-20T15:05:52.045698-04:00",
   "daily_pnl": 0,
   "daily_pnl_pct": 0,
   "weekly_pnl": 0.0,
   "weekly_pnl_pct": 0.0,
-  "open_positions_count": 3,
+  "open_positions_count": 7,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
 }
