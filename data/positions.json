@@ -4,10 +4,10 @@
       "symbol": "FISV260724P00051000",
       "qty": 80.0,
       "avg_entry_price": 1.25,
-      "current_price": 0.85,
-      "market_value": 6800.0,
-      "unrealized_pl": -3200.0,
-      "unrealized_plpc": -0.32,
+      "current_price": 0.6,
+      "market_value": 4800.0,
+      "unrealized_pl": -5200.0,
+      "unrealized_plpc": -0.52,
       "side": "PositionSide.LONG"
     },
     {
@@ -32,7 +32,7 @@
     }
   ],
   "account": {},
-  "last_updated": "2026-07-20T11:07:49.921052-04:00",
+  "last_updated": "2026-07-20T12:07:47.681117-04:00",
   "daily_pnl": 0,
   "daily_pnl_pct": 0,
   "weekly_pnl": 0.0,
