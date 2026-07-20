@@ -14,10 +14,10 @@
       "symbol": "RYAAY260821C00065000",
       "qty": 20.0,
       "avg_entry_price": 5.0,
-      "current_price": 1.8,
-      "market_value": 3600.0,
-      "unrealized_pl": -6400.0,
-      "unrealized_plpc": -0.64,
+      "current_price": 0.55,
+      "market_value": 1100.0,
+      "unrealized_pl": -8900.0,
+      "unrealized_plpc": -0.89,
       "side": "PositionSide.LONG"
     },
     {
@@ -32,11 +32,11 @@
     }
   ],
   "account": {},
-  "last_updated": "2026-07-17T16:06:01.532700-04:00",
+  "last_updated": "2026-07-20T10:05:14.954343-04:00",
   "daily_pnl": 0,
   "daily_pnl_pct": 0,
-  "weekly_pnl": 9065.0,
-  "weekly_pnl_pct": 30.22,
+  "weekly_pnl": 0.0,
+  "weekly_pnl_pct": 0.0,
   "open_positions_count": 3,
   "circuit_breaker_triggered": false,
   "circuit_breaker_reason": null
