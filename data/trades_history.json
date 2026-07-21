@@ -225,11 +225,12 @@
     "pu5": 0.125,
     "momentum_30d": -0.079,
     "iv_proxy": 0.75,
-    "status": "open",
-    "exit_date": null,
-    "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "status": "closed",
+    "exit_date": "2026-07-21",
+    "exit_price": 0.45,
+    "pnl": -6400.0,
+    "pnl_pct": -64.0,
+    "exit_value": 3600.0
   },
   {
     "id": "4e1e1729",
@@ -256,11 +257,12 @@
     "pu5": 0.125,
     "momentum_30d": 0.043,
     "iv_proxy": 0.295,
-    "status": "open",
-    "exit_date": null,
-    "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "status": "closed",
+    "exit_date": "2026-07-21",
+    "exit_price": 1.0,
+    "pnl": -8100.0,
+    "pnl_pct": -81.0,
+    "exit_value": 1900.0
   },
   {
     "id": "beb3d3b4",
@@ -287,11 +289,12 @@
     "pu5": 0.125,
     "momentum_30d": 0.041,
     "iv_proxy": 0.326,
-    "status": "open",
-    "exit_date": null,
-    "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "status": "closed",
+    "exit_date": "2026-07-21",
+    "exit_price": 1.0,
+    "pnl": -8100.0,
+    "pnl_pct": -81.0,
+    "exit_value": 1900.0
   },
   {
     "id": "662515e7",
@@ -318,11 +321,12 @@
     "pu5": 0.625,
     "momentum_30d": 0.061,
     "iv_proxy": 0.483,
-    "status": "open",
-    "exit_date": null,
-    "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "status": "closed",
+    "exit_date": "2026-07-21",
+    "exit_price": 4.9,
+    "pnl": -4120.0,
+    "pnl_pct": -41.2,
+    "exit_value": 5880.0
   },
   {
     "id": "048145cb",
@@ -371,11 +375,12 @@
     "pu5": 0.0,
     "momentum_30d": 0.026,
     "iv_proxy": 0.414,
-    "status": "open",
-    "exit_date": null,
-    "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "status": "closed",
+    "exit_date": "2026-07-21",
+    "exit_price": 1.0,
+    "pnl": -2900.0,
+    "pnl_pct": -29.0,
+    "exit_value": 7100.0
   },
   {
     "id": "4324131b",
@@ -402,11 +407,12 @@
     "pu5": 0.625,
     "momentum_30d": 0.01,
     "iv_proxy": 0.671,
-    "status": "open",
-    "exit_date": null,
-    "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "status": "closed",
+    "exit_date": "2026-07-21",
+    "exit_price": 2.1,
+    "pnl": -5380.0,
+    "pnl_pct": -53.8,
+    "exit_value": 4620.0
   },
   {
     "id": "1da646b0",
@@ -433,10 +439,11 @@
     "pu5": 0.125,
     "momentum_30d": -0.018,
     "iv_proxy": 0.786,
-    "status": "open",
-    "exit_date": null,
-    "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "status": "closed",
+    "exit_date": "2026-07-21",
+    "exit_price": 1.0,
+    "pnl": -4400.0,
+    "pnl_pct": -44.0,
+    "exit_value": 5600.0
   }
 ]
