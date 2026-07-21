@@ -193,11 +193,12 @@
     "pu5": 0.5,
     "momentum_30d": 0.066,
     "iv_proxy": 0.502,
-    "status": "open",
-    "exit_date": null,
-    "exit_price": null,
-    "pnl": null,
-    "pnl_pct": null
+    "status": "closed",
+    "exit_date": "2026-07-21",
+    "exit_price": 0.55,
+    "pnl": -8900.0,
+    "pnl_pct": -89.0,
+    "exit_value": 1100.0
   },
   {
     "id": "ad777d94",
