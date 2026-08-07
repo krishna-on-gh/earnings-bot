@@ -286,7 +286,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-03 (3 trading days before earnings 2026-08-06)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "3c65bcde",
@@ -309,7 +314,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-03 (3 trading days before earnings 2026-08-06)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "160b675e",
@@ -388,7 +398,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-03 (3 trading days before earnings 2026-08-06)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "aae37b6d",
@@ -411,7 +426,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-03 (3 trading days before earnings 2026-08-06)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "fac711e4",
@@ -434,7 +454,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-03 (3 trading days before earnings 2026-08-06)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "aad01cd2",
@@ -485,7 +510,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-03 (3 trading days before earnings 2026-08-06)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "5cc02e56",
@@ -508,7 +538,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-03 (3 trading days before earnings 2026-08-06)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "49588535",
@@ -531,7 +566,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (3d late). Entry date was 2026-08-04 (3 trading days before earnings 2026-08-07)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "42aaab24",
@@ -554,7 +594,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (1d late). Entry date was 2026-08-06 (3 trading days before earnings 2026-08-11)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "474ba156",
@@ -574,10 +619,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 41.02,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-08-07",
+    "disqualified": false
   },
   {
     "id": "5bed094e",
@@ -597,9 +645,12 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 14.77,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-08-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-08-07",
+    "disqualified": false
   }
 ]
