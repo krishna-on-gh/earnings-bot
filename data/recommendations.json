@@ -150,7 +150,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-06 (3 trading days before earnings 2026-08-11)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "8ad7a47f",
@@ -173,7 +178,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-06 (3 trading days before earnings 2026-08-11)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "5158b1e6",
@@ -196,7 +206,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (3d late). Entry date was 2026-08-07 (3 trading days before earnings 2026-08-12)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "5bed094e",
@@ -245,7 +260,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 248,432"
+    ],
+    "disqualified": true
   },
   {
     "id": "f3492dcc",
@@ -268,6 +287,10 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-09",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 335,930"
+    ],
+    "disqualified": true
   }
 ]
