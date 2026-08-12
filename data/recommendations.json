@@ -122,7 +122,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (6d late). Entry date was 2026-08-06 (3 trading days before earnings 2026-08-11)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "8200e363",
@@ -145,7 +150,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (6d late). Entry date was 2026-08-06 (3 trading days before earnings 2026-08-11)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "91b2f960",
@@ -168,7 +178,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (5d late). Entry date was 2026-08-07 (3 trading days before earnings 2026-08-12)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "5bed094e",
@@ -217,7 +232,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 238,524"
+    ],
+    "disqualified": true
   },
   {
     "id": "2c14765c",
@@ -240,7 +259,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 332,756"
+    ],
+    "disqualified": true
   },
   {
     "id": "ea06eebd",
@@ -260,9 +283,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 90.5,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-08-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-08-12",
+    "disqualified": false
   }
 ]
