@@ -1,16 +1,9 @@
 {
-  "last_run": "2026-08-13T23:20:37.312983-04:00",
+  "last_run": "2026-08-16T23:19:15.501281-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 35,
+  "earnings_candidates": 37,
   "candidates": [
-    "AMAT",
-    "JD",
-    "ASND",
-    "GDS",
-    "GLNG",
-    "DLO",
-    "CLBT",
     "HTHT",
     "XP",
     "JKHY",
@@ -35,20 +28,29 @@
     "TCOM",
     "OKTA",
     "NTNX",
-    "LI",
     "FIVE",
+    "LI",
     "URBN",
-    "TRMD"
+    "TRMD",
+    "MRVL",
+    "ADSK",
+    "WDAY",
+    "AFRM",
+    "ULTA",
+    "IREN",
+    "HQY",
+    "BILI",
+    "OLLI"
   ],
   "recommendations_found": 8,
   "recommendations": [
-    "DLO",
     "OSIS",
     "MZTI",
     "PDD",
     "ZM",
     "SNPS",
-    "OKTA",
-    "URBN"
+    "URBN",
+    "ULTA",
+    "BILI"
   ]
 }
