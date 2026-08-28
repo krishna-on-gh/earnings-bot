@@ -1,20 +1,9 @@
 {
-  "last_run": "2026-08-25T23:17:05.333750-04:00",
+  "last_run": "2026-08-27T23:20:53.548209-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 33,
+  "earnings_candidates": 26,
   "candidates": [
-    "ZM",
-    "SMTC",
-    "NVDA",
-    "CRWD",
-    "SNPS",
-    "TCOM",
-    "OKTA",
-    "NTNX",
-    "LI",
-    "URBN",
-    "TRMD",
     "MRVL",
     "ADSK",
     "WDAY",
@@ -27,7 +16,6 @@
     "CRDO",
     "MDB",
     "GTLB",
-    "ASO",
     "AVGO",
     "NTAP",
     "FIVE",
@@ -36,15 +24,17 @@
     "ZS",
     "CPB",
     "DOO",
-    "AMBA"
+    "AMBA",
+    "CASY",
+    "TTAN",
+    "COO",
+    "AVAV",
+    "ASO"
   ],
-  "recommendations_found": 7,
+  "recommendations_found": 4,
   "recommendations": [
-    "ZM",
-    "SNPS",
     "ULTA",
     "BILI",
-    "GTLB",
     "AVGO",
     "ZS"
   ]
