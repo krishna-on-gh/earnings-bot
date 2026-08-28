@@ -204,7 +204,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-27",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-24 (3 trading days before earnings 2026-08-27)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "95a7e591",
@@ -227,7 +232,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-08-27",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-08-24 (3 trading days before earnings 2026-08-27)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "b7d973e7",
@@ -273,10 +283,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 371.54,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-08-27",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-08-28",
+    "disqualified": false
   },
   {
     "id": "6c1ef93b",
@@ -296,10 +309,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 187.3,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-08-27",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-08-28",
+    "disqualified": false
   },
   {
     "id": "78cfbb15",
