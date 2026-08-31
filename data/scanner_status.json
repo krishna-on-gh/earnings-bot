@@ -1,17 +1,9 @@
 {
-  "last_run": "2026-08-27T23:20:53.548209-04:00",
+  "last_run": "2026-08-30T23:20:19.792894-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 26,
+  "earnings_candidates": 20,
   "candidates": [
-    "MRVL",
-    "ADSK",
-    "WDAY",
-    "AFRM",
-    "ULTA",
-    "IREN",
-    "HQY",
-    "BILI",
     "SAIC",
     "CRDO",
     "MDB",
@@ -29,13 +21,14 @@
     "TTAN",
     "COO",
     "AVAV",
-    "ASO"
+    "ASO",
+    "ADBE",
+    "DSGX"
   ],
-  "recommendations_found": 4,
+  "recommendations_found": 3,
   "recommendations": [
-    "ULTA",
-    "BILI",
     "AVGO",
-    "ZS"
+    "ZS",
+    "ADBE"
   ]
 }
