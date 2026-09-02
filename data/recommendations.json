@@ -128,7 +128,7 @@
     "disqualified": false
   },
   {
-    "id": "96745348",
+    "id": "d65e18a6",
     "symbol": "AVGO",
     "company": "Broadcom Inc.",
     "sector": "Technology",
@@ -139,21 +139,16 @@
     "beat_rate": 1.0,
     "pu5": 0.375,
     "pd5": 0.5,
-    "momentum_30d": -0.053,
-    "hv30": 0.42,
-    "iv_proxy": 0.609,
+    "momentum_30d": -0.116,
+    "hv30": 0.41,
+    "iv_proxy": 0.595,
     "trade_type": "put",
     "position_size": 10000,
-    "current_price": 368.79,
+    "current_price": 369.68,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-08-30",
-    "notes": [],
-    "validation_notes": [
-      "Entry window closed (3d late). Entry date was 2026-08-28 (3 trading days before earnings 2026-09-02)."
-    ],
-    "disqualified": true,
-    "disqualified_reason": "entry_window_closed"
+    "scan_date": "2026-09-01",
+    "notes": []
   },
   {
     "id": "dd95e0f9",
@@ -209,7 +204,7 @@
     "disqualified": true
   },
   {
-    "id": "ccc3e3c2",
+    "id": "51ba0405",
     "symbol": "ADBE",
     "company": "Adobe Inc.",
     "sector": "Technology",
@@ -220,18 +215,15 @@
     "beat_rate": 1.0,
     "pu5": 0.0,
     "pd5": 0.75,
-    "momentum_30d": 0.164,
-    "hv30": 0.522,
-    "iv_proxy": 0.758,
+    "momentum_30d": 0.111,
+    "hv30": 0.514,
+    "iv_proxy": 0.746,
     "trade_type": "put",
     "position_size": 10000,
-    "current_price": 291.52,
-    "validated": true,
+    "current_price": 286.08,
+    "validated": false,
     "executed": false,
-    "scan_date": "2026-08-30",
-    "notes": [],
-    "validation_notes": [],
-    "validated_date": "2026-08-31",
-    "disqualified": false
+    "scan_date": "2026-09-01",
+    "notes": []
   }
 ]
