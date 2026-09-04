@@ -203,7 +203,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-09-03",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (2d late). Entry date was 2026-09-02 (3 trading days before earnings 2026-09-08)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "6aa6d0e5",
@@ -223,9 +228,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 285.75,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-09-03",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-09-04",
+    "disqualified": false
   }
 ]
