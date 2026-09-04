@@ -1,18 +1,9 @@
 {
-  "last_run": "2026-09-01T23:21:58.473338-04:00",
+  "last_run": "2026-09-03T23:20:42.263723-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 20,
+  "earnings_candidates": 13,
   "candidates": [
-    "CRDO",
-    "MDB",
-    "GTLB",
-    "AVGO",
-    "NTAP",
-    "TCOM",
-    "FIVE",
-    "OLLI",
-    "CPRT",
     "ZS",
     "CPB",
     "DOO",
@@ -23,11 +14,13 @@
     "AVAV",
     "ASO",
     "ADBE",
-    "DSGX"
+    "CPRT",
+    "DSGX",
+    "TCOM"
   ],
   "recommendations_found": 2,
   "recommendations": [
-    "AVGO",
+    "TTAN",
     "ADBE"
   ]
 }
