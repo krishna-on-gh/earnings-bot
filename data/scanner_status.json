@@ -1,13 +1,9 @@
 {
-  "last_run": "2026-09-03T23:20:42.263723-04:00",
+  "last_run": "2026-09-06T23:18:22.290285-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 13,
+  "earnings_candidates": 9,
   "candidates": [
-    "ZS",
-    "CPB",
-    "DOO",
-    "AMBA",
     "CASY",
     "TTAN",
     "COO",
@@ -18,9 +14,8 @@
     "DSGX",
     "TCOM"
   ],
-  "recommendations_found": 2,
+  "recommendations_found": 1,
   "recommendations": [
-    "TTAN",
     "ADBE"
   ]
 }
