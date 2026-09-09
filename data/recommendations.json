@@ -130,7 +130,7 @@
     "disqualified_reason": "entry_window_closed"
   },
   {
-    "id": "8b750913",
+    "id": "c67d6c47",
     "symbol": "ADBE",
     "company": "Adobe Inc.",
     "sector": "Technology",
@@ -141,20 +141,15 @@
     "beat_rate": 1.0,
     "pu5": 0.0,
     "pd5": 0.75,
-    "momentum_30d": 0.005,
-    "hv30": 0.517,
-    "iv_proxy": 0.75,
+    "momentum_30d": -0.058,
+    "hv30": 0.508,
+    "iv_proxy": 0.736,
     "trade_type": "put",
     "position_size": 10000,
-    "current_price": 266.51,
+    "current_price": 257.26,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-09-06",
-    "notes": [],
-    "validation_notes": [
-      "Entry window closed (3d late). Entry date was 2026-09-04 (3 trading days before earnings 2026-09-10)."
-    ],
-    "disqualified": true,
-    "disqualified_reason": "entry_window_closed"
+    "scan_date": "2026-09-08",
+    "notes": []
   }
 ]
