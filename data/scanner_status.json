@@ -1,18 +1,15 @@
 {
-  "last_run": "2026-09-08T23:18:03.273399-04:00",
+  "last_run": "2026-09-10T23:21:36.841119-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 9,
+  "earnings_candidates": 6,
   "candidates": [
-    "CASY",
-    "TTAN",
-    "COO",
-    "AVAV",
-    "ASO",
     "ADBE",
     "CPRT",
     "DSGX",
-    "TCOM"
+    "TCOM",
+    "CTAS",
+    "PAYX"
   ],
   "recommendations_found": 1,
   "recommendations": [

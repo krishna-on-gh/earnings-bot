@@ -102,35 +102,7 @@
     "trade_id": "1da646b0"
   },
   {
-    "id": "e2c24a43",
-    "symbol": "TTAN",
-    "company": "ServiceTitan, Inc.",
-    "sector": "Technology",
-    "sector_type": "other",
-    "confidence": "HIGH",
-    "earnings_date": "2026-09-08",
-    "earnings_timing": "post_market",
-    "beat_rate": 0.857,
-    "pu5": 0.429,
-    "pd5": 0.286,
-    "momentum_30d": 0.088,
-    "hv30": 0.551,
-    "iv_proxy": 0.798,
-    "trade_type": "call",
-    "position_size": 10000,
-    "current_price": 93.1,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-09-03",
-    "notes": [],
-    "validation_notes": [
-      "Entry window closed (2d late). Entry date was 2026-09-02 (3 trading days before earnings 2026-09-08)."
-    ],
-    "disqualified": true,
-    "disqualified_reason": "entry_window_closed"
-  },
-  {
-    "id": "c67d6c47",
+    "id": "8b05a183",
     "symbol": "ADBE",
     "company": "Adobe Inc.",
     "sector": "Technology",
@@ -141,20 +113,15 @@
     "beat_rate": 1.0,
     "pu5": 0.0,
     "pd5": 0.75,
-    "momentum_30d": -0.058,
-    "hv30": 0.508,
-    "iv_proxy": 0.736,
+    "momentum_30d": -0.038,
+    "hv30": 0.466,
+    "iv_proxy": 0.675,
     "trade_type": "put",
     "position_size": 10000,
-    "current_price": 257.26,
+    "current_price": 248.83,
     "validated": false,
     "executed": false,
-    "scan_date": "2026-09-08",
-    "notes": [],
-    "validation_notes": [
-      "Entry window closed (5d late). Entry date was 2026-09-04 (3 trading days before earnings 2026-09-10)."
-    ],
-    "disqualified": true,
-    "disqualified_reason": "entry_window_closed"
+    "scan_date": "2026-09-10",
+    "notes": []
   }
 ]
