@@ -122,6 +122,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-09-10",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (7d late). Entry date was 2026-09-04 (3 trading days before earnings 2026-09-10)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   }
 ]
