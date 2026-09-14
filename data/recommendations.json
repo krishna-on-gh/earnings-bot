@@ -100,33 +100,5 @@
     "disqualified": false,
     "execution_date": "2026-07-20",
     "trade_id": "1da646b0"
-  },
-  {
-    "id": "8b05a183",
-    "symbol": "ADBE",
-    "company": "Adobe Inc.",
-    "sector": "Technology",
-    "sector_type": "other",
-    "confidence": "HIGH",
-    "earnings_date": "2026-09-10",
-    "earnings_timing": "post_market",
-    "beat_rate": 1.0,
-    "pu5": 0.0,
-    "pd5": 0.75,
-    "momentum_30d": -0.038,
-    "hv30": 0.466,
-    "iv_proxy": 0.675,
-    "trade_type": "put",
-    "position_size": 10000,
-    "current_price": 248.83,
-    "validated": false,
-    "executed": false,
-    "scan_date": "2026-09-10",
-    "notes": [],
-    "validation_notes": [
-      "Entry window closed (7d late). Entry date was 2026-09-04 (3 trading days before earnings 2026-09-10)."
-    ],
-    "disqualified": true,
-    "disqualified_reason": "entry_window_closed"
   }
 ]
