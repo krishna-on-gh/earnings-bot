@@ -1,13 +1,13 @@
 {
-  "last_run": "2026-09-15T23:21:31.885343-04:00",
+  "last_run": "2026-09-17T23:17:46.120466-04:00",
   "status": "ok",
   "universe_size": 483,
   "earnings_candidates": 4,
   "candidates": [
-    "TCOM",
     "CTAS",
     "PAYX",
-    "COST"
+    "COST",
+    "CALM"
   ],
   "recommendations_found": 0,
   "recommendations": []
