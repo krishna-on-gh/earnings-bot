@@ -1,11 +1,9 @@
 {
-  "last_run": "2026-09-22T23:19:51.723882-04:00",
+  "last_run": "2026-09-24T23:17:55.506453-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 4,
+  "earnings_candidates": 2,
   "candidates": [
-    "CTAS",
-    "PAYX",
     "COST",
     "CALM"
   ],
