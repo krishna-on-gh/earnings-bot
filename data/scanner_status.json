@@ -1,14 +1,21 @@
 {
-  "last_run": "2026-10-01T23:21:09.121417-04:00",
+  "last_run": "2026-10-04T23:17:50.977235-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 4,
+  "earnings_candidates": 9,
   "candidates": [
     "APLD",
     "PEP",
     "ASML",
-    "FAST"
+    "FAST",
+    "TSM",
+    "ERIC",
+    "INDB",
+    "SFNC",
+    "BANF"
   ],
-  "recommendations_found": 0,
-  "recommendations": []
+  "recommendations_found": 1,
+  "recommendations": [
+    "ERIC"
+  ]
 }
