@@ -1,8 +1,8 @@
 {
-  "last_run": "2026-10-04T23:17:50.977235-04:00",
+  "last_run": "2026-10-06T23:18:15.720624-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 9,
+  "earnings_candidates": 17,
   "candidates": [
     "APLD",
     "PEP",
@@ -10,9 +10,17 @@
     "FAST",
     "TSM",
     "ERIC",
+    "JBHT",
     "INDB",
     "SFNC",
-    "BANF"
+    "BANF",
+    "FITB",
+    "STLD",
+    "SMMT",
+    "AGNC",
+    "WTFC",
+    "ZION",
+    "BOKF"
   ],
   "recommendations_found": 1,
   "recommendations": [

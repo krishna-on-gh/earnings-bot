@@ -102,7 +102,7 @@
     "trade_id": "1da646b0"
   },
   {
-    "id": "ff3fda2c",
+    "id": "7acdaca0",
     "symbol": "ERIC",
     "company": "Telefonaktiebolaget LM Ericsson (publ)",
     "sector": "Technology",
@@ -113,18 +113,15 @@
     "beat_rate": 0.875,
     "pu5": 0.5,
     "pd5": 0.5,
-    "momentum_30d": -0.067,
-    "hv30": 0.252,
-    "iv_proxy": 0.366,
+    "momentum_30d": -0.048,
+    "hv30": 0.26,
+    "iv_proxy": 0.377,
     "trade_type": "put",
     "position_size": 10000,
-    "current_price": 9.29,
-    "validated": true,
+    "current_price": 9.43,
+    "validated": false,
     "executed": false,
-    "scan_date": "2026-10-04",
-    "notes": [],
-    "validation_notes": [],
-    "validated_date": "2026-10-05",
-    "disqualified": false
+    "scan_date": "2026-10-06",
+    "notes": []
   }
 ]
