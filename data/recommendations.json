@@ -119,9 +119,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 9.43,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-06",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-07",
+    "disqualified": false
   }
 ]
