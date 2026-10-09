@@ -1,10 +1,9 @@
 {
-  "last_run": "2026-10-06T23:18:15.720624-04:00",
+  "last_run": "2026-10-08T23:19:45.945186-04:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 17,
+  "earnings_candidates": 40,
   "candidates": [
-    "APLD",
     "PEP",
     "ASML",
     "FAST",
@@ -20,10 +19,39 @@
     "AGNC",
     "WTFC",
     "ZION",
-    "BOKF"
+    "BOKF",
+    "NFLX",
+    "ISRG",
+    "UAL",
+    "EWBC",
+    "HAS",
+    "CBSH",
+    "HWC",
+    "PEGA",
+    "WFRD",
+    "BCPC",
+    "OZK",
+    "MAT",
+    "CATY",
+    "TSLA",
+    "LRCX",
+    "TXN",
+    "SAP",
+    "CME",
+    "CSX",
+    "NTRS",
+    "MEDP",
+    "ONB",
+    "FULT",
+    "WSBC"
   ],
-  "recommendations_found": 1,
+  "recommendations_found": 6,
   "recommendations": [
-    "ERIC"
+    "ERIC",
+    "NFLX",
+    "HAS",
+    "PEGA",
+    "LRCX",
+    "MEDP"
   ]
 }
