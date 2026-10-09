@@ -119,10 +119,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 9.5,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-09",
+    "disqualified": false
   },
   {
     "id": "2b39f004",
@@ -142,10 +145,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 71.57,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-09",
+    "disqualified": false
   },
   {
     "id": "08166977",
@@ -165,10 +171,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 92.5,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-09",
+    "disqualified": false
   },
   {
     "id": "0b7d3b1b",
@@ -188,10 +197,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 35.49,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-09",
+    "disqualified": false
   },
   {
     "id": "7ad74fc0",
@@ -211,10 +223,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 320.59,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-09",
+    "disqualified": false
   },
   {
     "id": "e1efe429",
@@ -237,6 +252,10 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 272,384"
+    ],
+    "disqualified": true
   }
 ]
