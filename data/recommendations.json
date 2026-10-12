@@ -119,10 +119,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 9.55,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-12",
+    "disqualified": false
   },
   {
     "id": "626b7e4b",
@@ -142,10 +145,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 70.3,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-12",
+    "disqualified": false
   },
   {
     "id": "828e09d2",
@@ -165,10 +171,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 93.32,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-12",
+    "disqualified": false
   },
   {
     "id": "64325e36",
@@ -188,10 +197,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 35.65,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-12",
+    "disqualified": false
   },
   {
     "id": "07ac8b8f",
@@ -211,10 +223,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 318.84,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-12",
+    "disqualified": false
   },
   {
     "id": "e9c8706b",
@@ -237,7 +252,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 272,107"
+    ],
+    "disqualified": true
   },
   {
     "id": "1745c5e8",
@@ -257,10 +276,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 33.7,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-12",
+    "disqualified": false
   },
   {
     "id": "56cbdae0",
@@ -280,9 +302,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 12.76,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-11",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-12",
+    "disqualified": false
   }
 ]
