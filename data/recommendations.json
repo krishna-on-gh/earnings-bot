@@ -176,7 +176,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-10-19 (3 trading days before earnings 2026-10-22)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "f4e98812",
@@ -199,7 +204,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-10-19 (3 trading days before earnings 2026-10-22)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "1ffa2dda",
@@ -222,7 +232,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-10-19 (3 trading days before earnings 2026-10-22)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "ea121d31",
@@ -271,7 +286,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (2d late). Entry date was 2026-10-21 (3 trading days before earnings 2026-10-26)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "f97a2748",
@@ -294,7 +314,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (2d late). Entry date was 2026-10-21 (3 trading days before earnings 2026-10-26)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "a75ecce8",
@@ -317,7 +342,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (1d late). Entry date was 2026-10-22 (3 trading days before earnings 2026-10-27)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "0f435b73",
@@ -366,7 +396,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (1d late). Entry date was 2026-10-22 (3 trading days before earnings 2026-10-27)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "ff49e082",
@@ -389,7 +424,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (1d late). Entry date was 2026-10-22 (3 trading days before earnings 2026-10-27)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "4bd3c319",
@@ -438,7 +478,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (1d late). Entry date was 2026-10-22 (3 trading days before earnings 2026-10-27)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "d235c075",
@@ -461,7 +506,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (1d late). Entry date was 2026-10-22 (3 trading days before earnings 2026-10-27)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "e0c19028",
@@ -510,7 +560,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 442,331"
+    ],
+    "disqualified": true
   },
   {
     "id": "4bdd88f0",
@@ -556,10 +610,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 157.19,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "66cbb924",
@@ -579,10 +636,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 157.5,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "a3803f27",
@@ -605,7 +665,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 246,989"
+    ],
+    "disqualified": true
   },
   {
     "id": "7ee96689",
@@ -625,10 +689,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 22.47,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "5d810a1c",
@@ -674,10 +741,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 65.31,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "552dc3db",
@@ -700,7 +770,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 207,456"
+    ],
+    "disqualified": true
   },
   {
     "id": "11f4e3b1",
@@ -720,10 +794,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 63.04,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "33358ee4",
@@ -743,10 +820,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 60.86,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "154ab1fc",
@@ -766,10 +846,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 566.76,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "885c82e4",
@@ -789,10 +872,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 68.27,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "9d1062bc",
@@ -812,10 +898,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 151.98,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "26dba0f2",
@@ -835,10 +924,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 143.29,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "583210ca",
@@ -858,10 +950,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 124.54,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "eefabee3",
@@ -881,10 +976,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 45.92,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "f768dff6",
@@ -904,10 +1002,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 48.89,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "712d7bbd",
@@ -927,10 +1028,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 123.26,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "7978e526",
@@ -950,10 +1054,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 50.82,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "853f37ae",
@@ -973,10 +1080,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 384.16,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "f59cf120",
@@ -996,10 +1106,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 141.39,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "4faa1c0a",
@@ -1019,10 +1132,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 83.1,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "2e9315b4",
@@ -1045,7 +1161,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 354,018"
+    ],
+    "disqualified": true
   },
   {
     "id": "08211ead",
@@ -1068,7 +1188,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 388,625"
+    ],
+    "disqualified": true
   },
   {
     "id": "70537be8",
@@ -1088,10 +1212,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 25.32,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "fec88034",
@@ -1111,10 +1238,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 11.99,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   },
   {
     "id": "2e13d127",
@@ -1134,9 +1264,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 32.94,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-10-22",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-10-23",
+    "disqualified": false
   }
 ]
