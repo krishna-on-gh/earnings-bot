@@ -232,7 +232,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-11-02 (3 trading days before earnings 2026-11-05)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "b2a5ed30",
@@ -281,7 +286,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-11-02 (3 trading days before earnings 2026-11-05)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "c5c80cf1",
@@ -304,7 +314,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-11-02 (3 trading days before earnings 2026-11-05)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "cc7865f5",
@@ -327,7 +342,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-11-02 (3 trading days before earnings 2026-11-05)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "d528f2f6",
@@ -350,7 +370,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-11-02 (3 trading days before earnings 2026-11-05)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "925d43da",
@@ -373,7 +398,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (4d late). Entry date was 2026-11-02 (3 trading days before earnings 2026-11-05)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "8f555408",
@@ -450,7 +480,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (3d late). Entry date was 2026-11-03 (3 trading days before earnings 2026-11-06)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "64d5c1b8",
@@ -473,7 +508,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (2d late). Entry date was 2026-11-04 (3 trading days before earnings 2026-11-09)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "e721bd78",
@@ -496,7 +536,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (2d late). Entry date was 2026-11-04 (3 trading days before earnings 2026-11-09)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "76bf6c70",
@@ -546,7 +591,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (2d late). Entry date was 2026-11-04 (3 trading days before earnings 2026-11-09)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "32a0509f",
@@ -618,10 +668,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 83.95,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-06",
+    "disqualified": false
   },
   {
     "id": "bca3cd19",
@@ -641,9 +694,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 43.33,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-05",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-06",
+    "disqualified": false
   }
 ]
