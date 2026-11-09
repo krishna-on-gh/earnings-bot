@@ -122,7 +122,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (5d late). Entry date was 2026-11-04 (3 trading days before earnings 2026-11-09)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "16e8a240",
@@ -145,7 +150,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (5d late). Entry date was 2026-11-04 (3 trading days before earnings 2026-11-09)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "76bf6c70",
@@ -195,7 +205,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (5d late). Entry date was 2026-11-04 (3 trading days before earnings 2026-11-09)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "32a0509f",
@@ -267,10 +282,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 83.03,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-09",
+    "disqualified": false
   },
   {
     "id": "bf24fe99",
@@ -293,7 +311,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 88,937"
+    ],
+    "disqualified": true
   },
   {
     "id": "eb724ff4",
@@ -313,9 +335,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 42.97,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-08",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-09",
+    "disqualified": false
   }
 ]
