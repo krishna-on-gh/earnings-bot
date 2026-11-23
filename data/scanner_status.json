@@ -1,16 +1,9 @@
 {
-  "last_run": "2026-11-19T22:17:28.702000-05:00",
+  "last_run": "2026-11-22T22:19:38.164471-05:00",
   "status": "ok",
   "universe_size": 483,
-  "earnings_candidates": 33,
+  "earnings_candidates": 31,
   "candidates": [
-    "WMT",
-    "BABA",
-    "PDD",
-    "NTES",
-    "ROST",
-    "WMG",
-    "ROAD",
     "TCOM",
     "ZM",
     "SYM",
@@ -36,8 +29,20 @@
     "GTLB",
     "ZS",
     "FIVE",
-    "DSGX"
+    "DSGX",
+    "ULTA",
+    "COO",
+    "TTAN",
+    "SAIC",
+    "DOO"
   ],
-  "recommendations_found": 0,
-  "recommendations": []
+  "recommendations_found": 6,
+  "recommendations": [
+    "ZM",
+    "SYM",
+    "BILI",
+    "GTLB",
+    "COO",
+    "DOO"
+  ]
 }
