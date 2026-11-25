@@ -178,7 +178,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-24",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (6d late). Entry date was 2026-11-19 (3 trading days before earnings 2026-11-24)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "8b42295d",
@@ -198,10 +203,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 44.96,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-24",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-25",
+    "disqualified": false
   },
   {
     "id": "95acb110",
@@ -221,10 +229,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 61.32,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-24",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-25",
+    "disqualified": false
   },
   {
     "id": "6d5de663",
@@ -247,7 +258,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-24",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 242,539"
+    ],
+    "disqualified": true
   },
   {
     "id": "d3173209",
@@ -267,9 +282,12 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 641.0,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-24",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-25",
+    "disqualified": false
   }
 ]
