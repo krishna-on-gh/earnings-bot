@@ -122,7 +122,12 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Entry window closed (2d late). Entry date was 2026-11-25 (3 trading days before earnings 2026-12-01)."
+    ],
+    "disqualified": true,
+    "disqualified_reason": "entry_window_closed"
   },
   {
     "id": "5a2e1371",
@@ -142,10 +147,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 62.29,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-27",
+    "disqualified": false
   },
   {
     "id": "ea9cae6e",
@@ -168,7 +176,11 @@
     "validated": false,
     "executed": false,
     "scan_date": "2026-11-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [
+      "Low liquidity: avg volume 243,847"
+    ],
+    "disqualified": true
   },
   {
     "id": "232ed923",
@@ -188,10 +200,13 @@
     "trade_type": "call",
     "position_size": 10000,
     "current_price": 642.64,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-27",
+    "disqualified": false
   },
   {
     "id": "05b716a6",
@@ -211,10 +226,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 405.09,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-27",
+    "disqualified": false
   },
   {
     "id": "5d8b2eb7",
@@ -234,10 +252,13 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 232.83,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-27",
+    "disqualified": false
   },
   {
     "id": "29a1eb34",
@@ -257,9 +278,12 @@
     "trade_type": "put",
     "position_size": 10000,
     "current_price": 24.11,
-    "validated": false,
+    "validated": true,
     "executed": false,
     "scan_date": "2026-11-26",
-    "notes": []
+    "notes": [],
+    "validation_notes": [],
+    "validated_date": "2026-11-27",
+    "disqualified": false
   }
 ]
